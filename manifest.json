@@ -1,0 +1,25 @@
+{
+  "name": "Agenda de Produção - Onduladeira Prime",
+  "short_name": "Agenda Onduladeira",
+  "description": "Projeção da fila de produção da onduladeira por capacidade, agrupada por cliente",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#1a56a0",
+  "background_color": "#d6e4f4",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

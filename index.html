@@ -8,6 +8,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Agenda Onduladeira">
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>Agenda de Produção · Onduladeira Prime</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
@@ -289,6 +291,8 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
   </div>
 
   <div id="banner" class="banner hidden"></div>
+
+  <button class="btn btn-outline hidden" id="btnInstalar">📲 Instalar este app no celular/computador</button>
 
   <div id="viewAgenda"></div>
 
@@ -1046,6 +1050,29 @@ carregarProgramacaoPublicada();
 
 // Reprojeta periodicamente a partir do relógio atual (turno em andamento avança sozinho)
 setInterval(() => atualizarTudo(), 60000);
+
+// ===================== INSTALAR COMO APP =====================
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
+let promptInstalacao = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  promptInstalacao = e;
+  document.getElementById('btnInstalar').classList.remove('hidden');
+});
+document.getElementById('btnInstalar').addEventListener('click', async () => {
+  if (!promptInstalacao) return;
+  promptInstalacao.prompt();
+  await promptInstalacao.userChoice;
+  promptInstalacao = null;
+  document.getElementById('btnInstalar').classList.add('hidden');
+});
+window.addEventListener('appinstalled', () => {
+  document.getElementById('btnInstalar').classList.add('hidden');
+});
 </script>
 </body>
 </html>
