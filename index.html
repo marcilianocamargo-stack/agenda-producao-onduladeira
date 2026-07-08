@@ -278,6 +278,13 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 
 .small-note { font-size:12.5px; color:#6a8bb0; margin-top:6px; line-height:1.4; }
 .link-excluir { font-size:12px; text-decoration:underline; }
+
+.barra-selecao {
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  background:#eaf1fa; border-radius:10px; padding:10px 12px; margin-bottom:10px;
+  font-size:14px; font-weight:800; color:#1a56a0;
+}
+.chk-produzir, .chk-produzir-grupo { width:19px; height:19px; flex-shrink:0; accent-color:#43a047; cursor:pointer; }
 </style>
 </head>
 <body>
@@ -363,8 +370,12 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
       </div>
 
       <div id="painelFila">
+        <div class="barra-selecao hidden" id="barraSelecao">
+          <span id="qtdSelecionados">0 selecionados</span>
+          <button class="btn btn-green" id="btnMarcarSelecionados" style="margin:0;width:auto;padding:10px 16px;">Marcar produzidos</button>
+        </div>
         <div id="listaPendentes"></div>
-        <div class="small-note">Arraste um cliente (⠿ no cabeçalho) para mudar a ordem de fabricação entre clientes. Toque no nome do cliente para abrir e ver/reordenar os pedidos daquele cliente. "Aguardar" tira da projeção sem apagar (ex: esperando fechar carga); "Produzido" registra a fabricação (pode ser parcial).</div>
+        <div class="small-note">Marque as caixinhas de vários pedidos (de um ou mais clientes) e toque em "Marcar produzidos" pra dar baixa em tudo de uma vez — útil ao chegar de manhã e o turno da noite ter fabricado vários. Arraste um cliente (⠿) para mudar a ordem entre clientes. Toque no nome do cliente para abrir e reordenar os pedidos dele. "Aguardar" tira da projeção sem apagar; o botão "Produzido" individual serve pra registrar produção parcial (não coube tudo na carreta).</div>
       </div>
 
       <div id="painelAguardando" class="hidden">
@@ -429,6 +440,7 @@ let produzidos = [];   // já fabricados, aguardando expedição (a OF continua 
 let seqCounter = 1;
 let expandidoSup = new Set();   // clientes abertos na fila do supervisor
 let expandidoView = new Set();  // "dataStr|cliente" abertos na visualização
+let selecionadosProduzir = new Set(); // ids marcados pra dar baixa em lote (produzido)
 
 // ===================== UTIL =====================
 function uid(){ return 'p'+(seqCounter++)+'_'+Math.random().toString(36).slice(2,7); }
@@ -651,6 +663,9 @@ function renderFilaSupervisor(){
     cont.innerHTML = '<p style="color:#6a8bb0;font-size:13px;">Fila vazia. Aguardando programacao-hoje.xlsx ou lance um pedido manual.</p>';
     return;
   }
+  // limpa seleção de itens que não estão mais na fila (produzidos/aguardando/excluídos)
+  selecionadosProduzir = new Set([...selecionadosProduzir].filter(id => pendentes.some(p => p.id === id)));
+
   const grupos = agruparPorCliente(pendentes);
   const { pedidosInfo } = calcularAgenda(pendentes);
 
@@ -662,9 +677,11 @@ function renderFilaSupervisor(){
     const infoFim = pedidosInfo[ultimo.id];
     const previsao = infoFim ? `${nomeDia(infoFim.diaFim)}, ${fmtData(infoFim.diaFim)}` : '-';
     const aberto = expandidoSup.has(g.chave);
+    const todosSelecionados = g.pedidos.every(p => selecionadosProduzir.has(p.id));
 
     html += `<div class="cliente-grupo" data-cliente="${g.chave}">
       <div class="cliente-header" draggable="true">
+        <input type="checkbox" class="chk-produzir-grupo" data-cliente="${g.chave}" ${todosSelecionados?'checked':''} title="Selecionar todos os pedidos deste cliente">
         <span class="drag-handle">⠿</span>
         <span class="ordem-num">${gi+1}</span>
         <div class="cliente-header-txt" data-toggle="${g.chave}">
@@ -683,6 +700,7 @@ function renderFilaSupervisor(){
       const info = pedidosInfo[p.id];
       const diaTxt = info ? `${nomeDia(info.diaFim)}, ${fmtData(info.diaFim)}` : '-';
       html += `<div class="pend-row" draggable="true" data-id="${p.id}">
+        <input type="checkbox" class="chk-produzir" data-id="${p.id}" ${selecionadosProduzir.has(p.id)?'checked':''}>
         <span class="drag-handle">⠿</span>
         <div class="conteudo">
           <div class="top">
@@ -706,6 +724,24 @@ function renderFilaSupervisor(){
     html += `</div></div>`;
   });
   cont.innerHTML = html;
+  atualizarBarraSelecao();
+
+  cont.querySelectorAll('.chk-produzir').forEach(chk => {
+    chk.addEventListener('change', () => {
+      const id = chk.getAttribute('data-id');
+      if (chk.checked) selecionadosProduzir.add(id); else selecionadosProduzir.delete(id);
+      atualizarBarraSelecao();
+    });
+  });
+  cont.querySelectorAll('.chk-produzir-grupo').forEach(chk => {
+    chk.addEventListener('change', () => {
+      const chave = chk.getAttribute('data-cliente');
+      pendentes.filter(p => chaveCliente(p.cliente) === chave).forEach(p => {
+        if (chk.checked) selecionadosProduzir.add(p.id); else selecionadosProduzir.delete(p.id);
+      });
+      renderFilaSupervisor();
+    });
+  });
 
   // expandir/recolher cliente
   cont.querySelectorAll('[data-toggle]').forEach(el => {
@@ -959,6 +995,31 @@ function marcarProduzido(id){
   }
   atualizarTudo();
 }
+
+function atualizarBarraSelecao(){
+  const bar = document.getElementById('barraSelecao');
+  const n = selecionadosProduzir.size;
+  document.getElementById('qtdSelecionados').textContent = n + (n===1 ? ' selecionado' : ' selecionados');
+  bar.classList.toggle('hidden', n===0);
+}
+
+// Dá baixa em vários pedidos de uma vez (sempre produção completa — sem perguntar
+// quantidade, já que é pra marcar rápido o que o turno anterior já fabricou inteiro).
+// Pra produção parcial (não coube tudo na carreta), use o botão "Produzido" individual.
+document.getElementById('btnMarcarSelecionados').addEventListener('click', () => {
+  const ids = Array.from(selecionadosProduzir);
+  if (!ids.length) return;
+  if (!confirm(`Marcar ${ids.length} pedido(s) selecionado(s) como produzido (completo)?`)) return;
+
+  ids.forEach(id => {
+    const idx = pendentes.findIndex(p => p.id === id);
+    if (idx === -1) return;
+    const [p] = pendentes.splice(idx, 1);
+    produzidos.push({ ...p, id: uid(), dataProduzido: new Date().toISOString() });
+  });
+  selecionadosProduzir.clear();
+  atualizarTudo();
+});
 
 // ===================== SINCRONIZAÇÃO COM O EXCEL (merge por OF, não substitui) =====================
 // Funde uma leitura nova do Excel com o estado atual das 3 áreas, preservando
