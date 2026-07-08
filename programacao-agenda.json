@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-08T20:22:28.464Z",
+  "geradoEm": "2026-07-08T20:49:28.235Z",
   "pendentes": [
     {
       "id": "p134_az6g6",
@@ -629,17 +629,6 @@
       "chave": "OF:261657"
     },
     {
-      "id": "p51_46a43",
-      "cliente": "DDA-EMBALAGENS",
-      "po": "P50B",
-      "of": "261569",
-      "oc": "29/D",
-      "ml": 1282,
-      "kg": 646.6,
-      "setupMin": 40,
-      "chave": "OF:261569"
-    },
-    {
       "id": "p65_zedjk",
       "cliente": "UPAPER",
       "po": "P60C",
@@ -847,9 +836,32 @@
       "kg": 88.1,
       "setupMin": 40,
       "chave": "OF:261632"
+    },
+    {
+      "id": "p183_rl70a",
+      "cliente": "CAROLINA",
+      "po": "P35B",
+      "of": "261568",
+      "oc": "29/D",
+      "ml": 1503,
+      "kg": 740.6,
+      "setupMin": 40,
+      "chave": "OF:261568"
     }
   ],
-  "aguardando": [],
+  "aguardando": [
+    {
+      "id": "p51_46a43",
+      "cliente": "DDA-EMBALAGENS",
+      "po": "P50B",
+      "of": "261569",
+      "oc": "29/D",
+      "ml": 1282,
+      "kg": 646.6,
+      "setupMin": 40,
+      "chave": "OF:261569"
+    }
+  ],
   "produzidos": [
     {
       "id": "p138_48pnv",
@@ -1389,18 +1401,6 @@
       "kg": 2115.9,
       "setupMin": 40,
       "chave": "OF:261567",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
-    },
-    {
-      "id": "p183_rl70a",
-      "cliente": "CAROLINA",
-      "po": "P35B",
-      "of": "261568",
-      "oc": "29/D",
-      "ml": 1503,
-      "kg": 740.6,
-      "setupMin": 40,
-      "chave": "OF:261568",
       "dataProduzido": "2026-07-08T20:20:21.505Z"
     },
     {
