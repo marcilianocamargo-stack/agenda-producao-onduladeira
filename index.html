@@ -219,6 +219,52 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 .mini-btn.up:disabled, .mini-btn.down:disabled { opacity:.3; cursor:default; }
 .mini-btns-col { display:flex; flex-direction:column; gap:4px; flex-shrink:0; }
 
+/* ===== GRUPO DE CLIENTE (SUPERVISOR) ===== */
+.cliente-grupo {
+  border: 1px solid #dbe6f2;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  background: white;
+}
+.cliente-grupo.dragging { opacity: .35; }
+.cliente-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  cursor: grab;
+  background: #eaf1fa;
+}
+.cliente-header-txt { flex:1; min-width:0; cursor:pointer; }
+.cliente-header-txt b { font-size: 15px; }
+.cliente-body { padding: 8px 8px 2px; border-top: 1px solid #dbe6f2; }
+.chevron { font-size: 14px; color:#1a56a0; cursor:pointer; padding:4px; flex-shrink:0; }
+
+/* ===== GRUPO DE CLIENTE (VISUALIZAÇÃO) ===== */
+.cliente-view-group {
+  background: #f4f8fc;
+  border-radius: 10px;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+}
+.cliente-view-header {
+  display:flex; justify-content:space-between; align-items:center; cursor:pointer;
+}
+.cliente-view-group .pedido-row { background:white; margin-top:6px; }
+
+/* ===== DASHBOARD ===== */
+.dash-scroll { overflow-x: auto; }
+.dash-table { border-collapse: collapse; font-size: 12.5px; white-space: nowrap; width:100%; }
+.dash-table th, .dash-table td { padding: 6px 9px; text-align:center; border-bottom:1px solid #e3ecf6; }
+.dash-table thead th { color:#1a56a0; font-weight:800; font-size:11px; }
+.dash-th-cliente, .dash-td-cliente {
+  text-align:left; position:sticky; left:0; background:white; font-weight:700; z-index:1;
+}
+.dash-table thead th.dash-th-cliente { z-index:2; }
+.dash-table th.dash-hoje { color:#2e7d32; }
+.dash-total-col, .dash-total-row td { font-weight:800; background:#eaf1fa; }
+
 .hidden { display: none !important; }
 
 .tabs { display:flex; gap:8px; margin-bottom:14px; }
@@ -246,7 +292,15 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 
   <div id="viewAgenda"></div>
 
+  <a href="#" class="sup-link" id="toggleDash">Dashboard de produção (cliente × dia)</a>
   <a href="#" class="sup-link" id="toggleSup">Área do supervisor</a>
+
+  <div id="dashArea" class="hidden">
+    <div class="card">
+      <h2>Dashboard — kg programado por cliente e dia</h2>
+      <div id="dashConteudo"></div>
+    </div>
+  </div>
 
   <div id="supArea" class="hidden">
 
@@ -296,9 +350,9 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
     </div>
 
     <div class="card">
-      <h2>3. Fila de pedidos pendentes (<span id="countPend">0</span>)</h2>
+      <h2>3. Fila de produção por cliente (<span id="countPend">0</span> pedidos)</h2>
       <div id="listaPendentes"></div>
-      <div class="small-note">Marque "produzido" ou remova pedidos aqui para recalcular a projeção dos demais.</div>
+      <div class="small-note">Arraste um cliente (⠿ no cabeçalho) para mudar a ordem de fabricação entre clientes. Toque no nome do cliente para abrir e ver/reordenar os pedidos daquele cliente, ou marcar "produzido"/remover o que não vai ser fabricado completo.</div>
     </div>
 
     <div class="card">
@@ -327,8 +381,12 @@ const TURNOS = [
   [21*60, 26*60],  // 21:00-02:00 (dia seguinte)
 ];
 
+const DIAS_SEMANA_ABREV = ['dom','seg','ter','qua','qui','sex','sáb'];
+
 let pendentes = [];   // pedidos ainda não produzidos
 let seqCounter = 1;
+let expandidoSup = new Set();   // clientes abertos na fila do supervisor
+let expandidoView = new Set();  // "dataStr|cliente" abertos na visualização
 
 // ===================== UTIL =====================
 function uid(){ return 'p'+(seqCounter++)+'_'+Math.random().toString(36).slice(2,7); }
@@ -337,6 +395,33 @@ function fmtData(d){
   return d.toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit' });
 }
 function nomeDia(d){ return DIAS_SEMANA_PT[d.getDay()]; }
+function nomeDiaAbrev(d){ return DIAS_SEMANA_ABREV[d.getDay()]; }
+
+// ===================== AGRUPAMENTO POR CLIENTE =====================
+function chaveCliente(c){ return String(c||'').trim().toUpperCase(); }
+
+// Agrupa mantendo a ordem de 1ª aparição de cada cliente na lista.
+function agruparPorCliente(lista){
+  const mapa = new Map();
+  lista.forEach(p => {
+    const k = chaveCliente(p.cliente);
+    if (!mapa.has(k)) mapa.set(k, { chave: k, cliente: String(p.cliente||'').trim(), pedidos: [] });
+    mapa.get(k).pedidos.push(p);
+  });
+  return Array.from(mapa.values());
+}
+function achatarGrupos(grupos){
+  return grupos.flatMap(g => g.pedidos);
+}
+// Insere um pedido novo dentro do bloco do mesmo cliente (se já existir); senão vai pro fim.
+function inserirNoGrupo(lista, pedido){
+  const k = chaveCliente(pedido.cliente);
+  let ultimo = -1;
+  lista.forEach((p,i) => { if (chaveCliente(p.cliente) === k) ultimo = i; });
+  const nova = lista.slice();
+  nova.splice(ultimo === -1 ? nova.length : ultimo+1, 0, pedido);
+  return nova;
+}
 
 function proximoDiaUtil(d){
   let n = new Date(d);
@@ -459,102 +544,304 @@ function renderAgenda(pedidos){
       <div class="cap-bar-bg"><div class="cap-bar-fill ${pct>=95?'cheio':''}" style="width:${pct}%"></div></div>
       <div class="cap-label">${Math.round(d.minUsados)} de ${CAP_MIN_DIA} min usados (${pct}%)${ehTurnoAtual?' · projeção a partir de agora ('+agora.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+')':''}</div>`;
 
+    // agrupa os itens do dia por cliente, na ordem de 1ª aparição
+    const gruposDia = [];
+    const idxPorChave = new Map();
     d.itens.forEach(it => {
-      const p = it.pedido;
-      const badgeTxt = { inicio:'início', continua:'continua', conclui:'conclui', unico:'' }[it.status];
-      const badgeCls = { inicio:'inicio', continua:'continua', conclui:'conclui', unico:'' }[it.status];
-      html += `<div class="pedido-row">
-        <div class="linha1"><span>${p.cliente} — ${p.po||''}</span>${badgeTxt?`<span class="badge ${badgeCls}">${badgeTxt}</span>`:''}</div>
-        <div class="linha2">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} · ${Math.round(it.minUsados)} min neste dia</div>
-      </div>`;
+      const k = chaveCliente(it.pedido.cliente);
+      if (!idxPorChave.has(k)){ idxPorChave.set(k, gruposDia.length); gruposDia.push({ chave:k, cliente: it.pedido.cliente.trim(), itens: [] }); }
+      gruposDia[idxPorChave.get(k)].itens.push(it);
+    });
+
+    gruposDia.forEach(g => {
+      const totalKg = g.itens.reduce((s,it)=>s+(it.pedido.kg||0),0);
+      const totalMl = g.itens.reduce((s,it)=>s+(it.pedido.ml||0),0);
+      const totalMin = g.itens.reduce((s,it)=>s+it.minUsados,0);
+      const chaveExpand = d.data.toDateString() + '|' + g.chave;
+      const aberto = expandidoView.has(chaveExpand);
+
+      html += `<div class="cliente-view-group">
+        <div class="cliente-view-header" data-toggle-view="${chaveExpand}">
+          <span><b>${g.cliente}</b> <span class="badge" style="background:#dce7f6;color:#1a56a0">${g.itens.length} ped.</span></span>
+          <span class="chevron">${aberto?'▾':'▸'}</span>
+        </div>
+        <div class="linha2">${Math.round(totalKg)} kg · ${Math.round(totalMl)} ML · ${Math.round(totalMin)} min neste dia</div>`;
+
+      if (aberto){
+        g.itens.forEach(it => {
+          const p = it.pedido;
+          const badgeTxt = { inicio:'início', continua:'continua', conclui:'conclui', unico:'' }[it.status];
+          const badgeCls = { inicio:'inicio', continua:'continua', conclui:'conclui', unico:'' }[it.status];
+          html += `<div class="pedido-row">
+            <div class="linha1"><span>${p.po||''}</span>${badgeTxt?`<span class="badge ${badgeCls}">${badgeTxt}</span>`:''}</div>
+            <div class="linha2">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} · ${Math.round(it.minUsados)} min</div>
+          </div>`;
+        });
+      }
+      html += `</div>`;
     });
     html += `</div>`;
   });
   cont.innerHTML = html;
+
+  cont.querySelectorAll('[data-toggle-view]').forEach(el => {
+    el.addEventListener('click', () => {
+      const k = el.getAttribute('data-toggle-view');
+      if (expandidoView.has(k)) expandidoView.delete(k); else expandidoView.add(k);
+      renderAgenda(pendentes);
+    });
+  });
 }
 
-// ===================== RENDER: SUPERVISOR - FILA =====================
+// ===================== RENDER: SUPERVISOR - FILA POR CLIENTE =====================
 function renderFilaSupervisor(){
   const cont = document.getElementById('listaPendentes');
   document.getElementById('countPend').textContent = pendentes.length;
   if (!pendentes.length){
-    cont.innerHTML = '<p style="color:#6a8bb0;font-size:13px;">Fila vazia. Importe o Excel ou lance um pedido manual.</p>';
+    cont.innerHTML = '<p style="color:#6a8bb0;font-size:13px;">Fila vazia. Aguardando programacao-hoje.xlsx ou lance um pedido manual.</p>';
     return;
   }
+  const grupos = agruparPorCliente(pendentes);
   const { pedidosInfo } = calcularAgenda(pendentes);
+
   let html = '';
-  pendentes.forEach((p, idx) => {
-    const info = pedidosInfo[p.id];
-    const diaTxt = info ? `${nomeDia(info.diaFim)}, ${fmtData(info.diaFim)}` : '-';
-    html += `<div class="pend-row" draggable="true" data-id="${p.id}">
-      <span class="drag-handle">⠿</span>
-      <div class="conteudo">
-        <div class="top">
-          <span><span class="ordem-num">${idx+1}</span><b>${p.cliente} — ${p.po||''}</b></span>
-          <div>
-            <button class="mini-btn done" data-act="done" data-id="${p.id}">Produzido</button>
-            <button class="mini-btn del" data-act="del" data-id="${p.id}">Remover</button>
-          </div>
+  grupos.forEach((g, gi) => {
+    const totalKg = g.pedidos.reduce((s,p)=>s+(p.kg||0),0);
+    const totalMl = g.pedidos.reduce((s,p)=>s+(p.ml||0),0);
+    const ultimo = g.pedidos[g.pedidos.length-1];
+    const infoFim = pedidosInfo[ultimo.id];
+    const previsao = infoFim ? `${nomeDia(infoFim.diaFim)}, ${fmtData(infoFim.diaFim)}` : '-';
+    const aberto = expandidoSup.has(g.chave);
+
+    html += `<div class="cliente-grupo" data-cliente="${g.chave}">
+      <div class="cliente-header" draggable="true">
+        <span class="drag-handle">⠿</span>
+        <span class="ordem-num">${gi+1}</span>
+        <div class="cliente-header-txt" data-toggle="${g.chave}">
+          <b>${g.cliente}</b>
+          <div class="small-note">${g.pedidos.length} pedido(s) · ${Math.round(totalKg)} kg · ${Math.round(totalMl)} ML · previsão até ${previsao}</div>
         </div>
-        <div class="small-note">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} · previsão: <b>${diaTxt}</b></div>
+        <div class="mini-btns-col">
+          <button class="mini-btn up" data-act="up-grupo" data-cliente="${g.chave}" ${gi===0?'disabled':''}>▲</button>
+          <button class="mini-btn down" data-act="down-grupo" data-cliente="${g.chave}" ${gi===grupos.length-1?'disabled':''}>▼</button>
+        </div>
+        <span class="chevron" data-toggle="${g.chave}">${aberto?'▾':'▸'}</span>
       </div>
-      <div class="mini-btns-col">
-        <button class="mini-btn up" data-act="up" data-id="${p.id}" ${idx===0?'disabled':''}>▲</button>
-        <button class="mini-btn down" data-act="down" data-id="${p.id}" ${idx===pendentes.length-1?'disabled':''}>▼</button>
-      </div>
-    </div>`;
+      <div class="cliente-body ${aberto?'':'hidden'}" data-cliente-body="${g.chave}">`;
+
+    g.pedidos.forEach((p, pi) => {
+      const info = pedidosInfo[p.id];
+      const diaTxt = info ? `${nomeDia(info.diaFim)}, ${fmtData(info.diaFim)}` : '-';
+      html += `<div class="pend-row" draggable="true" data-id="${p.id}">
+        <span class="drag-handle">⠿</span>
+        <div class="conteudo">
+          <div class="top">
+            <span><span class="ordem-num">${pi+1}</span><b>${p.po||''}</b></span>
+            <div>
+              <button class="mini-btn done" data-act="done" data-id="${p.id}">Produzido</button>
+              <button class="mini-btn del" data-act="del" data-id="${p.id}">Remover</button>
+            </div>
+          </div>
+          <div class="small-note">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} · previsão: <b>${diaTxt}</b></div>
+        </div>
+        <div class="mini-btns-col">
+          <button class="mini-btn up" data-act="up-pedido" data-id="${p.id}" ${pi===0?'disabled':''}>▲</button>
+          <button class="mini-btn down" data-act="down-pedido" data-id="${p.id}" ${pi===g.pedidos.length-1?'disabled':''}>▼</button>
+        </div>
+      </div>`;
+    });
+
+    html += `</div></div>`;
   });
   cont.innerHTML = html;
 
+  // expandir/recolher cliente
+  cont.querySelectorAll('[data-toggle]').forEach(el => {
+    el.addEventListener('click', () => {
+      const k = el.getAttribute('data-toggle');
+      if (expandidoSup.has(k)) expandidoSup.delete(k); else expandidoSup.add(k);
+      renderFilaSupervisor();
+    });
+  });
+
+  // produzido / remover um pedido específico
   cont.querySelectorAll('.mini-btn.done, .mini-btn.del').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = btn.getAttribute('data-id');
       pendentes = pendentes.filter(p => p.id !== id);
-      renderFilaSupervisor();
-      renderAgenda(pendentes);
-    });
-  });
-  cont.querySelectorAll('.mini-btn.up, .mini-btn.down').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const id = btn.getAttribute('data-id');
-      const dir = btn.getAttribute('data-act') === 'up' ? -1 : 1;
-      const i = pendentes.findIndex(p => p.id === id);
-      const j = i + dir;
-      if (j < 0 || j >= pendentes.length) return;
-      [pendentes[i], pendentes[j]] = [pendentes[j], pendentes[i]];
-      renderFilaSupervisor();
-      renderAgenda(pendentes);
+      atualizarTudo();
     });
   });
 
-  ativarArrastar(cont);
+  // subir/descer um pedido dentro do próprio cliente
+  cont.querySelectorAll('[data-act="up-pedido"], [data-act="down-pedido"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      const dir = btn.getAttribute('data-act') === 'up-pedido' ? -1 : 1;
+      const gs = agruparPorCliente(pendentes);
+      const g = gs.find(gr => gr.pedidos.some(p => p.id === id));
+      const i = g.pedidos.findIndex(p => p.id === id);
+      const j = i + dir;
+      if (j < 0 || j >= g.pedidos.length) return;
+      [g.pedidos[i], g.pedidos[j]] = [g.pedidos[j], g.pedidos[i]];
+      pendentes = achatarGrupos(gs);
+      atualizarTudo();
+    });
+  });
+
+  // subir/descer um cliente inteiro na fila
+  cont.querySelectorAll('[data-act="up-grupo"], [data-act="down-grupo"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const chave = btn.getAttribute('data-cliente');
+      const dir = btn.getAttribute('data-act') === 'up-grupo' ? -1 : 1;
+      const gs = agruparPorCliente(pendentes);
+      const i = gs.findIndex(gr => gr.chave === chave);
+      const j = i + dir;
+      if (j < 0 || j >= gs.length) return;
+      [gs[i], gs[j]] = [gs[j], gs[i]];
+      pendentes = achatarGrupos(gs);
+      atualizarTudo();
+    });
+  });
+
+  ativarArrastarGrupos(cont);
+  ativarArrastarPedidos(cont);
 }
 
 // ===================== ARRASTAR PARA REORDENAR (mouse) =====================
-function ativarArrastar(cont){
+// Nível 1: arrasta o bloco inteiro de um cliente (muda a ordem entre clientes).
+function ativarArrastarGrupos(cont){
   let dragEl = null;
 
-  cont.querySelectorAll('.pend-row').forEach(row => {
-    row.addEventListener('dragstart', () => {
-      dragEl = row;
-      setTimeout(() => row.classList.add('dragging'), 0);
+  cont.querySelectorAll('.cliente-header').forEach(header => {
+    header.addEventListener('dragstart', () => {
+      dragEl = header.closest('.cliente-grupo');
+      setTimeout(() => dragEl.classList.add('dragging'), 0);
     });
-    row.addEventListener('dragend', () => {
-      row.classList.remove('dragging');
+    header.addEventListener('dragend', () => {
+      dragEl.classList.remove('dragging');
       dragEl = null;
-      const novaOrdem = Array.from(cont.querySelectorAll('.pend-row')).map(r => r.dataset.id);
-      pendentes.sort((a,b) => novaOrdem.indexOf(a.id) - novaOrdem.indexOf(b.id));
-      renderFilaSupervisor();
-      renderAgenda(pendentes);
-    });
-    row.addEventListener('dragover', e => {
-      e.preventDefault();
-      if (!dragEl || dragEl === row) return;
-      const rect = row.getBoundingClientRect();
-      const depoisDoMeio = (e.clientY - rect.top) > rect.height / 2;
-      row.parentNode.insertBefore(dragEl, depoisDoMeio ? row.nextSibling : row);
+      const novaOrdem = Array.from(cont.querySelectorAll('.cliente-grupo')).map(el => el.dataset.cliente);
+      const gs = agruparPorCliente(pendentes);
+      gs.sort((a,b) => novaOrdem.indexOf(a.chave) - novaOrdem.indexOf(b.chave));
+      pendentes = achatarGrupos(gs);
+      atualizarTudo();
     });
   });
+  cont.querySelectorAll('.cliente-grupo').forEach(grupoEl => {
+    grupoEl.addEventListener('dragover', e => {
+      e.preventDefault();
+      if (!dragEl || dragEl === grupoEl) return;
+      const rect = grupoEl.getBoundingClientRect();
+      const depoisDoMeio = (e.clientY - rect.top) > rect.height / 2;
+      grupoEl.parentNode.insertBefore(dragEl, depoisDoMeio ? grupoEl.nextSibling : grupoEl);
+    });
+  });
+}
+
+// Nível 2: arrasta um pedido dentro do próprio bloco do cliente (não sai do cliente).
+function ativarArrastarPedidos(cont){
+  cont.querySelectorAll('.cliente-body').forEach(body => {
+    let dragEl = null;
+    body.querySelectorAll('.pend-row').forEach(row => {
+      row.addEventListener('dragstart', () => {
+        dragEl = row;
+        setTimeout(() => row.classList.add('dragging'), 0);
+      });
+      row.addEventListener('dragend', () => {
+        row.classList.remove('dragging');
+        dragEl = null;
+        const chave = body.dataset.clienteBody;
+        const novaOrdem = Array.from(body.querySelectorAll('.pend-row')).map(r => r.dataset.id);
+        const gs = agruparPorCliente(pendentes);
+        const g = gs.find(gr => gr.chave === chave);
+        g.pedidos.sort((a,b) => novaOrdem.indexOf(a.id) - novaOrdem.indexOf(b.id));
+        pendentes = achatarGrupos(gs);
+        atualizarTudo();
+      });
+      row.addEventListener('dragover', e => {
+        e.preventDefault();
+        if (!dragEl || dragEl === row) return;
+        const rect = row.getBoundingClientRect();
+        const depoisDoMeio = (e.clientY - rect.top) > rect.height / 2;
+        row.parentNode.insertBefore(dragEl, depoisDoMeio ? row.nextSibling : row);
+      });
+    });
+  });
+}
+
+// ===================== DASHBOARD (cliente × dia) =====================
+function intensidade(v, max){
+  if (max <= 0 || v <= 0) return { bg:'', cor:'' };
+  const t = Math.min(1, v / max);
+  const alpha = 0.12 + t * 0.6;
+  return { bg: `rgba(26,86,160,${alpha.toFixed(2)})`, cor: t > 0.55 ? '#fff' : '#17324f' };
+}
+
+function renderDashboard(){
+  const cont = document.getElementById('dashConteudo');
+  if (!pendentes.length){
+    cont.innerHTML = '<p style="color:#6a8bb0;font-size:13px;">Fila vazia — nada para mostrar no dashboard.</p>';
+    return;
+  }
+  const agora = new Date();
+  const { dias } = calcularAgenda(pendentes, agora);
+
+  const clientesOrdem = [];
+  const vistos = new Set();
+  pendentes.forEach(p => {
+    const k = chaveCliente(p.cliente);
+    if (!vistos.has(k)){ vistos.add(k); clientesOrdem.push({ chave:k, nome: String(p.cliente||'').trim() }); }
+  });
+
+  const matriz = {};
+  clientesOrdem.forEach(c => matriz[c.chave] = new Array(dias.length).fill(0));
+  dias.forEach((d, di) => {
+    d.itens.forEach(it => {
+      const p = it.pedido;
+      const k = chaveCliente(p.cliente);
+      const totalMin = p.setupMin + p.ml / VELOCIDADE_M_MIN;
+      const fracao = totalMin > 0 ? it.minUsados / totalMin : 0;
+      matriz[k][di] += (p.kg || 0) * fracao;
+    });
+  });
+
+  const totalPorDia = dias.map((d, di) => clientesOrdem.reduce((s,c) => s + matriz[c.chave][di], 0));
+  const totalPorCliente = {};
+  clientesOrdem.forEach(c => totalPorCliente[c.chave] = matriz[c.chave].reduce((s,v) => s+v, 0));
+  const maxCel = Math.max(0, ...clientesOrdem.flatMap(c => matriz[c.chave]));
+
+  let html = '<div class="dash-scroll"><table class="dash-table"><thead><tr><th class="dash-th-cliente">Cliente</th>';
+  dias.forEach((d, di) => {
+    const ehTurnoAtual = di === 0 && d.emAndamento;
+    html += `<th class="${ehTurnoAtual?'dash-hoje':''}">${nomeDiaAbrev(d.data)}<br>${fmtData(d.data)}</th>`;
+  });
+  html += '<th class="dash-total-col">Total</th></tr></thead><tbody>';
+
+  clientesOrdem.forEach(c => {
+    html += `<tr><td class="dash-td-cliente">${c.nome}</td>`;
+    dias.forEach((d, di) => {
+      const v = matriz[c.chave][di];
+      const { bg, cor } = intensidade(v, maxCel);
+      html += `<td style="background:${bg};color:${cor}">${v>0 ? Math.round(v) : ''}</td>`;
+    });
+    html += `<td class="dash-total-col">${Math.round(totalPorCliente[c.chave])}</td></tr>`;
+  });
+
+  html += '<tr class="dash-total-row"><td>Total</td>';
+  totalPorDia.forEach(v => html += `<td>${Math.round(v)}</td>`);
+  html += `<td>${Math.round(totalPorDia.reduce((s,v)=>s+v,0))}</td></tr>`;
+  html += '</tbody></table></div>';
+  html += '<div class="small-note">kg programados por cliente/dia, rateado quando o pedido atravessa mais de um dia. Coluna verde = turno atual.</div>';
+
+  cont.innerHTML = html;
+}
+
+// Atualiza as três telas de uma vez (fila do supervisor, visualização e dashboard).
+function atualizarTudo(){
+  renderFilaSupervisor();
+  renderAgenda(pendentes);
+  renderDashboard();
 }
 
 // ===================== IMPORTAÇÃO EXCEL =====================
@@ -653,9 +940,8 @@ async function autoCarregarExcel(forcar){
     const pedidos = parseWorkbookBuffer(buf);
     if (!pedidos.length) throw new Error('sem pedidos');
 
-    pendentes = pedidos;
-    renderFilaSupervisor();
-    renderAgenda(pendentes);
+    pendentes = achatarGrupos(agruparPorCliente(pedidos));
+    atualizarTudo();
 
     let quando = '';
     const lm = resp.headers.get('last-modified');
@@ -692,10 +978,9 @@ document.getElementById('btnAddManual').addEventListener('click', () => {
     kg: parseFloat(document.getElementById('mKg').value) || 0,
     setupMin: parseInt(document.getElementById('mSetup').value)
   };
-  pendentes.push(novo);
+  pendentes = inserirNoGrupo(pendentes, novo);
   ['mCliente','mPo','mOf','mMl','mKg'].forEach(id => document.getElementById(id).value = '');
-  renderFilaSupervisor();
-  renderAgenda(pendentes);
+  atualizarTudo();
 
   const { pedidosInfo } = calcularAgenda(pendentes);
   const info = pedidosInfo[novo.id];
@@ -723,6 +1008,11 @@ document.getElementById('toggleSup').addEventListener('click', (e) => {
   e.preventDefault();
   document.getElementById('supArea').classList.toggle('hidden');
 });
+document.getElementById('toggleDash').addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('dashArea').classList.toggle('hidden');
+  renderDashboard();
+});
 
 function mostrarBanner(msg, warn){
   const b = document.getElementById('banner');
@@ -739,9 +1029,9 @@ function carregarProgramacaoPublicada(){
   fetch('./programacao-agenda.json?t=' + Date.now(), { cache:'no-store' })
     .then(r => { if (!r.ok) throw new Error(); return r.json(); })
     .then(data => {
-      pendentes = (data.pendentes || []).map(p => ({...p, id: p.id || uid()}));
-      renderFilaSupervisor();
-      renderAgenda(pendentes);
+      const brutos = (data.pendentes || []).map(p => ({...p, id: p.id || uid()}));
+      pendentes = achatarGrupos(agruparPorCliente(brutos));
+      atualizarTudo();
       const statusAuto = document.getElementById('statusAuto');
       statusAuto.className = 'arq-status ok';
       statusAuto.textContent = `✓ Fila publicada carregada (${pendentes.length} pedidos).`;
@@ -755,7 +1045,7 @@ function carregarProgramacaoPublicada(){
 carregarProgramacaoPublicada();
 
 // Reprojeta periodicamente a partir do relógio atual (turno em andamento avança sozinho)
-setInterval(() => renderAgenda(pendentes), 60000);
+setInterval(() => atualizarTudo(), 60000);
 </script>
 </body>
 </html>
