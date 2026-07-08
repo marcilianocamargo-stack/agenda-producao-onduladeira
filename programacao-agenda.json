@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-08T20:21:07.638Z",
+  "geradoEm": "2026-07-08T20:22:28.464Z",
   "pendentes": [
     {
       "id": "p134_az6g6",
@@ -627,39 +627,6 @@
       "kg": 314.7,
       "setupMin": 40,
       "chave": "OF:261657"
-    },
-    {
-      "id": "p48_c8nu7",
-      "cliente": "MURILO",
-      "po": "P45B",
-      "of": "261566",
-      "oc": "29/D",
-      "ml": 1076.3,
-      "kg": 592.2,
-      "setupMin": 40,
-      "chave": "OF:261566"
-    },
-    {
-      "id": "p54_6hmjl",
-      "cliente": "MURILO",
-      "po": "P45B",
-      "of": "261605",
-      "oc": "Tue Jun 16 2026 00:00:28 GMT-0300 (Horário Padrão de Brasília)",
-      "ml": 2548,
-      "kg": 1490.6,
-      "setupMin": 40,
-      "chave": "OF:261605"
-    },
-    {
-      "id": "p55_dq4ib",
-      "cliente": "MURILO",
-      "po": "P45B",
-      "of": "261572",
-      "oc": "29/D",
-      "ml": 1693.9,
-      "kg": 713.6,
-      "setupMin": 40,
-      "chave": "OF:261572"
     },
     {
       "id": "p51_46a43",
@@ -1567,6 +1534,42 @@
       "setupMin": 40,
       "chave": "OF:261603",
       "dataProduzido": "2026-07-08T20:20:21.505Z"
+    },
+    {
+      "id": "p195_z6qp2",
+      "cliente": "MURILO",
+      "po": "P45B",
+      "of": "261566",
+      "oc": "29/D",
+      "ml": 1076.3,
+      "kg": 592.2,
+      "setupMin": 40,
+      "chave": "OF:261566",
+      "dataProduzido": "2026-07-08T20:21:28.067Z"
+    },
+    {
+      "id": "p196_l8hzj",
+      "cliente": "MURILO",
+      "po": "P45B",
+      "of": "261605",
+      "oc": "Tue Jun 16 2026 00:00:28 GMT-0300 (Horário Padrão de Brasília)",
+      "ml": 2548,
+      "kg": 1490.6,
+      "setupMin": 40,
+      "chave": "OF:261605",
+      "dataProduzido": "2026-07-08T20:21:28.067Z"
+    },
+    {
+      "id": "p197_sr4p8",
+      "cliente": "MURILO",
+      "po": "P45B",
+      "of": "261572",
+      "oc": "29/D",
+      "ml": 1693.9,
+      "kg": 713.6,
+      "setupMin": 40,
+      "chave": "OF:261572",
+      "dataProduzido": "2026-07-08T20:21:28.067Z"
     }
   ]
 }
