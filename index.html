@@ -277,6 +277,7 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 .tab-btn.active { background:#1a56a0; color:white; }
 
 .small-note { font-size:12.5px; color:#6a8bb0; margin-top:6px; line-height:1.4; }
+.link-excluir { font-size:12px; text-decoration:underline; }
 </style>
 </head>
 <body>
@@ -311,8 +312,8 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
     <div class="card">
       <h2>1. Programação do dia</h2>
       <div class="arq-status info" id="statusAuto">⏳ Buscando a programação do dia...</div>
-      <button class="btn btn-outline" id="btnRecarregar" style="display:none">↻ Reimportar programacao-hoje.xlsx</button>
-      <div class="small-note">Carregada automaticamente do <b>programacao-hoje.xlsx</b> publicado nesta mesma pasta do GitHub Pages — suba o arquivo aqui igual já faz no Romaneio e nas Etiquetas. Cada pedido importado entra com setup completo (40 min) por padrão — ajuste linha a linha se for só troca de faca ou de 1 bobina.</div>
+      <button class="btn btn-outline" id="btnRecarregar" style="display:none">↻ Sincronizar com programacao-hoje.xlsx</button>
+      <div class="small-note">Sincroniza com o <b>programacao-hoje.xlsx</b> publicado nesta mesma pasta do GitHub Pages (mesmo arquivo do Romaneio e das Etiquetas). É seguro sincronizar quantas vezes quiser: OF nova entra na fila; OF que você já moveu para "Aguardando" ou "Produzidos" continua lá; OF que sumir da planilha (expedida/cancelada) sai das listas daqui também. Nada que você já organizou é perdido.</div>
     </div>
 
     <div class="card">
@@ -354,9 +355,27 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
     </div>
 
     <div class="card">
-      <h2>3. Fila de produção por cliente (<span id="countPend">0</span> pedidos)</h2>
-      <div id="listaPendentes"></div>
-      <div class="small-note">Arraste um cliente (⠿ no cabeçalho) para mudar a ordem de fabricação entre clientes. Toque no nome do cliente para abrir e ver/reordenar os pedidos daquele cliente, ou marcar "produzido"/remover o que não vai ser fabricado completo.</div>
+      <h2>3. Produção por cliente</h2>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="fila">Fila (<span id="countPend">0</span>)</button>
+        <button class="tab-btn" data-tab="aguardando">Aguardando (<span id="countAguardando">0</span>)</button>
+        <button class="tab-btn" data-tab="produzidos">Produzidos (<span id="countProduzidos">0</span>)</button>
+      </div>
+
+      <div id="painelFila">
+        <div id="listaPendentes"></div>
+        <div class="small-note">Arraste um cliente (⠿ no cabeçalho) para mudar a ordem de fabricação entre clientes. Toque no nome do cliente para abrir e ver/reordenar os pedidos daquele cliente. "Aguardar" tira da projeção sem apagar (ex: esperando fechar carga); "Produzido" registra a fabricação (pode ser parcial).</div>
+      </div>
+
+      <div id="painelAguardando" class="hidden">
+        <div id="listaAguardando"></div>
+        <div class="small-note">Pedidos que existem mas não devem entrar na projeção de capacidade ainda (ex: aguardando fechar carga para uma região). Não contam nos dias da agenda. Toque em "Liberar p/ fila" quando puder produzir.</div>
+      </div>
+
+      <div id="painelProduzidos" class="hidden">
+        <div id="listaProduzidos"></div>
+        <div class="small-note">Já fabricados, mas continuam aqui até serem expedidos (a OF permanece controlada, igual você já faz na planilha). Remova só quando o Romaneio confirmar a expedição.</div>
+      </div>
     </div>
 
     <div class="card">
@@ -387,13 +406,23 @@ const TURNOS = [
 
 const DIAS_SEMANA_ABREV = ['dom','seg','ter','qua','qui','sex','sáb'];
 
-let pendentes = [];   // pedidos ainda não produzidos
+let pendentes = [];    // fila ativa: participa da projeção de capacidade
+let aguardando = [];   // existem, mas fora da projeção até liberar (ex: espera fechar carga)
+let produzidos = [];   // já fabricados, aguardando expedição (a OF continua controlada)
 let seqCounter = 1;
 let expandidoSup = new Set();   // clientes abertos na fila do supervisor
 let expandidoView = new Set();  // "dataStr|cliente" abertos na visualização
 
 // ===================== UTIL =====================
 function uid(){ return 'p'+(seqCounter++)+'_'+Math.random().toString(36).slice(2,7); }
+
+// Identidade estável do pedido entre importações (pela OF — que não muda mesmo
+// que a fila/planilha seja recarregada várias vezes ao dia).
+function chaveOf(p){
+  const of = String(p.of||'').trim();
+  if (of) return 'OF:'+of;
+  return 'X:'+chaveCliente(p.cliente)+'|'+String(p.po||'').trim()+'|'+String(p.oc||'').trim()+'|'+(p.ml||0);
+}
 
 function fmtData(d){
   return d.toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit' });
@@ -642,11 +671,13 @@ function renderFilaSupervisor(){
           <div class="top">
             <span><span class="ordem-num">${pi+1}</span><b>${p.po||''}</b></span>
             <div>
-              <button class="mini-btn done" data-act="done" data-id="${p.id}">Produzido</button>
-              <button class="mini-btn del" data-act="del" data-id="${p.id}">Remover</button>
+              <button class="mini-btn" style="background:#fff3e0;color:#e65100" data-act="aguardar" data-id="${p.id}">Aguardar</button>
+              <button class="mini-btn done" data-act="produzido" data-id="${p.id}">Produzido</button>
             </div>
           </div>
-          <div class="small-note">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} · previsão: <b>${diaTxt}</b></div>
+          <div class="small-note">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} · previsão: <b>${diaTxt}</b>
+            · <a href="#" class="link-excluir" data-act="excluir" data-id="${p.id}" style="color:#c62828">excluir definitivamente</a>
+          </div>
         </div>
         <div class="mini-btns-col">
           <button class="mini-btn up" data-act="up-pedido" data-id="${p.id}" ${pi===0?'disabled':''}>▲</button>
@@ -668,10 +699,22 @@ function renderFilaSupervisor(){
     });
   });
 
-  // produzido / remover um pedido específico
-  cont.querySelectorAll('.mini-btn.done, .mini-btn.del').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const id = btn.getAttribute('data-id');
+  // aguardar (tira da projeção sem apagar)
+  cont.querySelectorAll('[data-act="aguardar"]').forEach(btn => {
+    btn.addEventListener('click', () => moverParaAguardando(btn.getAttribute('data-id')));
+  });
+
+  // produzido (pode ser parcial)
+  cont.querySelectorAll('[data-act="produzido"]').forEach(btn => {
+    btn.addEventListener('click', () => marcarProduzido(btn.getAttribute('data-id')));
+  });
+
+  // excluir definitivamente (correção manual — some da fila; volta se ainda estiver no Excel)
+  cont.querySelectorAll('[data-act="excluir"]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = el.getAttribute('data-id');
+      if (!confirm('Excluir este pedido definitivamente da agenda?')) return;
       pendentes = pendentes.filter(p => p.id !== id);
       atualizarTudo();
     });
@@ -841,11 +884,169 @@ function renderDashboard(){
   cont.innerHTML = html;
 }
 
-// Atualiza as três telas de uma vez (fila do supervisor, visualização e dashboard).
+// Atualiza todas as telas de uma vez (fila, aguardando, produzidos, visualização e dashboard).
 function atualizarTudo(){
   renderFilaSupervisor();
+  renderAguardando();
+  renderProduzidos();
   renderAgenda(pendentes);
   renderDashboard();
+}
+
+// ===================== MOVER ENTRE FILA / AGUARDANDO / PRODUZIDOS =====================
+function moverParaAguardando(id){
+  const idx = pendentes.findIndex(p => p.id === id);
+  if (idx === -1) return;
+  const [p] = pendentes.splice(idx, 1);
+  aguardando = inserirNoGrupo(aguardando, p);
+  atualizarTudo();
+}
+function liberarParaFila(id){
+  const idx = aguardando.findIndex(p => p.id === id);
+  if (idx === -1) return;
+  const [p] = aguardando.splice(idx, 1);
+  pendentes = inserirNoGrupo(pendentes, p);
+  atualizarTudo();
+}
+// Marca produção — pergunta se foi tudo ou só parte (ex: não coube na carreta).
+// A parte produzida vira um registro em "produzidos"; o restante (se houver)
+// continua na fila, com a mesma OF, esperando a próxima oportunidade.
+function marcarProduzido(id){
+  const idx = pendentes.findIndex(p => p.id === id);
+  if (idx === -1) return;
+  const p = pendentes[idx];
+  const totalMl = p.ml || 0;
+  const resp = prompt(
+    `Produzido: ${p.cliente} — ${p.po||''} (OF ${p.of||'-'})\n\n` +
+    `Total do pedido: ${Math.round(totalMl)} ML.\n\n` +
+    `Deixe em branco se produziu TUDO.\nOu digite quantos ML foram produzidos agora (produção parcial):`,
+    ''
+  );
+  if (resp === null) return; // cancelou
+
+  let mlProduzido = totalMl, kgProduzido = p.kg || 0;
+  const v = parseFloat(String(resp).replace(',', '.'));
+  if (resp.trim() !== '' && !isNaN(v) && v > 0 && v < totalMl){
+    mlProduzido = v;
+    kgProduzido = totalMl > 0 ? (p.kg||0) * (v/totalMl) : 0;
+  }
+
+  const registro = { ...p, id: uid(), ml: mlProduzido, kg: kgProduzido, dataProduzido: new Date().toISOString() };
+  produzidos.push(registro);
+
+  if (mlProduzido < totalMl - 0.01){
+    // sobra fica na fila, mesma OF, com a quantidade restante
+    pendentes[idx] = { ...p, ml: totalMl - mlProduzido, kg: (p.kg||0) - kgProduzido };
+  } else {
+    pendentes.splice(idx, 1);
+  }
+  atualizarTudo();
+}
+
+// ===================== SINCRONIZAÇÃO COM O EXCEL (merge por OF, não substitui) =====================
+// Funde uma leitura nova do Excel com o estado atual das 3 áreas, preservando
+// posição e status de tudo que já existe. Só acrescenta o que é realmente novo
+// (OF nunca vista) e só remove o que sumiu da planilha (expedido/cancelado na origem).
+function fundirComEstadoAtual(novosDoExcel){
+  const chavesNoExcel = new Set(novosDoExcel.map(p => p.chave));
+  const totalAntes = pendentes.length + aguardando.length + produzidos.length;
+
+  pendentes = pendentes.filter(p => chavesNoExcel.has(p.chave));
+  aguardando = aguardando.filter(p => chavesNoExcel.has(p.chave));
+  produzidos = produzidos.filter(p => chavesNoExcel.has(p.chave));
+
+  const chavesConhecidas = new Set([...pendentes, ...aguardando, ...produzidos].map(p => p.chave));
+  const novos = novosDoExcel.filter(p => !chavesConhecidas.has(p.chave));
+  novos.forEach(p => { pendentes = inserirNoGrupo(pendentes, p); });
+
+  const totalDepois = pendentes.length + aguardando.length + produzidos.length;
+  return { novos: novos.length, removidos: totalAntes - (totalDepois - novos.length) };
+}
+
+// ===================== RENDER: AGUARDANDO =====================
+function renderAguardando(){
+  const cont = document.getElementById('listaAguardando');
+  document.getElementById('countAguardando').textContent = aguardando.length;
+  if (!aguardando.length){
+    cont.innerHTML = '<p style="color:#6a8bb0;font-size:13px;">Nada aguardando no momento.</p>';
+    return;
+  }
+  const grupos = agruparPorCliente(aguardando);
+  let html = '';
+  grupos.forEach(g => {
+    const totalKg = g.pedidos.reduce((s,p)=>s+(p.kg||0),0);
+    const totalMl = g.pedidos.reduce((s,p)=>s+(p.ml||0),0);
+    html += `<div class="cliente-grupo">
+      <div class="cliente-header" style="cursor:default">
+        <div class="cliente-header-txt" style="cursor:default">
+          <b>${g.cliente}</b>
+          <div class="small-note">${g.pedidos.length} pedido(s) · ${Math.round(totalKg)} kg · ${Math.round(totalMl)} ML</div>
+        </div>
+      </div>
+      <div class="cliente-body">`;
+    g.pedidos.forEach(p => {
+      html += `<div class="pend-row" style="cursor:default">
+        <div class="conteudo">
+          <div class="top">
+            <b>${p.po||''}</b>
+            <button class="mini-btn done" data-act="liberar" data-id="${p.id}">Liberar p/ fila</button>
+          </div>
+          <div class="small-note">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''}</div>
+        </div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  });
+  cont.innerHTML = html;
+
+  cont.querySelectorAll('[data-act="liberar"]').forEach(btn => {
+    btn.addEventListener('click', () => liberarParaFila(btn.getAttribute('data-id')));
+  });
+}
+
+// ===================== RENDER: PRODUZIDOS (aguardando expedição) =====================
+function renderProduzidos(){
+  const cont = document.getElementById('listaProduzidos');
+  document.getElementById('countProduzidos').textContent = produzidos.length;
+  if (!produzidos.length){
+    cont.innerHTML = '<p style="color:#6a8bb0;font-size:13px;">Nenhum pedido produzido aguardando expedição.</p>';
+    return;
+  }
+  const grupos = agruparPorCliente(produzidos);
+  let html = '';
+  grupos.forEach(g => {
+    const totalKg = g.pedidos.reduce((s,p)=>s+(p.kg||0),0);
+    const totalMl = g.pedidos.reduce((s,p)=>s+(p.ml||0),0);
+    html += `<div class="cliente-grupo">
+      <div class="cliente-header" style="cursor:default">
+        <div class="cliente-header-txt" style="cursor:default">
+          <b>${g.cliente}</b>
+          <div class="small-note">${g.pedidos.length} pedido(s) · ${Math.round(totalKg)} kg · ${Math.round(totalMl)} ML</div>
+        </div>
+      </div>
+      <div class="cliente-body">`;
+    g.pedidos.forEach(p => {
+      const dataTxt = p.dataProduzido ? new Date(p.dataProduzido).toLocaleDateString('pt-BR') : '';
+      html += `<div class="pend-row" style="cursor:default">
+        <div class="conteudo">
+          <div class="top">
+            <b>${p.po||''}</b>
+            <button class="mini-btn del" data-act="expedido" data-id="${p.id}">Expedido — remover</button>
+          </div>
+          <div class="small-note">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} ${dataTxt?'· produzido em '+dataTxt:''}</div>
+        </div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  });
+  cont.innerHTML = html;
+
+  cont.querySelectorAll('[data-act="expedido"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      produzidos = produzidos.filter(p => p.id !== btn.getAttribute('data-id'));
+      atualizarTudo();
+    });
+  });
 }
 
 // ===================== IMPORTAÇÃO EXCEL =====================
@@ -905,7 +1106,7 @@ function parseWorkbookBuffer(buf){
       const kg = parseFloat(row[colMap.kg]) || 0;
       if (!ml && !kg) continue;
 
-      pedidos.push({
+      const novoPedido = {
         id: uid(),
         cliente: String(cliente||'').trim(),
         po: colMap.po !== -1 ? String(row[colMap.po]||'').trim() : '',
@@ -914,28 +1115,28 @@ function parseWorkbookBuffer(buf){
         ml: ml,
         kg: kg,
         setupMin: 40
-      });
+      };
+      novoPedido.chave = chaveOf(novoPedido);
+      pedidos.push(novoPedido);
     }
   });
 
   return pedidos;
 }
 
-// ===================== AUTO-CARREGAR programacao-hoje.xlsx =====================
+// ===================== SINCRONIZAR COM programacao-hoje.xlsx =====================
 // Mesma lógica do Romaneio e das Etiquetas: o arquivo fica publicado ao lado do
 // index.html e o app busca sozinho, sem escolher arquivo manualmente. Cache-busting
 // (?t=) + no-store para nunca pegar versão antiga em cache do navegador.
-async function autoCarregarExcel(forcar){
+// Diferente de um "carregar", isso é uma SINCRONIZAÇÃO: funde por OF com o que já
+// está na fila/aguardando/produzidos, sem apagar nada que você já organizou.
+async function autoCarregarExcel(){
   const statusAuto = document.getElementById('statusAuto');
   const btnRecarregar = document.getElementById('btnRecarregar');
 
-  if (forcar && pendentes.length && !confirm('Isso substitui a fila atual pelos pedidos do programacao-hoje.xlsx publicado. Continuar?')){
-    return;
-  }
-
   btnRecarregar.style.display = 'none';
   statusAuto.className = 'arq-status info';
-  statusAuto.textContent = '⏳ Buscando a programação do dia...';
+  statusAuto.textContent = '⏳ Sincronizando com a programação do dia...';
 
   try {
     const resp = await fetch('./programacao-hoje.xlsx?t=' + Date.now(), { cache: 'no-store' });
@@ -944,7 +1145,7 @@ async function autoCarregarExcel(forcar){
     const pedidos = parseWorkbookBuffer(buf);
     if (!pedidos.length) throw new Error('sem pedidos');
 
-    pendentes = achatarGrupos(agruparPorCliente(pedidos));
+    const { novos, removidos } = fundirComEstadoAtual(pedidos);
     atualizarTudo();
 
     let quando = '';
@@ -954,7 +1155,7 @@ async function autoCarregarExcel(forcar){
       if (!isNaN(d.getTime())) quando = ' · atualizada ' + d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
     }
     statusAuto.className = 'arq-status ok';
-    statusAuto.textContent = `✓ ${pedidos.length} pedidos carregados do programacao-hoje.xlsx${quando}`;
+    statusAuto.textContent = `✓ Sincronizado${quando} · ${novos} pedido(s) novo(s) na fila` + (removidos>0 ? ` · ${removidos} saíram da planilha (expedidos/cancelados)` : '');
     btnRecarregar.style.display = 'block';
   } catch (err){
     statusAuto.className = 'arq-status err';
@@ -962,7 +1163,7 @@ async function autoCarregarExcel(forcar){
     btnRecarregar.style.display = 'block';
   }
 }
-document.getElementById('btnRecarregar').addEventListener('click', () => autoCarregarExcel(true));
+document.getElementById('btnRecarregar').addEventListener('click', () => autoCarregarExcel());
 
 // ===================== ADD MANUAL =====================
 document.getElementById('btnAddManual').addEventListener('click', () => {
@@ -982,6 +1183,7 @@ document.getElementById('btnAddManual').addEventListener('click', () => {
     kg: parseFloat(document.getElementById('mKg').value) || 0,
     setupMin: parseInt(document.getElementById('mSetup').value)
   };
+  novo.chave = chaveOf(novo);
   pendentes = inserirNoGrupo(pendentes, novo);
   ['mCliente','mPo','mOf','mMl','mKg'].forEach(id => document.getElementById(id).value = '');
   atualizarTudo();
@@ -995,7 +1197,9 @@ document.getElementById('btnAddManual').addEventListener('click', () => {
 document.getElementById('btnGerarJson').addEventListener('click', () => {
   const payload = {
     geradoEm: new Date().toISOString(),
-    pendentes: pendentes
+    pendentes: pendentes,
+    aguardando: aguardando,
+    produzidos: produzidos
   };
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type:'application/json' });
   const url = URL.createObjectURL(blob);
@@ -1018,6 +1222,18 @@ document.getElementById('toggleDash').addEventListener('click', (e) => {
   renderDashboard();
 });
 
+const PAINEIS_TAB = { fila:'painelFila', aguardando:'painelAguardando', produzidos:'painelProduzidos' };
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const alvo = btn.getAttribute('data-tab');
+    Object.entries(PAINEIS_TAB).forEach(([tab, idPainel]) => {
+      document.getElementById(idPainel).classList.toggle('hidden', tab !== alvo);
+    });
+  });
+});
+
 function mostrarBanner(msg, warn){
   const b = document.getElementById('banner');
   b.textContent = msg;
@@ -1029,21 +1245,29 @@ function mostrarBanner(msg, warn){
 // ===================== AUTO-FETCH JSON PUBLICADO =====================
 // Se já existe uma fila publicada (com a ordem que o supervisor arrastou), usa ela.
 // Senão, carrega direto do programacao-hoje.xlsx — sem precisar escolher arquivo.
+function normalizarLista(lista){
+  return (lista || []).map(p => {
+    const comId = { ...p, id: p.id || uid() };
+    comId.chave = comId.chave || chaveOf(comId);
+    return comId;
+  });
+}
 function carregarProgramacaoPublicada(){
   fetch('./programacao-agenda.json?t=' + Date.now(), { cache:'no-store' })
     .then(r => { if (!r.ok) throw new Error(); return r.json(); })
     .then(data => {
-      const brutos = (data.pendentes || []).map(p => ({...p, id: p.id || uid()}));
-      pendentes = achatarGrupos(agruparPorCliente(brutos));
+      pendentes = achatarGrupos(agruparPorCliente(normalizarLista(data.pendentes)));
+      aguardando = normalizarLista(data.aguardando);
+      produzidos = normalizarLista(data.produzidos);
       atualizarTudo();
       const statusAuto = document.getElementById('statusAuto');
       statusAuto.className = 'arq-status ok';
-      statusAuto.textContent = `✓ Fila publicada carregada (${pendentes.length} pedidos).`;
+      statusAuto.textContent = `✓ Fila publicada carregada (${pendentes.length} na fila, ${aguardando.length} aguardando, ${produzidos.length} produzidos).`;
       document.getElementById('btnRecarregar').style.display = 'block';
     })
     .catch(() => {
       renderAgenda(pendentes);
-      autoCarregarExcel(false);
+      autoCarregarExcel();
     });
 }
 carregarProgramacaoPublicada();
