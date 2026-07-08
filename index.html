@@ -1242,6 +1242,13 @@ function setTokenSalvo(t){
   if (t) localStorage.setItem(GH_TOKEN_KEY, t);
   else localStorage.removeItem(GH_TOKEN_KEY);
 }
+// Usa o que estiver digitado no campo (mesmo que ainda não tenha clicado em "Salvar
+// token") e já aproveita pra salvar — assim "Publicar" nunca falha por esquecimento.
+function tokenAtual(){
+  const doCampo = document.getElementById('ghToken').value.trim();
+  if (doCampo){ setTokenSalvo(doCampo); return doCampo; }
+  return getTokenSalvo();
+}
 document.getElementById('ghToken').value = getTokenSalvo();
 
 document.getElementById('btnSalvarToken').addEventListener('click', () => {
@@ -1264,10 +1271,10 @@ function utf8ParaBase64(str){
 async function publicarNoGitHub(){
   const status = document.getElementById('statusPublicar');
   status.classList.remove('hidden');
-  const token = getTokenSalvo();
+  const token = tokenAtual();
   if (!token){
     status.className = 'arq-status err';
-    status.textContent = '⚠ Cole e salve um token do GitHub antes de publicar (veja as instruções abaixo).';
+    status.textContent = '⚠ Cole um token do GitHub no campo abaixo antes de publicar (veja as instruções).';
     return;
   }
 
