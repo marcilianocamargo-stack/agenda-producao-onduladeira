@@ -380,8 +380,25 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 
     <div class="card">
       <h2>4. Publicar</h2>
-      <button class="btn btn-primary" id="btnGerarJson">Gerar programacao-agenda.json</button>
-      <div class="small-note">Baixe o arquivo e suba manualmente na mesma pasta do GitHub Pages, substituindo o anterior — igual ao fluxo do Romaneio. O app abre automaticamente em modo visualização quando esse arquivo existir ao lado do HTML.</div>
+
+      <button class="btn btn-primary" id="btnPublicarGitHub">📤 Publicar direto no GitHub</button>
+      <div class="arq-status hidden" id="statusPublicar"></div>
+
+      <div class="field" style="margin-top:14px">
+        <label>Token do GitHub (uma vez só, fica salvo neste navegador)</label>
+        <input type="password" id="ghToken" placeholder="github_pat_...">
+      </div>
+      <button class="btn btn-outline" id="btnSalvarToken">Salvar token</button>
+
+      <div class="small-note">
+        Como criar o token (1x): no GitHub, vá em <b>Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token</b>. Marque "Only select repositories" → escolha <b>agenda-producao-onduladeira</b> → em Permissions, ative <b>Contents: Read and write</b>. Copie o token e cole acima.<br><br>
+        O token fica salvo só neste navegador/dispositivo (nunca é enviado a mais ninguém além do próprio GitHub). <a href="#" id="linkRemoverToken" class="link-excluir">Remover token salvo</a>.
+      </div>
+
+      <hr style="border:none;border-top:1px solid #e3ecf6;margin:16px 0">
+
+      <button class="btn btn-outline" id="btnGerarJson">Baixar programacao-agenda.json (backup manual)</button>
+      <div class="small-note">Alternativa sem token: baixa o arquivo pra você subir manualmente no GitHub, igual ao fluxo do Romaneio.</div>
     </div>
 
   </div>
@@ -1193,15 +1210,18 @@ document.getElementById('btnAddManual').addEventListener('click', () => {
   mostrarBanner(`Previsão para ${cliente}: ${nomeDia(info.diaFim)}, ${fmtData(info.diaFim)}.`, false);
 });
 
-// ===================== GERAR JSON =====================
-document.getElementById('btnGerarJson').addEventListener('click', () => {
-  const payload = {
+// ===================== PUBLICAR (GitHub direto ou baixar backup) =====================
+function payloadPublicacao(){
+  return {
     geradoEm: new Date().toISOString(),
     pendentes: pendentes,
     aguardando: aguardando,
     produzidos: produzidos
   };
-  const blob = new Blob([JSON.stringify(payload, null, 2)], { type:'application/json' });
+}
+
+document.getElementById('btnGerarJson').addEventListener('click', () => {
+  const blob = new Blob([JSON.stringify(payloadPublicacao(), null, 2)], { type:'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
@@ -1210,6 +1230,86 @@ document.getElementById('btnGerarJson').addEventListener('click', () => {
   URL.revokeObjectURL(url);
   mostrarBanner('JSON gerado. Suba manualmente na mesma pasta do GitHub Pages.', false);
 });
+
+// ---- Publicar direto na API do GitHub (sem baixar/subir arquivo manualmente) ----
+const GH_OWNER = 'marcilianocamargo-stack';
+const GH_REPO = 'agenda-producao-onduladeira';
+const GH_PATH = 'programacao-agenda.json';
+const GH_TOKEN_KEY = 'agendaOnduladeiraGhToken';
+
+function getTokenSalvo(){ return localStorage.getItem(GH_TOKEN_KEY) || ''; }
+function setTokenSalvo(t){
+  if (t) localStorage.setItem(GH_TOKEN_KEY, t);
+  else localStorage.removeItem(GH_TOKEN_KEY);
+}
+document.getElementById('ghToken').value = getTokenSalvo();
+
+document.getElementById('btnSalvarToken').addEventListener('click', () => {
+  const t = document.getElementById('ghToken').value.trim();
+  setTokenSalvo(t);
+  mostrarBanner(t ? 'Token salvo neste navegador.' : 'Token removido.', false);
+});
+document.getElementById('linkRemoverToken').addEventListener('click', (e) => {
+  e.preventDefault();
+  setTokenSalvo('');
+  document.getElementById('ghToken').value = '';
+  mostrarBanner('Token removido deste navegador.', false);
+});
+
+// codifica em UTF-8 → base64 (conteúdo tem acentos: nomes de cliente etc.)
+function utf8ParaBase64(str){
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (_, hex) => String.fromCharCode(parseInt(hex, 16))));
+}
+
+async function publicarNoGitHub(){
+  const status = document.getElementById('statusPublicar');
+  status.classList.remove('hidden');
+  const token = getTokenSalvo();
+  if (!token){
+    status.className = 'arq-status err';
+    status.textContent = '⚠ Cole e salve um token do GitHub antes de publicar (veja as instruções abaixo).';
+    return;
+  }
+
+  status.className = 'arq-status info';
+  status.textContent = '⏳ Publicando no GitHub...';
+
+  const apiUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}`;
+  const headers = { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github+json' };
+
+  try {
+    let sha;
+    const getResp = await fetch(apiUrl, { headers });
+    if (getResp.ok){
+      sha = (await getResp.json()).sha;
+    } else if (getResp.status !== 404){
+      throw new Error('não foi possível consultar o arquivo atual (HTTP ' + getResp.status + ')');
+    }
+
+    const conteudo = JSON.stringify(payloadPublicacao(), null, 2);
+    const putResp = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: { ...headers, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: 'Atualiza fila de produção via app (' + new Date().toLocaleString('pt-BR') + ')',
+        content: utf8ParaBase64(conteudo),
+        sha
+      })
+    });
+
+    if (!putResp.ok){
+      const erro = await putResp.json().catch(() => ({}));
+      throw new Error(erro.message || ('HTTP ' + putResp.status));
+    }
+
+    status.className = 'arq-status ok';
+    status.textContent = '✓ Publicado no GitHub — a agenda já está atualizada para todo mundo.';
+  } catch (err){
+    status.className = 'arq-status err';
+    status.textContent = '⚠ Falha ao publicar: ' + err.message;
+  }
+}
+document.getElementById('btnPublicarGitHub').addEventListener('click', publicarNoGitHub);
 
 // ===================== EVENTOS GERAIS =====================
 document.getElementById('toggleSup').addEventListener('click', (e) => {
