@@ -1352,23 +1352,22 @@ function normalizarLista(lista){
     return comId;
   });
 }
-function carregarProgramacaoPublicada(){
-  fetch('./programacao-agenda.json?t=' + Date.now(), { cache:'no-store' })
-    .then(r => { if (!r.ok) throw new Error(); return r.json(); })
-    .then(data => {
-      pendentes = achatarGrupos(agruparPorCliente(normalizarLista(data.pendentes)));
-      aguardando = normalizarLista(data.aguardando);
-      produzidos = normalizarLista(data.produzidos);
-      atualizarTudo();
-      const statusAuto = document.getElementById('statusAuto');
-      statusAuto.className = 'arq-status ok';
-      statusAuto.textContent = `✓ Fila publicada carregada (${pendentes.length} na fila, ${aguardando.length} aguardando, ${produzidos.length} produzidos).`;
-      document.getElementById('btnRecarregar').style.display = 'block';
-    })
-    .catch(() => {
-      renderAgenda(pendentes);
-      autoCarregarExcel();
-    });
+// Ao abrir o app: carrega a última fila publicada (se existir) e, em seguida,
+// SEMPRE sincroniza com o programacao-hoje.xlsx por cima — assim, pedidos novos
+// lançados na planilha durante o dia entram sozinhos, sem precisar tocar em nada.
+async function carregarProgramacaoPublicada(){
+  try {
+    const r = await fetch('./programacao-agenda.json?t=' + Date.now(), { cache:'no-store' });
+    if (!r.ok) throw new Error();
+    const data = await r.json();
+    pendentes = achatarGrupos(agruparPorCliente(normalizarLista(data.pendentes)));
+    aguardando = normalizarLista(data.aguardando);
+    produzidos = normalizarLista(data.produzidos);
+  } catch (err){
+    // ainda não existe fila publicada — tudo bem, a sincronização abaixo faz a carga inicial
+  }
+  atualizarTudo();
+  await autoCarregarExcel();
 }
 carregarProgramacaoPublicada();
 
