@@ -384,8 +384,12 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
       </div>
 
       <div id="painelProduzidos" class="hidden">
+        <div class="barra-selecao hidden" id="barraSelecaoVoltar">
+          <span id="qtdSelecionadosVoltar">0 selecionados</span>
+          <button class="btn btn-outline" id="btnVoltarSelecionados" style="margin:0;width:auto;padding:10px 16px;">↩ Voltar p/ fila</button>
+        </div>
         <div id="listaProduzidos"></div>
-        <div class="small-note">Já fabricados, mas continuam aqui até serem expedidos (a OF permanece controlada, igual você já faz na planilha). Remova só quando o Romaneio confirmar a expedição.</div>
+        <div class="small-note">Já fabricados, mas continuam aqui até serem expedidos (a OF permanece controlada, igual você já faz na planilha). Marcou "Produzido" errado ou uma OF que não foi feita? Toque em "Voltar p/ fila" nela (ou marque várias e use o botão acima). Remova ("Expedido") só quando o Romaneio confirmar a expedição.</div>
       </div>
     </div>
 
@@ -441,6 +445,7 @@ let seqCounter = 1;
 let expandidoSup = new Set();   // clientes abertos na fila do supervisor
 let expandidoView = new Set();  // "dataStr|cliente" abertos na visualização
 let selecionadosProduzir = new Set(); // ids marcados pra dar baixa em lote (produzido)
+let selecionadosVoltar = new Set();   // ids marcados em "produzidos" pra desfazer e voltar à fila
 
 // ===================== UTIL =====================
 function uid(){ return 'p'+(seqCounter++)+'_'+Math.random().toString(36).slice(2,7); }
@@ -961,6 +966,37 @@ function liberarParaFila(id){
   pendentes = inserirNoGrupo(pendentes, p);
   atualizarTudo();
 }
+// Desfaz um "Produzido" marcado por engano (ou uma OF que na verdade não foi
+// concluída): tira de "produzidos" e devolve pra fila ativa, na mesma posição
+// do cliente correspondente.
+function voltarParaFila(id){
+  const idx = produzidos.findIndex(p => p.id === id);
+  if (idx === -1) return;
+  const [p] = produzidos.splice(idx, 1);
+  const { dataProduzido, ...semData } = p;
+  pendentes = inserirNoGrupo(pendentes, semData);
+  atualizarTudo();
+}
+function atualizarBarraSelecaoVoltar(){
+  const bar = document.getElementById('barraSelecaoVoltar');
+  const n = selecionadosVoltar.size;
+  document.getElementById('qtdSelecionadosVoltar').textContent = n + (n===1 ? ' selecionado' : ' selecionados');
+  bar.classList.toggle('hidden', n===0);
+}
+document.getElementById('btnVoltarSelecionados').addEventListener('click', () => {
+  const ids = Array.from(selecionadosVoltar);
+  if (!ids.length) return;
+  if (!confirm(`Voltar ${ids.length} pedido(s) selecionado(s) para a fila (desfazer produção)?`)) return;
+  ids.forEach(id => {
+    const idx = produzidos.findIndex(p => p.id === id);
+    if (idx === -1) return;
+    const [p] = produzidos.splice(idx, 1);
+    const { dataProduzido, ...semData } = p;
+    pendentes = inserirNoGrupo(pendentes, semData);
+  });
+  selecionadosVoltar.clear();
+  atualizarTudo();
+});
 // Marca produção — pergunta se foi tudo ou só parte (ex: não coube na carreta).
 // A parte produzida vira um registro em "produzidos"; o restante (se houver)
 // continua na fila, com a mesma OF, esperando a próxima oportunidade.
@@ -1086,8 +1122,10 @@ function renderAguardando(){
 function renderProduzidos(){
   const cont = document.getElementById('listaProduzidos');
   document.getElementById('countProduzidos').textContent = produzidos.length;
+  selecionadosVoltar = new Set([...selecionadosVoltar].filter(id => produzidos.some(p => p.id === id)));
   if (!produzidos.length){
     cont.innerHTML = '<p style="color:#6a8bb0;font-size:13px;">Nenhum pedido produzido aguardando expedição.</p>';
+    atualizarBarraSelecaoVoltar();
     return;
   }
   const grupos = agruparPorCliente(produzidos);
@@ -1106,10 +1144,14 @@ function renderProduzidos(){
     g.pedidos.forEach(p => {
       const dataTxt = p.dataProduzido ? new Date(p.dataProduzido).toLocaleDateString('pt-BR') : '';
       html += `<div class="pend-row" style="cursor:default">
+        <input type="checkbox" class="chk-voltar" data-id="${p.id}" ${selecionadosVoltar.has(p.id)?'checked':''}>
         <div class="conteudo">
           <div class="top">
             <b>${p.po||''}</b>
-            <button class="mini-btn del" data-act="expedido" data-id="${p.id}">Expedido — remover</button>
+            <div>
+              <button class="mini-btn" style="background:#fff3e0;color:#e65100" data-act="voltar" data-id="${p.id}">↩ Voltar p/ fila</button>
+              <button class="mini-btn del" data-act="expedido" data-id="${p.id}">Expedido — remover</button>
+            </div>
           </div>
           <div class="small-note">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} ${dataTxt?'· produzido em '+dataTxt:''}</div>
         </div>
@@ -1118,11 +1160,25 @@ function renderProduzidos(){
     html += `</div></div>`;
   });
   cont.innerHTML = html;
+  atualizarBarraSelecaoVoltar();
 
   cont.querySelectorAll('[data-act="expedido"]').forEach(btn => {
     btn.addEventListener('click', () => {
       produzidos = produzidos.filter(p => p.id !== btn.getAttribute('data-id'));
       atualizarTudo();
+    });
+  });
+
+  // desfazer: volta um pedido produzido (por engano) de volta pra fila ativa
+  cont.querySelectorAll('[data-act="voltar"]').forEach(btn => {
+    btn.addEventListener('click', () => voltarParaFila(btn.getAttribute('data-id')));
+  });
+
+  cont.querySelectorAll('.chk-voltar').forEach(chk => {
+    chk.addEventListener('change', () => {
+      const id = chk.getAttribute('data-id');
+      if (chk.checked) selecionadosVoltar.add(id); else selecionadosVoltar.delete(id);
+      atualizarBarraSelecaoVoltar();
     });
   });
 }
