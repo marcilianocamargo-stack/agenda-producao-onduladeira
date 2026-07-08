@@ -176,6 +176,11 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 .badge.inicio { background:#e3f2fd; color:#1565c0; }
 .badge.continua { background:#fff3e0; color:#e65100; }
 .badge.conclui { background:#e8f5e9; color:#2e7d32; }
+.badge.reservado { background:#fff3e0; color:#e65100; }
+
+.reserva-linha { display:flex; align-items:center; gap:8px; margin-top:6px; flex-wrap:wrap; }
+.reserva-linha label { font-size:11px; margin-bottom:0; color:#6a8bb0; font-weight:700; }
+.reserva-linha input[type=date] { width:auto; padding:6px 8px; margin-bottom:0; font-size:13px; }
 
 /* ===== LISTA PENDENTES (SUPERVISOR) ===== */
 .pend-row {
@@ -464,6 +469,15 @@ function fmtData(d){
 function nomeDia(d){ return DIAS_SEMANA_PT[d.getDay()]; }
 function nomeDiaAbrev(d){ return DIAS_SEMANA_ABREV[d.getDay()]; }
 
+// chave de dia no formato yyyy-mm-dd (mesmo formato do <input type=date>)
+function chaveDiaISO(d){
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function fmtDataISO(iso){
+  const [y,m,d] = iso.split('-').map(Number);
+  return String(d).padStart(2,'0')+'/'+String(m).padStart(2,'0');
+}
+
 // ===================== AGRUPAMENTO POR CLIENTE =====================
 function chaveCliente(c){ return String(c||'').trim().toUpperCase(); }
 
@@ -541,21 +555,73 @@ function estadoAgora(now){
 }
 
 // ===================== CÁLCULO DA AGENDA =====================
-// pedidos: lista ordenada (fila manual) de {id,cliente,po,of,oc,kg,ml,setupMin}
+// pedidos: lista ordenada (fila manual) de {id,cliente,po,of,oc,kg,ml,setupMin,dataReservada?}
 // retorna: { dias: [{data, itens:[{pedido, status, minUsados}], minUsados, cap}], pedidosInfo: {id:{diaInicio,diaFim}} }
+//
+// Pedidos com "dataReservada" (yyyy-mm-dd) reservam só o tempo que precisam
+// naquele dia específico — o resto da capacidade do dia continua livre pra
+// fila normal preencher. Pedidos sem data seguem a ordem normal da fila,
+// podendo cair antes ou depois de qualquer dia reservado, mas nunca "roubam"
+// o tempo já reservado por outro pedido naquele dia.
 function calcularAgenda(pedidos, agora){
   agora = agora || new Date();
   const estado = estadoAgora(agora);
+  const bucketStart = estado.bucketStart;
+
+  const naoReservados = pedidos.filter(p => !p.dataReservada);
+
+  // agrupa reservados por dia útil efetivo (nunca antes de hoje, nunca em fim de semana)
+  const reservasPorDia = new Map();
+  pedidos.filter(p => p.dataReservada).forEach(p => {
+    const [y,m,d] = p.dataReservada.split('-').map(Number);
+    let dt = new Date(y, m-1, d);
+    if (dt < bucketStart) dt = new Date(bucketStart);
+    if (!ehDiaUtil(dt)) dt = proximoDiaUtilAPartirDe(dt);
+    const k = chaveDiaISO(dt);
+    if (!reservasPorDia.has(k)) reservasPorDia.set(k, []);
+    reservasPorDia.get(k).push(p);
+  });
+  const diasProcessados = new Set();
 
   const dias = [];
-  let diaAtual = new Date(estado.bucketStart);
+  let diaAtual = new Date(bucketStart);
   let capRestante = estado.restanteHoje;
   let diaObj = { data: new Date(diaAtual), itens: [], minUsados: CAP_MIN_DIA - capRestante, emAndamento: estado.emTurno };
   dias.push(diaObj);
 
   const pedidosInfo = {};
 
-  pedidos.forEach(p => {
+  // lança na agenda as reservas do dia atual (com possível estouro pros dias seguintes,
+  // se o(s) pedido(s) reservado(s) precisarem de mais tempo do que sobra no dia)
+  function aplicarReservasDoDiaAtual(){
+    let k = chaveDiaISO(diaObj.data);
+    while (reservasPorDia.has(k) && !diasProcessados.has(k)){
+      diasProcessados.add(k);
+      reservasPorDia.get(k).forEach(p => {
+        let restante = p.setupMin + p.ml / VELOCIDADE_M_MIN;
+        const diasTocados = [];
+        while (restante > 0.0001){
+          if (capRestante <= 0.0001){
+            diaAtual = proximoDiaUtil(diaAtual);
+            capRestante = CAP_MIN_DIA;
+            diaObj = { data: new Date(diaAtual), itens: [], minUsados: 0, emAndamento: false };
+            dias.push(diaObj);
+          }
+          const usar = Math.min(restante, capRestante);
+          restante -= usar;
+          capRestante -= usar;
+          diaObj.minUsados += usar;
+          diaObj.itens.push({ pedido: p, status: 'reservado', minUsados: usar });
+          diasTocados.push(diaObj.data);
+        }
+        pedidosInfo[p.id] = { diaInicio: diasTocados[0], diaFim: diasTocados[diasTocados.length-1] };
+      });
+      k = chaveDiaISO(diaObj.data);
+    }
+  }
+  aplicarReservasDoDiaAtual();
+
+  naoReservados.forEach(p => {
     const tempoRodagem = p.ml / VELOCIDADE_M_MIN;
     let restante = p.setupMin + tempoRodagem;
     let primeiraVez = true;
@@ -565,8 +631,9 @@ function calcularAgenda(pedidos, agora){
       if (capRestante <= 0.0001) {
         diaAtual = proximoDiaUtil(diaAtual);
         capRestante = CAP_MIN_DIA;
-        diaObj = { data: new Date(diaAtual), itens: [], minUsados: 0 };
+        diaObj = { data: new Date(diaAtual), itens: [], minUsados: 0, emAndamento: false };
         dias.push(diaObj);
+        aplicarReservasDoDiaAtual();
       }
       const usar = Math.min(restante, capRestante);
       restante -= usar;
@@ -580,6 +647,26 @@ function calcularAgenda(pedidos, agora){
     }
     pedidosInfo[p.id] = { diaInicio: diasTocados[0], diaFim: diasTocados[diasTocados.length-1] };
   });
+
+  // reservas cujo dia nunca foi alcançado pela fila normal (ex: fila termina antes
+  // da data reservada) — cria os dias que faltam só com o(s) reservado(s).
+  const chavesRestantes = [...reservasPorDia.keys()].filter(k => !diasProcessados.has(k)).sort();
+  chavesRestantes.forEach(k => {
+    const [y,m,d] = k.split('-').map(Number);
+    const dataDia = new Date(y, m-1, d);
+    const novoDia = { data: dataDia, itens: [], minUsados: 0, emAndamento: false };
+    let capDoDia = CAP_MIN_DIA;
+    reservasPorDia.get(k).forEach(p => {
+      const totalMin = p.setupMin + p.ml / VELOCIDADE_M_MIN;
+      const usar = Math.min(totalMin, capDoDia);
+      capDoDia -= usar;
+      novoDia.minUsados += usar;
+      novoDia.itens.push({ pedido: p, status: 'reservado', minUsados: usar });
+      pedidosInfo[p.id] = { diaInicio: dataDia, diaFim: dataDia };
+    });
+    dias.push(novoDia);
+  });
+  dias.sort((a,b) => a.data - b.data);
 
   return { dias, pedidosInfo };
 }
@@ -637,8 +724,8 @@ function renderAgenda(pedidos){
       if (aberto){
         g.itens.forEach(it => {
           const p = it.pedido;
-          const badgeTxt = { inicio:'início', continua:'continua', conclui:'conclui', unico:'' }[it.status];
-          const badgeCls = { inicio:'inicio', continua:'continua', conclui:'conclui', unico:'' }[it.status];
+          const badgeTxt = { inicio:'início', continua:'continua', conclui:'conclui', unico:'', reservado:'📌 reservado' }[it.status];
+          const badgeCls = { inicio:'inicio', continua:'continua', conclui:'conclui', unico:'', reservado:'reservado' }[it.status];
           html += `<div class="pedido-row">
             <div class="linha1"><span>${p.po||''}</span>${badgeTxt?`<span class="badge ${badgeCls}">${badgeTxt}</span>`:''}</div>
             <div class="linha2">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} · ${Math.round(it.minUsados)} min</div>
@@ -709,7 +796,7 @@ function renderFilaSupervisor(){
         <span class="drag-handle">⠿</span>
         <div class="conteudo">
           <div class="top">
-            <span><span class="ordem-num">${pi+1}</span><b>${p.po||''}</b></span>
+            <span><span class="ordem-num">${pi+1}</span><b>${p.po||''}</b>${p.dataReservada?` <span class="badge reservado">📌 ${fmtDataISO(p.dataReservada)}</span>`:''}</span>
             <div>
               <button class="mini-btn" style="background:#fff3e0;color:#e65100" data-act="aguardar" data-id="${p.id}">Aguardar</button>
               <button class="mini-btn done" data-act="produzido" data-id="${p.id}">Produzido</button>
@@ -717,6 +804,11 @@ function renderFilaSupervisor(){
           </div>
           <div class="small-note">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} · previsão: <b>${diaTxt}</b>
             · <a href="#" class="link-excluir" data-act="excluir" data-id="${p.id}" style="color:#c62828">excluir definitivamente</a>
+          </div>
+          <div class="reserva-linha">
+            <label>📌 Reservar data de fabricação:</label>
+            <input type="date" class="input-reserva" data-id="${p.id}" value="${p.dataReservada||''}">
+            ${p.dataReservada ? `<button class="mini-btn" style="background:#fdecea;color:#c62828" data-act="limpar-reserva" data-id="${p.id}">Remover reserva</button>` : ''}
           </div>
         </div>
         <div class="mini-btns-col">
@@ -774,6 +866,27 @@ function renderFilaSupervisor(){
       const id = el.getAttribute('data-id');
       if (!confirm('Excluir este pedido definitivamente da agenda?')) return;
       pendentes = pendentes.filter(p => p.id !== id);
+      atualizarTudo();
+    });
+  });
+
+  // reservar/limpar data de fabricação de um pedido específico
+  cont.querySelectorAll('.input-reserva').forEach(inp => {
+    inp.addEventListener('change', () => {
+      const id = inp.getAttribute('data-id');
+      const idx = pendentes.findIndex(p => p.id === id);
+      if (idx === -1) return;
+      pendentes[idx] = { ...pendentes[idx], dataReservada: inp.value || undefined };
+      atualizarTudo();
+    });
+  });
+  cont.querySelectorAll('[data-act="limpar-reserva"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      const idx = pendentes.findIndex(p => p.id === id);
+      if (idx === -1) return;
+      const { dataReservada, ...semReserva } = pendentes[idx];
+      pendentes[idx] = semReserva;
       atualizarTudo();
     });
   });
