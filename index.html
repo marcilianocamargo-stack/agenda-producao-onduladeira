@@ -60,6 +60,17 @@ body {
 }
 .banner.warn { background:#fff8e1; border-color:#f9a825; color:#e65100; }
 
+.arq-status {
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.arq-status.ok   { background: #e8f5e9; color: #2e7d32; }
+.arq-status.err  { background: #fdecea; color: #c62828; }
+.arq-status.info { background: #e3f2fd; color: #1565c0; }
+
 /* ===== SUPERVISOR TOGGLE ===== */
 .sup-link {
   display: block;
@@ -240,9 +251,10 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
   <div id="supArea" class="hidden">
 
     <div class="card">
-      <h2>1. Carregar programação (Excel)</h2>
-      <input type="file" id="fileExcel" accept=".xlsx,.xls">
-      <div class="small-note">Aceita a planilha com várias abas (uma por cliente), igual ao modelo atual. Cada pedido importado entra com setup completo (40 min) por padrão — ajuste linha a linha se for só troca de faca ou de 1 bobina.</div>
+      <h2>1. Programação do dia</h2>
+      <div class="arq-status info" id="statusAuto">⏳ Buscando a programação do dia...</div>
+      <button class="btn btn-outline" id="btnRecarregar" style="display:none">↻ Reimportar programacao-hoje.xlsx</button>
+      <div class="small-note">Carregada automaticamente do <b>programacao-hoje.xlsx</b> publicado nesta mesma pasta do GitHub Pages — suba o arquivo aqui igual já faz no Romaneio e nas Etiquetas. Cada pedido importado entra com setup completo (40 min) por padrão — ajuste linha a linha se for só troca de faca ou de 1 bobina.</div>
     </div>
 
     <div class="card">
@@ -565,64 +577,102 @@ function acharColuna(headerRow, nomes){
   return -1;
 }
 
-function parseExcel(file){
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const data = new Uint8Array(e.target.result);
-    const wb = XLSX.read(data, { type:'array', cellDates:true });
-    let importados = 0;
+// Lê um workbook (ArrayBuffer) e devolve a lista de pedidos de todas as abas.
+// Cada aba do Excel = 1 cliente/lote, igual ao modelo usado no Romaneio e nas Etiquetas.
+function parseWorkbookBuffer(buf){
+  const wb = XLSX.read(buf, { type:'array', cellDates:true });
+  const pedidos = [];
 
-    wb.SheetNames.forEach(sheetName => {
-      const ws = wb.Sheets[sheetName];
-      const rows = XLSX.utils.sheet_to_json(ws, { header:1, raw:true, defval:'' });
+  wb.SheetNames.forEach(sheetName => {
+    const ws = wb.Sheets[sheetName];
+    const rows = XLSX.utils.sheet_to_json(ws, { header:1, raw:true, defval:'' });
 
-      let headerIdx = -1, colMap = {};
-      for (let i=0;i<rows.length;i++){
-        const idx = acharColuna(rows[i], SYN.cliente);
-        if (idx !== -1){
-          headerIdx = i;
-          colMap.cliente = acharColuna(rows[i], SYN.cliente);
-          colMap.po = acharColuna(rows[i], SYN.po);
-          colMap.of = acharColuna(rows[i], SYN.of);
-          colMap.oc = acharColuna(rows[i], SYN.oc);
-          colMap.qtdePedido = acharColuna(rows[i], SYN.qtdePedido);
-          colMap.ml = acharColuna(rows[i], SYN.ml);
-          colMap.kg = acharColuna(rows[i], SYN.kg);
-          colMap.dataPedido = acharColuna(rows[i], SYN.dataPedido);
-          break;
-        }
+    let headerIdx = -1, colMap = {};
+    for (let i=0;i<rows.length;i++){
+      const idx = acharColuna(rows[i], SYN.cliente);
+      if (idx !== -1){
+        headerIdx = i;
+        colMap.cliente = acharColuna(rows[i], SYN.cliente);
+        colMap.po = acharColuna(rows[i], SYN.po);
+        colMap.of = acharColuna(rows[i], SYN.of);
+        colMap.oc = acharColuna(rows[i], SYN.oc);
+        colMap.qtdePedido = acharColuna(rows[i], SYN.qtdePedido);
+        colMap.ml = acharColuna(rows[i], SYN.ml);
+        colMap.kg = acharColuna(rows[i], SYN.kg);
+        colMap.dataPedido = acharColuna(rows[i], SYN.dataPedido);
+        break;
       }
-      if (headerIdx === -1) return;
+    }
+    if (headerIdx === -1) return;
 
-      for (let i=headerIdx+1;i<rows.length;i++){
-        const row = rows[i];
-        const cliente = row[colMap.cliente];
-        const of = colMap.of !== -1 ? row[colMap.of] : '';
-        if (!cliente && !of) continue; // linha de título/total/vazia
-        const ml = parseFloat(row[colMap.ml]) || 0;
-        const kg = parseFloat(row[colMap.kg]) || 0;
-        if (!ml && !kg) continue;
+    for (let i=headerIdx+1;i<rows.length;i++){
+      const row = rows[i];
+      const cliente = row[colMap.cliente];
+      const of = colMap.of !== -1 ? row[colMap.of] : '';
+      if (!cliente && !of) continue; // linha de título/total/vazia
+      const ml = parseFloat(row[colMap.ml]) || 0;
+      const kg = parseFloat(row[colMap.kg]) || 0;
+      if (!ml && !kg) continue;
 
-        pendentes.push({
-          id: uid(),
-          cliente: String(cliente||'').trim(),
-          po: colMap.po !== -1 ? String(row[colMap.po]||'').trim() : '',
-          of: String(of||'').trim(),
-          oc: colMap.oc !== -1 ? String(row[colMap.oc]||'').trim() : '',
-          ml: ml,
-          kg: kg,
-          setupMin: 40
-        });
-        importados++;
-      }
-    });
+      pedidos.push({
+        id: uid(),
+        cliente: String(cliente||'').trim(),
+        po: colMap.po !== -1 ? String(row[colMap.po]||'').trim() : '',
+        of: String(of||'').trim(),
+        oc: colMap.oc !== -1 ? String(row[colMap.oc]||'').trim() : '',
+        ml: ml,
+        kg: kg,
+        setupMin: 40
+      });
+    }
+  });
 
+  return pedidos;
+}
+
+// ===================== AUTO-CARREGAR programacao-hoje.xlsx =====================
+// Mesma lógica do Romaneio e das Etiquetas: o arquivo fica publicado ao lado do
+// index.html e o app busca sozinho, sem escolher arquivo manualmente. Cache-busting
+// (?t=) + no-store para nunca pegar versão antiga em cache do navegador.
+async function autoCarregarExcel(forcar){
+  const statusAuto = document.getElementById('statusAuto');
+  const btnRecarregar = document.getElementById('btnRecarregar');
+
+  if (forcar && pendentes.length && !confirm('Isso substitui a fila atual pelos pedidos do programacao-hoje.xlsx publicado. Continuar?')){
+    return;
+  }
+
+  btnRecarregar.style.display = 'none';
+  statusAuto.className = 'arq-status info';
+  statusAuto.textContent = '⏳ Buscando a programação do dia...';
+
+  try {
+    const resp = await fetch('./programacao-hoje.xlsx?t=' + Date.now(), { cache: 'no-store' });
+    if (!resp.ok) throw new Error('sem arquivo');
+    const buf = await resp.arrayBuffer();
+    const pedidos = parseWorkbookBuffer(buf);
+    if (!pedidos.length) throw new Error('sem pedidos');
+
+    pendentes = pedidos;
     renderFilaSupervisor();
     renderAgenda(pendentes);
-    mostrarBanner(`${importados} pedidos importados da planilha.`, false);
-  };
-  reader.readAsArrayBuffer(file);
+
+    let quando = '';
+    const lm = resp.headers.get('last-modified');
+    if (lm){
+      const d = new Date(lm);
+      if (!isNaN(d.getTime())) quando = ' · atualizada ' + d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+    }
+    statusAuto.className = 'arq-status ok';
+    statusAuto.textContent = `✓ ${pedidos.length} pedidos carregados do programacao-hoje.xlsx${quando}`;
+    btnRecarregar.style.display = 'block';
+  } catch (err){
+    statusAuto.className = 'arq-status err';
+    statusAuto.textContent = '⚠ Nenhuma programação disponível ainda. Suba o programacao-hoje.xlsx nesta pasta do GitHub e toque em "Tentar novamente".';
+    btnRecarregar.style.display = 'block';
+  }
 }
+document.getElementById('btnRecarregar').addEventListener('click', () => autoCarregarExcel(true));
 
 // ===================== ADD MANUAL =====================
 document.getElementById('btnAddManual').addEventListener('click', () => {
@@ -669,10 +719,6 @@ document.getElementById('btnGerarJson').addEventListener('click', () => {
 });
 
 // ===================== EVENTOS GERAIS =====================
-document.getElementById('fileExcel').addEventListener('change', (e) => {
-  if (e.target.files[0]) parseExcel(e.target.files[0]);
-});
-
 document.getElementById('toggleSup').addEventListener('click', (e) => {
   e.preventDefault();
   document.getElementById('supArea').classList.toggle('hidden');
@@ -687,6 +733,8 @@ function mostrarBanner(msg, warn){
 }
 
 // ===================== AUTO-FETCH JSON PUBLICADO =====================
+// Se já existe uma fila publicada (com a ordem que o supervisor arrastou), usa ela.
+// Senão, carrega direto do programacao-hoje.xlsx — sem precisar escolher arquivo.
 function carregarProgramacaoPublicada(){
   fetch('./programacao-agenda.json?t=' + Date.now(), { cache:'no-store' })
     .then(r => { if (!r.ok) throw new Error(); return r.json(); })
@@ -694,9 +742,14 @@ function carregarProgramacaoPublicada(){
       pendentes = (data.pendentes || []).map(p => ({...p, id: p.id || uid()}));
       renderFilaSupervisor();
       renderAgenda(pendentes);
+      const statusAuto = document.getElementById('statusAuto');
+      statusAuto.className = 'arq-status ok';
+      statusAuto.textContent = `✓ Fila publicada carregada (${pendentes.length} pedidos).`;
+      document.getElementById('btnRecarregar').style.display = 'block';
     })
     .catch(() => {
-      renderAgenda(pendentes); // fila vazia local, aguardando importação/publicação
+      renderAgenda(pendentes);
+      autoCarregarExcel(false);
     });
 }
 carregarProgramacaoPublicada();
