@@ -171,20 +171,42 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
   border: 1px solid #dbe6f2;
   margin-bottom: 8px;
   font-size: 14px;
+  background: white;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: grab;
 }
-.pend-row .top { display:flex; justify-content:space-between; align-items:center; }
+.pend-row.dragging { opacity: .35; }
+.pend-row .drag-handle {
+  font-size: 20px;
+  color: #9db6d1;
+  line-height: 1;
+  padding: 4px 2px;
+  user-select: none;
+  flex-shrink: 0;
+}
+.pend-row .conteudo { flex: 1; min-width: 0; }
+.pend-row .top { display:flex; justify-content:space-between; align-items:center; gap:6px; }
 .pend-row .top b { font-size: 15px; }
+.pend-row .ordem-num {
+  background:#eaf1fa; color:#1a56a0; font-weight:800; font-size:12px;
+  border-radius:20px; padding:2px 8px; margin-right:6px; flex-shrink:0;
+}
 .pend-row select { margin: 6px 0 4px; padding: 8px; font-size: 13px; }
 .mini-btn {
   border: none;
   border-radius: 8px;
-  padding: 8px 10px;
+  padding: 6px 9px;
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
 }
 .mini-btn.done { background:#e8f5e9; color:#2e7d32; }
 .mini-btn.del { background:#fdecea; color:#c62828; }
+.mini-btn.up, .mini-btn.down { background:#eaf1fa; color:#1a56a0; padding:6px 8px; }
+.mini-btn.up:disabled, .mini-btn.down:disabled { opacity:.3; cursor:default; }
+.mini-btns-col { display:flex; flex-direction:column; gap:4px; flex-shrink:0; }
 
 .hidden { display: none !important; }
 
@@ -284,6 +306,15 @@ const CAP_MIN_DIA = 960;               // 08-18h (-1h almoço) + 18-02h (-1h jan
 const DIAS_UTEIS = [1,2,3,4,5];        // seg a sex (0=dom)
 const DIAS_SEMANA_PT = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
 
+// Turnos em minutos desde 00:00 do dia em que o turno começa (08:00).
+// 26:00 = 02:00 do dia seguinte. Pausas: almoço 12h-13h, janta 20h-21h.
+const TURNOS = [
+  [8*60, 12*60],   // 08:00-12:00
+  [13*60, 18*60],  // 13:00-18:00
+  [18*60, 20*60],  // 18:00-20:00
+  [21*60, 26*60],  // 21:00-02:00 (dia seguinte)
+];
+
 let pendentes = [];   // pedidos ainda não produzidos
 let seqCounter = 1;
 
@@ -301,20 +332,61 @@ function proximoDiaUtil(d){
   while(!DIAS_UTEIS.includes(n.getDay())) n.setDate(n.getDate()+1);
   return n;
 }
-function inicioDiaUtil(d){
+function ehDiaUtil(d){ return DIAS_UTEIS.includes(d.getDay()); }
+function proximoDiaUtilAPartirDe(d){
   let n = new Date(d);
-  while(!DIAS_UTEIS.includes(n.getDay())) n.setDate(n.getDate()+1);
+  while(!ehDiaUtil(n)) n.setDate(n.getDate()+1);
   return n;
 }
 
+// ===================== ONDE ESTAMOS AGORA NO TURNO =====================
+// Descobre em qual "dia de produção" (turno 08h-02h) o instante `now` cai,
+// quantos minutos de capacidade já foram consumidos pelo relógio até agora,
+// e se um turno está de fato em andamento neste momento.
+function minutosUsadosNoTurno(t){
+  let used = 0;
+  for (const [s,e] of TURNOS){
+    if (t <= s) break;
+    used += Math.min(t,e) - s;
+  }
+  return used;
+}
+function estadoAgora(now){
+  const hoje0h = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const hour = now.getHours(), min = now.getMinutes();
+
+  if (hour >= 2){
+    // turno do próprio dia (08:00-23:59)
+    const tMin = hour*60 + min;
+    if (ehDiaUtil(hoje0h) && tMin >= TURNOS[0][0] && tMin < TURNOS[TURNOS.length-1][1]){
+      return { bucketStart: hoje0h, restanteHoje: CAP_MIN_DIA - minutosUsadosNoTurno(tMin), emTurno: true };
+    }
+  } else {
+    // madrugada (00:00-01:59): ainda é a cauda do turno de ontem à noite
+    const ontem0h = new Date(hoje0h); ontem0h.setDate(ontem0h.getDate()-1);
+    const tMin = 24*60 + hour*60 + min;
+    if (ehDiaUtil(ontem0h) && tMin < TURNOS[TURNOS.length-1][1]){
+      return { bucketStart: ontem0h, restanteHoje: CAP_MIN_DIA - minutosUsadosNoTurno(tMin), emTurno: true };
+    }
+  }
+
+  // não há turno rodando agora (fora do horário ou fim de semana):
+  // próximo turno começa às 08:00 do próximo dia útil disponível
+  const candidato = hour < 8 ? hoje0h : new Date(hoje0h.getFullYear(), hoje0h.getMonth(), hoje0h.getDate()+1);
+  return { bucketStart: proximoDiaUtilAPartirDe(candidato), restanteHoje: CAP_MIN_DIA, emTurno: false };
+}
+
 // ===================== CÁLCULO DA AGENDA =====================
-// pedidos: lista ordenada (FIFO) de {id,cliente,po,of,oc,kg,ml,setupMin}
+// pedidos: lista ordenada (fila manual) de {id,cliente,po,of,oc,kg,ml,setupMin}
 // retorna: { dias: [{data, itens:[{pedido, status, minUsados}], minUsados, cap}], pedidosInfo: {id:{diaInicio,diaFim}} }
-function calcularAgenda(pedidos){
+function calcularAgenda(pedidos, agora){
+  agora = agora || new Date();
+  const estado = estadoAgora(agora);
+
   const dias = [];
-  let diaAtual = inicioDiaUtil(new Date());
-  let capRestante = CAP_MIN_DIA;
-  let diaObj = { data: new Date(diaAtual), itens: [], minUsados: 0 };
+  let diaAtual = new Date(estado.bucketStart);
+  let capRestante = estado.restanteHoje;
+  let diaObj = { data: new Date(diaAtual), itens: [], minUsados: CAP_MIN_DIA - capRestante, emAndamento: estado.emTurno };
   dias.push(diaObj);
 
   const pedidosInfo = {};
@@ -355,20 +427,25 @@ function renderAgenda(pedidos){
     cont.innerHTML = '<div class="card"><p style="text-align:center;color:#6a8bb0;">Nenhum pedido pendente na fila.</p></div>';
     return;
   }
-  const { dias } = calcularAgenda(pedidos);
-  const hojeStr = new Date().toDateString();
+  const agora = new Date();
+  const { dias } = calcularAgenda(pedidos, agora);
+  const hojeStr = agora.toDateString();
 
   let html = '';
-  dias.forEach(d => {
+  dias.forEach((d, idx) => {
     const ehHoje = d.data.toDateString() === hojeStr;
+    const ehTurnoAtual = idx === 0 && d.emAndamento;
     const pct = Math.min(100, Math.round((d.minUsados / CAP_MIN_DIA) * 100));
-    html += `<div class="day-card ${ehHoje?'hoje':''}">
+    let rotulo = '';
+    if (ehTurnoAtual) rotulo = ' · turno atual';
+    else if (ehHoje) rotulo = ' · hoje';
+    html += `<div class="day-card ${(ehHoje||ehTurnoAtual)?'hoje':''}">
       <div class="day-head">
-        <span class="dia-nome">${nomeDia(d.data)}${ehHoje?' · hoje':''}</span>
+        <span class="dia-nome">${nomeDia(d.data)}${rotulo}</span>
         <span class="dia-data">${fmtData(d.data)}</span>
       </div>
       <div class="cap-bar-bg"><div class="cap-bar-fill ${pct>=95?'cheio':''}" style="width:${pct}%"></div></div>
-      <div class="cap-label">${Math.round(d.minUsados)} de ${CAP_MIN_DIA} min usados (${pct}%)</div>`;
+      <div class="cap-label">${Math.round(d.minUsados)} de ${CAP_MIN_DIA} min usados (${pct}%)${ehTurnoAtual?' · projeção a partir de agora ('+agora.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+')':''}</div>`;
 
     d.itens.forEach(it => {
       const p = it.pedido;
@@ -394,28 +471,76 @@ function renderFilaSupervisor(){
   }
   const { pedidosInfo } = calcularAgenda(pendentes);
   let html = '';
-  pendentes.forEach(p => {
+  pendentes.forEach((p, idx) => {
     const info = pedidosInfo[p.id];
     const diaTxt = info ? `${nomeDia(info.diaFim)}, ${fmtData(info.diaFim)}` : '-';
-    html += `<div class="pend-row">
-      <div class="top">
-        <b>${p.cliente} — ${p.po||''}</b>
-        <div>
-          <button class="mini-btn done" data-act="done" data-id="${p.id}">Produzido</button>
-          <button class="mini-btn del" data-act="del" data-id="${p.id}">Remover</button>
+    html += `<div class="pend-row" draggable="true" data-id="${p.id}">
+      <span class="drag-handle">⠿</span>
+      <div class="conteudo">
+        <div class="top">
+          <span><span class="ordem-num">${idx+1}</span><b>${p.cliente} — ${p.po||''}</b></span>
+          <div>
+            <button class="mini-btn done" data-act="done" data-id="${p.id}">Produzido</button>
+            <button class="mini-btn del" data-act="del" data-id="${p.id}">Remover</button>
+          </div>
         </div>
+        <div class="small-note">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} · previsão: <b>${diaTxt}</b></div>
       </div>
-      <div class="small-note">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} · previsão: <b>${diaTxt}</b></div>
+      <div class="mini-btns-col">
+        <button class="mini-btn up" data-act="up" data-id="${p.id}" ${idx===0?'disabled':''}>▲</button>
+        <button class="mini-btn down" data-act="down" data-id="${p.id}" ${idx===pendentes.length-1?'disabled':''}>▼</button>
+      </div>
     </div>`;
   });
   cont.innerHTML = html;
 
-  cont.querySelectorAll('.mini-btn').forEach(btn => {
+  cont.querySelectorAll('.mini-btn.done, .mini-btn.del').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = btn.getAttribute('data-id');
       pendentes = pendentes.filter(p => p.id !== id);
       renderFilaSupervisor();
       renderAgenda(pendentes);
+    });
+  });
+  cont.querySelectorAll('.mini-btn.up, .mini-btn.down').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      const dir = btn.getAttribute('data-act') === 'up' ? -1 : 1;
+      const i = pendentes.findIndex(p => p.id === id);
+      const j = i + dir;
+      if (j < 0 || j >= pendentes.length) return;
+      [pendentes[i], pendentes[j]] = [pendentes[j], pendentes[i]];
+      renderFilaSupervisor();
+      renderAgenda(pendentes);
+    });
+  });
+
+  ativarArrastar(cont);
+}
+
+// ===================== ARRASTAR PARA REORDENAR (mouse) =====================
+function ativarArrastar(cont){
+  let dragEl = null;
+
+  cont.querySelectorAll('.pend-row').forEach(row => {
+    row.addEventListener('dragstart', () => {
+      dragEl = row;
+      setTimeout(() => row.classList.add('dragging'), 0);
+    });
+    row.addEventListener('dragend', () => {
+      row.classList.remove('dragging');
+      dragEl = null;
+      const novaOrdem = Array.from(cont.querySelectorAll('.pend-row')).map(r => r.dataset.id);
+      pendentes.sort((a,b) => novaOrdem.indexOf(a.id) - novaOrdem.indexOf(b.id));
+      renderFilaSupervisor();
+      renderAgenda(pendentes);
+    });
+    row.addEventListener('dragover', e => {
+      e.preventDefault();
+      if (!dragEl || dragEl === row) return;
+      const rect = row.getBoundingClientRect();
+      const depoisDoMeio = (e.clientY - rect.top) > rect.height / 2;
+      row.parentNode.insertBefore(dragEl, depoisDoMeio ? row.nextSibling : row);
     });
   });
 }
@@ -575,6 +700,9 @@ function carregarProgramacaoPublicada(){
     });
 }
 carregarProgramacaoPublicada();
+
+// Reprojeta periodicamente a partir do relógio atual (turno em andamento avança sozinho)
+setInterval(() => renderAgenda(pendentes), 60000);
 </script>
 </body>
 </html>
