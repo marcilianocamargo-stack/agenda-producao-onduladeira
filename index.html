@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#1a56a0">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Agenda Onduladeira">
+<title>Agenda de Produção · Onduladeira Prime</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #d6e4f4;
+  min-height: 100vh;
+  padding: 14px 12px 60px;
+  font-size: 17px;
+  color: #17324f;
+}
+.wrap { max-width: 720px; margin: 0 auto; }
+
+/* ===== HEADER ===== */
+.header {
+  background: #1a56a0;
+  border-radius: 16px;
+  padding: 20px 22px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.logo-box {
+  background: white;
+  border-radius: 10px;
+  padding: 7px 14px;
+  font-weight: 900;
+  font-size: 22px;
+  color: #1a56a0;
+  flex-shrink: 0;
+  letter-spacing: .5px;
+}
+.header-txt h1 { color: white; font-size: 21px; font-weight: 700; line-height: 1.2; }
+.header-txt p  { color: #a8c8f0; font-size: 14px; margin-top: 3px; }
+
+/* ===== STATUS BANNER ===== */
+.banner {
+  background: #e8f5e9;
+  border: 2.5px solid #4caf50;
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #2e7d32;
+  text-align: center;
+}
+.banner.warn { background:#fff8e1; border-color:#f9a825; color:#e65100; }
+
+/* ===== SUPERVISOR TOGGLE ===== */
+.sup-link {
+  display: block;
+  text-align: center;
+  color: #5a7fa8;
+  font-size: 13px;
+  margin: 6px 0 16px;
+  text-decoration: underline;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 8px rgba(26,86,160,0.12);
+}
+.card h2 {
+  font-size: 16px;
+  color: #1a56a0;
+  margin-bottom: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.btn-primary { background: #1a56a0; color: white; }
+.btn-green { background: #43a047; color: white; }
+.btn-outline { background: white; color: #1a56a0; border: 2px solid #1a56a0; }
+.btn-danger { background: #fff; color: #c62828; border: 2px solid #c62828; }
+.btn:active { opacity: .8; }
+
+input[type=text], input[type=number], input[type=date], select {
+  width: 100%;
+  padding: 13px;
+  border-radius: 10px;
+  border: 2px solid #b9cee6;
+  font-size: 16px;
+  margin-bottom: 10px;
+  background: white;
+  color: #17324f;
+}
+label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin-bottom:4px; }
+.field { margin-bottom: 12px; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* ===== AGENDA DAY CARD ===== */
+.day-card {
+  background: white;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  border-left: 6px solid #1a56a0;
+}
+.day-card.hoje { border-left-color: #43a047; background: #f3fbf3; }
+.day-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+.day-head .dia-nome { font-size: 15px; font-weight: 800; color: #1a56a0; text-transform: capitalize; }
+.day-head .dia-data { font-size: 13px; color: #6a8bb0; }
+.cap-bar-bg { background: #e3ecf6; border-radius: 6px; height: 8px; overflow: hidden; margin-bottom: 10px; }
+.cap-bar-fill { background: #1a56a0; height: 100%; }
+.cap-bar-fill.cheio { background: #e65100; }
+.cap-label { font-size: 12px; color: #6a8bb0; margin-bottom: 10px; }
+
+.pedido-row {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #f4f8fc;
+  margin-bottom: 8px;
+  font-size: 14.5px;
+}
+.pedido-row .linha1 { display:flex; justify-content:space-between; font-weight:700; color:#17324f; }
+.pedido-row .linha2 { color:#5a7fa8; font-size:13px; margin-top:2px; }
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.badge.inicio { background:#e3f2fd; color:#1565c0; }
+.badge.continua { background:#fff3e0; color:#e65100; }
+.badge.conclui { background:#e8f5e9; color:#2e7d32; }
+
+/* ===== LISTA PENDENTES (SUPERVISOR) ===== */
+.pend-row {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #dbe6f2;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+.pend-row .top { display:flex; justify-content:space-between; align-items:center; }
+.pend-row .top b { font-size: 15px; }
+.pend-row select { margin: 6px 0 4px; padding: 8px; font-size: 13px; }
+.mini-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.mini-btn.done { background:#e8f5e9; color:#2e7d32; }
+.mini-btn.del { background:#fdecea; color:#c62828; }
+
+.hidden { display: none !important; }
+
+.tabs { display:flex; gap:8px; margin-bottom:14px; }
+.tab-btn {
+  flex:1; padding:12px; border-radius:10px; border:2px solid #1a56a0;
+  background:white; color:#1a56a0; font-weight:700; font-size:14px; cursor:pointer;
+}
+.tab-btn.active { background:#1a56a0; color:white; }
+
+.small-note { font-size:12.5px; color:#6a8bb0; margin-top:6px; line-height:1.4; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div class="logo-box">PRIME</div>
+    <div class="header-txt">
+      <h1>Agenda de Produção</h1>
+      <p>Onduladeira · projeção por capacidade</p>
+    </div>
+  </div>
+
+  <div id="banner" class="banner hidden"></div>
+
+  <div id="viewAgenda"></div>
+
+  <a href="#" class="sup-link" id="toggleSup">Área do supervisor</a>
+
+  <div id="supArea" class="hidden">
+
+    <div class="card">
+      <h2>1. Carregar programação (Excel)</h2>
+      <input type="file" id="fileExcel" accept=".xlsx,.xls">
+      <div class="small-note">Aceita a planilha com várias abas (uma por cliente), igual ao modelo atual. Cada pedido importado entra com setup completo (40 min) por padrão — ajuste linha a linha se for só troca de faca ou de 1 bobina.</div>
+    </div>
+
+    <div class="card">
+      <h2>2. Lançar pedido manual</h2>
+      <div class="field">
+        <label>Cliente</label>
+        <input type="text" id="mCliente" placeholder="Ex: Favinco">
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Código (onda)</label>
+          <input type="text" id="mPo" placeholder="Ex: P50 SZ">
+        </div>
+        <div class="field">
+          <label>OF / pedido</label>
+          <input type="text" id="mOf" placeholder="Nº">
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Metros lineares (ML)</label>
+          <input type="number" id="mMl" placeholder="Ex: 1200">
+        </div>
+        <div class="field">
+          <label>Peso (kg)</label>
+          <input type="number" id="mKg" placeholder="Ex: 800">
+        </div>
+      </div>
+      <div class="field">
+        <label>Setup deste pedido</label>
+        <select id="mSetup">
+          <option value="40">Completo — vínculo + 3 bobinas (40 min)</option>
+          <option value="27">Só 1 bobina (20 + 7 = 27 min)</option>
+          <option value="24">Só ajuste de faca (20 + 4 = 24 min)</option>
+          <option value="0">Sem parada de setup</option>
+        </select>
+      </div>
+      <button class="btn btn-green" id="btnAddManual">Adicionar à fila e ver o dia previsto</button>
+    </div>
+
+    <div class="card">
+      <h2>3. Fila de pedidos pendentes (<span id="countPend">0</span>)</h2>
+      <div id="listaPendentes"></div>
+      <div class="small-note">Marque "produzido" ou remova pedidos aqui para recalcular a projeção dos demais.</div>
+    </div>
+
+    <div class="card">
+      <h2>4. Publicar</h2>
+      <button class="btn btn-primary" id="btnGerarJson">Gerar programacao-agenda.json</button>
+      <div class="small-note">Baixe o arquivo e suba manualmente na mesma pasta do GitHub Pages, substituindo o anterior — igual ao fluxo do Romaneio. O app abre automaticamente em modo visualização quando esse arquivo existir ao lado do HTML.</div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+// ===================== CONFIG =====================
+const VELOCIDADE_M_MIN = 60;           // planejamento (máquina aguenta até 120, mas média de trabalho é 60)
+const CAP_MIN_DIA = 960;               // 08-18h (-1h almoço) + 18-02h (-1h jantar) = 16h úteis
+const DIAS_UTEIS = [1,2,3,4,5];        // seg a sex (0=dom)
+const DIAS_SEMANA_PT = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+
+let pendentes = [];   // pedidos ainda não produzidos
+let seqCounter = 1;
+
+// ===================== UTIL =====================
+function uid(){ return 'p'+(seqCounter++)+'_'+Math.random().toString(36).slice(2,7); }
+
+function fmtData(d){
+  return d.toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit' });
+}
+function nomeDia(d){ return DIAS_SEMANA_PT[d.getDay()]; }
+
+function proximoDiaUtil(d){
+  let n = new Date(d);
+  n.setDate(n.getDate()+1);
+  while(!DIAS_UTEIS.includes(n.getDay())) n.setDate(n.getDate()+1);
+  return n;
+}
+function inicioDiaUtil(d){
+  let n = new Date(d);
+  while(!DIAS_UTEIS.includes(n.getDay())) n.setDate(n.getDate()+1);
+  return n;
+}
+
+// ===================== CÁLCULO DA AGENDA =====================
+// pedidos: lista ordenada (FIFO) de {id,cliente,po,of,oc,kg,ml,setupMin}
+// retorna: { dias: [{data, itens:[{pedido, status, minUsados}], minUsados, cap}], pedidosInfo: {id:{diaInicio,diaFim}} }
+function calcularAgenda(pedidos){
+  const dias = [];
+  let diaAtual = inicioDiaUtil(new Date());
+  let capRestante = CAP_MIN_DIA;
+  let diaObj = { data: new Date(diaAtual), itens: [], minUsados: 0 };
+  dias.push(diaObj);
+
+  const pedidosInfo = {};
+
+  pedidos.forEach(p => {
+    const tempoRodagem = p.ml / VELOCIDADE_M_MIN;
+    let restante = p.setupMin + tempoRodagem;
+    let primeiraVez = true;
+    const diasTocados = [];
+
+    while (restante > 0.0001) {
+      if (capRestante <= 0.0001) {
+        diaAtual = proximoDiaUtil(diaAtual);
+        capRestante = CAP_MIN_DIA;
+        diaObj = { data: new Date(diaAtual), itens: [], minUsados: 0 };
+        dias.push(diaObj);
+      }
+      const usar = Math.min(restante, capRestante);
+      restante -= usar;
+      capRestante -= usar;
+      diaObj.minUsados += usar;
+
+      const status = primeiraVez ? (restante > 0.0001 ? 'inicio' : 'unico') : (restante > 0.0001 ? 'continua' : 'conclui');
+      diaObj.itens.push({ pedido: p, status, minUsados: usar });
+      diasTocados.push(diaObj.data);
+      primeiraVez = false;
+    }
+    pedidosInfo[p.id] = { diaInicio: diasTocados[0], diaFim: diasTocados[diasTocados.length-1] };
+  });
+
+  return { dias, pedidosInfo };
+}
+
+// ===================== RENDER: MODO VISUALIZAÇÃO =====================
+function renderAgenda(pedidos){
+  const cont = document.getElementById('viewAgenda');
+  if (!pedidos.length){
+    cont.innerHTML = '<div class="card"><p style="text-align:center;color:#6a8bb0;">Nenhum pedido pendente na fila.</p></div>';
+    return;
+  }
+  const { dias } = calcularAgenda(pedidos);
+  const hojeStr = new Date().toDateString();
+
+  let html = '';
+  dias.forEach(d => {
+    const ehHoje = d.data.toDateString() === hojeStr;
+    const pct = Math.min(100, Math.round((d.minUsados / CAP_MIN_DIA) * 100));
+    html += `<div class="day-card ${ehHoje?'hoje':''}">
+      <div class="day-head">
+        <span class="dia-nome">${nomeDia(d.data)}${ehHoje?' · hoje':''}</span>
+        <span class="dia-data">${fmtData(d.data)}</span>
+      </div>
+      <div class="cap-bar-bg"><div class="cap-bar-fill ${pct>=95?'cheio':''}" style="width:${pct}%"></div></div>
+      <div class="cap-label">${Math.round(d.minUsados)} de ${CAP_MIN_DIA} min usados (${pct}%)</div>`;
+
+    d.itens.forEach(it => {
+      const p = it.pedido;
+      const badgeTxt = { inicio:'início', continua:'continua', conclui:'conclui', unico:'' }[it.status];
+      const badgeCls = { inicio:'inicio', continua:'continua', conclui:'conclui', unico:'' }[it.status];
+      html += `<div class="pedido-row">
+        <div class="linha1"><span>${p.cliente} — ${p.po||''}</span>${badgeTxt?`<span class="badge ${badgeCls}">${badgeTxt}</span>`:''}</div>
+        <div class="linha2">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} · ${Math.round(it.minUsados)} min neste dia</div>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+  cont.innerHTML = html;
+}
+
+// ===================== RENDER: SUPERVISOR - FILA =====================
+function renderFilaSupervisor(){
+  const cont = document.getElementById('listaPendentes');
+  document.getElementById('countPend').textContent = pendentes.length;
+  if (!pendentes.length){
+    cont.innerHTML = '<p style="color:#6a8bb0;font-size:13px;">Fila vazia. Importe o Excel ou lance um pedido manual.</p>';
+    return;
+  }
+  const { pedidosInfo } = calcularAgenda(pendentes);
+  let html = '';
+  pendentes.forEach(p => {
+    const info = pedidosInfo[p.id];
+    const diaTxt = info ? `${nomeDia(info.diaFim)}, ${fmtData(info.diaFim)}` : '-';
+    html += `<div class="pend-row">
+      <div class="top">
+        <b>${p.cliente} — ${p.po||''}</b>
+        <div>
+          <button class="mini-btn done" data-act="done" data-id="${p.id}">Produzido</button>
+          <button class="mini-btn del" data-act="del" data-id="${p.id}">Remover</button>
+        </div>
+      </div>
+      <div class="small-note">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} · previsão: <b>${diaTxt}</b></div>
+    </div>`;
+  });
+  cont.innerHTML = html;
+
+  cont.querySelectorAll('.mini-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-id');
+      pendentes = pendentes.filter(p => p.id !== id);
+      renderFilaSupervisor();
+      renderAgenda(pendentes);
+    });
+  });
+}
+
+// ===================== IMPORTAÇÃO EXCEL =====================
+const SYN = {
+  cliente: ['cliente'],
+  po: ['p.o.', 'po'],
+  of: ['of'],
+  oc: ['oc'],
+  qtdePedido: ['qtde pedido', 'qtde. pedido'],
+  ml: ['ml'],
+  kg: ['kg'],
+  dataPedido: ['data pedido', 'data prod']
+};
+function normHeader(s){ return String(s||'').toLowerCase().trim(); }
+function acharColuna(headerRow, nomes){
+  for (let i=0;i<headerRow.length;i++){
+    const h = normHeader(headerRow[i]);
+    if (nomes.includes(h)) return i;
+  }
+  return -1;
+}
+
+function parseExcel(file){
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const data = new Uint8Array(e.target.result);
+    const wb = XLSX.read(data, { type:'array', cellDates:true });
+    let importados = 0;
+
+    wb.SheetNames.forEach(sheetName => {
+      const ws = wb.Sheets[sheetName];
+      const rows = XLSX.utils.sheet_to_json(ws, { header:1, raw:true, defval:'' });
+
+      let headerIdx = -1, colMap = {};
+      for (let i=0;i<rows.length;i++){
+        const idx = acharColuna(rows[i], SYN.cliente);
+        if (idx !== -1){
+          headerIdx = i;
+          colMap.cliente = acharColuna(rows[i], SYN.cliente);
+          colMap.po = acharColuna(rows[i], SYN.po);
+          colMap.of = acharColuna(rows[i], SYN.of);
+          colMap.oc = acharColuna(rows[i], SYN.oc);
+          colMap.qtdePedido = acharColuna(rows[i], SYN.qtdePedido);
+          colMap.ml = acharColuna(rows[i], SYN.ml);
+          colMap.kg = acharColuna(rows[i], SYN.kg);
+          colMap.dataPedido = acharColuna(rows[i], SYN.dataPedido);
+          break;
+        }
+      }
+      if (headerIdx === -1) return;
+
+      for (let i=headerIdx+1;i<rows.length;i++){
+        const row = rows[i];
+        const cliente = row[colMap.cliente];
+        const of = colMap.of !== -1 ? row[colMap.of] : '';
+        if (!cliente && !of) continue; // linha de título/total/vazia
+        const ml = parseFloat(row[colMap.ml]) || 0;
+        const kg = parseFloat(row[colMap.kg]) || 0;
+        if (!ml && !kg) continue;
+
+        pendentes.push({
+          id: uid(),
+          cliente: String(cliente||'').trim(),
+          po: colMap.po !== -1 ? String(row[colMap.po]||'').trim() : '',
+          of: String(of||'').trim(),
+          oc: colMap.oc !== -1 ? String(row[colMap.oc]||'').trim() : '',
+          ml: ml,
+          kg: kg,
+          setupMin: 40
+        });
+        importados++;
+      }
+    });
+
+    renderFilaSupervisor();
+    renderAgenda(pendentes);
+    mostrarBanner(`${importados} pedidos importados da planilha.`, false);
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+// ===================== ADD MANUAL =====================
+document.getElementById('btnAddManual').addEventListener('click', () => {
+  const cliente = document.getElementById('mCliente').value.trim();
+  const ml = parseFloat(document.getElementById('mMl').value) || 0;
+  if (!cliente || !ml){
+    mostrarBanner('Preencha ao menos o cliente e os metros lineares.', true);
+    return;
+  }
+  const novo = {
+    id: uid(),
+    cliente,
+    po: document.getElementById('mPo').value.trim(),
+    of: document.getElementById('mOf').value.trim(),
+    oc: '',
+    ml,
+    kg: parseFloat(document.getElementById('mKg').value) || 0,
+    setupMin: parseInt(document.getElementById('mSetup').value)
+  };
+  pendentes.push(novo);
+  ['mCliente','mPo','mOf','mMl','mKg'].forEach(id => document.getElementById(id).value = '');
+  renderFilaSupervisor();
+  renderAgenda(pendentes);
+
+  const { pedidosInfo } = calcularAgenda(pendentes);
+  const info = pedidosInfo[novo.id];
+  mostrarBanner(`Previsão para ${cliente}: ${nomeDia(info.diaFim)}, ${fmtData(info.diaFim)}.`, false);
+});
+
+// ===================== GERAR JSON =====================
+document.getElementById('btnGerarJson').addEventListener('click', () => {
+  const payload = {
+    geradoEm: new Date().toISOString(),
+    pendentes: pendentes
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type:'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'programacao-agenda.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  mostrarBanner('JSON gerado. Suba manualmente na mesma pasta do GitHub Pages.', false);
+});
+
+// ===================== EVENTOS GERAIS =====================
+document.getElementById('fileExcel').addEventListener('change', (e) => {
+  if (e.target.files[0]) parseExcel(e.target.files[0]);
+});
+
+document.getElementById('toggleSup').addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('supArea').classList.toggle('hidden');
+});
+
+function mostrarBanner(msg, warn){
+  const b = document.getElementById('banner');
+  b.textContent = msg;
+  b.className = 'banner' + (warn ? ' warn' : '');
+  b.classList.remove('hidden');
+  setTimeout(() => b.classList.add('hidden'), 5000);
+}
+
+// ===================== AUTO-FETCH JSON PUBLICADO =====================
+function carregarProgramacaoPublicada(){
+  fetch('./programacao-agenda.json?t=' + Date.now(), { cache:'no-store' })
+    .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+    .then(data => {
+      pendentes = (data.pendentes || []).map(p => ({...p, id: p.id || uid()}));
+      renderFilaSupervisor();
+      renderAgenda(pendentes);
+    })
+    .catch(() => {
+      renderAgenda(pendentes); // fila vazia local, aguardando importação/publicação
+    });
+}
+carregarProgramacaoPublicada();
+</script>
+</body>
+</html>
