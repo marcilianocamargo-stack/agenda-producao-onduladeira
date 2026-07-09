@@ -393,10 +393,14 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
       <div id="painelFila">
         <div class="barra-selecao hidden" id="barraSelecao">
           <span id="qtdSelecionados">0 selecionados</span>
-          <button class="btn btn-green" id="btnMarcarSelecionados" style="margin:0;width:auto;padding:10px 16px;">Marcar produzidos</button>
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+            <input type="date" id="dataReservaLote" style="width:auto;padding:8px;margin:0;font-size:13px;">
+            <button class="btn btn-outline" id="btnReservarSelecionados" style="margin:0;width:auto;padding:10px 12px;">📌 Reservar data</button>
+            <button class="btn btn-green" id="btnMarcarSelecionados" style="margin:0;width:auto;padding:10px 16px;">Marcar produzidos</button>
+          </div>
         </div>
         <div id="listaPendentes"></div>
-        <div class="small-note">Marque as caixinhas de vários pedidos (de um ou mais clientes) e toque em "Marcar produzidos" pra dar baixa em tudo de uma vez — útil ao chegar de manhã e o turno da noite ter fabricado vários. Arraste um cliente (⠿) para mudar a ordem entre clientes. Toque no nome do cliente para abrir e reordenar os pedidos dele. "Aguardar" tira da projeção sem apagar; o botão "Produzido" individual serve pra registrar produção parcial (não coube tudo na carreta).</div>
+        <div class="small-note">Marque as caixinhas de vários pedidos (de um ou mais clientes — ou marque o cliente inteiro no cabeçalho) e toque em "📌 Reservar data" pra agendar todos de uma vez pra um dia específico, ou em "Marcar produzidos" pra dar baixa em tudo — útil ao chegar de manhã e o turno da noite ter fabricado vários, ou quando chega um pedido novo com data certa de fabricação combinada. Arraste um cliente (⠿) para mudar a ordem entre clientes. Toque no nome do cliente para abrir e reordenar os pedidos dele. "Aguardar" tira da projeção sem apagar; o botão "Produzido" individual serve pra registrar produção parcial (não coube tudo na carreta).</div>
       </div>
 
       <div id="painelAguardando" class="hidden">
@@ -666,22 +670,39 @@ function calcularAgenda(pedidos, agora){
   });
 
   // reservas cujo dia nunca foi alcançado pela fila normal (ex: fila termina antes
-  // da data reservada) — cria os dias que faltam só com o(s) reservado(s).
+  // da data reservada) — cria os dias que faltam, com estouro pros dias seguintes
+  // se o(s) pedido(s) reservado(s) precisarem de mais de um dia pra concluir.
   const chavesRestantes = [...reservasPorDia.keys()].filter(k => !diasProcessados.has(k)).sort();
   chavesRestantes.forEach(k => {
-    const [y,m,d] = k.split('-').map(Number);
-    const dataDia = new Date(y, m-1, d);
-    const novoDia = { data: dataDia, itens: [], minUsados: 0, emAndamento: false };
+    if (diasProcessados.has(k)) return; // já criado por estouro de uma data anterior
+
+    let [y,m,d] = k.split('-').map(Number);
+    let dataDia = new Date(y, m-1, d);
     let capDoDia = CAP_MIN_DIA;
-    reservasPorDia.get(k).forEach(p => {
-      const totalMin = p.setupMin + p.ml / VELOCIDADE_M_MIN;
-      const usar = Math.min(totalMin, capDoDia);
-      capDoDia -= usar;
-      novoDia.minUsados += usar;
-      novoDia.itens.push({ pedido: p, status: 'reservado', minUsados: usar });
-      pedidosInfo[p.id] = { diaInicio: dataDia, diaFim: dataDia };
-    });
+    let novoDia = { data: new Date(dataDia), itens: [], minUsados: 0, emAndamento: false };
     dias.push(novoDia);
+    diasProcessados.add(chaveDiaISO(dataDia));
+
+    reservasPorDia.get(k).forEach(p => {
+      let restante = p.setupMin + p.ml / VELOCIDADE_M_MIN;
+      const diasTocados = [];
+      while (restante > 0.0001){
+        if (capDoDia <= 0.0001){
+          dataDia = proximoDiaUtil(dataDia);
+          capDoDia = CAP_MIN_DIA;
+          novoDia = { data: new Date(dataDia), itens: [], minUsados: 0, emAndamento: false };
+          dias.push(novoDia);
+          diasProcessados.add(chaveDiaISO(dataDia));
+        }
+        const usar = Math.min(restante, capDoDia);
+        restante -= usar;
+        capDoDia -= usar;
+        novoDia.minUsados += usar;
+        novoDia.itens.push({ pedido: p, status: 'reservado', minUsados: usar });
+        diasTocados.push(novoDia.data);
+      }
+      pedidosInfo[p.id] = { diaInicio: diasTocados[0], diaFim: diasTocados[diasTocados.length-1] };
+    });
   });
   dias.sort((a,b) => a.data - b.data);
 
@@ -1220,6 +1241,27 @@ document.getElementById('btnMarcarSelecionados').addEventListener('click', () =>
   });
   selecionadosProduzir.clear();
   atualizarTudo();
+});
+
+// Reserva a mesma data de fabricação pra vários pedidos de uma vez (ex: pedido novo
+// que já chega com data combinada, cobrindo várias OFs de um cliente). Cada pedido
+// continua reservando só o tempo que precisa; se algum passar de um dia, a projeção
+// já estoura sozinha pros dias seguintes até concluir (ver calcularAgenda).
+document.getElementById('btnReservarSelecionados').addEventListener('click', () => {
+  const data = document.getElementById('dataReservaLote').value;
+  const ids = Array.from(selecionadosProduzir);
+  if (!ids.length) return;
+  if (!data){ mostrarBanner('Escolha uma data antes de reservar.', true); return; }
+
+  ids.forEach(id => {
+    const idx = pendentes.findIndex(p => p.id === id);
+    if (idx === -1) return;
+    pendentes[idx] = { ...pendentes[idx], dataReservada: data };
+  });
+  selecionadosProduzir.clear();
+  document.getElementById('dataReservaLote').value = '';
+  atualizarTudo();
+  mostrarBanner(`${ids.length} pedido(s) reservado(s) para ${fmtDataISO(data)}.`, false);
 });
 
 // ===================== SINCRONIZAÇÃO COM O EXCEL (merge por OF, não substitui) =====================
