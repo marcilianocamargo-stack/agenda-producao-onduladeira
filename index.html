@@ -133,23 +133,6 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 .field { margin-bottom: 12px; }
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-/* ===== AGENDA DAY CARD ===== */
-.day-card {
-  background: white;
-  border-radius: 14px;
-  padding: 14px 16px;
-  margin-bottom: 12px;
-  border-left: 6px solid #1a56a0;
-}
-.day-card.hoje { border-left-color: #43a047; background: #f3fbf3; }
-.day-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 8px;
-}
-.day-head .dia-nome { font-size: 15px; font-weight: 800; color: #1a56a0; text-transform: capitalize; }
-.day-head .dia-data { font-size: 13px; color: #6a8bb0; }
 .cap-bar-bg { background: #e3ecf6; border-radius: 6px; height: 8px; overflow: hidden; margin-bottom: 10px; }
 .cap-bar-fill { background: #1a56a0; height: 100%; }
 .cap-bar-fill.cheio { background: #e65100; }
@@ -366,10 +349,8 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
       <span><span style="width:11px;height:8px;background:#f7f0fb;border-radius:2px;display:inline-block"></span> tem reserva</span>
     </div>
     <div class="detalhe-dia-cal hidden" id="detalheDiaCalendario"></div>
-    <div class="small-note">Toque num dia com produção pra ver os pedidos por cliente.</div>
+    <div class="small-note">Toque num dia com produção pra ver os pedidos (cada aba do Excel é um pedido — um cliente pode ter mais de um).</div>
   </div>
-
-  <div id="viewAgenda"></div>
 
   <a href="#" class="sup-link" id="toggleSup">Área do supervisor</a>
 
@@ -776,16 +757,20 @@ function resumoReservaData(dataISO, agora){
   };
 }
 
-// ===================== RENDER: MODO VISUALIZAÇÃO =====================
-// Agrupa os itens de UM dia por cliente (ordem de 1ª aparição) e devolve o HTML
-// dos grupos (cliente-view-group/pedido-row) — usado tanto na lista sequencial
-// quanto no detalhe do Calendário de Produção, pra ficar sempre igual.
+// ===================== DETALHE DE UM DIA (usado pelo Calendário de Produção) =====================
+// Cada aba do Excel é um PEDIDO/lote — mesmo quando é o mesmo cliente (ex: ABAPEL,
+// ABAPEL3 e "ABAPEL 8014-8017-8018-8020" são 3 pedidos diferentes do mesmo cliente,
+// com datas de produção/faturamento diferentes). Por isso agrupa por lote, não só
+// por cliente — "cliente" fica só como legenda dentro do grupo.
+function chaveLote(p){ return String(p.lote || p.cliente || '').trim().toUpperCase(); }
+function nomeLote(p){ return String(p.lote || p.cliente || '').trim(); }
+
 function renderGruposClientesDia(d){
   const gruposDia = [];
   const idxPorChave = new Map();
   d.itens.forEach(it => {
-    const k = chaveCliente(it.pedido.cliente);
-    if (!idxPorChave.has(k)){ idxPorChave.set(k, gruposDia.length); gruposDia.push({ chave:k, cliente: it.pedido.cliente.trim(), itens: [] }); }
+    const k = chaveLote(it.pedido);
+    if (!idxPorChave.has(k)){ idxPorChave.set(k, gruposDia.length); gruposDia.push({ chave:k, nomeLote: nomeLote(it.pedido), cliente: it.pedido.cliente.trim(), itens: [] }); }
     gruposDia[idxPorChave.get(k)].itens.push(it);
   });
 
@@ -796,10 +781,11 @@ function renderGruposClientesDia(d){
     const totalMin = g.itens.reduce((s,it)=>s+it.minUsados,0);
     const chaveExpand = d.data.toDateString() + '|' + g.chave;
     const aberto = expandidoView.has(chaveExpand);
+    const mostrarCliente = chaveCliente(g.cliente) !== g.chave; // só repete se o lote não é literalmente o nome do cliente
 
     html += `<div class="cliente-view-group">
       <div class="cliente-view-header" data-toggle-view="${chaveExpand}">
-        <span><b>${g.cliente}</b> <span class="badge" style="background:#dce7f6;color:#1a56a0">${g.itens.length} ped.</span></span>
+        <span><b>${g.nomeLote}</b>${mostrarCliente?` <span class="linha2" style="display:inline">(${g.cliente})</span>`:''} <span class="badge" style="background:#dce7f6;color:#1a56a0">${g.itens.length} ped.</span></span>
         <span class="chevron">${aberto?'▾':'▸'}</span>
       </div>
       <div class="linha2">${Math.round(totalKg)} kg · ${Math.round(totalMl)} ML · ${Math.round(totalMin)} min neste dia</div>`;
@@ -818,46 +804,6 @@ function renderGruposClientesDia(d){
     html += `</div>`;
   });
   return html;
-}
-
-function renderAgenda(pedidos){
-  const cont = document.getElementById('viewAgenda');
-  if (!pedidos.length){
-    cont.innerHTML = '<div class="card"><p style="text-align:center;color:#6a8bb0;">Nenhum pedido pendente na fila.</p></div>';
-    return;
-  }
-  const agora = new Date();
-  const { dias } = calcularAgenda(pedidos, agora);
-  const hojeStr = agora.toDateString();
-
-  let html = '';
-  dias.forEach((d, idx) => {
-    const ehHoje = d.data.toDateString() === hojeStr;
-    const ehTurnoAtual = idx === 0 && d.emAndamento;
-    const pct = Math.min(100, Math.round((d.minUsados / CAP_MIN_DIA) * 100));
-    let rotulo = '';
-    if (ehTurnoAtual) rotulo = ' · turno atual';
-    else if (ehHoje) rotulo = ' · hoje';
-    html += `<div class="day-card ${(ehHoje||ehTurnoAtual)?'hoje':''}">
-      <div class="day-head">
-        <span class="dia-nome">${nomeDia(d.data)}${rotulo}</span>
-        <span class="dia-data">${fmtData(d.data)}</span>
-      </div>
-      <div class="cap-bar-bg"><div class="cap-bar-fill ${pct>=95?'cheio':''}" style="width:${pct}%"></div></div>
-      <div class="cap-label">${Math.round(d.minUsados)} de ${CAP_MIN_DIA} min usados (${pct}%)${ehTurnoAtual?' · projeção a partir de agora ('+agora.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+')':''}</div>`;
-    html += renderGruposClientesDia(d);
-    html += `</div>`;
-  });
-  cont.innerHTML = html;
-
-  cont.querySelectorAll('[data-toggle-view]').forEach(el => {
-    el.addEventListener('click', () => {
-      const k = el.getAttribute('data-toggle-view');
-      if (expandidoView.has(k)) expandidoView.delete(k); else expandidoView.add(k);
-      renderAgenda(pendentes);
-      renderDetalheDiaCalendario();
-    });
-  });
 }
 
 // ===================== RENDER: SUPERVISOR - FILA POR CLIENTE =====================
@@ -1146,18 +1092,19 @@ function renderCalendarioProducao(){
   const { dias } = calcularAgenda(pendentes, agora);
   const porChaveDia = new Map(dias.map(d => [chaveDiaISO(d.data), d]));
 
-  // ranking de clientes (sobre toda a fila projetada) pra cor fixa e consistente —
-  // agrupado por chaveCliente (maiúsculas) pra "Carpel" e "CARPEL" contarem como 1 só,
-  // igual já acontece na fila do supervisor.
-  const totalPorCliente = new Map();
+  // ranking de PEDIDOS/lotes (sobre toda a fila projetada) pra cor fixa e consistente —
+  // cada aba do Excel é um pedido, então o mesmo cliente pode aparecer em várias
+  // cores diferentes (ex: ABAPEL, ABAPEL3, "ABAPEL 8014-8017-8018-8020" são pedidos
+  // distintos do mesmo cliente, com datas de produção diferentes).
+  const totalPorLote = new Map();
   dias.forEach(d => d.itens.forEach(it => {
-    const k = chaveCliente(it.pedido.cliente);
-    if (!totalPorCliente.has(k)) totalPorCliente.set(k, { nome: String(it.pedido.cliente||'').trim(), kg: 0 });
-    totalPorCliente.get(k).kg += (it.pedido.kg||0);
+    const k = chaveLote(it.pedido);
+    if (!totalPorLote.has(k)) totalPorLote.set(k, { nome: nomeLote(it.pedido), kg: 0 });
+    totalPorLote.get(k).kg += (it.pedido.kg||0);
   }));
-  const ranking = Array.from(totalPorCliente, ([chave,c]) => ({ chave, nome: c.nome, kg: c.kg })).sort((a,b)=>b.kg-a.kg);
+  const ranking = Array.from(totalPorLote, ([chave,c]) => ({ chave, nome: c.nome, kg: c.kg })).sort((a,b)=>b.kg-a.kg);
   const top = ranking.slice(0,7);
-  const corPorCliente = new Map(top.map((c,i) => [c.chave, PALETA_CATEGORICA[i]]));
+  const corPorLote = new Map(top.map((c,i) => [c.chave, PALETA_CATEGORICA[i]]));
 
   const ano = mesCalendarioAtual.getFullYear(), mesIdx = mesCalendarioAtual.getMonth();
   const primeiroDiaSemana = new Date(ano, mesIdx, 1).getDay();
@@ -1173,13 +1120,13 @@ function renderCalendarioProducao(){
     if (diaSemanaSimulado>=1 && diaSemanaSimulado<=5){
       const dataCel = new Date(ano, mesIdx, d);
       const diaObj = porChaveDia.get(chaveDiaISO(dataCel));
-      grid.appendChild(criarCelulaCalendarioDia(dataCel, diaObj, corPorCliente, hojeStr));
+      grid.appendChild(criarCelulaCalendarioDia(dataCel, diaObj, corPorLote, hojeStr));
     }
     diaSemanaSimulado = (diaSemanaSimulado+1)%7;
   }
 
-  legenda.innerHTML = top.map(c => `<span class="legenda-item"><i style="background:${corPorCliente.get(c.chave)}"></i>${c.nome}</span>`).join('')
-    + (ranking.length>7 ? `<span class="legenda-item"><i style="background:${COR_OUTROS}"></i>Outros (${ranking.length-7} clientes)</span>` : '');
+  legenda.innerHTML = top.map(c => `<span class="legenda-item"><i style="background:${corPorLote.get(c.chave)}"></i>${c.nome}</span>`).join('')
+    + (ranking.length>7 ? `<span class="legenda-item"><i style="background:${COR_OUTROS}"></i>Outros (${ranking.length-7} pedidos)</span>` : '');
 
   renderDetalheDiaCalendario();
 }
@@ -1190,7 +1137,7 @@ function criarCelulaCalendarioVazia(){
   return el;
 }
 
-function criarCelulaCalendarioDia(dataCel, diaObj, corPorCliente, hojeStr){
+function criarCelulaCalendarioDia(dataCel, diaObj, corPorLote, hojeStr){
   const el = document.createElement('div');
   const ehHoje = dataCel.toDateString() === hojeStr;
   const temDados = !!diaObj && diaObj.itens.length > 0;
@@ -1207,19 +1154,19 @@ function criarCelulaCalendarioDia(dataCel, diaObj, corPorCliente, hojeStr){
     const pct = Math.min(100, Math.round(min/CAP_MIN_DIA*100));
     html += `<div class="barra-bg-mini"><div class="barra-fill-mini" style="width:${pct}%;background:${corBarra}"></div></div>`;
 
-    const porCliente = new Map();
+    const porLote = new Map();
     let kgTotal = 0;
     diaObj.itens.forEach(it => {
-      const k = chaveCliente(it.pedido.cliente);
+      const k = chaveLote(it.pedido);
       const kg = it.pedido.kg || 0;
-      if (!porCliente.has(k)) porCliente.set(k, { nome: String(it.pedido.cliente||'').trim(), kg: 0 });
-      porCliente.get(k).kg += kg;
+      if (!porLote.has(k)) porLote.set(k, { nome: nomeLote(it.pedido), kg: 0 });
+      porLote.get(k).kg += kg;
       kgTotal += kg;
     });
-    const ordenados = Array.from(porCliente, ([chave,c]) => ({chave, nome:c.nome, kg:c.kg})).sort((a,b)=>b.kg-a.kg);
+    const ordenados = Array.from(porLote, ([chave,c]) => ({chave, nome:c.nome, kg:c.kg})).sort((a,b)=>b.kg-a.kg);
     const MOSTRAR = 2;
     html += `<div class="clientes-nomes">${ordenados.slice(0,MOSTRAR).map(c =>
-      `<div class="cliente-linha" title="${c.nome}"><i style="background:${corPorCliente.get(c.chave)||COR_OUTROS}"></i><span>${c.nome}</span></div>`
+      `<div class="cliente-linha" title="${c.nome}"><i style="background:${corPorLote.get(c.chave)||COR_OUTROS}"></i><span>${c.nome}</span></div>`
     ).join('')}${ordenados.length>MOSTRAR ? `<div class="mais-clientes">+${ordenados.length-MOSTRAR}</div>` : ''}</div>`;
     html += `<div class="kg-total-mini">${Math.round(kgTotal).toLocaleString('pt-BR')} kg</div>`;
   }
@@ -1277,12 +1224,11 @@ document.getElementById('btnMesSeguinte').addEventListener('click', () => {
   renderCalendarioProducao();
 });
 
-// Atualiza todas as telas de uma vez (fila, aguardando, produzidos, visualização e calendário).
+// Atualiza todas as telas de uma vez (fila, aguardando, produzidos e calendário).
 function atualizarTudo(){
   renderFilaSupervisor();
   renderAguardando();
   renderProduzidos();
-  renderAgenda(pendentes);
   renderCalendarioProducao();
   renderDatasReservadas();
 }
@@ -1489,12 +1435,23 @@ document.getElementById('dataReservaLote').addEventListener('input', () => {
 // posição e status de tudo que já existe. Só acrescenta o que é realmente novo
 // (OF nunca vista) e só remove o que sumiu da planilha (expedido/cancelado na origem).
 function fundirComEstadoAtual(novosDoExcel){
-  const chavesNoExcel = new Set(novosDoExcel.map(p => p.chave));
+  const mapaFrescos = new Map(novosDoExcel.map(p => [p.chave, p]));
+  const chavesNoExcel = new Set(mapaFrescos.keys());
   const totalAntes = pendentes.length + aguardando.length + produzidos.length;
 
-  pendentes = pendentes.filter(p => chavesNoExcel.has(p.chave));
-  aguardando = aguardando.filter(p => chavesNoExcel.has(p.chave));
-  produzidos = produzidos.filter(p => chavesNoExcel.has(p.chave));
+  // pedidos publicados antes deste recurso não tinham "lote" salvo — completa
+  // com o valor da planilha atual, sem mexer em mais nada (kg/ml podem ter sido
+  // ajustados manualmente por produção parcial e não devem ser sobrescritos).
+  const comLoteCompletado = (p) => {
+    if (!p.lote && mapaFrescos.has(p.chave) && mapaFrescos.get(p.chave).lote){
+      return { ...p, lote: mapaFrescos.get(p.chave).lote };
+    }
+    return p;
+  };
+
+  pendentes = pendentes.filter(p => chavesNoExcel.has(p.chave)).map(comLoteCompletado);
+  aguardando = aguardando.filter(p => chavesNoExcel.has(p.chave)).map(comLoteCompletado);
+  produzidos = produzidos.filter(p => chavesNoExcel.has(p.chave)).map(comLoteCompletado);
 
   const chavesConhecidas = new Set([...pendentes, ...aguardando, ...produzidos].map(p => p.chave));
   const novos = novosDoExcel.filter(p => !chavesConhecidas.has(p.chave));
@@ -1670,6 +1627,7 @@ function parseWorkbookBuffer(buf){
       const novoPedido = {
         id: uid(),
         cliente: String(cliente||'').trim(),
+        lote: sheetName.trim(), // cada aba é um pedido — mesmo cliente pode ter vários (ABAPEL, ABAPEL3, ...)
         po: colMap.po !== -1 ? String(row[colMap.po]||'').trim() : '',
         of: String(of||'').trim(),
         oc: colMap.oc !== -1 ? String(row[colMap.oc]||'').trim() : '',
@@ -1737,6 +1695,7 @@ document.getElementById('btnAddManual').addEventListener('click', () => {
   const novo = {
     id: uid(),
     cliente,
+    lote: cliente, // lançamento manual: cada um vira seu próprio pedido/lote
     po: document.getElementById('mPo').value.trim(),
     of: document.getElementById('mOf').value.trim(),
     oc: '',
