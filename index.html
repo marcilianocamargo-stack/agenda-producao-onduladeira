@@ -261,16 +261,21 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 .cliente-view-group .pedido-row { background:white; margin-top:6px; }
 
 /* ===== DASHBOARD ===== */
-.dash-scroll { overflow-x: auto; }
-.dash-table { border-collapse: collapse; font-size: 12.5px; white-space: nowrap; width:100%; }
-.dash-table th, .dash-table td { padding: 6px 9px; text-align:center; border-bottom:1px solid #e3ecf6; }
-.dash-table thead th { color:#1a56a0; font-weight:800; font-size:11px; }
-.dash-th-cliente, .dash-td-cliente {
-  text-align:left; position:sticky; left:0; background:white; font-weight:700; z-index:1;
+.dash-dias-scroll { display:flex; gap:10px; overflow-x:auto; padding:2px 2px 8px; scroll-snap-type:x proximity; }
+.dash-dia {
+  flex:0 0 168px; scroll-snap-align:start;
+  background:#f4f8fc; border-radius:12px; padding:12px;
 }
-.dash-table thead th.dash-th-cliente { z-index:2; }
-.dash-table th.dash-hoje { color:#2e7d32; }
-.dash-total-col, .dash-total-row td { font-weight:800; background:#eaf1fa; }
+.dash-dia.atual { background:#f3fbf3; border:2px solid #43a047; padding:10px; }
+.dash-dia-nome { font-size:11.5px; font-weight:800; color:#1a56a0; text-transform:capitalize; line-height:1.5; margin-bottom:2px; }
+.dash-dia-total { font-size:20px; font-weight:900; color:#17324f; margin-bottom:8px; }
+.dash-dia-total span { font-size:12px; font-weight:700; color:#6a8bb0; }
+.dash-barra { display:flex; height:10px; border-radius:6px; overflow:hidden; background:#e3ecf6; margin-bottom:10px; }
+.dash-barra-seg { height:100%; }
+.dash-chips { display:flex; flex-direction:column; gap:5px; }
+.dash-chip { display:flex; align-items:center; gap:5px; font-size:11.5px; color:#3a618f; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.dash-chip b { margin-left:auto; padding-left:4px; color:#17324f; flex-shrink:0; }
+.dash-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
 
 .hidden { display: none !important; }
 
@@ -307,17 +312,14 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 
   <button class="btn btn-outline hidden" id="btnInstalar">📲 Instalar este app no celular/computador</button>
 
+  <div class="card">
+    <h2>Dashboard — kg por dia e cliente</h2>
+    <div id="dashConteudo"></div>
+  </div>
+
   <div id="viewAgenda"></div>
 
-  <a href="#" class="sup-link" id="toggleDash">Dashboard de produção (cliente × dia)</a>
   <a href="#" class="sup-link" id="toggleSup">Área do supervisor</a>
-
-  <div id="dashArea" class="hidden">
-    <div class="card">
-      <h2>Dashboard — kg programado por cliente e dia</h2>
-      <div id="dashConteudo"></div>
-    </div>
-  </div>
 
   <div id="supArea" class="hidden">
 
@@ -988,12 +990,12 @@ function ativarArrastarPedidos(cont){
   });
 }
 
-// ===================== DASHBOARD (cliente × dia) =====================
-function intensidade(v, max){
-  if (max <= 0 || v <= 0) return { bg:'', cor:'' };
-  const t = Math.min(1, v / max);
-  const alpha = 0.12 + t * 0.6;
-  return { bg: `rgba(26,86,160,${alpha.toFixed(2)})`, cor: t > 0.55 ? '#fff' : '#17324f' };
+// ===================== DASHBOARD (kg por dia, clientes dentro do dia) =====================
+const PALETA_CLIENTES = ['#1a56a0','#43a047','#e65100','#8e24aa','#00838f','#c62828','#6d4c41','#3949ab','#00acc1','#f9a825','#5e35b1','#2e7d32','#ad1457','#00695c'];
+function corDoCliente(nome){
+  let h = 0;
+  for (let i=0;i<nome.length;i++) h = (h*31 + nome.charCodeAt(i)) >>> 0;
+  return PALETA_CLIENTES[h % PALETA_CLIENTES.length];
 }
 
 function renderDashboard(){
@@ -1005,52 +1007,37 @@ function renderDashboard(){
   const agora = new Date();
   const { dias } = calcularAgenda(pendentes, agora);
 
-  const clientesOrdem = [];
-  const vistos = new Set();
-  pendentes.forEach(p => {
-    const k = chaveCliente(p.cliente);
-    if (!vistos.has(k)){ vistos.add(k); clientesOrdem.push({ chave:k, nome: String(p.cliente||'').trim() }); }
-  });
+  let html = '<div class="dash-dias-scroll">';
+  dias.forEach((d, idx) => {
+    const ehTurnoAtual = idx === 0 && d.emAndamento;
 
-  const matriz = {};
-  clientesOrdem.forEach(c => matriz[c.chave] = new Array(dias.length).fill(0));
-  dias.forEach((d, di) => {
+    const porCliente = new Map();
     d.itens.forEach(it => {
       const p = it.pedido;
-      const k = chaveCliente(p.cliente);
       const totalMin = p.setupMin + p.ml / VELOCIDADE_M_MIN;
       const fracao = totalMin > 0 ? it.minUsados / totalMin : 0;
-      matriz[k][di] += (p.kg || 0) * fracao;
+      const nome = String(p.cliente||'').trim();
+      porCliente.set(nome, (porCliente.get(nome)||0) + (p.kg||0) * fracao);
     });
-  });
+    const clientesDia = Array.from(porCliente, ([nome,kg]) => ({ nome, kg })).sort((a,b) => b.kg - a.kg);
+    const totalDia = clientesDia.reduce((s,c) => s+c.kg, 0);
 
-  const totalPorDia = dias.map((d, di) => clientesOrdem.reduce((s,c) => s + matriz[c.chave][di], 0));
-  const totalPorCliente = {};
-  clientesOrdem.forEach(c => totalPorCliente[c.chave] = matriz[c.chave].reduce((s,v) => s+v, 0));
-  const maxCel = Math.max(0, ...clientesOrdem.flatMap(c => matriz[c.chave]));
-
-  let html = '<div class="dash-scroll"><table class="dash-table"><thead><tr><th class="dash-th-cliente">Cliente</th>';
-  dias.forEach((d, di) => {
-    const ehTurnoAtual = di === 0 && d.emAndamento;
-    html += `<th class="${ehTurnoAtual?'dash-hoje':''}">${nomeDiaAbrev(d.data)}<br>${fmtData(d.data)}</th>`;
-  });
-  html += '<th class="dash-total-col">Total</th></tr></thead><tbody>';
-
-  clientesOrdem.forEach(c => {
-    html += `<tr><td class="dash-td-cliente">${c.nome}</td>`;
-    dias.forEach((d, di) => {
-      const v = matriz[c.chave][di];
-      const { bg, cor } = intensidade(v, maxCel);
-      html += `<td style="background:${bg};color:${cor}">${v>0 ? Math.round(v) : ''}</td>`;
+    html += `<div class="dash-dia ${ehTurnoAtual?'atual':''}">
+      <div class="dash-dia-nome">${nomeDiaAbrev(d.data)}${ehTurnoAtual?' · agora':''}<br><b>${fmtData(d.data)}</b></div>
+      <div class="dash-dia-total">${Math.round(totalDia)} <span>kg</span></div>
+      <div class="dash-barra">`;
+    clientesDia.forEach(c => {
+      const pct = totalDia>0 ? (c.kg/totalDia*100) : 0;
+      html += `<div class="dash-barra-seg" style="width:${pct}%;background:${corDoCliente(c.nome)}" title="${c.nome}: ${Math.round(c.kg)} kg"></div>`;
     });
-    html += `<td class="dash-total-col">${Math.round(totalPorCliente[c.chave])}</td></tr>`;
+    html += `</div><div class="dash-chips">`;
+    clientesDia.forEach(c => {
+      html += `<div class="dash-chip"><span class="dash-dot" style="background:${corDoCliente(c.nome)}"></span>${c.nome}<b>${Math.round(c.kg)}</b></div>`;
+    });
+    html += `</div></div>`;
   });
-
-  html += '<tr class="dash-total-row"><td>Total</td>';
-  totalPorDia.forEach(v => html += `<td>${Math.round(v)}</td>`);
-  html += `<td>${Math.round(totalPorDia.reduce((s,v)=>s+v,0))}</td></tr>`;
-  html += '</tbody></table></div>';
-  html += '<div class="small-note">kg programados por cliente/dia, rateado quando o pedido atravessa mais de um dia. Coluna verde = turno atual.</div>';
+  html += '</div>';
+  html += '<div class="small-note">Arraste para o lado pra ver os próximos dias. Cada cor identifica um cliente (mesma cor em todos os dias). kg rateado quando o pedido atravessa mais de um dia.</div>';
 
   cont.innerHTML = html;
 }
@@ -1553,12 +1540,6 @@ document.getElementById('toggleSup').addEventListener('click', (e) => {
   e.preventDefault();
   document.getElementById('supArea').classList.toggle('hidden');
 });
-document.getElementById('toggleDash').addEventListener('click', (e) => {
-  e.preventDefault();
-  document.getElementById('dashArea').classList.toggle('hidden');
-  renderDashboard();
-});
-
 const PAINEIS_TAB = { fila:'painelFila', aguardando:'painelAguardando', produzidos:'painelProduzidos' };
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
