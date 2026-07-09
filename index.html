@@ -260,36 +260,59 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 }
 .cliente-view-group .pedido-row { background:white; margin-top:6px; }
 
-/* ===== DASHBOARD — gráfico de colunas empilhadas ===== */
-.chart-scroll {
-  display:flex; align-items:flex-end; gap:14px; overflow-x:auto;
-  padding:4px 4px 0; scroll-snap-type:x proximity; min-height:220px;
+/* ===== CALENDÁRIO DE PRODUÇÃO ===== */
+.mes-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.mes-nav button {
+  background:#f4f8fc; border:none; color:#1a56a0; font-size:16px; font-weight:800;
+  width:32px; height:32px; border-radius:9px; cursor:pointer;
 }
-.chart-col { display:flex; flex-direction:column; align-items:center; flex:0 0 auto; scroll-snap-align:start; }
-.chart-col-valor { font-size:10.5px; font-weight:800; color:#17324f; margin-bottom:4px; white-space:nowrap; }
-.chart-col-barra {
-  width:24px; display:flex; flex-direction:column-reverse;
-  border-radius:4px 4px 0 0; overflow:hidden; background:#eef2f7;
-}
-.chart-col-barra .seg { width:100%; }
-.chart-col-barra .seg + .seg { border-top:2px solid #fff; }
-.chart-col-label { font-size:10.5px; color:#6a8bb0; margin-top:6px; text-align:center; line-height:1.3; white-space:nowrap; }
-.chart-col.atual .chart-col-label { color:#2e7d32; font-weight:800; }
+.mes-nav button:active { transform:scale(.96); }
+.mes-nav .titulo-mes { font-size:15px; font-weight:800; color:#17324f; text-transform:capitalize; }
 
-.chart-legend { display:flex; flex-wrap:wrap; gap:8px 16px; margin-top:14px; padding-top:12px; border-top:1px solid #e3ecf6; }
-.legend-item { display:flex; align-items:center; gap:6px; font-size:12px; color:#3a618f; }
-.legend-item i { width:10px; height:10px; border-radius:3px; display:inline-block; flex-shrink:0; }
+.dias-semana { display:grid; grid-template-columns:repeat(5,1fr); gap:4px; margin-bottom:4px; }
+.dias-semana span { text-align:center; font-size:9.5px; font-weight:800; color:#6a8bb0; text-transform:uppercase; letter-spacing:.4px; }
 
-/* tabela detalhada (mostrada sob demanda) */
-.dash-scroll { overflow-x: auto; }
-.dash-table { border-collapse: collapse; font-size: 12.5px; white-space: nowrap; width:100%; }
-.dash-table th, .dash-table td { padding: 6px 9px; text-align:center; border-bottom:1px solid #e3ecf6; }
-.dash-table thead th { color:#1a56a0; font-weight:800; font-size:11px; }
-.dash-th-cliente, .dash-td-cliente {
-  text-align:left; position:sticky; left:0; background:white; font-weight:700; z-index:1;
+.grid-calendario { display:grid; grid-template-columns:repeat(5,1fr); gap:4px; }
+
+.dia-cal {
+  position:relative; background:#f4f8fc; border-radius:8px; padding:4px 4px 5px;
+  height:74px; display:flex; flex-direction:column; border:1.5px solid transparent;
+  cursor:default; overflow:hidden;
 }
-.dash-table thead th.dash-th-cliente { z-index:2; }
-.dash-total-col, .dash-total-row td { font-weight:800; background:#eaf1fa; }
+.dia-cal.tem-dados { cursor:pointer; }
+.dia-cal.tem-dados:active { transform:scale(.97); }
+.dia-cal.vazio { background:transparent; }
+.dia-cal.vazio .num { color:#cfdcec; }
+.dia-cal .num { font-size:11px; font-weight:800; color:#17324f; line-height:1; }
+.dia-cal.hoje { border-color:#43a047; background:#f3fbf3; }
+.dia-cal.reservado { background:#f7f0fb; }
+.dia-cal.reservado.hoje { background:linear-gradient(135deg,#f3fbf3 55%,#f7f0fb 55%); }
+.dia-cal .pin { position:absolute; top:4px; right:15px; font-size:8px; }
+.dia-cal .status-dot { position:absolute; top:6px; right:5px; width:6px; height:6px; border-radius:50%; }
+.dia-cal .status-dot.livre { background:#43a047; }
+.dia-cal .status-dot.quase { background:#f9a825; }
+.dia-cal .status-dot.lotado { background:#c62828; }
+.dia-cal .barra-bg-mini { background:#e3ecf6; border-radius:3px; height:3px; overflow:hidden; margin:3px 0 4px; flex-shrink:0; }
+.dia-cal .barra-fill-mini { height:100%; border-radius:3px; }
+.dia-cal .clientes-nomes { display:flex; flex-direction:column; gap:1px; min-width:0; flex:1; }
+.dia-cal .cliente-linha { display:flex; align-items:center; gap:3px; font-size:8px; font-weight:700; color:#17324f; min-width:0; }
+.dia-cal .cliente-linha span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; }
+.dia-cal .cliente-linha i { width:5px; height:5px; border-radius:50%; display:inline-block; flex-shrink:0; }
+.dia-cal .mais-clientes { font-size:7.5px; color:#6a8bb0; font-weight:700; }
+.dia-cal .kg-total-mini { font-size:8.5px; font-weight:800; color:#17324f; flex-shrink:0; }
+
+.legenda-calendario { display:flex; flex-wrap:wrap; gap:6px 14px; padding-top:10px; border-top:1px solid #e3ecf6; margin-top:4px; }
+.legenda-calendario .legenda-item { display:flex; align-items:center; gap:5px; font-size:11px; color:#3a618f; }
+.legenda-calendario .legenda-item i { width:9px; height:9px; border-radius:3px; display:inline-block; flex-shrink:0; }
+
+.legenda-status-cal { display:flex; gap:14px; flex-wrap:wrap; margin-top:8px; font-size:10.5px; color:#6a8bb0; }
+.legenda-status-cal span { display:flex; align-items:center; gap:4px; }
+.legenda-status-cal i { width:6px; height:6px; border-radius:50%; display:inline-block; }
+
+.detalhe-dia-cal { margin-top:12px; }
+.detalhe-dia-cab { display:flex; align-items:center; margin-bottom:8px; }
+.detalhe-dia-cab b { font-size:14px; color:#1a56a0; }
+.detalhe-dia-cab .fechar-detalhe { margin-left:auto; cursor:pointer; color:#6a8bb0; font-size:12px; text-decoration:underline; }
 
 .hidden { display: none !important; }
 
@@ -327,8 +350,23 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
   <button class="btn btn-outline hidden" id="btnInstalar">📲 Instalar este app no celular/computador</button>
 
   <div class="card">
-    <h2>Dashboard — kg por dia e cliente</h2>
-    <div id="dashConteudo"></div>
+    <h2>Calendário de Produção</h2>
+    <div class="mes-nav">
+      <button id="btnMesAnterior" aria-label="Mês anterior">◀</button>
+      <span class="titulo-mes" id="tituloMesCalendario"></span>
+      <button id="btnMesSeguinte" aria-label="Próximo mês">▶</button>
+    </div>
+    <div class="dias-semana"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span></div>
+    <div class="grid-calendario" id="gridCalendario"></div>
+    <div class="legenda-calendario" id="legendaCalendario"></div>
+    <div class="legenda-status-cal">
+      <span><i style="background:#43a047"></i> livre</span>
+      <span><i style="background:#f9a825"></i> quase cheio</span>
+      <span><i style="background:#c62828"></i> lotado</span>
+      <span><span style="width:11px;height:8px;background:#f7f0fb;border-radius:2px;display:inline-block"></span> tem reserva</span>
+    </div>
+    <div class="detalhe-dia-cal hidden" id="detalheDiaCalendario"></div>
+    <div class="small-note">Toque num dia com produção pra ver os pedidos por cliente.</div>
   </div>
 
   <div id="viewAgenda"></div>
@@ -478,7 +516,6 @@ let expandidoSup = new Set();   // clientes abertos na fila do supervisor
 let expandidoView = new Set();  // "dataStr|cliente" abertos na visualização
 let selecionadosProduzir = new Set(); // ids marcados pra dar baixa em lote (produzido)
 let selecionadosVoltar = new Set();   // ids marcados em "produzidos" pra desfazer e voltar à fila
-let tabelaDashAberta = false;         // se a tabela detalhada do dashboard está expandida
 
 // ===================== UTIL =====================
 function uid(){ return 'p'+(seqCounter++)+'_'+Math.random().toString(36).slice(2,7); }
@@ -728,17 +765,61 @@ function resumoReservaData(dataISO, agora){
   const minReservado = itensReservados.reduce((s,it) => s+it.minUsados, 0);
   const porCliente = new Map();
   itensReservados.forEach(it => {
-    const nome = it.pedido.cliente;
-    porCliente.set(nome, (porCliente.get(nome)||0) + it.minUsados);
+    const k = chaveCliente(it.pedido.cliente);
+    if (!porCliente.has(k)) porCliente.set(k, { nome: String(it.pedido.cliente||'').trim(), min: 0 });
+    porCliente.get(k).min += it.minUsados;
   });
   return {
     minReservado: Math.round(minReservado),
     minLivre: Math.max(0, Math.round(CAP_MIN_DIA - minReservado)),
-    clientes: Array.from(porCliente, ([nome,min]) => ({ nome, min: Math.round(min) }))
+    clientes: Array.from(porCliente.values(), c => ({ nome: c.nome, min: Math.round(c.min) }))
   };
 }
 
 // ===================== RENDER: MODO VISUALIZAÇÃO =====================
+// Agrupa os itens de UM dia por cliente (ordem de 1ª aparição) e devolve o HTML
+// dos grupos (cliente-view-group/pedido-row) — usado tanto na lista sequencial
+// quanto no detalhe do Calendário de Produção, pra ficar sempre igual.
+function renderGruposClientesDia(d){
+  const gruposDia = [];
+  const idxPorChave = new Map();
+  d.itens.forEach(it => {
+    const k = chaveCliente(it.pedido.cliente);
+    if (!idxPorChave.has(k)){ idxPorChave.set(k, gruposDia.length); gruposDia.push({ chave:k, cliente: it.pedido.cliente.trim(), itens: [] }); }
+    gruposDia[idxPorChave.get(k)].itens.push(it);
+  });
+
+  let html = '';
+  gruposDia.forEach(g => {
+    const totalKg = g.itens.reduce((s,it)=>s+(it.pedido.kg||0),0);
+    const totalMl = g.itens.reduce((s,it)=>s+(it.pedido.ml||0),0);
+    const totalMin = g.itens.reduce((s,it)=>s+it.minUsados,0);
+    const chaveExpand = d.data.toDateString() + '|' + g.chave;
+    const aberto = expandidoView.has(chaveExpand);
+
+    html += `<div class="cliente-view-group">
+      <div class="cliente-view-header" data-toggle-view="${chaveExpand}">
+        <span><b>${g.cliente}</b> <span class="badge" style="background:#dce7f6;color:#1a56a0">${g.itens.length} ped.</span></span>
+        <span class="chevron">${aberto?'▾':'▸'}</span>
+      </div>
+      <div class="linha2">${Math.round(totalKg)} kg · ${Math.round(totalMl)} ML · ${Math.round(totalMin)} min neste dia</div>`;
+
+    if (aberto){
+      g.itens.forEach(it => {
+        const p = it.pedido;
+        const badgeTxt = { inicio:'início', continua:'continua', conclui:'conclui', unico:'', reservado:'📌 reservado' }[it.status];
+        const badgeCls = { inicio:'inicio', continua:'continua', conclui:'conclui', unico:'', reservado:'reservado' }[it.status];
+        html += `<div class="pedido-row">
+          <div class="linha1"><span>${p.po||''}</span>${badgeTxt?`<span class="badge ${badgeCls}">${badgeTxt}</span>`:''}</div>
+          <div class="linha2">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} · ${Math.round(it.minUsados)} min</div>
+        </div>`;
+      });
+    }
+    html += `</div>`;
+  });
+  return html;
+}
+
 function renderAgenda(pedidos){
   const cont = document.getElementById('viewAgenda');
   if (!pedidos.length){
@@ -764,43 +845,7 @@ function renderAgenda(pedidos){
       </div>
       <div class="cap-bar-bg"><div class="cap-bar-fill ${pct>=95?'cheio':''}" style="width:${pct}%"></div></div>
       <div class="cap-label">${Math.round(d.minUsados)} de ${CAP_MIN_DIA} min usados (${pct}%)${ehTurnoAtual?' · projeção a partir de agora ('+agora.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+')':''}</div>`;
-
-    // agrupa os itens do dia por cliente, na ordem de 1ª aparição
-    const gruposDia = [];
-    const idxPorChave = new Map();
-    d.itens.forEach(it => {
-      const k = chaveCliente(it.pedido.cliente);
-      if (!idxPorChave.has(k)){ idxPorChave.set(k, gruposDia.length); gruposDia.push({ chave:k, cliente: it.pedido.cliente.trim(), itens: [] }); }
-      gruposDia[idxPorChave.get(k)].itens.push(it);
-    });
-
-    gruposDia.forEach(g => {
-      const totalKg = g.itens.reduce((s,it)=>s+(it.pedido.kg||0),0);
-      const totalMl = g.itens.reduce((s,it)=>s+(it.pedido.ml||0),0);
-      const totalMin = g.itens.reduce((s,it)=>s+it.minUsados,0);
-      const chaveExpand = d.data.toDateString() + '|' + g.chave;
-      const aberto = expandidoView.has(chaveExpand);
-
-      html += `<div class="cliente-view-group">
-        <div class="cliente-view-header" data-toggle-view="${chaveExpand}">
-          <span><b>${g.cliente}</b> <span class="badge" style="background:#dce7f6;color:#1a56a0">${g.itens.length} ped.</span></span>
-          <span class="chevron">${aberto?'▾':'▸'}</span>
-        </div>
-        <div class="linha2">${Math.round(totalKg)} kg · ${Math.round(totalMl)} ML · ${Math.round(totalMin)} min neste dia</div>`;
-
-      if (aberto){
-        g.itens.forEach(it => {
-          const p = it.pedido;
-          const badgeTxt = { inicio:'início', continua:'continua', conclui:'conclui', unico:'', reservado:'📌 reservado' }[it.status];
-          const badgeCls = { inicio:'inicio', continua:'continua', conclui:'conclui', unico:'', reservado:'reservado' }[it.status];
-          html += `<div class="pedido-row">
-            <div class="linha1"><span>${p.po||''}</span>${badgeTxt?`<span class="badge ${badgeCls}">${badgeTxt}</span>`:''}</div>
-            <div class="linha2">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} · ${Math.round(it.minUsados)} min</div>
-          </div>`;
-        });
-      }
-      html += `</div>`;
-    });
+    html += renderGruposClientesDia(d);
     html += `</div>`;
   });
   cont.innerHTML = html;
@@ -810,6 +855,7 @@ function renderAgenda(pedidos){
       const k = el.getAttribute('data-toggle-view');
       if (expandidoView.has(k)) expandidoView.delete(k); else expandidoView.add(k);
       renderAgenda(pendentes);
+      renderDetalheDiaCalendario();
     });
   });
 }
@@ -1069,115 +1115,175 @@ function ativarArrastarPedidos(cont){
   });
 }
 
-// ===================== DASHBOARD — gráfico de colunas empilhadas (cliente × dia) =====================
+// ===================== CALENDÁRIO DE PRODUÇÃO =====================
 // Paleta categórica validada (8 tons, ordem fixa, CVD-safe) — mesma cor pro mesmo
 // cliente em todo lugar. Além do 7º cliente por volume, agrupa em "Outros" (cinza).
 const PALETA_CATEGORICA = ['#2a78d6','#1baf7a','#eda100','#008300','#4a3aa7','#e34948','#e87ba4','#eb6834'];
 const COR_OUTROS = '#b9c4cf';
-const ALTURA_MAX_GRAFICO = 170; // px
 
-function renderDashboard(){
-  const cont = document.getElementById('dashConteudo');
+let mesCalendarioAtual = null;       // Date (dia 1 do mês exibido)
+let diaSelecionadoCalendario = null; // chave yyyy-mm-dd do dia aberto no detalhe
+
+function renderCalendarioProducao(){
+  if (!mesCalendarioAtual){
+    const hoje = new Date();
+    mesCalendarioAtual = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
+  }
+  document.getElementById('tituloMesCalendario').textContent =
+    mesCalendarioAtual.toLocaleDateString('pt-BR', { month:'long', year:'numeric' });
+
+  const grid = document.getElementById('gridCalendario');
+  const legenda = document.getElementById('legendaCalendario');
+
   if (!pendentes.length){
-    cont.innerHTML = '<p style="color:#6a8bb0;font-size:13px;">Fila vazia — nada para mostrar no dashboard.</p>';
+    grid.innerHTML = '<p style="grid-column:1/-1;color:#6a8bb0;font-size:13px;text-align:center;padding:16px 0;">Fila vazia — nada para mostrar.</p>';
+    legenda.innerHTML = '';
+    renderDetalheDiaCalendario();
     return;
   }
+
   const agora = new Date();
   const { dias } = calcularAgenda(pendentes, agora);
+  const porChaveDia = new Map(dias.map(d => [chaveDiaISO(d.data), d]));
 
-  // kg por cliente em cada dia + total geral por cliente (pra ranquear e colorir)
-  const totalGeralPorCliente = new Map();
-  const porDiaCliente = dias.map(d => {
-    const mapa = new Map();
-    d.itens.forEach(it => {
-      const p = it.pedido;
-      const totalMin = p.setupMin + p.ml / VELOCIDADE_M_MIN;
-      const fracao = totalMin > 0 ? it.minUsados / totalMin : 0;
-      const nome = String(p.cliente||'').trim();
-      const kg = (p.kg||0) * fracao;
-      mapa.set(nome, (mapa.get(nome)||0) + kg);
-      totalGeralPorCliente.set(nome, (totalGeralPorCliente.get(nome)||0) + kg);
+  // ranking de clientes (sobre toda a fila projetada) pra cor fixa e consistente —
+  // agrupado por chaveCliente (maiúsculas) pra "Carpel" e "CARPEL" contarem como 1 só,
+  // igual já acontece na fila do supervisor.
+  const totalPorCliente = new Map();
+  dias.forEach(d => d.itens.forEach(it => {
+    const k = chaveCliente(it.pedido.cliente);
+    if (!totalPorCliente.has(k)) totalPorCliente.set(k, { nome: String(it.pedido.cliente||'').trim(), kg: 0 });
+    totalPorCliente.get(k).kg += (it.pedido.kg||0);
+  }));
+  const ranking = Array.from(totalPorCliente, ([chave,c]) => ({ chave, nome: c.nome, kg: c.kg })).sort((a,b)=>b.kg-a.kg);
+  const top = ranking.slice(0,7);
+  const corPorCliente = new Map(top.map((c,i) => [c.chave, PALETA_CATEGORICA[i]]));
+
+  const ano = mesCalendarioAtual.getFullYear(), mesIdx = mesCalendarioAtual.getMonth();
+  const primeiroDiaSemana = new Date(ano, mesIdx, 1).getDay();
+  const totalDiasNoMes = new Date(ano, mesIdx+1, 0).getDate();
+  const hojeStr = agora.toDateString();
+
+  grid.innerHTML = '';
+  const colunaInicial = (primeiroDiaSemana>=1 && primeiroDiaSemana<=5) ? primeiroDiaSemana-1 : 0;
+  for (let i=0;i<colunaInicial;i++) grid.appendChild(criarCelulaCalendarioVazia());
+
+  let diaSemanaSimulado = primeiroDiaSemana;
+  for (let d=1; d<=totalDiasNoMes; d++){
+    if (diaSemanaSimulado>=1 && diaSemanaSimulado<=5){
+      const dataCel = new Date(ano, mesIdx, d);
+      const diaObj = porChaveDia.get(chaveDiaISO(dataCel));
+      grid.appendChild(criarCelulaCalendarioDia(dataCel, diaObj, corPorCliente, hojeStr));
+    }
+    diaSemanaSimulado = (diaSemanaSimulado+1)%7;
+  }
+
+  legenda.innerHTML = top.map(c => `<span class="legenda-item"><i style="background:${corPorCliente.get(c.chave)}"></i>${c.nome}</span>`).join('')
+    + (ranking.length>7 ? `<span class="legenda-item"><i style="background:${COR_OUTROS}"></i>Outros (${ranking.length-7} clientes)</span>` : '');
+
+  renderDetalheDiaCalendario();
+}
+
+function criarCelulaCalendarioVazia(){
+  const el = document.createElement('div');
+  el.className = 'dia-cal vazio';
+  return el;
+}
+
+function criarCelulaCalendarioDia(dataCel, diaObj, corPorCliente, hojeStr){
+  const el = document.createElement('div');
+  const ehHoje = dataCel.toDateString() === hojeStr;
+  const temDados = !!diaObj && diaObj.itens.length > 0;
+  const reservado = temDados && diaObj.itens.some(it => it.status === 'reservado');
+  el.className = 'dia-cal' + (ehHoje?' hoje':'') + (temDados?' tem-dados':'') + (reservado?' reservado':'');
+
+  let html = `<span class="num">${dataCel.getDate()}</span>`;
+  if (temDados){
+    const min = diaObj.minUsados;
+    const status = min >= CAP_MIN_DIA*0.95 ? 'lotado' : min >= CAP_MIN_DIA*0.6 ? 'quase' : 'livre';
+    const corBarra = status==='lotado' ? '#c62828' : status==='quase' ? '#f9a825' : '#43a047';
+    if (reservado) html += `<span class="pin">📌</span>`;
+    html += `<span class="status-dot ${status}"></span>`;
+    const pct = Math.min(100, Math.round(min/CAP_MIN_DIA*100));
+    html += `<div class="barra-bg-mini"><div class="barra-fill-mini" style="width:${pct}%;background:${corBarra}"></div></div>`;
+
+    const porCliente = new Map();
+    let kgTotal = 0;
+    diaObj.itens.forEach(it => {
+      const k = chaveCliente(it.pedido.cliente);
+      const kg = it.pedido.kg || 0;
+      if (!porCliente.has(k)) porCliente.set(k, { nome: String(it.pedido.cliente||'').trim(), kg: 0 });
+      porCliente.get(k).kg += kg;
+      kgTotal += kg;
     });
-    return mapa;
-  });
-
-  const ranking = Array.from(totalGeralPorCliente, ([nome,kg]) => ({ nome, kg })).sort((a,b) => b.kg - a.kg);
-  const top = ranking.slice(0, 7);
-  const corPorCliente = new Map(top.map((c,i) => [c.nome, PALETA_CATEGORICA[i]]));
-
-  const totalPorDia = porDiaCliente.map(mapa => Array.from(mapa.values()).reduce((s,v)=>s+v, 0));
-  const maxTotal = Math.max(1, ...totalPorDia);
-
-  let html = '<div class="chart-scroll">';
-  dias.forEach((d, idx) => {
-    const ehTurnoAtual = idx === 0 && d.emAndamento;
-    const mapa = porDiaCliente[idx];
-    const totalDia = totalPorDia[idx];
-    const alturaPx = totalDia > 0 ? Math.max(4, (totalDia/maxTotal) * ALTURA_MAX_GRAFICO) : 0;
-
-    let segmentos = '';
-    let restoKg = 0;
-    top.forEach(c => {
-      const kg = mapa.get(c.nome) || 0;
-      if (kg > 0.01) segmentos += `<div class="seg" style="flex:${kg} 0 0;background:${corPorCliente.get(c.nome)}" title="${c.nome}: ${Math.round(kg)} kg"></div>`;
+    const ordenados = Array.from(porCliente, ([chave,c]) => ({chave, nome:c.nome, kg:c.kg})).sort((a,b)=>b.kg-a.kg);
+    const MOSTRAR = 2;
+    html += `<div class="clientes-nomes">${ordenados.slice(0,MOSTRAR).map(c =>
+      `<div class="cliente-linha" title="${c.nome}"><i style="background:${corPorCliente.get(c.chave)||COR_OUTROS}"></i><span>${c.nome}</span></div>`
+    ).join('')}${ordenados.length>MOSTRAR ? `<div class="mais-clientes">+${ordenados.length-MOSTRAR}</div>` : ''}</div>`;
+    html += `<div class="kg-total-mini">${Math.round(kgTotal).toLocaleString('pt-BR')} kg</div>`;
+  }
+  el.innerHTML = html;
+  if (temDados){
+    el.addEventListener('click', () => {
+      diaSelecionadoCalendario = chaveDiaISO(dataCel);
+      renderDetalheDiaCalendario();
     });
-    mapa.forEach((kg, nome) => { if (!corPorCliente.has(nome)) restoKg += kg; });
-    if (restoKg > 0.01) segmentos += `<div class="seg" style="flex:${restoKg} 0 0;background:${COR_OUTROS}" title="Outros: ${Math.round(restoKg)} kg"></div>`;
+  }
+  return el;
+}
 
-    html += `<div class="chart-col ${ehTurnoAtual?'atual':''}">
-      <div class="chart-col-valor">${Math.round(totalDia)}</div>
-      <div class="chart-col-barra" style="height:${Math.round(alturaPx)}px">${segmentos}</div>
-      <div class="chart-col-label">${nomeDiaAbrev(d.data)}${ehTurnoAtual?' · agora':''}<br>${fmtData(d.data)}</div>
-    </div>`;
+function renderDetalheDiaCalendario(){
+  const cont = document.getElementById('detalheDiaCalendario');
+  if (!diaSelecionadoCalendario){ cont.classList.add('hidden'); cont.innerHTML=''; return; }
+
+  const { dias } = calcularAgenda(pendentes, new Date());
+  const d = dias.find(dd => chaveDiaISO(dd.data) === diaSelecionadoCalendario);
+  if (!d){ cont.classList.add('hidden'); cont.innerHTML=''; diaSelecionadoCalendario = null; return; }
+
+  cont.classList.remove('hidden');
+  const pct = Math.min(100, Math.round((d.minUsados/CAP_MIN_DIA)*100));
+  cont.innerHTML = `
+    <div class="detalhe-dia-cab">
+      <b>${nomeDia(d.data)}, ${fmtData(d.data)}</b>
+      <span class="fechar-detalhe" id="fecharDetalheCalendario">fechar ✕</span>
+    </div>
+    <div class="cap-bar-bg"><div class="cap-bar-fill ${pct>=95?'cheio':''}" style="width:${pct}%"></div></div>
+    <div class="cap-label">${Math.round(d.minUsados)} de ${CAP_MIN_DIA} min usados (${pct}%)</div>
+    ${renderGruposClientesDia(d)}
+  `;
+
+  document.getElementById('fecharDetalheCalendario').addEventListener('click', () => {
+    diaSelecionadoCalendario = null;
+    renderDetalheDiaCalendario();
   });
-  html += '</div>';
-
-  html += '<div class="chart-legend">';
-  top.forEach(c => { html += `<span class="legend-item"><i style="background:${corPorCliente.get(c.nome)}"></i>${c.nome}</span>`; });
-  if (ranking.length > 7) html += `<span class="legend-item"><i style="background:${COR_OUTROS}"></i>Outros (${ranking.length-7} clientes)</span>`;
-  html += '</div>';
-
-  html += '<div class="small-note">Barras = kg programado por dia. Cada cor é sempre o mesmo cliente. Toque numa fatia pra ver o valor exato. kg rateado quando o pedido atravessa mais de um dia.</div>';
-  html += `<a href="#" class="sup-link" id="toggleTabelaDash" style="margin:8px 0 0">${tabelaDashAberta?'Ocultar':'Ver'} tabela detalhada (todos os clientes)</a>`;
-  html += `<div id="tabelaDashDetalhe" class="${tabelaDashAberta?'':'hidden'}">${tabelaDashAberta ? montarTabelaDetalhada(dias, ranking, porDiaCliente, totalPorDia) : ''}</div>`;
-
-  cont.innerHTML = html;
-
-  document.getElementById('toggleTabelaDash').addEventListener('click', (e) => {
-    e.preventDefault();
-    tabelaDashAberta = !tabelaDashAberta;
-    renderDashboard();
+  cont.querySelectorAll('[data-toggle-view]').forEach(el => {
+    el.addEventListener('click', () => {
+      const k = el.getAttribute('data-toggle-view');
+      if (expandidoView.has(k)) expandidoView.delete(k); else expandidoView.add(k);
+      renderDetalheDiaCalendario();
+    });
   });
 }
 
-function montarTabelaDetalhada(dias, ranking, porDiaCliente, totalPorDia){
-  let html = '<div class="dash-scroll"><table class="dash-table"><thead><tr><th class="dash-th-cliente">Cliente</th>';
-  dias.forEach(d => { html += `<th>${nomeDiaAbrev(d.data)}<br>${fmtData(d.data)}</th>`; });
-  html += '<th class="dash-total-col">Total</th></tr></thead><tbody>';
+document.getElementById('btnMesAnterior').addEventListener('click', () => {
+  mesCalendarioAtual = new Date(mesCalendarioAtual.getFullYear(), mesCalendarioAtual.getMonth()-1, 1);
+  diaSelecionadoCalendario = null;
+  renderCalendarioProducao();
+});
+document.getElementById('btnMesSeguinte').addEventListener('click', () => {
+  mesCalendarioAtual = new Date(mesCalendarioAtual.getFullYear(), mesCalendarioAtual.getMonth()+1, 1);
+  diaSelecionadoCalendario = null;
+  renderCalendarioProducao();
+});
 
-  ranking.forEach(c => {
-    html += `<tr><td class="dash-td-cliente">${c.nome}</td>`;
-    porDiaCliente.forEach(mapa => {
-      const v = mapa.get(c.nome) || 0;
-      html += `<td>${v>0 ? Math.round(v) : ''}</td>`;
-    });
-    html += `<td class="dash-total-col">${Math.round(c.kg)}</td></tr>`;
-  });
-
-  html += '<tr class="dash-total-row"><td>Total</td>';
-  totalPorDia.forEach(v => html += `<td>${Math.round(v)}</td>`);
-  html += `<td>${Math.round(totalPorDia.reduce((s,v)=>s+v,0))}</td></tr>`;
-  html += '</tbody></table></div>';
-  return html;
-}
-
-// Atualiza todas as telas de uma vez (fila, aguardando, produzidos, visualização e dashboard).
+// Atualiza todas as telas de uma vez (fila, aguardando, produzidos, visualização e calendário).
 function atualizarTudo(){
   renderFilaSupervisor();
   renderAguardando();
   renderProduzidos();
   renderAgenda(pendentes);
-  renderDashboard();
+  renderCalendarioProducao();
   renderDatasReservadas();
 }
 
