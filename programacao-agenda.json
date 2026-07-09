@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-09T12:01:49.385Z",
+  "geradoEm": "2026-07-09T12:38:32.671Z",
   "pendentes": [
     {
       "id": "p134_az6g6",
@@ -343,6 +343,171 @@
       "chave": "OF:261657"
     },
     {
+      "id": "p71_qkk4p",
+      "cliente": "CARPEL",
+      "po": "P25B",
+      "of": "261631",
+      "oc": "SN",
+      "ml": 295,
+      "kg": 152.7,
+      "setupMin": 40,
+      "chave": "OF:261631"
+    },
+    {
+      "id": "p72_8tc69",
+      "cliente": "CARPEL",
+      "po": "P25B",
+      "of": "261630",
+      "oc": "SN",
+      "ml": 622.5,
+      "kg": 315.7,
+      "setupMin": 40,
+      "chave": "OF:261630"
+    },
+    {
+      "id": "p73_3aaa5",
+      "cliente": "CARPEL",
+      "po": "P25B",
+      "of": "261626",
+      "oc": "SN",
+      "ml": 245,
+      "kg": 121.7,
+      "setupMin": 40,
+      "chave": "OF:261626"
+    },
+    {
+      "id": "p74_mxog9",
+      "cliente": "CARPEL",
+      "po": "P25B",
+      "of": "261639",
+      "oc": "SN",
+      "ml": 306.7,
+      "kg": 152.4,
+      "setupMin": 40,
+      "chave": "OF:261639"
+    },
+    {
+      "id": "p75_rvxhx",
+      "cliente": "CARPEL",
+      "po": "P25B",
+      "of": "261638",
+      "oc": "SN",
+      "ml": 670,
+      "kg": 328.2,
+      "setupMin": 40,
+      "chave": "OF:261638"
+    },
+    {
+      "id": "p76_dmd24",
+      "cliente": "CARPEL",
+      "po": "P25B",
+      "of": "261627",
+      "oc": "SN",
+      "ml": 245,
+      "kg": 104.8,
+      "setupMin": 40,
+      "chave": "OF:261627"
+    },
+    {
+      "id": "p77_4d7gw",
+      "cliente": "CARPEL",
+      "po": "P25B",
+      "of": "261628",
+      "oc": "SN",
+      "ml": 173.3,
+      "kg": 76.1,
+      "setupMin": 40,
+      "chave": "OF:261628"
+    },
+    {
+      "id": "p78_bdzyq",
+      "cliente": "CARPEL",
+      "po": "P25B",
+      "of": "261629",
+      "oc": "SN",
+      "ml": 134,
+      "kg": 58.8,
+      "setupMin": 40,
+      "chave": "OF:261629"
+    },
+    {
+      "id": "p79_ckovp",
+      "cliente": "CARPEL",
+      "po": "P25B",
+      "of": "261637",
+      "oc": "SN",
+      "ml": 1376.7,
+      "kg": 584.2,
+      "setupMin": 40,
+      "chave": "OF:261637"
+    },
+    {
+      "id": "p80_rdqq7",
+      "cliente": "CARPEL",
+      "po": "P25B",
+      "of": "261636",
+      "oc": "SN",
+      "ml": 270,
+      "kg": 108.1,
+      "setupMin": 40,
+      "chave": "OF:261636"
+    },
+    {
+      "id": "p81_ges9i",
+      "cliente": "CARPEL",
+      "po": "P25B",
+      "of": "261640",
+      "oc": "SN",
+      "ml": 560,
+      "kg": 224.1,
+      "setupMin": 40,
+      "chave": "OF:261640"
+    },
+    {
+      "id": "p82_9f56f",
+      "cliente": "CARPEL",
+      "po": "P30B",
+      "of": "261634",
+      "oc": "SN",
+      "ml": 2204,
+      "kg": 891.3,
+      "setupMin": 40,
+      "chave": "OF:261634"
+    },
+    {
+      "id": "p83_m264u",
+      "cliente": "CARPEL",
+      "po": "P25B",
+      "of": "261633",
+      "oc": "SN",
+      "ml": 264,
+      "kg": 97.3,
+      "setupMin": 40,
+      "chave": "OF:261633"
+    },
+    {
+      "id": "p84_ygzi1",
+      "cliente": "CARPEL",
+      "po": "P25B",
+      "of": "261635",
+      "oc": "SN",
+      "ml": 1260,
+      "kg": 299.1,
+      "setupMin": 40,
+      "chave": "OF:261635"
+    },
+    {
+      "id": "p85_77pfa",
+      "cliente": "CARPEL",
+      "po": "P25B",
+      "of": "261632",
+      "oc": "SN",
+      "ml": 420,
+      "kg": 88.1,
+      "setupMin": 40,
+      "chave": "OF:261632"
+    },
+    {
       "id": "p108_lyrgq",
       "cliente": "HARMONY EMBALAGENS LTDA",
       "po": "P50D",
@@ -627,171 +792,6 @@
       "kg": 149.4,
       "setupMin": 40,
       "chave": "OF:261688"
-    },
-    {
-      "id": "p71_qkk4p",
-      "cliente": "CARPEL",
-      "po": "P25B",
-      "of": "261631",
-      "oc": "SN",
-      "ml": 295,
-      "kg": 152.7,
-      "setupMin": 40,
-      "chave": "OF:261631"
-    },
-    {
-      "id": "p72_8tc69",
-      "cliente": "CARPEL",
-      "po": "P25B",
-      "of": "261630",
-      "oc": "SN",
-      "ml": 622.5,
-      "kg": 315.7,
-      "setupMin": 40,
-      "chave": "OF:261630"
-    },
-    {
-      "id": "p73_3aaa5",
-      "cliente": "CARPEL",
-      "po": "P25B",
-      "of": "261626",
-      "oc": "SN",
-      "ml": 245,
-      "kg": 121.7,
-      "setupMin": 40,
-      "chave": "OF:261626"
-    },
-    {
-      "id": "p74_mxog9",
-      "cliente": "CARPEL",
-      "po": "P25B",
-      "of": "261639",
-      "oc": "SN",
-      "ml": 306.7,
-      "kg": 152.4,
-      "setupMin": 40,
-      "chave": "OF:261639"
-    },
-    {
-      "id": "p75_rvxhx",
-      "cliente": "CARPEL",
-      "po": "P25B",
-      "of": "261638",
-      "oc": "SN",
-      "ml": 670,
-      "kg": 328.2,
-      "setupMin": 40,
-      "chave": "OF:261638"
-    },
-    {
-      "id": "p76_dmd24",
-      "cliente": "CARPEL",
-      "po": "P25B",
-      "of": "261627",
-      "oc": "SN",
-      "ml": 245,
-      "kg": 104.8,
-      "setupMin": 40,
-      "chave": "OF:261627"
-    },
-    {
-      "id": "p77_4d7gw",
-      "cliente": "CARPEL",
-      "po": "P25B",
-      "of": "261628",
-      "oc": "SN",
-      "ml": 173.3,
-      "kg": 76.1,
-      "setupMin": 40,
-      "chave": "OF:261628"
-    },
-    {
-      "id": "p78_bdzyq",
-      "cliente": "CARPEL",
-      "po": "P25B",
-      "of": "261629",
-      "oc": "SN",
-      "ml": 134,
-      "kg": 58.8,
-      "setupMin": 40,
-      "chave": "OF:261629"
-    },
-    {
-      "id": "p79_ckovp",
-      "cliente": "CARPEL",
-      "po": "P25B",
-      "of": "261637",
-      "oc": "SN",
-      "ml": 1376.7,
-      "kg": 584.2,
-      "setupMin": 40,
-      "chave": "OF:261637"
-    },
-    {
-      "id": "p80_rdqq7",
-      "cliente": "CARPEL",
-      "po": "P25B",
-      "of": "261636",
-      "oc": "SN",
-      "ml": 270,
-      "kg": 108.1,
-      "setupMin": 40,
-      "chave": "OF:261636"
-    },
-    {
-      "id": "p81_ges9i",
-      "cliente": "CARPEL",
-      "po": "P25B",
-      "of": "261640",
-      "oc": "SN",
-      "ml": 560,
-      "kg": 224.1,
-      "setupMin": 40,
-      "chave": "OF:261640"
-    },
-    {
-      "id": "p82_9f56f",
-      "cliente": "CARPEL",
-      "po": "P30B",
-      "of": "261634",
-      "oc": "SN",
-      "ml": 2204,
-      "kg": 891.3,
-      "setupMin": 40,
-      "chave": "OF:261634"
-    },
-    {
-      "id": "p83_m264u",
-      "cliente": "CARPEL",
-      "po": "P25B",
-      "of": "261633",
-      "oc": "SN",
-      "ml": 264,
-      "kg": 97.3,
-      "setupMin": 40,
-      "chave": "OF:261633"
-    },
-    {
-      "id": "p84_ygzi1",
-      "cliente": "CARPEL",
-      "po": "P25B",
-      "of": "261635",
-      "oc": "SN",
-      "ml": 1260,
-      "kg": 299.1,
-      "setupMin": 40,
-      "chave": "OF:261635"
-    },
-    {
-      "id": "p85_77pfa",
-      "cliente": "CARPEL",
-      "po": "P25B",
-      "of": "261632",
-      "oc": "SN",
-      "ml": 420,
-      "kg": 88.1,
-      "setupMin": 40,
-      "chave": "OF:261632"
     }
   ],
   "aguardando": [
