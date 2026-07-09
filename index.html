@@ -402,7 +402,7 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
     </div>
 
     <div class="card">
-      <h2>3. Produção por cliente</h2>
+      <h2>3. Produção por pedido</h2>
       <div class="tabs">
         <button class="tab-btn active" data-tab="fila">Fila (<span id="countPend">0</span>)</button>
         <button class="tab-btn" data-tab="aguardando">Aguardando (<span id="countAguardando">0</span>)</button>
@@ -420,7 +420,7 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
           <div id="previewReservaLote" style="width:100%;font-weight:700;font-size:12.5px;"></div>
         </div>
         <div id="listaPendentes"></div>
-        <div class="small-note">Marque as caixinhas de vários pedidos (de um ou mais clientes — ou marque o cliente inteiro no cabeçalho) e toque em "📌 Reservar data" pra agendar todos de uma vez pra um dia específico, ou em "Marcar produzidos" pra dar baixa em tudo — útil ao chegar de manhã e o turno da noite ter fabricado vários, ou quando chega um pedido novo com data certa de fabricação combinada. Arraste um cliente (⠿) para mudar a ordem entre clientes. Toque no nome do cliente para abrir e reordenar os pedidos dele. "Aguardar" tira da projeção sem apagar; o botão "Produzido" individual serve pra registrar produção parcial (não coube tudo na carreta).</div>
+        <div class="small-note">Cada aba do Excel é um pedido — um cliente pode ter mais de um (ex: ABAPEL, ABAPEL3), cada um com sua própria data. Marque as caixinhas de várias OFs (de um ou mais pedidos — ou marque o pedido inteiro no cabeçalho) e toque em "📌 Reservar data" pra agendar todas de uma vez, ou em "Marcar produzidos" pra dar baixa em tudo. Arraste um pedido (⠿) para mudar a ordem entre pedidos. Toque no nome do pedido para abrir e reordenar as OFs dele. "Aguardar" tira da projeção sem apagar; o botão "Produzido" individual serve pra registrar produção parcial (não coube tudo na carreta).</div>
       </div>
 
       <div id="painelAguardando" class="hidden">
@@ -524,15 +524,20 @@ function fmtDataISO(iso){
   return String(d).padStart(2,'0')+'/'+String(m).padStart(2,'0');
 }
 
-// ===================== AGRUPAMENTO POR CLIENTE =====================
+// ===================== AGRUPAMENTO POR PEDIDO (cada aba do Excel = 1 pedido) =====================
 function chaveCliente(c){ return String(c||'').trim().toUpperCase(); }
+// Identidade do PEDIDO (lote/aba) — um cliente pode ter vários pedidos ao mesmo
+// tempo (ex: ABAPEL, ABAPEL3, "ABAPEL 8014-8017-8018-8020"), cada um com sua
+// própria data de produção/faturamento, por isso nunca são misturados num só bloco.
+function chaveLote(p){ return String(p.lote || p.cliente || '').trim().toUpperCase(); }
+function nomeLote(p){ return String(p.lote || p.cliente || '').trim(); }
 
-// Agrupa mantendo a ordem de 1ª aparição de cada cliente na lista.
-function agruparPorCliente(lista){
+// Agrupa mantendo a ordem de 1ª aparição de cada pedido (lote) na lista.
+function agruparPorLote(lista){
   const mapa = new Map();
   lista.forEach(p => {
-    const k = chaveCliente(p.cliente);
-    if (!mapa.has(k)) mapa.set(k, { chave: k, cliente: String(p.cliente||'').trim(), pedidos: [] });
+    const k = chaveLote(p);
+    if (!mapa.has(k)) mapa.set(k, { chave: k, lote: nomeLote(p), cliente: String(p.cliente||'').trim(), pedidos: [] });
     mapa.get(k).pedidos.push(p);
   });
   return Array.from(mapa.values());
@@ -540,11 +545,11 @@ function agruparPorCliente(lista){
 function achatarGrupos(grupos){
   return grupos.flatMap(g => g.pedidos);
 }
-// Insere um pedido novo dentro do bloco do mesmo cliente (se já existir); senão vai pro fim.
+// Insere um OF novo dentro do bloco do mesmo pedido/lote (se já existir); senão vai pro fim.
 function inserirNoGrupo(lista, pedido){
-  const k = chaveCliente(pedido.cliente);
+  const k = chaveLote(pedido);
   let ultimo = -1;
-  lista.forEach((p,i) => { if (chaveCliente(p.cliente) === k) ultimo = i; });
+  lista.forEach((p,i) => { if (chaveLote(p) === k) ultimo = i; });
   const nova = lista.slice();
   nova.splice(ultimo === -1 ? nova.length : ultimo+1, 0, pedido);
   return nova;
@@ -746,8 +751,8 @@ function resumoReservaData(dataISO, agora){
   const minReservado = itensReservados.reduce((s,it) => s+it.minUsados, 0);
   const porCliente = new Map();
   itensReservados.forEach(it => {
-    const k = chaveCliente(it.pedido.cliente);
-    if (!porCliente.has(k)) porCliente.set(k, { nome: String(it.pedido.cliente||'').trim(), min: 0 });
+    const k = chaveLote(it.pedido);
+    if (!porCliente.has(k)) porCliente.set(k, { nome: nomeLote(it.pedido), min: 0 });
     porCliente.get(k).min += it.minUsados;
   });
   return {
@@ -758,13 +763,6 @@ function resumoReservaData(dataISO, agora){
 }
 
 // ===================== DETALHE DE UM DIA (usado pelo Calendário de Produção) =====================
-// Cada aba do Excel é um PEDIDO/lote — mesmo quando é o mesmo cliente (ex: ABAPEL,
-// ABAPEL3 e "ABAPEL 8014-8017-8018-8020" são 3 pedidos diferentes do mesmo cliente,
-// com datas de produção/faturamento diferentes). Por isso agrupa por lote, não só
-// por cliente — "cliente" fica só como legenda dentro do grupo.
-function chaveLote(p){ return String(p.lote || p.cliente || '').trim().toUpperCase(); }
-function nomeLote(p){ return String(p.lote || p.cliente || '').trim(); }
-
 function renderGruposClientesDia(d){
   const gruposDia = [];
   const idxPorChave = new Map();
@@ -817,7 +815,7 @@ function renderFilaSupervisor(){
   // limpa seleção de itens que não estão mais na fila (produzidos/aguardando/excluídos)
   selecionadosProduzir = new Set([...selecionadosProduzir].filter(id => pendentes.some(p => p.id === id)));
 
-  const grupos = agruparPorCliente(pendentes);
+  const grupos = agruparPorLote(pendentes);
   const { pedidosInfo } = calcularAgenda(pendentes);
 
   let html = '';
@@ -829,15 +827,16 @@ function renderFilaSupervisor(){
     const previsao = infoFim ? `${nomeDia(infoFim.diaFim)}, ${fmtData(infoFim.diaFim)}` : '-';
     const aberto = expandidoSup.has(g.chave);
     const todosSelecionados = g.pedidos.every(p => selecionadosProduzir.has(p.id));
+    const mostrarCliente = chaveCliente(g.cliente) !== g.chave;
 
     html += `<div class="cliente-grupo" data-cliente="${g.chave}">
       <div class="cliente-header" draggable="true">
-        <input type="checkbox" class="chk-produzir-grupo" data-cliente="${g.chave}" ${todosSelecionados?'checked':''} title="Selecionar todos os pedidos deste cliente">
+        <input type="checkbox" class="chk-produzir-grupo" data-cliente="${g.chave}" ${todosSelecionados?'checked':''} title="Selecionar todas as OFs deste pedido">
         <span class="drag-handle">⠿</span>
         <span class="ordem-num">${gi+1}</span>
         <div class="cliente-header-txt" data-toggle="${g.chave}">
-          <b>${g.cliente}</b>
-          <div class="small-note">${g.pedidos.length} pedido(s) · ${Math.round(totalKg)} kg · ${Math.round(totalMl)} ML · previsão até ${previsao}</div>
+          <b>${g.lote}</b>${mostrarCliente?` <span class="small-note" style="display:inline;margin:0">(${g.cliente})</span>`:''}
+          <div class="small-note">${g.pedidos.length} OF(s) · ${Math.round(totalKg)} kg · ${Math.round(totalMl)} ML · previsão até ${previsao}</div>
         </div>
         <div class="mini-btns-col">
           <button class="mini-btn up" data-act="up-grupo" data-cliente="${g.chave}" ${gi===0?'disabled':''}>▲</button>
@@ -892,7 +891,7 @@ function renderFilaSupervisor(){
   cont.querySelectorAll('.chk-produzir-grupo').forEach(chk => {
     chk.addEventListener('change', () => {
       const chave = chk.getAttribute('data-cliente');
-      pendentes.filter(p => chaveCliente(p.cliente) === chave).forEach(p => {
+      pendentes.filter(p => chaveLote(p) === chave).forEach(p => {
         if (chk.checked) selecionadosProduzir.add(p.id); else selecionadosProduzir.delete(p.id);
       });
       renderFilaSupervisor();
@@ -969,7 +968,7 @@ function renderFilaSupervisor(){
     btn.addEventListener('click', () => {
       const id = btn.getAttribute('data-id');
       const dir = btn.getAttribute('data-act') === 'up-pedido' ? -1 : 1;
-      const gs = agruparPorCliente(pendentes);
+      const gs = agruparPorLote(pendentes);
       const g = gs.find(gr => gr.pedidos.some(p => p.id === id));
       const i = g.pedidos.findIndex(p => p.id === id);
       const j = i + dir;
@@ -985,7 +984,7 @@ function renderFilaSupervisor(){
     btn.addEventListener('click', () => {
       const chave = btn.getAttribute('data-cliente');
       const dir = btn.getAttribute('data-act') === 'up-grupo' ? -1 : 1;
-      const gs = agruparPorCliente(pendentes);
+      const gs = agruparPorLote(pendentes);
       const i = gs.findIndex(gr => gr.chave === chave);
       const j = i + dir;
       if (j < 0 || j >= gs.length) return;
@@ -1013,7 +1012,7 @@ function ativarArrastarGrupos(cont){
       dragEl.classList.remove('dragging');
       dragEl = null;
       const novaOrdem = Array.from(cont.querySelectorAll('.cliente-grupo')).map(el => el.dataset.cliente);
-      const gs = agruparPorCliente(pendentes);
+      const gs = agruparPorLote(pendentes);
       gs.sort((a,b) => novaOrdem.indexOf(a.chave) - novaOrdem.indexOf(b.chave));
       pendentes = achatarGrupos(gs);
       atualizarTudo();
@@ -1044,7 +1043,7 @@ function ativarArrastarPedidos(cont){
         dragEl = null;
         const chave = body.dataset.clienteBody;
         const novaOrdem = Array.from(body.querySelectorAll('.pend-row')).map(r => r.dataset.id);
-        const gs = agruparPorCliente(pendentes);
+        const gs = agruparPorLote(pendentes);
         const g = gs.find(gr => gr.chave === chave);
         g.pedidos.sort((a,b) => novaOrdem.indexOf(a.id) - novaOrdem.indexOf(b.id));
         pendentes = achatarGrupos(gs);
@@ -1255,9 +1254,13 @@ function renderDatasReservadas(){
     const minReservado = itensReservados.reduce((s,it) => s+it.minUsados, 0);
     const minLivre = Math.max(0, CAP_MIN_DIA - minReservado);
     const lotado = minLivre <= 0.01;
-    const porCliente = new Map();
-    itensReservados.forEach(it => porCliente.set(it.pedido.cliente, (porCliente.get(it.pedido.cliente)||0) + it.minUsados));
-    const clientesTxt = Array.from(porCliente, ([nome,min]) => `${nome} (${Math.round(min)} min)`).join(' · ');
+    const porLote = new Map();
+    itensReservados.forEach(it => {
+      const k = chaveLote(it.pedido);
+      if (!porLote.has(k)) porLote.set(k, { nome: nomeLote(it.pedido), min: 0 });
+      porLote.get(k).min += it.minUsados;
+    });
+    const clientesTxt = Array.from(porLote.values(), c => `${c.nome} (${Math.round(c.min)} min)`).join(' · ');
 
     html += `<div class="pend-row" style="cursor:default">
       <div class="conteudo">
@@ -1469,16 +1472,17 @@ function renderAguardando(){
     cont.innerHTML = '<p style="color:#6a8bb0;font-size:13px;">Nada aguardando no momento.</p>';
     return;
   }
-  const grupos = agruparPorCliente(aguardando);
+  const grupos = agruparPorLote(aguardando);
   let html = '';
   grupos.forEach(g => {
     const totalKg = g.pedidos.reduce((s,p)=>s+(p.kg||0),0);
     const totalMl = g.pedidos.reduce((s,p)=>s+(p.ml||0),0);
+    const mostrarCliente = chaveCliente(g.cliente) !== g.chave;
     html += `<div class="cliente-grupo">
       <div class="cliente-header" style="cursor:default">
         <div class="cliente-header-txt" style="cursor:default">
-          <b>${g.cliente}</b>
-          <div class="small-note">${g.pedidos.length} pedido(s) · ${Math.round(totalKg)} kg · ${Math.round(totalMl)} ML</div>
+          <b>${g.lote}</b>${mostrarCliente?` <span class="small-note" style="display:inline;margin:0">(${g.cliente})</span>`:''}
+          <div class="small-note">${g.pedidos.length} OF(s) · ${Math.round(totalKg)} kg · ${Math.round(totalMl)} ML</div>
         </div>
       </div>
       <div class="cliente-body">`;
@@ -1512,16 +1516,17 @@ function renderProduzidos(){
     atualizarBarraSelecaoVoltar();
     return;
   }
-  const grupos = agruparPorCliente(produzidos);
+  const grupos = agruparPorLote(produzidos);
   let html = '';
   grupos.forEach(g => {
     const totalKg = g.pedidos.reduce((s,p)=>s+(p.kg||0),0);
     const totalMl = g.pedidos.reduce((s,p)=>s+(p.ml||0),0);
+    const mostrarCliente = chaveCliente(g.cliente) !== g.chave;
     html += `<div class="cliente-grupo">
       <div class="cliente-header" style="cursor:default">
         <div class="cliente-header-txt" style="cursor:default">
-          <b>${g.cliente}</b>
-          <div class="small-note">${g.pedidos.length} pedido(s) · ${Math.round(totalKg)} kg · ${Math.round(totalMl)} ML</div>
+          <b>${g.lote}</b>${mostrarCliente?` <span class="small-note" style="display:inline;margin:0">(${g.cliente})</span>`:''}
+          <div class="small-note">${g.pedidos.length} OF(s) · ${Math.round(totalKg)} kg · ${Math.round(totalMl)} ML</div>
         </div>
       </div>
       <div class="cliente-body">`;
@@ -1883,7 +1888,7 @@ async function carregarProgramacaoPublicada(){
     const r = await fetch('./programacao-agenda.json?t=' + Date.now(), { cache:'no-store' });
     if (!r.ok) throw new Error();
     const data = await r.json();
-    pendentes = achatarGrupos(agruparPorCliente(normalizarLista(data.pendentes)));
+    pendentes = achatarGrupos(agruparPorLote(normalizarLista(data.pendentes)));
     aguardando = normalizarLista(data.aguardando);
     produzidos = normalizarLista(data.produzidos);
   } catch (err){
