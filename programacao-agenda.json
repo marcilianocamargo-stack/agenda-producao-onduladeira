@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-09T13:58:55.143Z",
+  "geradoEm": "2026-07-09T18:34:54.558Z",
   "pendentes": [
     {
       "id": "p134_az6g6",
@@ -10,7 +10,8 @@
       "ml": 840,
       "kg": 712.7,
       "setupMin": 40,
-      "chave": "OF:261689"
+      "chave": "OF:261689",
+      "lote": "recimag - Renovapel"
     },
     {
       "id": "p135_aoaq0",
@@ -21,7 +22,8 @@
       "ml": 1020,
       "kg": 679.9,
       "setupMin": 40,
-      "chave": "OF:261690"
+      "chave": "OF:261690",
+      "lote": "recimag - Renovapel"
     },
     {
       "id": "p1_1svzf",
@@ -32,7 +34,8 @@
       "ml": 455.9,
       "kg": 321.8,
       "setupMin": 40,
-      "chave": "OF:261499"
+      "chave": "OF:261499",
+      "lote": "ABAPEL"
     },
     {
       "id": "p2_89y7n",
@@ -43,7 +46,8 @@
       "ml": 605.9,
       "kg": 427.6,
       "setupMin": 40,
-      "chave": "OF:261500"
+      "chave": "OF:261500",
+      "lote": "ABAPEL"
     },
     {
       "id": "p3_96auc",
@@ -54,7 +58,8 @@
       "ml": 504.3,
       "kg": 337,
       "setupMin": 40,
-      "chave": "OF:261501"
+      "chave": "OF:261501",
+      "lote": "ABAPEL"
     },
     {
       "id": "p4_tqc8p",
@@ -65,7 +70,8 @@
       "ml": 8640,
       "kg": 5288.2,
       "setupMin": 40,
-      "chave": "OF:261502"
+      "chave": "OF:261502",
+      "lote": "ABAPEL"
     },
     {
       "id": "p5_aglij",
@@ -76,7 +82,8 @@
       "ml": 818.4,
       "kg": 442.6,
       "setupMin": 40,
-      "chave": "OF:261503"
+      "chave": "OF:261503",
+      "lote": "ABAPEL"
     },
     {
       "id": "p6_acizg",
@@ -87,7 +94,8 @@
       "ml": 618,
       "kg": 339.7,
       "setupMin": 40,
-      "chave": "OF:261504"
+      "chave": "OF:261504",
+      "lote": "ABAPEL"
     },
     {
       "id": "p7_8h4n4",
@@ -98,7 +106,8 @@
       "ml": 7700,
       "kg": 4152.9,
       "setupMin": 40,
-      "chave": "OF:261505"
+      "chave": "OF:261505",
+      "lote": "ABAPEL"
     },
     {
       "id": "p8_ddml8",
@@ -109,7 +118,8 @@
       "ml": 632,
       "kg": 320.4,
       "setupMin": 40,
-      "chave": "OF:261506"
+      "chave": "OF:261506",
+      "lote": "ABAPEL"
     },
     {
       "id": "p9_jswnq",
@@ -120,7 +130,8 @@
       "ml": 860,
       "kg": 434.5,
       "setupMin": 40,
-      "chave": "OF:261507"
+      "chave": "OF:261507",
+      "lote": "ABAPEL"
     },
     {
       "id": "p10_baado",
@@ -131,7 +142,8 @@
       "ml": 663,
       "kg": 337,
       "setupMin": 40,
-      "chave": "OF:261508"
+      "chave": "OF:261508",
+      "lote": "ABAPEL"
     },
     {
       "id": "p11_i71o2",
@@ -142,7 +154,8 @@
       "ml": 630,
       "kg": 305.2,
       "setupMin": 40,
-      "chave": "OF:261509"
+      "chave": "OF:261509",
+      "lote": "ABAPEL"
     },
     {
       "id": "p12_7qmmj",
@@ -153,7 +166,8 @@
       "ml": 1338.7,
       "kg": 435.1,
       "setupMin": 40,
-      "chave": "OF:261510"
+      "chave": "OF:261510",
+      "lote": "ABAPEL"
     },
     {
       "id": "p38_3t2ef",
@@ -164,18 +178,8 @@
       "ml": 534.6,
       "kg": 432.2,
       "setupMin": 40,
-      "chave": "OF:261574"
-    },
-    {
-      "id": "p39_vjvnu",
-      "cliente": "ABAPEL",
-      "po": "P50D",
-      "of": "261573",
-      "oc": "7.999",
-      "ml": 624,
-      "kg": 485.5,
-      "setupMin": 40,
-      "chave": "OF:261573"
+      "chave": "OF:261574",
+      "lote": "ABAPEL3"
     },
     {
       "id": "p40_6x2se",
@@ -186,7 +190,8 @@
       "ml": 1144,
       "kg": 890.2,
       "setupMin": 40,
-      "chave": "OF:261575"
+      "chave": "OF:261575",
+      "lote": "ABAPEL3"
     },
     {
       "id": "p41_vqzzo",
@@ -197,7 +202,8 @@
       "ml": 604,
       "kg": 415.8,
       "setupMin": 40,
-      "chave": "OF:261582"
+      "chave": "OF:261582",
+      "lote": "ABAPEL3"
     },
     {
       "id": "p42_ai8a4",
@@ -208,7 +214,8 @@
       "ml": 4640,
       "kg": 2755.6,
       "setupMin": 40,
-      "chave": "OF:261577"
+      "chave": "OF:261577",
+      "lote": "ABAPEL3"
     },
     {
       "id": "p43_s47v4",
@@ -219,7 +226,8 @@
       "ml": 605,
       "kg": 340.2,
       "setupMin": 40,
-      "chave": "OF:261581"
+      "chave": "OF:261581",
+      "lote": "ABAPEL3"
     },
     {
       "id": "p44_s6307",
@@ -230,7 +238,8 @@
       "ml": 1001,
       "kg": 545.9,
       "setupMin": 40,
-      "chave": "OF:261576"
+      "chave": "OF:261576",
+      "lote": "ABAPEL3"
     },
     {
       "id": "p45_wyyy1",
@@ -241,7 +250,8 @@
       "ml": 808.5,
       "kg": 396.6,
       "setupMin": 40,
-      "chave": "OF:261580"
+      "chave": "OF:261580",
+      "lote": "ABAPEL3"
     },
     {
       "id": "p46_jucr4",
@@ -252,7 +262,8 @@
       "ml": 874.5,
       "kg": 315,
       "setupMin": 40,
-      "chave": "OF:261578"
+      "chave": "OF:261578",
+      "lote": "ABAPEL3"
     },
     {
       "id": "p47_j15y9",
@@ -263,106 +274,8 @@
       "ml": 1260,
       "kg": 346,
       "setupMin": 40,
-      "chave": "OF:261579"
-    },
-    {
-      "id": "p101_vz4o6",
-      "cliente": "ABAPEL",
-      "po": "P50D",
-      "of": "261661",
-      "oc": "8.020",
-      "ml": 412.5,
-      "kg": 353.5,
-      "setupMin": 40,
-      "chave": "OF:261661"
-    },
-    {
-      "id": "p102_rfnkm",
-      "cliente": "ABAPEL",
-      "po": "P50D",
-      "of": "261662",
-      "oc": "8.020",
-      "ml": 473,
-      "kg": 385.2,
-      "setupMin": 40,
-      "chave": "OF:261662"
-    },
-    {
-      "id": "p103_nkjpj",
-      "cliente": "ABAPEL",
-      "po": "P50D",
-      "of": "261659",
-      "oc": "8.017",
-      "ml": 690,
-      "kg": 486.7,
-      "setupMin": 40,
-      "chave": "OF:261659"
-    },
-    {
-      "id": "p104_fxtwb",
-      "cliente": "ABAPEL",
-      "po": "P50D",
-      "of": "261656",
-      "oc": "8.014",
-      "ml": 758.8,
-      "kg": 487.9,
-      "setupMin": 40,
-      "chave": "OF:261656"
-    },
-    {
-      "id": "p105_s6o8n",
-      "cliente": "ABAPEL",
-      "po": "P50D",
-      "of": "261658",
-      "oc": "8.017",
-      "ml": 552.5,
-      "kg": 339.5,
-      "setupMin": 40,
-      "chave": "OF:261658"
-    },
-    {
-      "id": "p106_yx381",
-      "cliente": "ABAPEL",
-      "po": "P50D",
-      "of": "261660",
-      "oc": "8.020",
-      "ml": 8316,
-      "kg": 4938.7,
-      "setupMin": 40,
-      "chave": "OF:261660"
-    },
-    {
-      "id": "p107_qmcxs",
-      "cliente": "ABAPEL",
-      "po": "P25B",
-      "of": "261657",
-      "oc": "8.017",
-      "ml": 1107,
-      "kg": 314.7,
-      "setupMin": 40,
-      "chave": "OF:261657"
-    },
-    {
-      "id": "p90_ys4an",
-      "cliente": "ABAPEL",
-      "po": "P50D",
-      "of": "261699",
-      "oc": "8018",
-      "ml": 1010.9,
-      "kg": 785.4,
-      "setupMin": 40,
-      "chave": "OF:261699"
-    },
-    {
-      "id": "p91_8o24a",
-      "cliente": "ABAPEL",
-      "po": "P50D",
-      "of": "261698",
-      "oc": "8018",
-      "ml": 3476,
-      "kg": 2586.7,
-      "setupMin": 40,
-      "chave": "OF:261698"
+      "chave": "OF:261579",
+      "lote": "ABAPEL3"
     },
     {
       "id": "p71_qkk4p",
@@ -373,7 +286,8 @@
       "ml": 295,
       "kg": 152.7,
       "setupMin": 40,
-      "chave": "OF:261631"
+      "chave": "OF:261631",
+      "lote": "CARPEL"
     },
     {
       "id": "p72_8tc69",
@@ -384,7 +298,8 @@
       "ml": 622.5,
       "kg": 315.7,
       "setupMin": 40,
-      "chave": "OF:261630"
+      "chave": "OF:261630",
+      "lote": "CARPEL"
     },
     {
       "id": "p73_3aaa5",
@@ -395,7 +310,8 @@
       "ml": 245,
       "kg": 121.7,
       "setupMin": 40,
-      "chave": "OF:261626"
+      "chave": "OF:261626",
+      "lote": "CARPEL"
     },
     {
       "id": "p74_mxog9",
@@ -406,7 +322,8 @@
       "ml": 306.7,
       "kg": 152.4,
       "setupMin": 40,
-      "chave": "OF:261639"
+      "chave": "OF:261639",
+      "lote": "CARPEL"
     },
     {
       "id": "p75_rvxhx",
@@ -417,7 +334,8 @@
       "ml": 670,
       "kg": 328.2,
       "setupMin": 40,
-      "chave": "OF:261638"
+      "chave": "OF:261638",
+      "lote": "CARPEL"
     },
     {
       "id": "p76_dmd24",
@@ -428,7 +346,8 @@
       "ml": 245,
       "kg": 104.8,
       "setupMin": 40,
-      "chave": "OF:261627"
+      "chave": "OF:261627",
+      "lote": "CARPEL"
     },
     {
       "id": "p77_4d7gw",
@@ -439,7 +358,8 @@
       "ml": 173.3,
       "kg": 76.1,
       "setupMin": 40,
-      "chave": "OF:261628"
+      "chave": "OF:261628",
+      "lote": "CARPEL"
     },
     {
       "id": "p78_bdzyq",
@@ -450,7 +370,8 @@
       "ml": 134,
       "kg": 58.8,
       "setupMin": 40,
-      "chave": "OF:261629"
+      "chave": "OF:261629",
+      "lote": "CARPEL"
     },
     {
       "id": "p79_ckovp",
@@ -461,7 +382,8 @@
       "ml": 1376.7,
       "kg": 584.2,
       "setupMin": 40,
-      "chave": "OF:261637"
+      "chave": "OF:261637",
+      "lote": "CARPEL"
     },
     {
       "id": "p80_rdqq7",
@@ -472,7 +394,8 @@
       "ml": 270,
       "kg": 108.1,
       "setupMin": 40,
-      "chave": "OF:261636"
+      "chave": "OF:261636",
+      "lote": "CARPEL"
     },
     {
       "id": "p81_ges9i",
@@ -483,7 +406,8 @@
       "ml": 560,
       "kg": 224.1,
       "setupMin": 40,
-      "chave": "OF:261640"
+      "chave": "OF:261640",
+      "lote": "CARPEL"
     },
     {
       "id": "p82_9f56f",
@@ -494,7 +418,8 @@
       "ml": 2204,
       "kg": 891.3,
       "setupMin": 40,
-      "chave": "OF:261634"
+      "chave": "OF:261634",
+      "lote": "CARPEL"
     },
     {
       "id": "p83_m264u",
@@ -505,7 +430,8 @@
       "ml": 264,
       "kg": 97.3,
       "setupMin": 40,
-      "chave": "OF:261633"
+      "chave": "OF:261633",
+      "lote": "CARPEL"
     },
     {
       "id": "p84_ygzi1",
@@ -516,7 +442,8 @@
       "ml": 1260,
       "kg": 299.1,
       "setupMin": 40,
-      "chave": "OF:261635"
+      "chave": "OF:261635",
+      "lote": "CARPEL"
     },
     {
       "id": "p85_77pfa",
@@ -527,7 +454,8 @@
       "ml": 420,
       "kg": 88.1,
       "setupMin": 40,
-      "chave": "OF:261632"
+      "chave": "OF:261632",
+      "lote": "CARPEL"
     },
     {
       "id": "p66_bsyg4",
@@ -538,7 +466,8 @@
       "ml": 2213.3,
       "kg": 847.6,
       "setupMin": 40,
-      "chave": "OF:261693"
+      "chave": "OF:261693",
+      "lote": "CARPEL"
     },
     {
       "id": "p68_u1gbt",
@@ -549,7 +478,8 @@
       "ml": 1072.5,
       "kg": 390.7,
       "setupMin": 40,
-      "chave": "OF:261695"
+      "chave": "OF:261695",
+      "lote": "CARPEL"
     },
     {
       "id": "p70_7xpob",
@@ -560,7 +490,8 @@
       "ml": 1200,
       "kg": 385,
       "setupMin": 40,
-      "chave": "OF:261694"
+      "chave": "OF:261694",
+      "lote": "CARPEL"
     },
     {
       "id": "p108_lyrgq",
@@ -571,7 +502,8 @@
       "ml": 173.1,
       "kg": 161.3,
       "setupMin": 40,
-      "chave": "OF:261663"
+      "chave": "OF:261663",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p109_zfqhi",
@@ -582,7 +514,8 @@
       "ml": 267.8,
       "kg": 248.6,
       "setupMin": 40,
-      "chave": "OF:261664"
+      "chave": "OF:261664",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p110_3lmxw",
@@ -593,7 +526,8 @@
       "ml": 531.6,
       "kg": 489.7,
       "setupMin": 40,
-      "chave": "OF:261667"
+      "chave": "OF:261667",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p111_qw1is",
@@ -604,7 +538,8 @@
       "ml": 197.9,
       "kg": 177.3,
       "setupMin": 40,
-      "chave": "OF:261671"
+      "chave": "OF:261671",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p112_gk6bf",
@@ -615,7 +550,8 @@
       "ml": 1036.4,
       "kg": 782.6,
       "setupMin": 40,
-      "chave": "OF:261674"
+      "chave": "OF:261674",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p113_umyob",
@@ -626,7 +562,8 @@
       "ml": 777.3,
       "kg": 586.9,
       "setupMin": 40,
-      "chave": "OF:261681"
+      "chave": "OF:261681",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p114_tlda8",
@@ -637,7 +574,8 @@
       "ml": 212.8,
       "kg": 154.5,
       "setupMin": 40,
-      "chave": "OF:261670"
+      "chave": "OF:261670",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p115_2pwuf",
@@ -648,7 +586,8 @@
       "ml": 1691,
       "kg": 1225.6,
       "setupMin": 40,
-      "chave": "OF:261675"
+      "chave": "OF:261675",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p116_jhb7j",
@@ -659,7 +598,8 @@
       "ml": 1014.6,
       "kg": 735.4,
       "setupMin": 40,
-      "chave": "OF:261676"
+      "chave": "OF:261676",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p117_z50xn",
@@ -670,7 +610,8 @@
       "ml": 2591,
       "kg": 1892,
       "setupMin": 40,
-      "chave": "OF:261672"
+      "chave": "OF:261672",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p118_diw0p",
@@ -681,7 +622,8 @@
       "ml": 1250.5,
       "kg": 891.2,
       "setupMin": 40,
-      "chave": "OF:261673"
+      "chave": "OF:261673",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p119_pz296",
@@ -692,7 +634,8 @@
       "ml": 923.4,
       "kg": 561.8,
       "setupMin": 40,
-      "chave": "OF:261677"
+      "chave": "OF:261677",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p120_e4uez",
@@ -703,7 +646,8 @@
       "ml": 450,
       "kg": 272.7,
       "setupMin": 40,
-      "chave": "OF:261669"
+      "chave": "OF:261669",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p121_n2hhd",
@@ -714,7 +658,8 @@
       "ml": 1079,
       "kg": 601.6,
       "setupMin": 40,
-      "chave": "OF:261665"
+      "chave": "OF:261665",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p122_8j021",
@@ -725,7 +670,8 @@
       "ml": 455.7,
       "kg": 251.3,
       "setupMin": 40,
-      "chave": "OF:261668"
+      "chave": "OF:261668",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p123_evwxo",
@@ -736,7 +682,8 @@
       "ml": 598.9,
       "kg": 306.3,
       "setupMin": 40,
-      "chave": "OF:261680"
+      "chave": "OF:261680",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p124_vysf6",
@@ -747,7 +694,8 @@
       "ml": 1041.8,
       "kg": 505,
       "setupMin": 40,
-      "chave": "OF:261666"
+      "chave": "OF:261666",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p125_1snq4",
@@ -758,7 +706,8 @@
       "ml": 416.2,
       "kg": 183.8,
       "setupMin": 40,
-      "chave": "OF:261683"
+      "chave": "OF:261683",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p126_wpwo1",
@@ -769,7 +718,8 @@
       "ml": 451.1,
       "kg": 189.9,
       "setupMin": 40,
-      "chave": "OF:261685"
+      "chave": "OF:261685",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p127_vt3vm",
@@ -780,7 +730,8 @@
       "ml": 480,
       "kg": 198.7,
       "setupMin": 40,
-      "chave": "OF:261678"
+      "chave": "OF:261678",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p128_dvv54",
@@ -791,7 +742,8 @@
       "ml": 517,
       "kg": 185.5,
       "setupMin": 40,
-      "chave": "OF:261684"
+      "chave": "OF:261684",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p129_jik7s",
@@ -802,7 +754,8 @@
       "ml": 546.5,
       "kg": 171.1,
       "setupMin": 40,
-      "chave": "OF:261682"
+      "chave": "OF:261682",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p130_x997d",
@@ -813,7 +766,8 @@
       "ml": 682.2,
       "kg": 192.5,
       "setupMin": 40,
-      "chave": "OF:261679"
+      "chave": "OF:261679",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p131_l1o1e",
@@ -824,7 +778,8 @@
       "ml": 455,
       "kg": 105,
       "setupMin": 40,
-      "chave": "OF:261687"
+      "chave": "OF:261687",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p132_7rz17",
@@ -835,7 +790,8 @@
       "ml": 943.5,
       "kg": 139.3,
       "setupMin": 40,
-      "chave": "OF:261686"
+      "chave": "OF:261686",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p133_3r4c4",
@@ -846,7 +802,8 @@
       "ml": 773.1,
       "kg": 149.4,
       "setupMin": 40,
-      "chave": "OF:261688"
+      "chave": "OF:261688",
+      "lote": "HARMONY EMBALAGENS LTDA"
     },
     {
       "id": "p127_x40fw",
@@ -858,7 +815,8 @@
       "kg": 415.9,
       "setupMin": 40,
       "chave": "OF:261696",
-      "dataReservada": "2026-07-17"
+      "dataReservada": "2026-07-17",
+      "lote": "DANPACK"
     },
     {
       "id": "p128_986ds",
@@ -869,7 +827,8 @@
       "ml": 5733,
       "kg": 1645.6,
       "setupMin": 40,
-      "chave": "OF:261697"
+      "chave": "OF:261697",
+      "lote": "PCBOX"
     },
     {
       "id": "p129_t83as",
@@ -881,7 +840,8 @@
       "kg": 1076,
       "setupMin": 40,
       "chave": "OF:261704",
-      "dataReservada": "2026-07-22"
+      "dataReservada": "2026-07-22",
+      "lote": "HARMONY 08-07"
     },
     {
       "id": "p130_asbj5",
@@ -893,7 +853,8 @@
       "kg": 1961,
       "setupMin": 40,
       "chave": "OF:261705",
-      "dataReservada": "2026-07-22"
+      "dataReservada": "2026-07-22",
+      "lote": "HARMONY 08-07"
     },
     {
       "id": "p131_y42lf",
@@ -905,7 +866,8 @@
       "kg": 1892,
       "setupMin": 40,
       "chave": "OF:261703",
-      "dataReservada": "2026-07-22"
+      "dataReservada": "2026-07-22",
+      "lote": "HARMONY 08-07"
     },
     {
       "id": "p132_2ghjz",
@@ -917,7 +879,8 @@
       "kg": 1004.1,
       "setupMin": 40,
       "chave": "OF:261701",
-      "dataReservada": "2026-07-22"
+      "dataReservada": "2026-07-22",
+      "lote": "HARMONY 08-07"
     },
     {
       "id": "p133_ediuu",
@@ -929,7 +892,8 @@
       "kg": 891.2,
       "setupMin": 40,
       "chave": "OF:261700",
-      "dataReservada": "2026-07-22"
+      "dataReservada": "2026-07-22",
+      "lote": "HARMONY 08-07"
     },
     {
       "id": "p134_57oav",
@@ -941,7 +905,8 @@
       "kg": 2733.7,
       "setupMin": 40,
       "chave": "OF:261702",
-      "dataReservada": "2026-07-22"
+      "dataReservada": "2026-07-22",
+      "lote": "HARMONY 08-07"
     },
     {
       "id": "p135_n9a8l",
@@ -953,7 +918,8 @@
       "kg": 187.2,
       "setupMin": 40,
       "chave": "OF:261708",
-      "dataReservada": "2026-07-22"
+      "dataReservada": "2026-07-22",
+      "lote": "HARMONY 08-07"
     },
     {
       "id": "p136_2y2de",
@@ -965,7 +931,8 @@
       "kg": 170.8,
       "setupMin": 40,
       "chave": "OF:261707",
-      "dataReservada": "2026-07-22"
+      "dataReservada": "2026-07-22",
+      "lote": "HARMONY 08-07"
     },
     {
       "id": "p137_yfvvg",
@@ -977,7 +944,200 @@
       "kg": 164.4,
       "setupMin": 40,
       "chave": "OF:261706",
-      "dataReservada": "2026-07-22"
+      "dataReservada": "2026-07-22",
+      "lote": "HARMONY 08-07"
+    },
+    {
+      "id": "p101_vz4o6",
+      "cliente": "ABAPEL",
+      "po": "P50D",
+      "of": "261661",
+      "oc": "8.020",
+      "ml": 412.5,
+      "kg": 353.5,
+      "setupMin": 40,
+      "chave": "OF:261661",
+      "lote": "ABAPEL 8014-8017-8018-8020"
+    },
+    {
+      "id": "p102_rfnkm",
+      "cliente": "ABAPEL",
+      "po": "P50D",
+      "of": "261662",
+      "oc": "8.020",
+      "ml": 473,
+      "kg": 385.2,
+      "setupMin": 40,
+      "chave": "OF:261662",
+      "lote": "ABAPEL 8014-8017-8018-8020"
+    },
+    {
+      "id": "p103_nkjpj",
+      "cliente": "ABAPEL",
+      "po": "P50D",
+      "of": "261659",
+      "oc": "8.017",
+      "ml": 690,
+      "kg": 486.7,
+      "setupMin": 40,
+      "chave": "OF:261659",
+      "lote": "ABAPEL 8014-8017-8018-8020"
+    },
+    {
+      "id": "p104_fxtwb",
+      "cliente": "ABAPEL",
+      "po": "P50D",
+      "of": "261656",
+      "oc": "8.014",
+      "ml": 758.8,
+      "kg": 487.9,
+      "setupMin": 40,
+      "chave": "OF:261656",
+      "lote": "ABAPEL 8014-8017-8018-8020"
+    },
+    {
+      "id": "p105_s6o8n",
+      "cliente": "ABAPEL",
+      "po": "P50D",
+      "of": "261658",
+      "oc": "8.017",
+      "ml": 552.5,
+      "kg": 339.5,
+      "setupMin": 40,
+      "chave": "OF:261658",
+      "lote": "ABAPEL 8014-8017-8018-8020"
+    },
+    {
+      "id": "p106_yx381",
+      "cliente": "ABAPEL",
+      "po": "P50D",
+      "of": "261660",
+      "oc": "8.020",
+      "ml": 8316,
+      "kg": 4938.7,
+      "setupMin": 40,
+      "chave": "OF:261660",
+      "lote": "ABAPEL 8014-8017-8018-8020"
+    },
+    {
+      "id": "p107_qmcxs",
+      "cliente": "ABAPEL",
+      "po": "P25B",
+      "of": "261657",
+      "oc": "8.017",
+      "ml": 1107,
+      "kg": 314.7,
+      "setupMin": 40,
+      "chave": "OF:261657",
+      "lote": "ABAPEL 8014-8017-8018-8020"
+    },
+    {
+      "id": "p90_ys4an",
+      "cliente": "ABAPEL",
+      "po": "P50D",
+      "of": "261699",
+      "oc": "8018",
+      "ml": 1010.9,
+      "kg": 785.4,
+      "setupMin": 40,
+      "chave": "OF:261699",
+      "lote": "ABAPEL 8014-8017-8018-8020"
+    },
+    {
+      "id": "p91_8o24a",
+      "cliente": "ABAPEL",
+      "po": "P50D",
+      "of": "261698",
+      "oc": "8018",
+      "ml": 3476,
+      "kg": 2586.7,
+      "setupMin": 40,
+      "chave": "OF:261698",
+      "lote": "ABAPEL 8014-8017-8018-8020"
+    },
+    {
+      "id": "p138_5wbfz",
+      "cliente": "ABAPEL",
+      "lote": "ABAPEL-8023",
+      "po": "P50D",
+      "of": "261710",
+      "oc": "8.023",
+      "ml": 563.6,
+      "kg": 540.4,
+      "setupMin": 40,
+      "chave": "OF:261710"
+    },
+    {
+      "id": "p139_tlrkj",
+      "cliente": "ABAPEL",
+      "lote": "ABAPEL-8023",
+      "po": "P50D",
+      "of": "261714",
+      "oc": "8.023",
+      "ml": 3032.7,
+      "kg": 2356.1,
+      "setupMin": 40,
+      "chave": "OF:261714"
+    },
+    {
+      "id": "p140_rk2dt",
+      "cliente": "ABAPEL",
+      "lote": "ABAPEL-8023",
+      "po": "P50D",
+      "of": "261709",
+      "oc": "8.023",
+      "ml": 880,
+      "kg": 684.7,
+      "setupMin": 40,
+      "chave": "OF:261709"
+    },
+    {
+      "id": "p141_0zbq9",
+      "cliente": "ABAPEL",
+      "lote": "ABAPEL-8023",
+      "po": "P50D",
+      "of": "261712",
+      "oc": "8.023",
+      "ml": 852.5,
+      "kg": 639.6,
+      "setupMin": 40,
+      "chave": "OF:261712"
+    },
+    {
+      "id": "p142_qyqb5",
+      "cliente": "ABAPEL",
+      "lote": "ABAPEL-8023",
+      "po": "P50D",
+      "of": "261713",
+      "oc": "8.023",
+      "ml": 4345,
+      "kg": 3233.4,
+      "setupMin": 40,
+      "chave": "OF:261713"
+    },
+    {
+      "id": "p143_2vykp",
+      "cliente": "ABAPEL",
+      "lote": "ABAPEL-8023",
+      "po": "P50D",
+      "of": "261715",
+      "oc": "8.023",
+      "ml": 521.5,
+      "kg": 299,
+      "setupMin": 40,
+      "chave": "OF:261715"
+    },
+    {
+      "id": "p144_cg8jr",
+      "cliente": "ABAPEL",
+      "lote": "ABAPEL-8023",
+      "po": "P25B",
+      "of": "261711",
+      "oc": "8.023",
+      "ml": 944,
+      "kg": 419.5,
+      "setupMin": 40,
+      "chave": "OF:261711"
     }
   ],
   "aguardando": [
@@ -990,7 +1150,8 @@
       "ml": 1282,
       "kg": 646.6,
       "setupMin": 40,
-      "chave": "OF:261569"
+      "chave": "OF:261569",
+      "lote": "RJ"
     },
     {
       "id": "p65_zedjk",
@@ -1001,7 +1162,8 @@
       "ml": 8068.1,
       "kg": 4290.7,
       "setupMin": 40,
-      "chave": "OF:261607"
+      "chave": "OF:261607",
+      "lote": "UPAPER dia 13"
     },
     {
       "id": "p66_asevx",
@@ -1012,7 +1174,8 @@
       "ml": 8068.1,
       "kg": 4290.7,
       "setupMin": 40,
-      "chave": "OF:261609"
+      "chave": "OF:261609",
+      "lote": "UPAPER dia 13"
     },
     {
       "id": "p67_8egke",
@@ -1023,7 +1186,8 @@
       "ml": 1287.5,
       "kg": 528.4,
       "setupMin": 40,
-      "chave": "OF:261606"
+      "chave": "OF:261606",
+      "lote": "UPAPER dia 13"
     },
     {
       "id": "p68_2ek5f",
@@ -1034,7 +1198,8 @@
       "ml": 1287.5,
       "kg": 528.4,
       "setupMin": 40,
-      "chave": "OF:261608"
+      "chave": "OF:261608",
+      "lote": "UPAPER dia 13"
     },
     {
       "id": "p183_rl70a",
@@ -1045,7 +1210,20 @@
       "ml": 1503,
       "kg": 740.6,
       "setupMin": 40,
-      "chave": "OF:261568"
+      "chave": "OF:261568",
+      "lote": "RJ"
+    },
+    {
+      "id": "p39_vjvnu",
+      "cliente": "ABAPEL",
+      "po": "P50D",
+      "of": "261573",
+      "oc": "7.999",
+      "ml": 624,
+      "kg": 485.5,
+      "setupMin": 40,
+      "chave": "OF:261573",
+      "lote": "RJ"
     }
   ],
   "produzidos": [
@@ -1059,7 +1237,8 @@
       "kg": 754,
       "setupMin": 40,
       "chave": "OF:261692",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "recimag - Renovapel"
     },
     {
       "id": "p139_4hbe6",
@@ -1071,7 +1250,8 @@
       "kg": 407.7,
       "setupMin": 40,
       "chave": "OF:261691",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "recimag - Renovapel"
     },
     {
       "id": "p140_tkm9z",
@@ -1083,7 +1263,8 @@
       "kg": 116.5,
       "setupMin": 40,
       "chave": "OF:261642",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "FAVINCO 26-33"
     },
     {
       "id": "p141_map7d",
@@ -1095,7 +1276,8 @@
       "kg": 856,
       "setupMin": 40,
       "chave": "OF:261649",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "FAVINCO 26-33"
     },
     {
       "id": "p142_ueb8b",
@@ -1107,7 +1289,8 @@
       "kg": 151.6,
       "setupMin": 40,
       "chave": "OF:261641",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "FAVINCO 26-33"
     },
     {
       "id": "p143_xju29",
@@ -1119,7 +1302,8 @@
       "kg": 307.6,
       "setupMin": 40,
       "chave": "OF:261647",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "FAVINCO 26-33"
     },
     {
       "id": "p144_a5sad",
@@ -1131,7 +1315,8 @@
       "kg": 231.2,
       "setupMin": 40,
       "chave": "OF:261648",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "FAVINCO 26-33"
     },
     {
       "id": "p145_2c81l",
@@ -1143,7 +1328,8 @@
       "kg": 320.9,
       "setupMin": 40,
       "chave": "OF:261653",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "FAVINCO 26-33"
     },
     {
       "id": "p146_8233i",
@@ -1155,7 +1341,8 @@
       "kg": 165.6,
       "setupMin": 40,
       "chave": "OF:261650",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "FAVINCO 26-33"
     },
     {
       "id": "p147_n5z0b",
@@ -1167,7 +1354,8 @@
       "kg": 514.5,
       "setupMin": 40,
       "chave": "OF:261646",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "FAVINCO 26-33"
     },
     {
       "id": "p148_tqrq0",
@@ -1179,7 +1367,8 @@
       "kg": 201.4,
       "setupMin": 40,
       "chave": "OF:261643",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "FAVINCO 26-33"
     },
     {
       "id": "p149_ay1fc",
@@ -1191,7 +1380,8 @@
       "kg": 339.4,
       "setupMin": 40,
       "chave": "OF:261655",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "FAVINCO 26-33"
     },
     {
       "id": "p150_rqihe",
@@ -1203,7 +1393,8 @@
       "kg": 520,
       "setupMin": 40,
       "chave": "OF:261654",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "FAVINCO 26-33"
     },
     {
       "id": "p151_mcv9y",
@@ -1215,7 +1406,8 @@
       "kg": 209.5,
       "setupMin": 40,
       "chave": "OF:261645",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "FAVINCO 26-33"
     },
     {
       "id": "p152_nfsty",
@@ -1227,7 +1419,8 @@
       "kg": 157.5,
       "setupMin": 40,
       "chave": "OF:261651",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "FAVINCO 26-33"
     },
     {
       "id": "p153_wqtl5",
@@ -1239,7 +1432,8 @@
       "kg": 185,
       "setupMin": 40,
       "chave": "OF:261644",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "FAVINCO 26-33"
     },
     {
       "id": "p154_taleb",
@@ -1251,7 +1445,8 @@
       "kg": 173,
       "setupMin": 40,
       "chave": "OF:261652",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "FAVINCO 26-33"
     },
     {
       "id": "p155_3fydc",
@@ -1263,7 +1458,8 @@
       "kg": 1029.1,
       "setupMin": 40,
       "chave": "OF:261625",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "PCBOX 1489-1413"
     },
     {
       "id": "p156_nyecc",
@@ -1275,7 +1471,8 @@
       "kg": 133.9,
       "setupMin": 40,
       "chave": "OF:261624",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "PCBOX 1489-1413"
     },
     {
       "id": "p173_um97k",
@@ -1287,7 +1484,8 @@
       "kg": 393.3,
       "setupMin": 40,
       "chave": "OF:261570",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "RJ"
     },
     {
       "id": "p174_4k70r",
@@ -1299,7 +1497,8 @@
       "kg": 287.8,
       "setupMin": 40,
       "chave": "OF:261564",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "DR Embalagem"
     },
     {
       "id": "p175_nmztv",
@@ -1311,7 +1510,8 @@
       "kg": 439.2,
       "setupMin": 40,
       "chave": "OF:261565",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "DR Embalagem"
     },
     {
       "id": "p176_uov8n",
@@ -1323,7 +1523,8 @@
       "kg": 584,
       "setupMin": 40,
       "chave": "OF:261566",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "RJ"
     },
     {
       "id": "p177_xkf48",
@@ -1335,7 +1536,8 @@
       "kg": 479.9,
       "setupMin": 40,
       "chave": "OF:261569",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "RJ"
     },
     {
       "id": "p178_zhokj",
@@ -1347,7 +1549,8 @@
       "kg": 127.1,
       "setupMin": 40,
       "chave": "OF:261572",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "RJ"
     },
     {
       "id": "p179_rkan0",
@@ -1359,7 +1562,8 @@
       "kg": 164.2,
       "setupMin": 40,
       "chave": "OF:261567",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "RJ"
     },
     {
       "id": "p180_4zch0",
@@ -1371,7 +1575,8 @@
       "kg": 158.8,
       "setupMin": 40,
       "chave": "OF:261568",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "RJ"
     },
     {
       "id": "p181_52wrk",
@@ -1383,7 +1588,8 @@
       "kg": 474.2,
       "setupMin": 40,
       "chave": "OF:261571",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "RJ"
     },
     {
       "id": "p182_bmijf",
@@ -1395,7 +1601,8 @@
       "kg": 2115.9,
       "setupMin": 40,
       "chave": "OF:261567",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "RJ"
     },
     {
       "id": "p184_uqtqn",
@@ -1407,7 +1614,8 @@
       "kg": 1108.7,
       "setupMin": 40,
       "chave": "OF:261570",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "RJ"
     },
     {
       "id": "p185_gxrk1",
@@ -1419,7 +1627,8 @@
       "kg": 634.8,
       "setupMin": 40,
       "chave": "OF:261571",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "RJ"
     },
     {
       "id": "p186_sc18i",
@@ -1431,7 +1640,8 @@
       "kg": 1269.6,
       "setupMin": 40,
       "chave": "OF:261573",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "RJ"
     },
     {
       "id": "p187_0gjlh",
@@ -1443,7 +1653,8 @@
       "kg": 290.7,
       "setupMin": 40,
       "chave": "OF:261600",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "VZ EMBALAGENS"
     },
     {
       "id": "p188_ophtr",
@@ -1455,7 +1666,8 @@
       "kg": 348.8,
       "setupMin": 40,
       "chave": "OF:261604",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "VZ EMBALAGENS"
     },
     {
       "id": "p189_8eblw",
@@ -1467,7 +1679,8 @@
       "kg": 337.9,
       "setupMin": 40,
       "chave": "OF:261599",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "VZ EMBALAGENS"
     },
     {
       "id": "p190_6czdn",
@@ -1479,7 +1692,8 @@
       "kg": 138.2,
       "setupMin": 40,
       "chave": "OF:261598",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "VZ EMBALAGENS"
     },
     {
       "id": "p191_mvxo0",
@@ -1491,7 +1705,8 @@
       "kg": 414.5,
       "setupMin": 40,
       "chave": "OF:261597",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "VZ EMBALAGENS"
     },
     {
       "id": "p192_zuc2r",
@@ -1503,7 +1718,8 @@
       "kg": 502.6,
       "setupMin": 40,
       "chave": "OF:261602",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "VZ EMBALAGENS"
     },
     {
       "id": "p193_4aw7o",
@@ -1515,7 +1731,8 @@
       "kg": 445.4,
       "setupMin": 40,
       "chave": "OF:261601",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "VZ EMBALAGENS"
     },
     {
       "id": "p194_x4dz1",
@@ -1527,7 +1744,8 @@
       "kg": 485.8,
       "setupMin": 40,
       "chave": "OF:261603",
-      "dataProduzido": "2026-07-08T20:20:21.505Z"
+      "dataProduzido": "2026-07-08T20:20:21.505Z",
+      "lote": "VZ EMBALAGENS"
     },
     {
       "id": "p195_z6qp2",
@@ -1539,7 +1757,8 @@
       "kg": 592.2,
       "setupMin": 40,
       "chave": "OF:261566",
-      "dataProduzido": "2026-07-08T20:21:28.067Z"
+      "dataProduzido": "2026-07-08T20:21:28.067Z",
+      "lote": "RJ"
     },
     {
       "id": "p196_l8hzj",
@@ -1551,7 +1770,8 @@
       "kg": 1490.6,
       "setupMin": 40,
       "chave": "OF:261605",
-      "dataProduzido": "2026-07-08T20:21:28.067Z"
+      "dataProduzido": "2026-07-08T20:21:28.067Z",
+      "lote": "RJ"
     },
     {
       "id": "p197_sr4p8",
@@ -1563,7 +1783,8 @@
       "kg": 713.6,
       "setupMin": 40,
       "chave": "OF:261572",
-      "dataProduzido": "2026-07-08T20:21:28.067Z"
+      "dataProduzido": "2026-07-08T20:21:28.067Z",
+      "lote": "RJ"
     }
   ]
 }
