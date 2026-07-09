@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-09T11:45:22.785Z",
+  "geradoEm": "2026-07-09T12:01:49.385Z",
   "pendentes": [
     {
       "id": "p134_az6g6",
@@ -629,50 +629,6 @@
       "chave": "OF:261688"
     },
     {
-      "id": "p65_zedjk",
-      "cliente": "UPAPER",
-      "po": "P60C",
-      "of": "261607",
-      "oc": "35372",
-      "ml": 8068.1,
-      "kg": 4290.7,
-      "setupMin": 40,
-      "chave": "OF:261607"
-    },
-    {
-      "id": "p66_asevx",
-      "cliente": "UPAPER",
-      "po": "P60C",
-      "of": "261609",
-      "oc": "35373",
-      "ml": 8068.1,
-      "kg": 4290.7,
-      "setupMin": 40,
-      "chave": "OF:261609"
-    },
-    {
-      "id": "p67_8egke",
-      "cliente": "UPAPER",
-      "po": "P60C",
-      "of": "261606",
-      "oc": "1983",
-      "ml": 1287.5,
-      "kg": 528.4,
-      "setupMin": 40,
-      "chave": "OF:261606"
-    },
-    {
-      "id": "p68_2ek5f",
-      "cliente": "UPAPER",
-      "po": "P60C",
-      "of": "261608",
-      "oc": "1989",
-      "ml": 1287.5,
-      "kg": 528.4,
-      "setupMin": 40,
-      "chave": "OF:261608"
-    },
-    {
       "id": "p71_qkk4p",
       "cliente": "CARPEL",
       "po": "P25B",
@@ -836,17 +792,6 @@
       "kg": 88.1,
       "setupMin": 40,
       "chave": "OF:261632"
-    },
-    {
-      "id": "p183_rl70a",
-      "cliente": "CAROLINA",
-      "po": "P35B",
-      "of": "261568",
-      "oc": "29/D",
-      "ml": 1503,
-      "kg": 740.6,
-      "setupMin": 40,
-      "chave": "OF:261568"
     }
   ],
   "aguardando": [
@@ -860,6 +805,61 @@
       "kg": 646.6,
       "setupMin": 40,
       "chave": "OF:261569"
+    },
+    {
+      "id": "p65_zedjk",
+      "cliente": "UPAPER",
+      "po": "P60C",
+      "of": "261607",
+      "oc": "35372",
+      "ml": 8068.1,
+      "kg": 4290.7,
+      "setupMin": 40,
+      "chave": "OF:261607"
+    },
+    {
+      "id": "p66_asevx",
+      "cliente": "UPAPER",
+      "po": "P60C",
+      "of": "261609",
+      "oc": "35373",
+      "ml": 8068.1,
+      "kg": 4290.7,
+      "setupMin": 40,
+      "chave": "OF:261609"
+    },
+    {
+      "id": "p67_8egke",
+      "cliente": "UPAPER",
+      "po": "P60C",
+      "of": "261606",
+      "oc": "1983",
+      "ml": 1287.5,
+      "kg": 528.4,
+      "setupMin": 40,
+      "chave": "OF:261606"
+    },
+    {
+      "id": "p68_2ek5f",
+      "cliente": "UPAPER",
+      "po": "P60C",
+      "of": "261608",
+      "oc": "1989",
+      "ml": 1287.5,
+      "kg": 528.4,
+      "setupMin": 40,
+      "chave": "OF:261608"
+    },
+    {
+      "id": "p183_rl70a",
+      "cliente": "CAROLINA",
+      "po": "P35B",
+      "of": "261568",
+      "oc": "29/D",
+      "ml": 1503,
+      "kg": 740.6,
+      "setupMin": 40,
+      "chave": "OF:261568"
     }
   ],
   "produzidos": [
