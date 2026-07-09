@@ -260,22 +260,36 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 }
 .cliente-view-group .pedido-row { background:white; margin-top:6px; }
 
-/* ===== DASHBOARD ===== */
-.dash-dias-scroll { display:flex; gap:10px; overflow-x:auto; padding:2px 2px 8px; scroll-snap-type:x proximity; }
-.dash-dia {
-  flex:0 0 168px; scroll-snap-align:start;
-  background:#f4f8fc; border-radius:12px; padding:12px;
+/* ===== DASHBOARD — gráfico de colunas empilhadas ===== */
+.chart-scroll {
+  display:flex; align-items:flex-end; gap:14px; overflow-x:auto;
+  padding:4px 4px 0; scroll-snap-type:x proximity; min-height:220px;
 }
-.dash-dia.atual { background:#f3fbf3; border:2px solid #43a047; padding:10px; }
-.dash-dia-nome { font-size:11.5px; font-weight:800; color:#1a56a0; text-transform:capitalize; line-height:1.5; margin-bottom:2px; }
-.dash-dia-total { font-size:20px; font-weight:900; color:#17324f; margin-bottom:8px; }
-.dash-dia-total span { font-size:12px; font-weight:700; color:#6a8bb0; }
-.dash-barra { display:flex; height:10px; border-radius:6px; overflow:hidden; background:#e3ecf6; margin-bottom:10px; }
-.dash-barra-seg { height:100%; }
-.dash-chips { display:flex; flex-direction:column; gap:5px; }
-.dash-chip { display:flex; align-items:center; gap:5px; font-size:11.5px; color:#3a618f; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.dash-chip b { margin-left:auto; padding-left:4px; color:#17324f; flex-shrink:0; }
-.dash-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.chart-col { display:flex; flex-direction:column; align-items:center; flex:0 0 auto; scroll-snap-align:start; }
+.chart-col-valor { font-size:10.5px; font-weight:800; color:#17324f; margin-bottom:4px; white-space:nowrap; }
+.chart-col-barra {
+  width:24px; display:flex; flex-direction:column-reverse;
+  border-radius:4px 4px 0 0; overflow:hidden; background:#eef2f7;
+}
+.chart-col-barra .seg { width:100%; }
+.chart-col-barra .seg + .seg { border-top:2px solid #fff; }
+.chart-col-label { font-size:10.5px; color:#6a8bb0; margin-top:6px; text-align:center; line-height:1.3; white-space:nowrap; }
+.chart-col.atual .chart-col-label { color:#2e7d32; font-weight:800; }
+
+.chart-legend { display:flex; flex-wrap:wrap; gap:8px 16px; margin-top:14px; padding-top:12px; border-top:1px solid #e3ecf6; }
+.legend-item { display:flex; align-items:center; gap:6px; font-size:12px; color:#3a618f; }
+.legend-item i { width:10px; height:10px; border-radius:3px; display:inline-block; flex-shrink:0; }
+
+/* tabela detalhada (mostrada sob demanda) */
+.dash-scroll { overflow-x: auto; }
+.dash-table { border-collapse: collapse; font-size: 12.5px; white-space: nowrap; width:100%; }
+.dash-table th, .dash-table td { padding: 6px 9px; text-align:center; border-bottom:1px solid #e3ecf6; }
+.dash-table thead th { color:#1a56a0; font-weight:800; font-size:11px; }
+.dash-th-cliente, .dash-td-cliente {
+  text-align:left; position:sticky; left:0; background:white; font-weight:700; z-index:1;
+}
+.dash-table thead th.dash-th-cliente { z-index:2; }
+.dash-total-col, .dash-total-row td { font-weight:800; background:#eaf1fa; }
 
 .hidden { display: none !important; }
 
@@ -453,6 +467,7 @@ let expandidoSup = new Set();   // clientes abertos na fila do supervisor
 let expandidoView = new Set();  // "dataStr|cliente" abertos na visualização
 let selecionadosProduzir = new Set(); // ids marcados pra dar baixa em lote (produzido)
 let selecionadosVoltar = new Set();   // ids marcados em "produzidos" pra desfazer e voltar à fila
+let tabelaDashAberta = false;         // se a tabela detalhada do dashboard está expandida
 
 // ===================== UTIL =====================
 function uid(){ return 'p'+(seqCounter++)+'_'+Math.random().toString(36).slice(2,7); }
@@ -990,13 +1005,12 @@ function ativarArrastarPedidos(cont){
   });
 }
 
-// ===================== DASHBOARD (kg por dia, clientes dentro do dia) =====================
-const PALETA_CLIENTES = ['#1a56a0','#43a047','#e65100','#8e24aa','#00838f','#c62828','#6d4c41','#3949ab','#00acc1','#f9a825','#5e35b1','#2e7d32','#ad1457','#00695c'];
-function corDoCliente(nome){
-  let h = 0;
-  for (let i=0;i<nome.length;i++) h = (h*31 + nome.charCodeAt(i)) >>> 0;
-  return PALETA_CLIENTES[h % PALETA_CLIENTES.length];
-}
+// ===================== DASHBOARD — gráfico de colunas empilhadas (cliente × dia) =====================
+// Paleta categórica validada (8 tons, ordem fixa, CVD-safe) — mesma cor pro mesmo
+// cliente em todo lugar. Além do 7º cliente por volume, agrupa em "Outros" (cinza).
+const PALETA_CATEGORICA = ['#2a78d6','#1baf7a','#eda100','#008300','#4a3aa7','#e34948','#e87ba4','#eb6834'];
+const COR_OUTROS = '#b9c4cf';
+const ALTURA_MAX_GRAFICO = 170; // px
 
 function renderDashboard(){
   const cont = document.getElementById('dashConteudo');
@@ -1007,39 +1021,90 @@ function renderDashboard(){
   const agora = new Date();
   const { dias } = calcularAgenda(pendentes, agora);
 
-  let html = '<div class="dash-dias-scroll">';
-  dias.forEach((d, idx) => {
-    const ehTurnoAtual = idx === 0 && d.emAndamento;
-
-    const porCliente = new Map();
+  // kg por cliente em cada dia + total geral por cliente (pra ranquear e colorir)
+  const totalGeralPorCliente = new Map();
+  const porDiaCliente = dias.map(d => {
+    const mapa = new Map();
     d.itens.forEach(it => {
       const p = it.pedido;
       const totalMin = p.setupMin + p.ml / VELOCIDADE_M_MIN;
       const fracao = totalMin > 0 ? it.minUsados / totalMin : 0;
       const nome = String(p.cliente||'').trim();
-      porCliente.set(nome, (porCliente.get(nome)||0) + (p.kg||0) * fracao);
+      const kg = (p.kg||0) * fracao;
+      mapa.set(nome, (mapa.get(nome)||0) + kg);
+      totalGeralPorCliente.set(nome, (totalGeralPorCliente.get(nome)||0) + kg);
     });
-    const clientesDia = Array.from(porCliente, ([nome,kg]) => ({ nome, kg })).sort((a,b) => b.kg - a.kg);
-    const totalDia = clientesDia.reduce((s,c) => s+c.kg, 0);
+    return mapa;
+  });
 
-    html += `<div class="dash-dia ${ehTurnoAtual?'atual':''}">
-      <div class="dash-dia-nome">${nomeDiaAbrev(d.data)}${ehTurnoAtual?' · agora':''}<br><b>${fmtData(d.data)}</b></div>
-      <div class="dash-dia-total">${Math.round(totalDia)} <span>kg</span></div>
-      <div class="dash-barra">`;
-    clientesDia.forEach(c => {
-      const pct = totalDia>0 ? (c.kg/totalDia*100) : 0;
-      html += `<div class="dash-barra-seg" style="width:${pct}%;background:${corDoCliente(c.nome)}" title="${c.nome}: ${Math.round(c.kg)} kg"></div>`;
+  const ranking = Array.from(totalGeralPorCliente, ([nome,kg]) => ({ nome, kg })).sort((a,b) => b.kg - a.kg);
+  const top = ranking.slice(0, 7);
+  const corPorCliente = new Map(top.map((c,i) => [c.nome, PALETA_CATEGORICA[i]]));
+
+  const totalPorDia = porDiaCliente.map(mapa => Array.from(mapa.values()).reduce((s,v)=>s+v, 0));
+  const maxTotal = Math.max(1, ...totalPorDia);
+
+  let html = '<div class="chart-scroll">';
+  dias.forEach((d, idx) => {
+    const ehTurnoAtual = idx === 0 && d.emAndamento;
+    const mapa = porDiaCliente[idx];
+    const totalDia = totalPorDia[idx];
+    const alturaPx = totalDia > 0 ? Math.max(4, (totalDia/maxTotal) * ALTURA_MAX_GRAFICO) : 0;
+
+    let segmentos = '';
+    let restoKg = 0;
+    top.forEach(c => {
+      const kg = mapa.get(c.nome) || 0;
+      if (kg > 0.01) segmentos += `<div class="seg" style="flex:${kg} 0 0;background:${corPorCliente.get(c.nome)}" title="${c.nome}: ${Math.round(kg)} kg"></div>`;
     });
-    html += `</div><div class="dash-chips">`;
-    clientesDia.forEach(c => {
-      html += `<div class="dash-chip"><span class="dash-dot" style="background:${corDoCliente(c.nome)}"></span>${c.nome}<b>${Math.round(c.kg)}</b></div>`;
-    });
-    html += `</div></div>`;
+    mapa.forEach((kg, nome) => { if (!corPorCliente.has(nome)) restoKg += kg; });
+    if (restoKg > 0.01) segmentos += `<div class="seg" style="flex:${restoKg} 0 0;background:${COR_OUTROS}" title="Outros: ${Math.round(restoKg)} kg"></div>`;
+
+    html += `<div class="chart-col ${ehTurnoAtual?'atual':''}">
+      <div class="chart-col-valor">${Math.round(totalDia)}</div>
+      <div class="chart-col-barra" style="height:${Math.round(alturaPx)}px">${segmentos}</div>
+      <div class="chart-col-label">${nomeDiaAbrev(d.data)}${ehTurnoAtual?' · agora':''}<br>${fmtData(d.data)}</div>
+    </div>`;
   });
   html += '</div>';
-  html += '<div class="small-note">Arraste para o lado pra ver os próximos dias. Cada cor identifica um cliente (mesma cor em todos os dias). kg rateado quando o pedido atravessa mais de um dia.</div>';
+
+  html += '<div class="chart-legend">';
+  top.forEach(c => { html += `<span class="legend-item"><i style="background:${corPorCliente.get(c.nome)}"></i>${c.nome}</span>`; });
+  if (ranking.length > 7) html += `<span class="legend-item"><i style="background:${COR_OUTROS}"></i>Outros (${ranking.length-7} clientes)</span>`;
+  html += '</div>';
+
+  html += '<div class="small-note">Barras = kg programado por dia. Cada cor é sempre o mesmo cliente. Toque numa fatia pra ver o valor exato. kg rateado quando o pedido atravessa mais de um dia.</div>';
+  html += `<a href="#" class="sup-link" id="toggleTabelaDash" style="margin:8px 0 0">${tabelaDashAberta?'Ocultar':'Ver'} tabela detalhada (todos os clientes)</a>`;
+  html += `<div id="tabelaDashDetalhe" class="${tabelaDashAberta?'':'hidden'}">${tabelaDashAberta ? montarTabelaDetalhada(dias, ranking, porDiaCliente, totalPorDia) : ''}</div>`;
 
   cont.innerHTML = html;
+
+  document.getElementById('toggleTabelaDash').addEventListener('click', (e) => {
+    e.preventDefault();
+    tabelaDashAberta = !tabelaDashAberta;
+    renderDashboard();
+  });
+}
+
+function montarTabelaDetalhada(dias, ranking, porDiaCliente, totalPorDia){
+  let html = '<div class="dash-scroll"><table class="dash-table"><thead><tr><th class="dash-th-cliente">Cliente</th>';
+  dias.forEach(d => { html += `<th>${nomeDiaAbrev(d.data)}<br>${fmtData(d.data)}</th>`; });
+  html += '<th class="dash-total-col">Total</th></tr></thead><tbody>';
+
+  ranking.forEach(c => {
+    html += `<tr><td class="dash-td-cliente">${c.nome}</td>`;
+    porDiaCliente.forEach(mapa => {
+      const v = mapa.get(c.nome) || 0;
+      html += `<td>${v>0 ? Math.round(v) : ''}</td>`;
+    });
+    html += `<td class="dash-total-col">${Math.round(c.kg)}</td></tr>`;
+  });
+
+  html += '<tr class="dash-total-row"><td>Total</td>';
+  totalPorDia.forEach(v => html += `<td>${Math.round(v)}</td>`);
+  html += `<td>${Math.round(totalPorDia.reduce((s,v)=>s+v,0))}</td></tr>`;
+  html += '</tbody></table></div>';
+  return html;
 }
 
 // Atualiza todas as telas de uma vez (fila, aguardando, produzidos, visualização e dashboard).
