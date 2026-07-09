@@ -1757,9 +1757,28 @@ async function publicarNoGitHub(){
 document.getElementById('btnPublicarGitHub').addEventListener('click', publicarNoGitHub);
 
 // ===================== EVENTOS GERAIS =====================
+// Trava por PIN — não é segurança de verdade (é tudo estático, sem servidor),
+// só evita que quem abrir o link por acaso mexa na fila. Uma vez destravado
+// nesse navegador, fica lembrado (não pede de novo nesse aparelho).
+const SUPERVISOR_PIN = '0907';
+const SUPERVISOR_DESBLOQUEADO_KEY = 'agendaOnduladeiraSupervisorDesbloqueado';
+
 document.getElementById('toggleSup').addEventListener('click', (e) => {
   e.preventDefault();
-  document.getElementById('supArea').classList.toggle('hidden');
+  const supArea = document.getElementById('supArea');
+
+  if (supArea.classList.contains('hidden')){
+    if (localStorage.getItem(SUPERVISOR_DESBLOQUEADO_KEY) !== 'true'){
+      const digitado = prompt('Digite o PIN da área do supervisor:');
+      if (digitado === null) return;
+      if (digitado.trim() !== SUPERVISOR_PIN){
+        mostrarBanner('PIN incorreto.', true);
+        return;
+      }
+      localStorage.setItem(SUPERVISOR_DESBLOQUEADO_KEY, 'true');
+    }
+  }
+  supArea.classList.toggle('hidden');
 });
 const PAINEIS_TAB = { fila:'painelFila', aguardando:'painelAguardando', produzidos:'painelProduzidos' };
 document.querySelectorAll('.tab-btn').forEach(btn => {
