@@ -398,6 +398,7 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
             <button class="btn btn-outline" id="btnReservarSelecionados" style="margin:0;width:auto;padding:10px 12px;">📌 Reservar data</button>
             <button class="btn btn-green" id="btnMarcarSelecionados" style="margin:0;width:auto;padding:10px 16px;">Marcar produzidos</button>
           </div>
+          <div id="previewReservaLote" style="width:100%;font-weight:700;font-size:12.5px;"></div>
         </div>
         <div id="listaPendentes"></div>
         <div class="small-note">Marque as caixinhas de vários pedidos (de um ou mais clientes — ou marque o cliente inteiro no cabeçalho) e toque em "📌 Reservar data" pra agendar todos de uma vez pra um dia específico, ou em "Marcar produzidos" pra dar baixa em tudo — útil ao chegar de manhã e o turno da noite ter fabricado vários, ou quando chega um pedido novo com data certa de fabricação combinada. Arraste um cliente (⠿) para mudar a ordem entre clientes. Toque no nome do cliente para abrir e reordenar os pedidos dele. "Aguardar" tira da projeção sem apagar; o botão "Produzido" individual serve pra registrar produção parcial (não coube tudo na carreta).</div>
@@ -416,6 +417,12 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
         <div id="listaProduzidos"></div>
         <div class="small-note">Já fabricados, mas continuam aqui até serem expedidos (a OF permanece controlada, igual você já faz na planilha). Marcou "Produzido" errado ou uma OF que não foi feita? Toque em "Voltar p/ fila" nela (ou marque várias e use o botão acima). Remova ("Expedido") só quando o Romaneio confirmar a expedição.</div>
       </div>
+    </div>
+
+    <div class="card">
+      <h2>📅 Datas reservadas — consulta rápida</h2>
+      <div id="listaDatasReservadas"></div>
+      <div class="small-note">Pra responder na hora quando um vendedor ligar: quanto já está reservado em cada data e quanto ainda cabe. "Lotado" significa que essa data já não tem mais espaço livre.</div>
     </div>
 
     <div class="card">
@@ -709,6 +716,28 @@ function calcularAgenda(pedidos, agora){
   return { dias, pedidosInfo };
 }
 
+// Quanto já está reservado numa data específica (yyyy-mm-dd) — usado pra avisar
+// antes de reservar em cima de algo que já existe, e pra consulta rápida do
+// supervisor (ex: vendedor liga perguntando se dá pra atender tal dia).
+function resumoReservaData(dataISO, agora){
+  const { dias } = calcularAgenda(pendentes, agora || new Date());
+  const diaObj = dias.find(d => chaveDiaISO(d.data) === dataISO);
+  if (!diaObj) return { minReservado: 0, minLivre: CAP_MIN_DIA, clientes: [] };
+
+  const itensReservados = diaObj.itens.filter(it => it.status === 'reservado');
+  const minReservado = itensReservados.reduce((s,it) => s+it.minUsados, 0);
+  const porCliente = new Map();
+  itensReservados.forEach(it => {
+    const nome = it.pedido.cliente;
+    porCliente.set(nome, (porCliente.get(nome)||0) + it.minUsados);
+  });
+  return {
+    minReservado: Math.round(minReservado),
+    minLivre: Math.max(0, Math.round(CAP_MIN_DIA - minReservado)),
+    clientes: Array.from(porCliente, ([nome,min]) => ({ nome, min: Math.round(min) }))
+  };
+}
+
 // ===================== RENDER: MODO VISUALIZAÇÃO =====================
 function renderAgenda(pedidos){
   const cont = document.getElementById('viewAgenda');
@@ -914,7 +943,21 @@ function renderFilaSupervisor(){
       const id = inp.getAttribute('data-id');
       const idx = pendentes.findIndex(p => p.id === id);
       if (idx === -1) return;
-      pendentes[idx] = { ...pendentes[idx], dataReservada: inp.value || undefined };
+      const data = inp.value;
+      if (data){
+        const p = pendentes[idx];
+        const minNecessario = p.setupMin + p.ml / VELOCIDADE_M_MIN;
+        const resumo = resumoReservaData(data);
+        if (minNecessario > resumo.minLivre + 0.01){
+          const seguir = confirm(
+            `⚠ ${fmtDataISO(data)} já tem ${resumo.minReservado} min reservados` +
+            (resumo.clientes.length ? ` (${resumo.clientes.map(c=>c.nome).join(', ')})` : '') +
+            ` · só ${resumo.minLivre} min livres.\n\nEste pedido precisa de ${Math.round(minNecessario)} min — vai estourar pro dia seguinte.\n\nReservar mesmo assim?`
+          );
+          if (!seguir){ inp.value = pendentes[idx].dataReservada || ''; return; }
+        }
+      }
+      pendentes[idx] = { ...pendentes[idx], dataReservada: data || undefined };
       atualizarTudo();
     });
   });
@@ -1135,6 +1178,46 @@ function atualizarTudo(){
   renderProduzidos();
   renderAgenda(pendentes);
   renderDashboard();
+  renderDatasReservadas();
+}
+
+// ===================== CONSULTA RÁPIDA: DATAS RESERVADAS =====================
+function renderDatasReservadas(){
+  const cont = document.getElementById('listaDatasReservadas');
+  if (!pendentes.length){
+    cont.innerHTML = '<p style="color:#6a8bb0;font-size:13px;">Nenhuma data reservada no momento.</p>';
+    return;
+  }
+  const agora = new Date();
+  const { dias } = calcularAgenda(pendentes, agora);
+  const diasComReserva = dias.filter(d => d.itens.some(it => it.status === 'reservado'));
+
+  if (!diasComReserva.length){
+    cont.innerHTML = '<p style="color:#6a8bb0;font-size:13px;">Nenhuma data reservada no momento.</p>';
+    return;
+  }
+
+  let html = '';
+  diasComReserva.forEach(d => {
+    const itensReservados = d.itens.filter(it => it.status === 'reservado');
+    const minReservado = itensReservados.reduce((s,it) => s+it.minUsados, 0);
+    const minLivre = Math.max(0, CAP_MIN_DIA - minReservado);
+    const lotado = minLivre <= 0.01;
+    const porCliente = new Map();
+    itensReservados.forEach(it => porCliente.set(it.pedido.cliente, (porCliente.get(it.pedido.cliente)||0) + it.minUsados));
+    const clientesTxt = Array.from(porCliente, ([nome,min]) => `${nome} (${Math.round(min)} min)`).join(' · ');
+
+    html += `<div class="pend-row" style="cursor:default">
+      <div class="conteudo">
+        <div class="top">
+          <b>${nomeDia(d.data)}, ${fmtData(d.data)}</b>
+          <span class="badge ${lotado?'reservado':'conclui'}">${lotado ? 'lotado' : Math.round(minLivre)+' min livres'}</span>
+        </div>
+        <div class="small-note">${clientesTxt}</div>
+      </div>
+    </div>`;
+  });
+  cont.innerHTML = html;
 }
 
 // ===================== MOVER ENTRE FILA / AGUARDANDO / PRODUZIDOS =====================
@@ -1253,6 +1336,20 @@ document.getElementById('btnReservarSelecionados').addEventListener('click', () 
   if (!ids.length) return;
   if (!data){ mostrarBanner('Escolha uma data antes de reservar.', true); return; }
 
+  const minNecessario = ids.reduce((s,id) => {
+    const p = pendentes.find(x => x.id === id);
+    return s + (p ? p.setupMin + p.ml/VELOCIDADE_M_MIN : 0);
+  }, 0);
+  const resumo = resumoReservaData(data);
+  if (minNecessario > resumo.minLivre + 0.01){
+    const seguir = confirm(
+      `⚠ ${fmtDataISO(data)} já tem ${resumo.minReservado} min reservados` +
+      (resumo.clientes.length ? ` (${resumo.clientes.map(c=>c.nome).join(', ')})` : '') +
+      ` · só ${resumo.minLivre} min livres.\n\nEste(s) ${ids.length} pedido(s) precisam de ${Math.round(minNecessario)} min — vai estourar pro dia seguinte.\n\nReservar mesmo assim?`
+    );
+    if (!seguir) return;
+  }
+
   ids.forEach(id => {
     const idx = pendentes.findIndex(p => p.id === id);
     if (idx === -1) return;
@@ -1260,8 +1357,25 @@ document.getElementById('btnReservarSelecionados').addEventListener('click', () 
   });
   selecionadosProduzir.clear();
   document.getElementById('dataReservaLote').value = '';
+  document.getElementById('previewReservaLote').textContent = '';
   atualizarTudo();
   mostrarBanner(`${ids.length} pedido(s) reservado(s) para ${fmtDataISO(data)}.`, false);
+});
+
+// Pré-visualização ao vivo: mostra quanto já está reservado na data escolhida,
+// antes mesmo de confirmar — pra responder o vendedor na hora.
+document.getElementById('dataReservaLote').addEventListener('input', () => {
+  const data = document.getElementById('dataReservaLote').value;
+  const preview = document.getElementById('previewReservaLote');
+  if (!data){ preview.textContent = ''; preview.style.color = ''; return; }
+  const r = resumoReservaData(data);
+  if (r.minReservado > 0.01){
+    preview.textContent = `📌 ${fmtDataISO(data)} já tem ${r.minReservado} min reservados (${r.clientes.map(c=>c.nome).join(', ')}) · ${r.minLivre} min livres`;
+    preview.style.color = r.minLivre <= 0 ? '#c62828' : '#e65100';
+  } else {
+    preview.textContent = `✓ ${fmtDataISO(data)} está livre (${CAP_MIN_DIA} min disponíveis)`;
+    preview.style.color = '#2e7d32';
+  }
 });
 
 // ===================== SINCRONIZAÇÃO COM O EXCEL (merge por OF, não substitui) =====================
