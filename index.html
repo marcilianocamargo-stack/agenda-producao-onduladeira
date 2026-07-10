@@ -793,9 +793,10 @@ function renderGruposClientesDia(d){
         const p = it.pedido;
         const badgeTxt = { inicio:'início', continua:'continua', conclui:'conclui', unico:'', reservado:'📌 reservado' }[it.status];
         const badgeCls = { inicio:'inicio', continua:'continua', conclui:'conclui', unico:'', reservado:'reservado' }[it.status];
+        const medidas = (p.largura && p.comprimento) ? `${Math.round(p.largura*1000)}x${Math.round(p.comprimento*1000)}` : '';
         html += `<div class="pedido-row">
           <div class="linha1"><span>${p.po||''}</span>${badgeTxt?`<span class="badge ${badgeCls}">${badgeTxt}</span>`:''}</div>
-          <div class="linha2">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} · ${Math.round(it.minUsados)} min</div>
+          <div class="linha2">OF ${p.of||'-'}${p.qtdePedido?' · Qtde '+Math.round(p.qtdePedido).toLocaleString('pt-BR'):''}${medidas?' · '+medidas+' mm':''}${p.vinco?' · Vinco '+p.vinco:''}${p.po?' · Bobina '+p.po:''} · ${p.kg?Math.round(p.kg)+' kg':''} · ${Math.round(it.minUsados)} min</div>
         </div>`;
       });
     }
@@ -1581,7 +1582,10 @@ const SYN = {
   qtdePedido: ['qtde pedido', 'qtde. pedido'],
   ml: ['ml'],
   kg: ['kg'],
-  dataPedido: ['data pedido', 'data prod']
+  dataPedido: ['data pedido', 'data prod'],
+  largura: ['largura'],
+  comprimento: ['comprimento (facão)', 'comprimento facao', 'comprimento'],
+  vinco: ['sliter vincadeira', 'vincos', 'vinco']
 };
 function normHeader(s){ return String(s||'').toLowerCase().trim(); }
 function acharColuna(headerRow, nomes){
@@ -1615,6 +1619,9 @@ function parseWorkbookBuffer(buf){
         colMap.ml = acharColuna(rows[i], SYN.ml);
         colMap.kg = acharColuna(rows[i], SYN.kg);
         colMap.dataPedido = acharColuna(rows[i], SYN.dataPedido);
+        colMap.largura = acharColuna(rows[i], SYN.largura);
+        colMap.comprimento = acharColuna(rows[i], SYN.comprimento);
+        colMap.vinco = acharColuna(rows[i], SYN.vinco);
         break;
       }
     }
@@ -1638,6 +1645,10 @@ function parseWorkbookBuffer(buf){
         oc: colMap.oc !== -1 ? String(row[colMap.oc]||'').trim() : '',
         ml: ml,
         kg: kg,
+        qtdePedido: colMap.qtdePedido !== -1 ? (parseFloat(row[colMap.qtdePedido]) || 0) : 0,
+        largura: colMap.largura !== -1 ? (parseFloat(row[colMap.largura]) || 0) : 0,
+        comprimento: colMap.comprimento !== -1 ? (parseFloat(row[colMap.comprimento]) || 0) : 0,
+        vinco: colMap.vinco !== -1 ? String(row[colMap.vinco]||'').trim() : '',
         setupMin: 40
       };
       novoPedido.chave = chaveOf(novoPedido);
