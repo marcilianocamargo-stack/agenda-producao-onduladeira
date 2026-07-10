@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-10T13:48:00.893Z",
+  "geradoEm": "2026-07-10T13:51:52.526Z",
   "pendentes": [
     {
       "id": "p38_3t2ef",
@@ -11,18 +11,6 @@
       "kg": 432.2,
       "setupMin": 40,
       "chave": "OF:261574",
-      "lote": "ABAPEL3"
-    },
-    {
-      "id": "p41_vqzzo",
-      "cliente": "ABAPEL",
-      "po": "P50D",
-      "of": "261582",
-      "oc": "8.008",
-      "ml": 604,
-      "kg": 415.8,
-      "setupMin": 40,
-      "chave": "OF:261582",
       "lote": "ABAPEL3"
     },
     {
@@ -1955,6 +1943,19 @@
       "chave": "OF:261578",
       "lote": "ABAPEL3",
       "dataProduzido": "2026-07-10T13:47:49.503Z"
+    },
+    {
+      "id": "p160_hul79",
+      "cliente": "ABAPEL",
+      "po": "P50D",
+      "of": "261582",
+      "oc": "8.008",
+      "ml": 604,
+      "kg": 415.8,
+      "setupMin": 40,
+      "chave": "OF:261582",
+      "lote": "ABAPEL3",
+      "dataProduzido": "2026-07-10T13:51:26.655Z"
     }
   ]
 }
