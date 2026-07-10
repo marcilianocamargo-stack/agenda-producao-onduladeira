@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-10T13:38:28.509Z",
+  "geradoEm": "2026-07-10T13:48:00.893Z",
   "pendentes": [
     {
       "id": "p38_3t2ef",
@@ -11,18 +11,6 @@
       "kg": 432.2,
       "setupMin": 40,
       "chave": "OF:261574",
-      "lote": "ABAPEL3"
-    },
-    {
-      "id": "p40_6x2se",
-      "cliente": "ABAPEL",
-      "po": "P50D",
-      "of": "261575",
-      "oc": "8.005",
-      "ml": 1144,
-      "kg": 890.2,
-      "setupMin": 40,
-      "chave": "OF:261575",
       "lote": "ABAPEL3"
     },
     {
@@ -83,18 +71,6 @@
       "kg": 396.6,
       "setupMin": 40,
       "chave": "OF:261580",
-      "lote": "ABAPEL3"
-    },
-    {
-      "id": "p46_jucr4",
-      "cliente": "ABAPEL",
-      "po": "P25B",
-      "of": "261578",
-      "oc": "8.007",
-      "ml": 874.5,
-      "kg": 315,
-      "setupMin": 40,
-      "chave": "OF:261578",
       "lote": "ABAPEL3"
     },
     {
@@ -1953,6 +1929,32 @@
       "chave": "OF:261690",
       "lote": "recimag - Renovapel",
       "dataProduzido": "2026-07-10T13:38:14.716Z"
+    },
+    {
+      "id": "p158_ellbx",
+      "cliente": "ABAPEL",
+      "po": "P50D",
+      "of": "261575",
+      "oc": "8.005",
+      "ml": 1144,
+      "kg": 890.2,
+      "setupMin": 40,
+      "chave": "OF:261575",
+      "lote": "ABAPEL3",
+      "dataProduzido": "2026-07-10T13:47:25.525Z"
+    },
+    {
+      "id": "p159_ntowg",
+      "cliente": "ABAPEL",
+      "po": "P25B",
+      "of": "261578",
+      "oc": "8.007",
+      "ml": 874.5,
+      "kg": 315,
+      "setupMin": 40,
+      "chave": "OF:261578",
+      "lote": "ABAPEL3",
+      "dataProduzido": "2026-07-10T13:47:49.503Z"
     }
   ]
 }
