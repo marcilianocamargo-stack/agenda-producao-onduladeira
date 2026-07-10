@@ -796,7 +796,7 @@ function renderGruposClientesDia(d){
         const medidas = (p.largura && p.comprimento) ? `${Math.round(p.largura*1000)}x${Math.round(p.comprimento*1000)}` : '';
         html += `<div class="pedido-row">
           <div class="linha1"><span>${p.po||''}</span>${badgeTxt?`<span class="badge ${badgeCls}">${badgeTxt}</span>`:''}</div>
-          <div class="linha2">OF ${p.of||'-'}${p.qtdePedido?' · Qtde '+Math.round(p.qtdePedido).toLocaleString('pt-BR'):''}${medidas?' · '+medidas+' mm':''}${p.vinco?' · Vinco '+p.vinco:''}${p.po?' · Bobina '+p.po:''} · ${p.kg?Math.round(p.kg)+' kg':''} · ${Math.round(it.minUsados)} min</div>
+          <div class="linha2">OF ${p.of||'-'}${p.qtdePedido?' · Qtde '+Math.round(p.qtdePedido).toLocaleString('pt-BR'):''}${medidas?' · '+medidas+' mm':''}${p.vinco?' · Vinco '+p.vinco:''}${p.bobina?' · Bobina '+Math.round(p.bobina):''}${p.po?' · Tipo '+p.po:''} · ${p.kg?Math.round(p.kg)+' kg':''} · ${Math.round(it.minUsados)} min</div>
         </div>`;
       });
     }
@@ -1585,7 +1585,8 @@ const SYN = {
   dataPedido: ['data pedido', 'data prod'],
   largura: ['largura'],
   comprimento: ['comprimento (facão)', 'comprimento facao', 'comprimento'],
-  vinco: ['sliter vincadeira', 'vincos', 'vinco']
+  vinco: ['sliter vincadeira', 'vincos', 'vinco'],
+  bobina: ['formato bobinas', 'formato bobina', 'bobina']
 };
 function normHeader(s){ return String(s||'').toLowerCase().trim(); }
 function acharColuna(headerRow, nomes){
@@ -1622,6 +1623,7 @@ function parseWorkbookBuffer(buf){
         colMap.largura = acharColuna(rows[i], SYN.largura);
         colMap.comprimento = acharColuna(rows[i], SYN.comprimento);
         colMap.vinco = acharColuna(rows[i], SYN.vinco);
+        colMap.bobina = acharColuna(rows[i], SYN.bobina);
         break;
       }
     }
@@ -1649,6 +1651,7 @@ function parseWorkbookBuffer(buf){
         largura: colMap.largura !== -1 ? (parseFloat(row[colMap.largura]) || 0) : 0,
         comprimento: colMap.comprimento !== -1 ? (parseFloat(row[colMap.comprimento]) || 0) : 0,
         vinco: colMap.vinco !== -1 ? String(row[colMap.vinco]||'').trim() : '',
+        bobina: colMap.bobina !== -1 ? (parseFloat(row[colMap.bobina]) || 0) : 0,
         setupMin: 40
       };
       novoPedido.chave = chaveOf(novoPedido);
