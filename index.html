@@ -1649,11 +1649,13 @@ function parseWorkbookBuffer(buf){
 }
 
 // ===================== SINCRONIZAR COM programacao-hoje.xlsx =====================
-// Mesma lógica do Romaneio e das Etiquetas: o arquivo fica publicado ao lado do
-// index.html e o app busca sozinho, sem escolher arquivo manualmente. Cache-busting
-// (?t=) + no-store para nunca pegar versão antiga em cache do navegador.
+// Mesma lógica do Romaneio e das Etiquetas: busca a programação no repo-fonte
+// único (controle-producao-etiquetas), direto via raw.githubusercontent.com —
+// não depende do build do GitHub Pages. Cache-busting (?t=) + no-store para
+// nunca pegar versão antiga em cache do navegador.
 // Diferente de um "carregar", isso é uma SINCRONIZAÇÃO: funde por OF com o que já
 // está na fila/aguardando/produzidos, sem apagar nada que você já organizou.
+const XLSX_FONTE_URL = 'https://raw.githubusercontent.com/marcilianocamargo-stack/controle-producao-etiquetas/main/programacao-hoje.xlsx';
 async function autoCarregarExcel(){
   const statusAuto = document.getElementById('statusAuto');
   const btnRecarregar = document.getElementById('btnRecarregar');
@@ -1663,7 +1665,7 @@ async function autoCarregarExcel(){
   statusAuto.textContent = '⏳ Sincronizando com a programação do dia...';
 
   try {
-    const resp = await fetch('./programacao-hoje.xlsx?t=' + Date.now(), { cache: 'no-store' });
+    const resp = await fetch(XLSX_FONTE_URL + '?t=' + Date.now(), { cache: 'no-store' });
     if (!resp.ok) throw new Error('sem arquivo');
     const buf = await resp.arrayBuffer();
     const pedidos = parseWorkbookBuffer(buf);
