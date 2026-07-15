@@ -796,7 +796,7 @@ function renderGruposClientesDia(d){
         const medidas = (p.largura && p.comprimento) ? `${Math.round(p.largura*1000)}x${Math.round(p.comprimento*1000)}` : '';
         html += `<div class="pedido-row">
           <div class="linha1"><span>${p.po||''}</span>${badgeTxt?`<span class="badge ${badgeCls}">${badgeTxt}</span>`:''}</div>
-          <div class="linha2">OF ${p.of||'-'}${p.qtdePedido?' · Qtde '+Math.round(p.qtdePedido).toLocaleString('pt-BR'):''}${medidas?' · '+medidas+' mm':''}${p.vinco?' · Vinco '+p.vinco:''}${p.bobina?' · Bobina '+Math.round(p.bobina):''}${p.po?' · Tipo '+p.po:''} · ${p.kg?Math.round(p.kg)+' kg':''} · ${Math.round(it.minUsados)} min</div>
+          <div class="linha2">OP ${p.of||'-'}${p.qtdePedido?' · Qtde '+Math.round(p.qtdePedido).toLocaleString('pt-BR'):''}${medidas?' · '+medidas+' mm':''}${p.vinco?' · Vinco '+p.vinco:''}${p.bobina?' · Bobina '+Math.round(p.bobina):''}${p.po?' · Tipo '+p.po:''} · ${p.kg?Math.round(p.kg)+' kg':''} · ${Math.round(it.minUsados)} min</div>
         </div>`;
       });
     }
@@ -861,7 +861,7 @@ function renderFilaSupervisor(){
               <button class="mini-btn done" data-act="produzido" data-id="${p.id}">Produzido</button>
             </div>
           </div>
-          <div class="small-note">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} · previsão: <b>${diaTxt}</b>
+          <div class="small-note">OP ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} · previsão: <b>${diaTxt}</b>
             · <a href="#" class="link-excluir" data-act="excluir" data-id="${p.id}" style="color:#c62828">excluir definitivamente</a>
           </div>
           <div class="reserva-linha">
@@ -1331,7 +1331,7 @@ function marcarProduzido(id){
   const p = pendentes[idx];
   const totalMl = p.ml || 0;
   const resp = prompt(
-    `Produzido: ${p.cliente} — ${p.po||''} (OF ${p.of||'-'})\n\n` +
+    `Produzido: ${p.cliente} — ${p.po||''} (OP ${p.of||'-'})\n\n` +
     `Total do pedido: ${Math.round(totalMl)} ML.\n\n` +
     `Deixe em branco se produziu TUDO.\nOu digite quantos ML foram produzidos agora (produção parcial):`,
     ''
@@ -1494,7 +1494,7 @@ function renderAguardando(){
             <b>${p.po||''}</b>
             <button class="mini-btn done" data-act="liberar" data-id="${p.id}">Liberar p/ fila</button>
           </div>
-          <div class="small-note">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''}</div>
+          <div class="small-note">OP ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''}</div>
         </div>
       </div>`;
     });
@@ -1543,7 +1543,7 @@ function renderProduzidos(){
               <button class="mini-btn del" data-act="expedido" data-id="${p.id}">Expedido — remover</button>
             </div>
           </div>
-          <div class="small-note">OF ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} ${dataTxt?'· produzido em '+dataTxt:''}</div>
+          <div class="small-note">OP ${p.of||'-'} · ${p.kg?Math.round(p.kg)+' kg':''} ${p.ml?'· '+Math.round(p.ml)+' ML':''} ${dataTxt?'· produzido em '+dataTxt:''}</div>
         </div>
       </div>`;
     });
@@ -1577,7 +1577,7 @@ function renderProduzidos(){
 const SYN = {
   cliente: ['cliente'],
   po: ['p.o.', 'po'],
-  of: ['of'],
+  of: ['of', 'op'],
   oc: ['oc'],
   qtdePedido: ['qtde pedido', 'qtde. pedido'],
   ml: ['ml'],
