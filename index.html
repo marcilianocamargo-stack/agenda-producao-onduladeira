@@ -389,15 +389,24 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
           <input type="number" id="mKg" placeholder="Ex: 800">
         </div>
       </div>
-      <div class="field">
-        <label>Setup deste pedido</label>
-        <select id="mSetup">
-          <option value="40">Completo — vínculo + 3 bobinas (40 min)</option>
-          <option value="27">Só 1 bobina (20 + 7 = 27 min)</option>
-          <option value="24">Só ajuste de faca (20 + 4 = 24 min)</option>
-          <option value="0">Sem parada de setup</option>
-        </select>
+      <div class="row2">
+        <div class="field">
+          <label>Largura da bobina (m)</label>
+          <input type="number" step="0.001" id="mLargura" placeholder="Ex: 1.12">
+        </div>
+        <div class="field">
+          <label>Setup deste pedido</label>
+          <select id="mSetup">
+            <option value="">Automático (pela troca de bobina)</option>
+            <option value="8">Mesma bobina — só faca (8 min)</option>
+            <option value="30">Troca leve, até 150 mm (30 min)</option>
+            <option value="36">Troca média, 150-400 mm (36 min)</option>
+            <option value="46">Troca pesada, +400 mm (46 min)</option>
+            <option value="0">Sem parada de setup</option>
+          </select>
+        </div>
       </div>
+      <div class="small-note">Com a largura preenchida, o setup sai automático: o app compara a bobina deste pedido com a do pedido que roda antes dele e cobra o tempo real daquela troca (medido na produção dos dois turnos). Escolha um valor fixo só para forçar um caso específico.</div>
       <button class="btn btn-green" id="btnAddManual">Adicionar à fila e ver o dia previsto</button>
     </div>
 
@@ -473,8 +482,50 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 
 <script>
 // ===================== CONFIG =====================
-const VELOCIDADE_M_MIN = 60;           // planejamento (máquina aguenta até 120, mas média de trabalho é 60)
+// Calibrado com produção real: 350 paletes / 132 OPs / 17 turnos (08/06 a 18/07/2026),
+// lidos dos relatórios de turno da pasta "produção produzida". O ciclo real de cada
+// pedido foi medido pelo carimbo de hora dos paletes (fim da OP anterior → fim desta,
+// já incluindo troca de bobina, ajuste de sliter/facas e acerto de vinco).
+const VELOCIDADE_M_MIN = 60;           // confirmado pelos dados reais (ajuste deu 59,4 m/min)
 const CAP_MIN_DIA = 960;               // 08-18h (-1h almoço) + 18-02h (-1h jantar) = 16h úteis
+
+// Setup real por tipo de troca (min). Antes era 40 fixo para todo pedido, o que
+// superestimava turnos com muitos pedidos parecidos e subestimava trocas pesadas.
+// Sobre 123 trocas medidas: 40 fixo errava +8,2% no total; esta tabela erra -0,1%.
+const SETUP = {
+  semTrocaBobina: 8,    // mesma largura de bobina — só ajuste de faca/comprimento
+  ate150mm:      30,    // troca de bobina de até 150 mm de diferença
+  de150a400mm:   36,    // troca de 150 a 400 mm
+  acima400mm:    46,    // troca acima de 400 mm
+  trocaPapel:     5,    // adicional quando o tipo de papel (onda) muda
+  semAnterior:   36     // 1º pedido do dia / anterior desconhecido: troca típica
+};
+
+// Quanto custa preparar a máquina para 'p' vindo do pedido 'ant'.
+// Se o usuário fixou um setup na mão (setupManual), esse valor manda.
+function setupEntre(ant, p){
+  if (p && typeof p.setupManual === 'number') return p.setupManual;
+  if (!ant) return SETUP.semAnterior;
+
+  const la = Number(ant.largura) || 0, lp = Number(p.largura) || 0;
+  if (!la || !lp) return SETUP.semAnterior;   // sem medida não dá pra inferir a troca
+
+  const dif = Math.abs(la - lp) * 1000;       // largura vem em metros no Excel
+  let min = dif < 5      ? SETUP.semTrocaBobina
+          : dif < 150    ? SETUP.ate150mm
+          : dif < 400    ? SETUP.de150a400mm
+          :                SETUP.acima400mm;
+
+  const pa = String(ant.po || '').trim().toUpperCase();
+  const pp = String(p.po || '').trim().toUpperCase();
+  if (pa && pp && pa !== pp) min += SETUP.trocaPapel;
+  return min;
+}
+
+// Tempo total do pedido: preparação da máquina + rodagem.
+function tempoPedido(p, ant){
+  return setupEntre(ant, p) + (Number(p.ml) || 0) / VELOCIDADE_M_MIN;
+}
 const DIAS_UTEIS = [1,2,3,4,5];        // seg a sex (0=dom)
 const DIAS_SEMANA_PT = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
 
@@ -606,7 +657,9 @@ function estadoAgora(now){
 }
 
 // ===================== CÁLCULO DA AGENDA =====================
-// pedidos: lista ordenada (fila manual) de {id,cliente,po,of,oc,kg,ml,setupMin,dataReservada?}
+// pedidos: lista ordenada (fila manual) de {id,cliente,po,of,oc,kg,ml,largura,dataReservada?}
+// O setup não fica gravado no pedido: sai de setupEntre(anterior, pedido), porque o
+// custo da preparação depende de qual pedido roda antes dele na máquina.
 // retorna: { dias: [{data, itens:[{pedido, status, minUsados}], minUsados, cap}], pedidosInfo: {id:{diaInicio,diaFim}} }
 //
 // Pedidos com "dataReservada" (yyyy-mm-dd) reservam só o tempo que precisam
@@ -642,6 +695,15 @@ function calcularAgenda(pedidos, agora){
 
   const pedidosInfo = {};
 
+  // O setup é calculado pela troca em relação ao pedido que roda logo antes na
+  // máquina, então a projeção acompanha a sequência real de fabricação.
+  let ultimoPedido = null;
+  function custoDe(p){
+    const min = tempoPedido(p, ultimoPedido);
+    ultimoPedido = p;
+    return min;
+  }
+
   // lança na agenda as reservas do dia atual (com possível estouro pros dias seguintes,
   // se o(s) pedido(s) reservado(s) precisarem de mais tempo do que sobra no dia)
   function aplicarReservasDoDiaAtual(){
@@ -649,7 +711,7 @@ function calcularAgenda(pedidos, agora){
     while (reservasPorDia.has(k) && !diasProcessados.has(k)){
       diasProcessados.add(k);
       reservasPorDia.get(k).forEach(p => {
-        let restante = p.setupMin + p.ml / VELOCIDADE_M_MIN;
+        let restante = custoDe(p);
         const diasTocados = [];
         while (restante > 0.0001){
           if (capRestante <= 0.0001){
@@ -673,8 +735,7 @@ function calcularAgenda(pedidos, agora){
   aplicarReservasDoDiaAtual();
 
   naoReservados.forEach(p => {
-    const tempoRodagem = p.ml / VELOCIDADE_M_MIN;
-    let restante = p.setupMin + tempoRodagem;
+    let restante = custoDe(p);
     let primeiraVez = true;
     const diasTocados = [];
 
@@ -713,8 +774,11 @@ function calcularAgenda(pedidos, agora){
     dias.push(novoDia);
     diasProcessados.add(chaveDiaISO(dataDia));
 
+    // dia isolado (a fila normal nunca chegou nele): a sequência recomeça aqui
+    let antDoDia = null;
     reservasPorDia.get(k).forEach(p => {
-      let restante = p.setupMin + p.ml / VELOCIDADE_M_MIN;
+      let restante = tempoPedido(p, antDoDia);
+      antDoDia = p;
       const diasTocados = [];
       while (restante > 0.0001){
         if (capDoDia <= 0.0001){
@@ -938,7 +1002,7 @@ function renderFilaSupervisor(){
       const data = inp.value;
       if (data){
         const p = pendentes[idx];
-        const minNecessario = p.setupMin + p.ml / VELOCIDADE_M_MIN;
+        const minNecessario = tempoPedido(p, null);
         const resumo = resumoReservaData(data);
         if (minNecessario > resumo.minLivre + 0.01){
           const seguir = confirm(
@@ -1392,9 +1456,15 @@ document.getElementById('btnReservarSelecionados').addEventListener('click', () 
   if (!ids.length) return;
   if (!data){ mostrarBanner('Escolha uma data antes de reservar.', true); return; }
 
+  // sequência do lote: o 1º paga uma troca típica, os seguintes pagam a troca
+  // real em relação ao anterior — igual ao que a máquina vai fazer.
+  let antLote = null;
   const minNecessario = ids.reduce((s,id) => {
     const p = pendentes.find(x => x.id === id);
-    return s + (p ? p.setupMin + p.ml/VELOCIDADE_M_MIN : 0);
+    if (!p) return s;
+    const min = tempoPedido(p, antLote);
+    antLote = p;
+    return s + min;
   }, 0);
   const resumo = resumoReservaData(data);
   if (minNecessario > resumo.minLivre + 0.01){
@@ -1651,8 +1721,8 @@ function parseWorkbookBuffer(buf){
         largura: colMap.largura !== -1 ? (parseFloat(row[colMap.largura]) || 0) : 0,
         comprimento: colMap.comprimento !== -1 ? (parseFloat(row[colMap.comprimento]) || 0) : 0,
         vinco: colMap.vinco !== -1 ? String(row[colMap.vinco]||'').trim() : '',
-        bobina: colMap.bobina !== -1 ? (parseFloat(row[colMap.bobina]) || 0) : 0,
-        setupMin: 40
+        bobina: colMap.bobina !== -1 ? (parseFloat(row[colMap.bobina]) || 0) : 0
+        // sem setupManual: o setup sai automático pela troca em relação ao pedido anterior
       };
       novoPedido.chave = chaveOf(novoPedido);
       pedidos.push(novoPedido);
@@ -1722,8 +1792,11 @@ document.getElementById('btnAddManual').addEventListener('click', () => {
     oc: '',
     ml,
     kg: parseFloat(document.getElementById('mKg').value) || 0,
-    setupMin: parseInt(document.getElementById('mSetup').value)
+    largura: parseFloat(document.getElementById('mLargura').value) || 0
   };
+  // '' = automático (calcula pela troca em relação ao pedido anterior)
+  const setupEscolhido = document.getElementById('mSetup').value;
+  if (setupEscolhido !== '') novo.setupManual = parseInt(setupEscolhido);
   novo.chave = chaveOf(novo);
   pendentes = inserirNoGrupo(pendentes, novo);
   ['mCliente','mPo','mOf','mMl','mKg'].forEach(id => document.getElementById(id).value = '');
