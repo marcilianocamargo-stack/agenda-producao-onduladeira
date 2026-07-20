@@ -763,31 +763,38 @@ function calcularAgenda(pedidos, agora){
   // reservas cujo dia nunca foi alcançado pela fila normal (ex: fila termina antes
   // da data reservada) — cria os dias que faltam, com estouro pros dias seguintes
   // se o(s) pedido(s) reservado(s) precisarem de mais de um dia pra concluir.
+  // Vai em ordem de data, carregando o estado de um dia pro outro: se as reservas
+  // de um dia não couberem, elas seguem pro dia útil seguinte, e as reservas
+  // daquele dia entram logo depois — nada é descartado por já ter sido tocado.
   const chavesRestantes = [...reservasPorDia.keys()].filter(k => !diasProcessados.has(k)).sort();
-  chavesRestantes.forEach(k => {
-    if (diasProcessados.has(k)) return; // já criado por estouro de uma data anterior
+  let dataDia = null, capDoDia = 0, novoDia = null, antDoDia = null;
 
-    let [y,m,d] = k.split('-').map(Number);
-    let dataDia = new Date(y, m-1, d);
-    let capDoDia = CAP_MIN_DIA;
-    let novoDia = { data: new Date(dataDia), itens: [], minUsados: 0, emAndamento: false };
+  function abrirDia(dt){
+    dataDia = new Date(dt);
+    capDoDia = CAP_MIN_DIA;
+    novoDia = { data: new Date(dataDia), itens: [], minUsados: 0, emAndamento: false };
     dias.push(novoDia);
     diasProcessados.add(chaveDiaISO(dataDia));
+  }
 
-    // dia isolado (a fila normal nunca chegou nele): a sequência recomeça aqui
-    let antDoDia = null;
+  chavesRestantes.forEach(k => {
+    const [y,m,d] = k.split('-').map(Number);
+    const dataReserva = new Date(y, m-1, d);
+
+    if (!novoDia || dataReserva > dataDia){
+      // dia ainda intocado: começa limpo (a sequência da máquina recomeça aqui)
+      abrirDia(dataReserva);
+      antDoDia = null;
+    }
+    // se dataReserva <= dataDia, o dia já foi aberto pelo estouro do dia anterior:
+    // continua de onde parou, aproveitando a capacidade que ainda sobrou nele.
+
     reservasPorDia.get(k).forEach(p => {
       let restante = tempoPedido(p, antDoDia);
       antDoDia = p;
       const diasTocados = [];
       while (restante > 0.0001){
-        if (capDoDia <= 0.0001){
-          dataDia = proximoDiaUtil(dataDia);
-          capDoDia = CAP_MIN_DIA;
-          novoDia = { data: new Date(dataDia), itens: [], minUsados: 0, emAndamento: false };
-          dias.push(novoDia);
-          diasProcessados.add(chaveDiaISO(dataDia));
-        }
+        if (capDoDia <= 0.0001) abrirDia(proximoDiaUtil(dataDia));
         const usar = Math.min(restante, capDoDia);
         restante -= usar;
         capDoDia -= usar;
