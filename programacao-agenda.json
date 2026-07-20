@@ -2799,7 +2799,7 @@
     }
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-07-20T11:07:04.593546Z",
+    "atualizadoEm": "2026-07-20T15:24:22.757068Z",
     "limiarBaixaPct": 95.0,
     "clientes": {
       "Harnony": [
@@ -4460,6 +4460,46 @@
           "concluido": true,
           "dataRelatorio": "2026-07-18",
           "arquivo": "Producao_18-07-2026_turno-Noite_DANPACK-ABAPEL.pdf"
+        }
+      ],
+      "DR Embalagem": [
+        {
+          "of": "261843",
+          "oc": "17-07",
+          "medida": "0,560 X 1,120",
+          "chapasPedido": 1500,
+          "chapasProduzidas": 1530,
+          "saldo": 30,
+          "pct": 102.0,
+          "concluido": true,
+          "dataRelatorio": "2026-07-20",
+          "arquivo": "Producao_20-07-2026_turno-Dia_DR_Embalagem-UPAPER.xlsx"
+        }
+      ],
+      "UPAPER": [
+        {
+          "of": "261844",
+          "oc": "17-06",
+          "medida": "0,320 X 0,866",
+          "chapasPedido": 4460,
+          "chapasProduzidas": 4470,
+          "saldo": 10,
+          "pct": 100.2,
+          "concluido": true,
+          "dataRelatorio": "2026-07-20",
+          "arquivo": "Producao_20-07-2026_turno-Dia_DR_Embalagem-UPAPER.xlsx"
+        },
+        {
+          "of": "261845",
+          "oc": "17-05",
+          "medida": "0,622 X 1,809",
+          "chapasPedido": 8920,
+          "chapasProduzidas": 3380,
+          "saldo": -5540,
+          "pct": 37.9,
+          "concluido": false,
+          "dataRelatorio": "2026-07-20",
+          "arquivo": "Producao_20-07-2026_turno-Dia_DR_Embalagem-UPAPER.xlsx"
         }
       ]
     }
