@@ -1674,37 +1674,69 @@ function acharColuna(headerRow, nomes){
   return -1;
 }
 
+// Abas que a última leitura não conseguiu ler direito. Fica visível na tela:
+// uma aba sumir calada já escondeu pedido inteiro da agenda.
+let avisosPlanilha = [];
+
 // Lê um workbook (ArrayBuffer) e devolve a lista de pedidos de todas as abas.
 // Cada aba do Excel = 1 cliente/lote, igual ao modelo usado no Romaneio e nas Etiquetas.
 function parseWorkbookBuffer(buf){
   const wb = XLSX.read(buf, { type:'array', cellDates:true });
   const pedidos = [];
+  avisosPlanilha = [];
 
   wb.SheetNames.forEach(sheetName => {
     const ws = wb.Sheets[sheetName];
     const rows = XLSX.utils.sheet_to_json(ws, { header:1, raw:true, defval:'' });
 
+    // O cabeçalho é reconhecido pela OP + Qtde Pedido, não pela coluna "Cliente":
+    // quando alguém digita o número da OC por cima do título "Cliente", a aba
+    // continua legível em vez de sumir da agenda inteira.
     let headerIdx = -1, colMap = {};
     for (let i=0;i<rows.length;i++){
-      const idx = acharColuna(rows[i], SYN.cliente);
-      if (idx !== -1){
-        headerIdx = i;
-        colMap.cliente = acharColuna(rows[i], SYN.cliente);
-        colMap.po = acharColuna(rows[i], SYN.po);
-        colMap.of = acharColuna(rows[i], SYN.of);
-        colMap.oc = acharColuna(rows[i], SYN.oc);
-        colMap.qtdePedido = acharColuna(rows[i], SYN.qtdePedido);
-        colMap.ml = acharColuna(rows[i], SYN.ml);
-        colMap.kg = acharColuna(rows[i], SYN.kg);
-        colMap.dataPedido = acharColuna(rows[i], SYN.dataPedido);
-        colMap.largura = acharColuna(rows[i], SYN.largura);
-        colMap.comprimento = acharColuna(rows[i], SYN.comprimento);
-        colMap.vinco = acharColuna(rows[i], SYN.vinco);
-        colMap.bobina = acharColuna(rows[i], SYN.bobina);
-        break;
+      const temOf = acharColuna(rows[i], SYN.of) !== -1;
+      const temQtde = acharColuna(rows[i], SYN.qtdePedido) !== -1;
+      const temCliente = acharColuna(rows[i], SYN.cliente) !== -1;
+      if (!(temCliente || (temOf && temQtde))) continue;
+
+      headerIdx = i;
+      colMap.cliente = acharColuna(rows[i], SYN.cliente);
+      colMap.po = acharColuna(rows[i], SYN.po);
+      colMap.of = acharColuna(rows[i], SYN.of);
+      colMap.oc = acharColuna(rows[i], SYN.oc);
+      colMap.qtdePedido = acharColuna(rows[i], SYN.qtdePedido);
+      colMap.ml = acharColuna(rows[i], SYN.ml);
+      colMap.kg = acharColuna(rows[i], SYN.kg);
+      colMap.dataPedido = acharColuna(rows[i], SYN.dataPedido);
+      colMap.largura = acharColuna(rows[i], SYN.largura);
+      colMap.comprimento = acharColuna(rows[i], SYN.comprimento);
+      colMap.vinco = acharColuna(rows[i], SYN.vinco);
+      colMap.bobina = acharColuna(rows[i], SYN.bobina);
+
+      if (colMap.cliente === -1){
+        // Layout padrão da programação: o cliente vem logo depois de "Seq.Prod".
+        const seq = acharColuna(rows[i], ['seq.prod', 'seq prod', 'seq']);
+        colMap.cliente = seq !== -1 ? seq + 1 : -1;
+        const errado = colMap.cliente !== -1 ? String(rows[i][colMap.cliente] || '').trim() : '';
+        avisosPlanilha.push(
+          `Aba "${sheetName}": o título da coluna Cliente está escrito como "${errado}". ` +
+          `Os pedidos foram lidos assim mesmo, mas corrija a planilha — o Romaneio e as ` +
+          `Etiquetas leem o mesmo arquivo e podem não ser tão tolerantes.`
+        );
       }
+      break;
     }
-    if (headerIdx === -1) return;
+    if (headerIdx === -1){
+      // Só reclama de aba que aparenta ter pedido — aba de rascunho/vazia não interessa.
+      const temDado = rows.some(r => r.some(c => /^\d{6}$/.test(String(c || '').trim())));
+      if (temDado){
+        avisosPlanilha.push(
+          `Aba "${sheetName}": não foi possível achar a linha de cabeçalho ` +
+          `(precisa ter as colunas OP e Qtde Pedido). Os pedidos dela ficaram de fora da agenda.`
+        );
+      }
+      return;
+    }
 
     for (let i=headerIdx+1;i<rows.length;i++){
       const row = rows[i];
@@ -1771,8 +1803,16 @@ async function autoCarregarExcel(){
       const d = new Date(lm);
       if (!isNaN(d.getTime())) quando = ' · atualizada ' + d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
     }
-    statusAuto.className = 'arq-status ok';
-    statusAuto.textContent = `✓ Sincronizado${quando} · ${novos} pedido(s) novo(s) na fila` + (removidos>0 ? ` · ${removidos} saíram da planilha (expedidos/cancelados)` : '');
+    const resumo = `✓ Sincronizado${quando} · ${novos} pedido(s) novo(s) na fila` + (removidos>0 ? ` · ${removidos} saíram da planilha (expedidos/cancelados)` : '');
+    if (avisosPlanilha.length){
+      // Problema na planilha tem que aparecer: aba mal lida esconde pedido da agenda.
+      statusAuto.className = 'arq-status err';
+      statusAuto.innerHTML = '⚠ <b>Confira a planilha</b><br>' +
+        avisosPlanilha.map(a => '• ' + a).join('<br>') + '<br><br>' + resumo;
+    } else {
+      statusAuto.className = 'arq-status ok';
+      statusAuto.textContent = resumo;
+    }
     btnRecarregar.style.display = 'block';
   } catch (err){
     statusAuto.className = 'arq-status err';
