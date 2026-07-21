@@ -315,6 +315,42 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
   font-size:14px; font-weight:800; color:#1a56a0;
 }
 .chk-produzir, .chk-produzir-grupo { width:19px; height:19px; flex-shrink:0; accent-color:#43a047; cursor:pointer; }
+/* ===== PROGRAMAÇÃO PDF (padrão Piquiri) ===== */
+.prog-overlay{ position:fixed; inset:0; background:#eef2f6; z-index:9999; overflow:auto; padding:0 0 50px; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+.prog-overlay.hidden{ display:none; }
+.prog-toolbar{ position:sticky; top:0; display:flex; gap:10px; justify-content:center; padding:12px; background:#fff; border-bottom:1px solid #dbe4ee; z-index:2; }
+.prog-toolbar .btn{ width:auto; margin:0; padding:11px 20px; }
+.prog-page{ background:#fff; width:210mm; max-width:96%; margin:18px auto; box-shadow:0 8px 34px rgba(20,50,80,.20); color:#20303f; font-family:'Segoe UI', Arial, sans-serif; }
+.prog-head{ background:#217346; color:#fff; padding:12px 26px; display:flex; align-items:center; gap:22px; }
+.prog-marca{ font-weight:900; font-size:24px; letter-spacing:2.5px; line-height:1; display:flex; flex-direction:column; }
+.prog-marca span{ font-weight:600; font-size:10px; letter-spacing:3.5px; text-transform:uppercase; opacity:.82; margin-top:5px; }
+.prog-tit{ border-left:2px solid rgba(255,255,255,.32); padding-left:22px; }
+.prog-tit h1{ font-size:20px; font-weight:700; letter-spacing:.3px; }
+.prog-tit p{ font-size:11.5px; opacity:.9; margin-top:4px; font-weight:400; }
+.prog-corpo{ padding:10px 26px 2px; }
+.dia-bloco{ margin-bottom:8px; break-inside:avoid; }
+.dia-titulo{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; background:#217346; color:#fff; padding:5px 11px; font-weight:700; font-size:11px; letter-spacing:.4px; }
+.dia-titulo .dia-tot{ font-weight:600; font-size:9px; color:#cfe6d8; letter-spacing:0; white-space:nowrap; }
+table.dia-tabela{ width:100%; border-collapse:collapse; font-size:11.5px; border:1px solid #cfe0d5; border-top:none; }
+table.dia-tabela thead th{ text-align:left; font-weight:700; font-size:8px; letter-spacing:.5px; text-transform:uppercase; color:#4a6a58; background:#eef5f0; padding:3px 11px; border:1px solid #d9e6df; }
+table.dia-tabela td{ padding:3.5px 11px; border:1px solid #e5ede8; vertical-align:top; }
+.c-cli b{ font-size:12.5px; color:#20303f; font-weight:700; }
+.c-cli .prods{ font-size:10px; color:#9aa8b5; letter-spacing:.2px; }
+.c-of{ color:#607283; white-space:nowrap; font-size:11px; width:64px; }
+.c-qt, th.c-qt{ text-align:right; white-space:nowrap; }
+td.c-qt{ font-weight:700; color:#20303f; white-space:nowrap; }
+.prog-vazio{ padding:26px; text-align:center; color:#8595a4; font-size:13px; }
+.prog-rodape{ margin-top:6px; padding:9px 26px 12px; font-size:10px; color:#9aa8b5; border-top:1px solid #eef2f6; text-align:center; }
+
+@media print{
+  body{ background:#fff !important; }
+  body > *:not(#progOverlay){ display:none !important; }
+  #progOverlay{ position:static; overflow:visible; background:#fff; padding:0; }
+  #progOverlay.hidden{ display:none !important; }
+  .prog-toolbar{ display:none !important; }
+  .prog-page{ width:auto; max-width:none; margin:0; box-shadow:none; }
+  @page{ size:A4; margin:12mm; }
+}
 </style>
 </head>
 <body>
@@ -445,6 +481,12 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
         <div id="listaProduzidos"></div>
         <div class="small-note">Já fabricados, mas continuam aqui até serem expedidos (a OF permanece controlada, igual você já faz na planilha). Marcou "Produzido" errado ou uma OF que não foi feita? Toque em "Voltar p/ fila" nela (ou marque várias e use o botão acima). Remova ("Expedido") só quando o Romaneio confirmar a expedição.</div>
       </div>
+    </div>
+
+    <div class="card">
+      <h2>📄 Programação para o escritório (PDF)</h2>
+      <p class="small-note" style="margin-bottom:12px">Gera a fila atual como uma programação limpa, agrupada por dia previsto, no padrão visual da Piquiri — pronta para imprimir ou salvar como PDF e enviar ao outro escritório.</p>
+      <button class="btn btn-green" id="btnGerarProgPDF">📄 Gerar programação (PDF)</button>
     </div>
 
     <div class="card">
@@ -1874,6 +1916,115 @@ document.getElementById('btnGerarJson').addEventListener('click', () => {
   URL.revokeObjectURL(url);
   mostrarBanner('JSON gerado. Suba manualmente na mesma pasta do GitHub Pages.', false);
 });
+
+// ===================== PROGRAMAÇÃO EM PDF (padrão Piquiri) =====================
+function escHtmlProg(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
+    { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]
+  ));
+}
+function fmtDataProg(d){
+  return String(d.getDate()).padStart(2,'0') + '/' +
+         String(d.getMonth()+1).padStart(2,'0') + '/' + d.getFullYear();
+}
+function mmProg(m){ return Math.round((m||0) * 1000); }
+
+function gerarProgramacaoPDF(){
+  if (!pendentes.length){
+    mostrarBanner('Fila vazia — nada para gerar na programação.', true);
+    return;
+  }
+
+  // Resumo por CLIENTE em cada dia previsto (a mesma "previsão" que o app já
+  // mostra na fila) — junta todas as OFs do cliente naquele dia para caber em
+  // uma folha A4. Chapa e bobina são somadas em separado (unidades diferentes).
+  const { pedidosInfo } = calcularAgenda(pendentes);
+  const porDia = new Map();
+  pendentes.forEach(p => {
+    const info = pedidosInfo[p.id];
+    const dia = info ? info.diaFim : null;
+    const k = dia ? chaveDiaISO(dia) : 'zzzz-sem-previsao';
+    if (!porDia.has(k)) porDia.set(k, { data: dia, clientes: new Map() });
+    const mc = porDia.get(k).clientes;
+    const ck = (p.cliente || '—').trim();
+    if (!mc.has(ck)) mc.set(ck, { ofs: 0, chapas: 0, kg: 0, prods: new Set() });
+    const e = mc.get(ck);
+    e.ofs += 1;
+    e.chapas += p.qtdePedido || 0;
+    e.kg += p.kg || 0;
+    if (p.po) e.prods.add(String(p.po).trim());
+  });
+  const chaves = [...porDia.keys()].sort();
+
+  function fmtQtProg(chapas, kg){
+    const partes = [];
+    if (chapas > 0) partes.push(Math.round(chapas).toLocaleString('pt-BR') + ' chapas');
+    if (kg > 0) partes.push(Math.round(kg).toLocaleString('pt-BR') + ' kg');
+    return partes.join(' · ') || '—';
+  }
+
+  let corpo = '';
+  chaves.forEach(k => {
+    const g = porDia.get(k);
+    const cab = g.data
+      ? `${nomeDia(g.data).toUpperCase()} · ${fmtDataProg(g.data)}`
+      : 'SEM PREVISÃO';
+    const clientes = [...g.clientes.entries()];
+    let diaChapas = 0, diaKg = 0, diaOfs = 0;
+    clientes.forEach(([, e]) => { diaChapas += e.chapas; diaKg += e.kg; diaOfs += e.ofs; });
+
+    let linhas = '';
+    clientes.forEach(([cli, e]) => {
+      const prods = [...e.prods].join(' · ');
+      linhas += `<tr>
+        <td class="c-cli"><b>${escHtmlProg(cli)}</b>${prods ? ` <span class="prods">${escHtmlProg(prods)}</span>` : ''}</td>
+        <td class="c-of">${e.ofs} OP${e.ofs > 1 ? 's' : ''}</td>
+        <td class="c-qt">${fmtQtProg(e.chapas, e.kg)}</td>
+      </tr>`;
+    });
+
+    corpo += `<section class="dia-bloco">
+      <div class="dia-titulo"><span>${cab}</span><span class="dia-tot">${clientes.length} cliente(s) · ${diaOfs} OP(s) · ${fmtQtProg(diaChapas, diaKg)}</span></div>
+      <table class="dia-tabela">
+        <thead><tr><th>Cliente</th><th>Pedidos</th><th class="c-qt">Quantidade</th></tr></thead>
+        <tbody>${linhas}</tbody>
+      </table>
+    </section>`;
+  });
+
+  const agora = new Date();
+  const hora = String(agora.getHours()).padStart(2,'0') + ':' + String(agora.getMinutes()).padStart(2,'0');
+  const html = `
+    <div class="prog-toolbar">
+      <button class="btn btn-green" id="btnImprimirProg">🖨️ Imprimir / Salvar PDF</button>
+      <button class="btn btn-outline" id="btnFecharProg">Fechar</button>
+    </div>
+    <div class="prog-page">
+      <header class="prog-head">
+        <div class="prog-marca">PIQUIRI<span>papelão ondulado</span></div>
+        <div class="prog-tit">
+          <h1>Programação de Produção</h1>
+          <p>Emitido em ${fmtDataProg(agora)} às ${hora}</p>
+        </div>
+      </header>
+      <div class="prog-corpo">${corpo || '<div class="prog-vazio">Nenhum pedido na fila.</div>'}</div>
+      <div class="prog-rodape">Onduladeira Prime · gerado automaticamente pelo app Agenda de Produção</div>
+    </div>`;
+
+  let ov = document.getElementById('progOverlay');
+  if (!ov){
+    ov = document.createElement('div');
+    ov.id = 'progOverlay';
+    ov.className = 'prog-overlay';
+    document.body.appendChild(ov);
+  }
+  ov.innerHTML = html;
+  ov.classList.remove('hidden');
+  document.getElementById('btnImprimirProg').addEventListener('click', () => window.print());
+  document.getElementById('btnFecharProg').addEventListener('click', () => ov.classList.add('hidden'));
+}
+
+document.getElementById('btnGerarProgPDF').addEventListener('click', gerarProgramacaoPDF);
 
 // ---- Publicar direto na API do GitHub (sem baixar/subir arquivo manualmente) ----
 const GH_OWNER = 'marcilianocamargo-stack';
