@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-21T17:15:04.433Z",
+  "geradoEm": "2026-07-21T17:16:08.248Z",
   "pendentes": [
     {
       "id": "p80_uz4wu",
@@ -990,38 +990,6 @@
       "chave": "OF:261881"
     },
     {
-      "id": "p103_9qhn8",
-      "cliente": "TOLECAIXAS",
-      "lote": "TOLECAIXAS 1038",
-      "po": "PW40B",
-      "of": "261869",
-      "oc": "1211",
-      "ml": 720.7,
-      "kg": 310.6,
-      "qtdePedido": 1287,
-      "largura": 0.57,
-      "comprimento": 1.12,
-      "vinco": "x",
-      "bobina": 1200,
-      "chave": "OF:261869"
-    },
-    {
-      "id": "p104_8ex2l",
-      "cliente": "TOLECAIXAS",
-      "lote": "TOLECAIXAS 1038",
-      "po": "P40B",
-      "of": "261870",
-      "oc": "1211",
-      "ml": 1760.4,
-      "kg": 719.6,
-      "qtdePedido": 3869,
-      "largura": 0.56,
-      "comprimento": 0.91,
-      "vinco": "x",
-      "bobina": 1150,
-      "chave": "OF:261870"
-    },
-    {
       "id": "p223_niv5i",
       "cliente": "IPE Embalagens",
       "lote": "IPE Embalagens",
@@ -1054,6 +1022,38 @@
       "bobina": 1600,
       "setupMin": 40,
       "chave": "OF:261755"
+    },
+    {
+      "id": "p103_9qhn8",
+      "cliente": "TOLECAIXAS",
+      "lote": "TOLECAIXAS 1038",
+      "po": "PW40B",
+      "of": "261869",
+      "oc": "1211",
+      "ml": 720.7,
+      "kg": 310.6,
+      "qtdePedido": 1287,
+      "largura": 0.57,
+      "comprimento": 1.12,
+      "vinco": "x",
+      "bobina": 1200,
+      "chave": "OF:261869"
+    },
+    {
+      "id": "p104_8ex2l",
+      "cliente": "TOLECAIXAS",
+      "lote": "TOLECAIXAS 1038",
+      "po": "P40B",
+      "of": "261870",
+      "oc": "1211",
+      "ml": 1760.4,
+      "kg": 719.6,
+      "qtdePedido": 3869,
+      "largura": 0.56,
+      "comprimento": 0.91,
+      "vinco": "x",
+      "bobina": 1150,
+      "chave": "OF:261870"
     },
     {
       "id": "p105_xy9n1",
