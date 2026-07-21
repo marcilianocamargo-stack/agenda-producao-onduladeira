@@ -1,5 +1,5 @@
 {
-  "geradoEm": "2026-07-21T17:16:08.248Z",
+  "geradoEm": "2026-07-21T17:26:33.998Z",
   "pendentes": [
     {
       "id": "p80_uz4wu",
@@ -298,7 +298,6 @@
       "kg": 1076,
       "setupMin": 40,
       "chave": "OF:261704",
-      "dataReservada": "2026-07-22",
       "lote": "HARMONY 08-07"
     },
     {
@@ -311,7 +310,6 @@
       "kg": 1961,
       "setupMin": 40,
       "chave": "OF:261705",
-      "dataReservada": "2026-07-22",
       "lote": "HARMONY 08-07"
     },
     {
@@ -324,7 +322,6 @@
       "kg": 1892,
       "setupMin": 40,
       "chave": "OF:261703",
-      "dataReservada": "2026-07-22",
       "lote": "HARMONY 08-07"
     },
     {
@@ -337,7 +334,6 @@
       "kg": 1004.1,
       "setupMin": 40,
       "chave": "OF:261701",
-      "dataReservada": "2026-07-22",
       "lote": "HARMONY 08-07"
     },
     {
@@ -350,7 +346,6 @@
       "kg": 891.2,
       "setupMin": 40,
       "chave": "OF:261700",
-      "dataReservada": "2026-07-22",
       "lote": "HARMONY 08-07"
     },
     {
@@ -363,7 +358,6 @@
       "kg": 2733.7,
       "setupMin": 40,
       "chave": "OF:261702",
-      "dataReservada": "2026-07-22",
       "lote": "HARMONY 08-07"
     },
     {
@@ -376,7 +370,6 @@
       "kg": 187.2,
       "setupMin": 40,
       "chave": "OF:261708",
-      "dataReservada": "2026-07-22",
       "lote": "HARMONY 08-07"
     },
     {
@@ -389,7 +382,6 @@
       "kg": 170.8,
       "setupMin": 40,
       "chave": "OF:261707",
-      "dataReservada": "2026-07-22",
       "lote": "HARMONY 08-07"
     },
     {
@@ -402,7 +394,6 @@
       "kg": 164.4,
       "setupMin": 40,
       "chave": "OF:261706",
-      "dataReservada": "2026-07-22",
       "lote": "HARMONY 08-07"
     },
     {
