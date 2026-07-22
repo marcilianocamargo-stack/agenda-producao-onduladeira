@@ -1,2 +1,7 @@
 programacao-agenda.json.bak
 programacao-agenda.json.tmp
+# Valores (R$) são sigilosos — só o escritório, nunca no GitHub público:
+valores.json
+programacao-agenda.json.prebak
+programacao-agenda.json.prebak2
+programacao-agenda.json.comprecos.bak

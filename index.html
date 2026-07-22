@@ -339,6 +339,9 @@ table.dia-tabela td{ padding:3.5px 11px; border:1px solid #e5ede8; vertical-alig
 .c-of{ color:#607283; white-space:nowrap; font-size:11px; width:64px; }
 .c-qt, th.c-qt{ text-align:right; white-space:nowrap; }
 td.c-qt{ font-weight:700; color:#20303f; white-space:nowrap; }
+.c-val, th.c-val{ text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+td.c-val{ font-weight:700; color:#1c5637; }
+.prog-total{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; background:#1c5637; color:#fff; padding:8px 12px; font-weight:700; font-size:12px; letter-spacing:.4px; margin-top:2px; }
 .prog-vazio{ padding:26px; text-align:center; color:#8595a4; font-size:13px; }
 .prog-rodape{ margin-top:6px; padding:9px 26px 12px; font-size:10px; color:#9aa8b5; border-top:1px solid #eef2f6; text-align:center; }
 
@@ -487,6 +490,12 @@ td.c-qt{ font-weight:700; color:#20303f; white-space:nowrap; }
       <h2>📄 Programação para o escritório (PDF)</h2>
       <p class="small-note" style="margin-bottom:12px">Gera a fila atual como uma programação limpa, agrupada por dia previsto, no padrão visual da Piquiri — pronta para imprimir ou salvar como PDF e enviar ao outro escritório.</p>
       <button class="btn btn-green" id="btnGerarProgPDF">📄 Gerar programação (PDF)</button>
+
+      <div style="margin-top:14px;padding-top:12px;border-top:1px dashed #e3ecf6">
+        <label class="btn btn-outline" for="fileValores" style="cursor:pointer;margin:0">🔒 Carregar valores do escritório</label>
+        <input type="file" id="fileValores" accept=".json,application/json" style="display:none">
+        <div class="small-note" id="statusValores" style="margin-top:8px">Os <b>valores (R$) são sigilosos</b> e <b>não</b> ficam no app nem na fila publicada. Para a coluna <b>Valor</b> sair no PDF, carregue aqui o arquivo <b>valores.json</b> — ele fica só neste computador/aba e some ao fechar. Sem carregar, a programação sai sem valores.</div>
+      </div>
     </div>
 
     <div class="card">
@@ -1705,7 +1714,13 @@ const SYN = {
   largura: ['largura'],
   comprimento: ['comprimento (facão)', 'comprimento facao', 'comprimento'],
   vinco: ['sliter vincadeira', 'vincos', 'vinco'],
-  bobina: ['formato bobinas', 'formato bobina', 'bobina']
+  bobina: ['formato bobinas', 'formato bobina', 'bobina'],
+  // Colunas novas de preço (anexadas DEPOIS da última coluna da planilha, ex.: após
+  // "Palete (medida LxC)"). Como o app acha coluna pelo NOME do cabeçalho, anexar no
+  // fim não afeta Romaneio/Etiquetas/Controle. Qualquer uma que existir é lida.
+  precoUnit: ['preço unit', 'preco unit', 'preço unit.', 'preço unitário', 'preco unitario', 'valor unit', 'valor unitário'],
+  precoKg: ['preço kg', 'preco kg'],
+  valor: ['valor', 'valor total', 'valor oc', 'valor total oc', 'valor pedido']
 };
 function normHeader(s){ return String(s||'').toLowerCase().trim(); }
 function acharColuna(headerRow, nomes){
@@ -1754,6 +1769,9 @@ function parseWorkbookBuffer(buf){
       colMap.comprimento = acharColuna(rows[i], SYN.comprimento);
       colMap.vinco = acharColuna(rows[i], SYN.vinco);
       colMap.bobina = acharColuna(rows[i], SYN.bobina);
+      colMap.precoUnit = acharColuna(rows[i], SYN.precoUnit);
+      colMap.precoKg = acharColuna(rows[i], SYN.precoKg);
+      colMap.valor = acharColuna(rows[i], SYN.valor);
 
       if (colMap.cliente === -1){
         // Layout padrão da programação: o cliente vem logo depois de "Seq.Prod".
@@ -1802,7 +1820,10 @@ function parseWorkbookBuffer(buf){
         largura: colMap.largura !== -1 ? (parseFloat(row[colMap.largura]) || 0) : 0,
         comprimento: colMap.comprimento !== -1 ? (parseFloat(row[colMap.comprimento]) || 0) : 0,
         vinco: colMap.vinco !== -1 ? String(row[colMap.vinco]||'').trim() : '',
-        bobina: colMap.bobina !== -1 ? (parseFloat(row[colMap.bobina]) || 0) : 0
+        bobina: colMap.bobina !== -1 ? (parseFloat(row[colMap.bobina]) || 0) : 0,
+        precoUnit: colMap.precoUnit !== -1 ? numeroBRProg(row[colMap.precoUnit]) : 0,
+        precoKg: colMap.precoKg !== -1 ? numeroBRProg(row[colMap.precoKg]) : 0,
+        valor: colMap.valor !== -1 ? numeroBRProg(row[colMap.valor]) : 0
         // sem setupManual: o setup sai automático pela troca em relação ao pedido anterior
       };
       novoPedido.chave = chaveOf(novoPedido);
@@ -1929,6 +1950,37 @@ function fmtDataProg(d){
 }
 function mmProg(m){ return Math.round((m||0) * 1000); }
 
+// Número em formato brasileiro vindo da planilha: aceita número puro (Excel),
+// "3.740,27" (vírgula decimal + ponto de milhar) e "5,131"/"5.131" (preço unitário).
+function numeroBRProg(x){
+  if (typeof x === 'number') return isFinite(x) ? x : 0;
+  let s = String(x == null ? '' : x).trim().replace(/r\$/i, '').replace(/\s/g, '');
+  if (!s) return 0;
+  if (s.includes(',')) s = s.replace(/\./g, '').replace(',', '.'); // vírgula é o decimal
+  const n = parseFloat(s);
+  return isNaN(n) ? 0 : n;
+}
+
+// Valores são SENSÍVEIS: não ficam na fila publicada (programacao-agenda.json é
+// público no GitHub Pages). O escritório carrega um valores.json local só na hora
+// de gerar o PDF — fica só na memória desta aba, nunca é publicado.
+let valoresEscritorio = {};
+function valorDoPedido(p){
+  const ext = valoresEscritorio[String(p.of || '').trim()];
+  if (ext){
+    if (ext.valor > 0) return ext.valor;
+    if (ext.precoUnit > 0 && p.qtdePedido > 0) return ext.precoUnit * p.qtdePedido;
+  }
+  // fallback (caso algum valor venha nos próprios dados — normalmente não vem)
+  if (p.valor > 0) return p.valor;
+  if (p.precoUnit > 0 && p.qtdePedido > 0) return p.precoUnit * p.qtdePedido;
+  if (p.precoKg > 0 && p.kg > 0) return p.precoKg * p.kg;
+  return 0;
+}
+function fmtBRL(v){
+  return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
 function gerarProgramacaoPDF(){
   if (!pendentes.length){
     mostrarBanner('Fila vazia — nada para gerar na programação.', true);
@@ -1947,14 +1999,21 @@ function gerarProgramacaoPDF(){
     if (!porDia.has(k)) porDia.set(k, { data: dia, clientes: new Map() });
     const mc = porDia.get(k).clientes;
     const ck = (p.cliente || '—').trim();
-    if (!mc.has(ck)) mc.set(ck, { ofs: 0, chapas: 0, kg: 0, prods: new Set() });
+    if (!mc.has(ck)) mc.set(ck, { ofs: 0, chapas: 0, kg: 0, valor: 0, prods: new Set() });
     const e = mc.get(ck);
     e.ofs += 1;
     e.chapas += p.qtdePedido || 0;
     e.kg += p.kg || 0;
+    e.valor += valorDoPedido(p);
     if (p.po) e.prods.add(String(p.po).trim());
   });
   const chaves = [...porDia.keys()].sort();
+
+  // Só mostra a coluna de valor quando pelo menos um pedido tem preço — assim, até a
+  // planilha ganhar a coluna de preço, a programação sai idêntica à de hoje.
+  let totalGeralValor = 0, totalGeralChapas = 0, totalGeralKg = 0;
+  porDia.forEach(g => g.clientes.forEach(e => { totalGeralValor += e.valor; totalGeralChapas += e.chapas; totalGeralKg += e.kg; }));
+  const temValor = totalGeralValor > 0;
 
   function fmtQtProg(chapas, kg){
     const partes = [];
@@ -1970,8 +2029,8 @@ function gerarProgramacaoPDF(){
       ? `${nomeDia(g.data).toUpperCase()} · ${fmtDataProg(g.data)}`
       : 'SEM PREVISÃO';
     const clientes = [...g.clientes.entries()];
-    let diaChapas = 0, diaKg = 0, diaOfs = 0;
-    clientes.forEach(([, e]) => { diaChapas += e.chapas; diaKg += e.kg; diaOfs += e.ofs; });
+    let diaChapas = 0, diaKg = 0, diaOfs = 0, diaValor = 0;
+    clientes.forEach(([, e]) => { diaChapas += e.chapas; diaKg += e.kg; diaOfs += e.ofs; diaValor += e.valor; });
 
     let linhas = '';
     clientes.forEach(([cli, e]) => {
@@ -1980,17 +2039,23 @@ function gerarProgramacaoPDF(){
         <td class="c-cli"><b>${escHtmlProg(cli)}</b>${prods ? ` <span class="prods">${escHtmlProg(prods)}</span>` : ''}</td>
         <td class="c-of">${e.ofs} OP${e.ofs > 1 ? 's' : ''}</td>
         <td class="c-qt">${fmtQtProg(e.chapas, e.kg)}</td>
+        ${temValor ? `<td class="c-val">${e.valor > 0 ? fmtBRL(e.valor) : '—'}</td>` : ''}
       </tr>`;
     });
 
+    const totDia = `${clientes.length} cliente(s) · ${diaOfs} OP(s) · ${fmtQtProg(diaChapas, diaKg)}${temValor ? ' · ' + fmtBRL(diaValor) : ''}`;
     corpo += `<section class="dia-bloco">
-      <div class="dia-titulo"><span>${cab}</span><span class="dia-tot">${clientes.length} cliente(s) · ${diaOfs} OP(s) · ${fmtQtProg(diaChapas, diaKg)}</span></div>
+      <div class="dia-titulo"><span>${cab}</span><span class="dia-tot">${totDia}</span></div>
       <table class="dia-tabela">
-        <thead><tr><th>Cliente</th><th>Pedidos</th><th class="c-qt">Quantidade</th></tr></thead>
+        <thead><tr><th>Cliente</th><th>Pedidos</th><th class="c-qt">Quantidade</th>${temValor ? '<th class="c-val">Valor</th>' : ''}</tr></thead>
         <tbody>${linhas}</tbody>
       </table>
     </section>`;
   });
+
+  if (temValor){
+    corpo += `<div class="prog-total"><span>TOTAL GERAL</span><span>${Math.round(totalGeralChapas).toLocaleString('pt-BR')} chapas · ${Math.round(totalGeralKg).toLocaleString('pt-BR')} kg · ${fmtBRL(totalGeralValor)}</span></div>`;
+  }
 
   const agora = new Date();
   const hora = String(agora.getHours()).padStart(2,'0') + ':' + String(agora.getMinutes()).padStart(2,'0');
@@ -2025,6 +2090,26 @@ function gerarProgramacaoPDF(){
 }
 
 document.getElementById('btnGerarProgPDF').addEventListener('click', gerarProgramacaoPDF);
+
+// Carrega o valores.json local do escritório (só na memória desta aba — nunca publicado).
+document.getElementById('fileValores').addEventListener('change', (e) => {
+  const file = e.target.files && e.target.files[0];
+  const status = document.getElementById('statusValores');
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(reader.result);
+      valoresEscritorio = data.valores || data || {};
+      const n = Object.keys(valoresEscritorio).length;
+      status.innerHTML = `✓ <b>${n} valores carregados</b> (só nesta sessão). Gere a programação — a coluna Valor vai aparecer.`;
+    } catch (err) {
+      valoresEscritorio = {};
+      status.textContent = '⚠ Arquivo inválido — não consegui ler o valores.json.';
+    }
+  };
+  reader.readAsText(file);
+});
 
 // ---- Publicar direto na API do GitHub (sem baixar/subir arquivo manualmente) ----
 const GH_OWNER = 'marcilianocamargo-stack';
