@@ -1964,17 +1964,26 @@ function numeroBRProg(x){
 // Valores são SENSÍVEIS: não ficam na fila publicada (programacao-agenda.json é
 // público no GitHub Pages). O escritório carrega um valores.json local só na hora
 // de gerar o PDF — fica só na memória desta aba, nunca é publicado.
-let valoresEscritorio = {};
+// Formato: { chapas: { "CLIENTE|LxCmm": precoUnit }, bobinas: { "CLIENTE": [{ml, valor}] } }
+// O preço casa pelo CLIENTE + MEDIDA (chapa) ou, sem medida (bobina), pelo METRO LINEAR.
+let valoresEscritorio = { chapas: {}, bobinas: {} };
+function chaveClienteVal(c){ return String(c || '').trim().split(' ')[0].replace(/[^A-Za-z0-9]/g, '').toUpperCase(); }
 function valorDoPedido(p){
-  const ext = valoresEscritorio[String(p.of || '').trim()];
-  if (ext){
-    if (ext.valor > 0) return ext.valor;
-    if (ext.precoUnit > 0 && p.qtdePedido > 0) return ext.precoUnit * p.qtdePedido;
+  const cli = chaveClienteVal(p.cliente);
+  const chapas = valoresEscritorio.chapas || {};
+  const bobinas = valoresEscritorio.bobinas || {};
+  if (p.largura > 0 && p.comprimento > 0){
+    const m = Math.round(p.largura * 1000) + 'x' + Math.round(p.comprimento * 1000);
+    const pu = chapas[cli + '|' + m];
+    if (pu > 0 && p.qtdePedido > 0) return pu * p.qtdePedido;
+  } else if (p.ml > 0){
+    const lista = bobinas[cli];
+    if (lista && lista.length){
+      let best = null, bd = Infinity;
+      for (const it of lista){ const d = Math.abs(p.ml - it.ml); if (d < bd){ bd = d; best = it; } }
+      if (best && best.ml > 0) return best.valor * (p.ml / best.ml); // proporcional ao ML (exato quando bate)
+    }
   }
-  // fallback (caso algum valor venha nos próprios dados — normalmente não vem)
-  if (p.valor > 0) return p.valor;
-  if (p.precoUnit > 0 && p.qtdePedido > 0) return p.precoUnit * p.qtdePedido;
-  if (p.precoKg > 0 && p.kg > 0) return p.precoKg * p.kg;
   return 0;
 }
 function fmtBRL(v){
@@ -2100,11 +2109,12 @@ document.getElementById('fileValores').addEventListener('change', (e) => {
   reader.onload = () => {
     try {
       const data = JSON.parse(reader.result);
-      valoresEscritorio = data.valores || data || {};
-      const n = Object.keys(valoresEscritorio).length;
-      status.innerHTML = `✓ <b>${n} valores carregados</b> (só nesta sessão). Gere a programação — a coluna Valor vai aparecer.`;
+      valoresEscritorio = { chapas: data.chapas || {}, bobinas: data.bobinas || {} };
+      const nChapas = Object.keys(valoresEscritorio.chapas).length;
+      const nBob = Object.values(valoresEscritorio.bobinas).reduce((s, v) => s + v.length, 0);
+      status.innerHTML = `✓ <b>${nChapas + nBob} preços carregados</b> (só nesta sessão). Gere a programação — a coluna Valor vai aparecer.`;
     } catch (err) {
-      valoresEscritorio = {};
+      valoresEscritorio = { chapas: {}, bobinas: {} };
       status.textContent = '⚠ Arquivo inválido — não consegui ler o valores.json.';
     }
   };
