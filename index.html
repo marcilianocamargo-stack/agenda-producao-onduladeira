@@ -1286,7 +1286,7 @@ function criarCelulaCalendarioDia(dataCel, diaObj, corPorLote, hojeStr){
     });
     const ordenados = Array.from(porLote, ([chave,c]) => ({chave, nome:c.nome, kg:c.kg}));
     html += `<div class="clientes-nomes">${ordenados.map(c =>
-      `<div class="cliente-linha" title="${c.nome}"><i style="background:${corPorLote.get(c.chave)||COR_OUTROS}"></i><span>${c.nome}</span></div>`
+      `<div class="cliente-linha" title="${c.nome}"><i style="background:${corPorLote.get(c.chave)||COR_OUTROS}"></i><span>${c.nome.split(' ')[0]}...</span></div>`
     ).join('')}</div>`;
     html += `<div class="kg-total-mini">${Math.round(kgTotal).toLocaleString('pt-BR')} kg</div>`;
   }
