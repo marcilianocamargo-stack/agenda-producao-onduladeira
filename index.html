@@ -165,6 +165,25 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 .reserva-linha label { font-size:11px; margin-bottom:0; color:#6a8bb0; font-weight:700; }
 .reserva-linha input[type=date] { width:auto; padding:6px 8px; margin-bottom:0; font-size:13px; }
 
+/* ===== CAIXAS DA SEMANA (arrastar pedido/carga pro dia) ===== */
+.semana-caixas { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:6px; }
+.semana-caixa {
+  background:#f4f8fc; border:1.5px dashed #c8d8ea; border-radius:8px; padding:4px 3px;
+  min-height:60px; font-size:9.5px;
+}
+.semana-caixa.dragover { background:#eaf1fa; border-color:#1a56a0; border-style:solid; }
+.semana-caixa-cab { font-weight:800; color:#3a618f; text-align:center; margin-bottom:3px; line-height:1.2; text-transform:uppercase; }
+.semana-chip {
+  background:#fff; border-radius:5px; padding:2px 4px; margin-bottom:2px; font-size:8.5px;
+  font-weight:700; color:#17324f; display:flex; align-items:center; justify-content:space-between; gap:2px;
+}
+.semana-chip-x { color:#c62828; cursor:pointer; flex-shrink:0; }
+.cliente-chip {
+  display:inline-flex; align-items:center; gap:6px; background:#eaf1fa; color:#1a56a0;
+  font-weight:700; font-size:13px; padding:6px 10px; border-radius:20px; margin:0 6px 6px 0;
+}
+.cliente-chip .semana-chip-x { font-size:13px; }
+
 /* ===== LISTA PENDENTES (SUPERVISOR) ===== */
 .pend-row {
   padding: 10px 12px;
@@ -486,6 +505,9 @@ td.c-val{ font-weight:700; color:#1c5637; }
       <button class="btn btn-outline" id="btnIntercalarGrandes" style="margin-top:10px">🔀 Intercalar clientes grandes (mais antigos primeiro)</button>
       <div class="small-note" style="margin-bottom:10px">Reordena a fila: dentro de cada cliente, a OC mais antiga vem primeiro; entre clientes diferentes (nº de OC de um não tem nada a ver com o do outro), usa a Data Pedido quando a planilha tem, senão mantém a ordem em que já estavam na fila. Cliente com fila grande produz em blocos de ~7 a 8 mil kg intercalados com os outros — em vez de travar todo mundo atrás de um só. Você ainda pode arrastar (⠿) pra ajustar manualmente depois.</div>
 
+      <div class="small-note" style="margin-bottom:4px"><b>📅 Arraste um pedido (⠿) pro dia da semana</b> pra reservar a data — vale pra Chapa; Bobina/Folha Simples aparecem aqui também (lançadas pelo card abaixo).</div>
+      <div class="semana-caixas" id="semanaCaixas"></div>
+
       <div id="painelFila">
         <div class="barra-selecao hidden" id="barraSelecao">
           <span id="qtdSelecionados">0 selecionados</span>
@@ -516,11 +538,21 @@ td.c-val{ font-weight:700; color:#1c5637; }
     </div>
 
     <div class="card">
+      <h2>👥 Clientes de Bobina / Folha Simples</h2>
+      <p class="small-note" style="margin-bottom:12px">Cadastre aqui os clientes desses dois produtos (vêm de outro setor, não tem cadastro de preço) pra escolher rapidinho ao lançar uma carga, sem digitar toda vez.</p>
+      <div class="field">
+        <input type="text" id="novoClienteCarga" placeholder="Nome do cliente">
+      </div>
+      <button class="btn btn-outline" id="btnAddClienteCarga" style="margin:0 0 10px">+ Cadastrar cliente</button>
+      <div id="listaClientesCarga"></div>
+    </div>
+
+    <div class="card">
       <h2>➕ Lançar carga (Bobina / Folha Simples)</h2>
       <p class="small-note" style="margin-bottom:12px">Bobina (papel ondulado) e Folha Simples vêm de outro setor — você só recebe o cliente, o dia da carga e o valor total (o número que informam por telefone). Aparecem no calendário acima (inclusive fim de semana) e na programação em PDF, junto com a Chapa.</p>
       <div class="field">
         <label>Cliente</label>
-        <input type="text" id="cargaCliente" placeholder="Ex: Dambroise">
+        <select id="cargaCliente"></select>
       </div>
       <div class="row2">
         <div class="field">
@@ -684,6 +716,13 @@ function totaisCargasDoDia(chaveDia){
   const valor = doDia.reduce((s,c) => s + (c.valor||0), 0);
   return { itens: doDia, kg, valor };
 }
+
+// Cadastro de clientes de Bobina/Folha Simples — evita digitar o nome toda vez que lança
+// uma carga (a Chapa já tem lista de clientes vinda da fila real; esses dois produtos não).
+const CLIENTES_CARGA_KEY = 'agendaPapelOnduladosClientes';
+function carregarClientesCarga(){ try { return JSON.parse(localStorage.getItem(CLIENTES_CARGA_KEY) || '[]'); } catch (e) { return []; } }
+function salvarClientesCarga(){ localStorage.setItem(CLIENTES_CARGA_KEY, JSON.stringify(clientesCarga)); }
+let clientesCarga = carregarClientesCarga();
 let expandidoSup = new Set();   // clientes abertos na fila do supervisor
 let expandidoView = new Set();  // "dataStr|cliente" abertos na visualização
 let selecionadosProduzir = new Set(); // ids marcados pra dar baixa em lote (produzido)
@@ -1324,8 +1363,9 @@ function ativarArrastarPedidos(cont){
   cont.querySelectorAll('.cliente-body').forEach(body => {
     let dragEl = null;
     body.querySelectorAll('.pend-row').forEach(row => {
-      row.addEventListener('dragstart', () => {
+      row.addEventListener('dragstart', (e) => {
         dragEl = row;
+        e.dataTransfer.setData('text/plain', 'pedido|' + row.dataset.id);
         setTimeout(() => row.classList.add('dragging'), 0);
       });
       row.addEventListener('dragend', () => {
@@ -1541,6 +1581,7 @@ function atualizarTudo(){
   renderProduzidos();
   renderCalendarioProducao();
   renderDatasReservadas();
+  renderSemanaCaixas();
 }
 
 // ===================== CONSULTA RÁPIDA: DATAS RESERVADAS =====================
@@ -1584,6 +1625,67 @@ function renderDatasReservadas(){
     </div>`;
   });
   cont.innerHTML = html;
+}
+
+// ===================== CAIXAS DA SEMANA (arrastar pedido/carga pro dia) =====================
+// Próximos 7 dias a partir de hoje (não é o mês do calendário — é sempre "esta semana pra
+// frente", pra caber o pedido de arrastar pro domingo/sábado mais próximo). Arrastar um
+// pedido de Chapa aqui fixa `dataReservada` (mesmo campo do "📌 Reservar data"); soltar uma
+// carga de Bobina/Folha Simples move o `dia` dela. O "✕" no chip desfaz a reserva (Chapa) ou
+// apaga a carga (Bobina/Folha, que não tem estado "sem dia").
+function renderSemanaCaixas(){
+  const cont = document.getElementById('semanaCaixas');
+  if (!cont) return;
+  const hoje = new Date();
+  const dias = [];
+  for (let i=0;i<7;i++){ const d = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate()+i); dias.push(d); }
+
+  cont.innerHTML = dias.map(d => {
+    const k = chaveDiaISO(d);
+    const chapasDoDia = pendentes.filter(p => p.dataReservada === k);
+    const cargasDoDia = cargas.filter(c => c.dia === k);
+    const chips = [
+      ...chapasDoDia.map(p => `<div class="semana-chip" title="${escHtmlProg(p.cliente)}"><span>${escHtmlProg(String(p.cliente||'').split(' ')[0])}</span><span class="semana-chip-x" data-remover="pedido|${p.id}">✕</span></div>`),
+      ...cargasDoDia.map(c => `<div class="semana-chip" title="${escHtmlProg(c.cliente)} · ${nomeProduto(c.produto)}"><span>${escHtmlProg(String(c.cliente||'').split(' ')[0])} · ${nomeProduto(c.produto)}</span><span class="semana-chip-x" data-remover="carga|${c.id}">✕</span></div>`)
+    ].join('');
+    return `<div class="semana-caixa" data-dia="${k}">
+      <div class="semana-caixa-cab">${nomeDiaAbrev(d)}<br>${String(d.getDate()).padStart(2,'0')}</div>
+      ${chips}
+    </div>`;
+  }).join('');
+
+  cont.querySelectorAll('.semana-caixa').forEach(caixa => {
+    caixa.addEventListener('dragover', e => { e.preventDefault(); caixa.classList.add('dragover'); });
+    caixa.addEventListener('dragleave', () => caixa.classList.remove('dragover'));
+    caixa.addEventListener('drop', e => {
+      e.preventDefault();
+      caixa.classList.remove('dragover');
+      const payload = e.dataTransfer.getData('text/plain');
+      if (!payload) return;
+      const [tipo, id] = payload.split('|');
+      const dia = caixa.dataset.dia;
+      if (tipo === 'pedido'){
+        const p = pendentes.find(pp => pp.id === id);
+        if (p) p.dataReservada = dia;
+      } else if (tipo === 'carga'){
+        const c = cargas.find(cc => cc.id === id);
+        if (c){ c.dia = dia; salvarCargas(); }
+      }
+      atualizarTudo();
+    });
+  });
+  cont.querySelectorAll('[data-remover]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const [tipo, id] = btn.getAttribute('data-remover').split('|');
+      if (tipo === 'pedido'){
+        const p = pendentes.find(pp => pp.id === id);
+        if (p) delete p.dataReservada;
+        atualizarTudo();
+      } else {
+        excluirCarga(id);
+      }
+    });
+  });
 }
 
 // ===================== MOVER ENTRE FILA / AGUARDANDO / PRODUZIDOS =====================
@@ -2122,22 +2224,58 @@ document.getElementById('btnAdicionarCarga').addEventListener('click', () => {
   const dia = document.getElementById('cargaDia').value;
   const kg = parseFloat(document.getElementById('cargaKg').value) || 0;
   const valor = parseFloat(document.getElementById('cargaValor').value) || 0;
-  if (!cliente){ mostrarBanner('Informe o cliente.', true); return; }
+  if (!cliente){ mostrarBanner('Cadastre e selecione um cliente primeiro.', true); return; }
   if (!dia){ mostrarBanner('Informe o dia da carga.', true); return; }
   if (!(valor > 0)){ mostrarBanner('Informe o valor da carga.', true); return; }
   cargas.push({ id: 'c' + Date.now() + Math.random().toString(36).slice(2,7), cliente, produto, dia, kg, valor });
   salvarCargas();
-  document.getElementById('cargaCliente').value = '';
   document.getElementById('cargaKg').value = '';
   document.getElementById('cargaValor').value = '';
   mostrarBanner('Carga adicionada.', false);
   renderCalendarioProducao();
+  renderSemanaCaixas();
 });
 function excluirCarga(id){
   cargas = cargas.filter(c => c.id !== id);
   salvarCargas();
   renderCalendarioProducao();
+  renderSemanaCaixas();
 }
+
+// ---- Cadastro de clientes de Bobina/Folha Simples ----
+function renderClientesCarga(){
+  const lista = document.getElementById('listaClientesCarga');
+  const ordenados = [...clientesCarga].sort((a,b) => a.localeCompare(b));
+  lista.innerHTML = ordenados.length
+    ? ordenados.map(c => `<span class="cliente-chip">${escHtmlProg(c)} <span class="semana-chip-x" data-remover-cliente="${escHtmlProg(c)}">✕</span></span>`).join('')
+    : '<p class="small-note">Nenhum cliente cadastrado ainda — cadastre acima pra poder lançar cargas.</p>';
+  lista.querySelectorAll('[data-remover-cliente]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      clientesCarga = clientesCarga.filter(c => c !== btn.getAttribute('data-remover-cliente'));
+      salvarClientesCarga();
+      renderClientesCarga();
+    });
+  });
+  renderSelectClientesCarga();
+}
+function renderSelectClientesCarga(){
+  const sel = document.getElementById('cargaCliente');
+  const atual = sel.value;
+  const ordenados = [...clientesCarga].sort((a,b) => a.localeCompare(b));
+  sel.innerHTML = ordenados.length
+    ? ordenados.map(c => `<option value="${escHtmlProg(c)}">${escHtmlProg(c)}</option>`).join('')
+    : '<option value="">Cadastre um cliente acima ↑</option>';
+  if (ordenados.includes(atual)) sel.value = atual;
+}
+document.getElementById('btnAddClienteCarga').addEventListener('click', () => {
+  const input = document.getElementById('novoClienteCarga');
+  const nome = input.value.trim();
+  if (!nome) return;
+  if (!clientesCarga.includes(nome)){ clientesCarga.push(nome); salvarClientesCarga(); }
+  input.value = '';
+  renderClientesCarga();
+});
+renderClientesCarga();
 
 // ===================== PUBLICAR (GitHub direto ou baixar backup) =====================
 function payloadPublicacao(){
