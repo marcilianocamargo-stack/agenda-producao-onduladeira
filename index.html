@@ -505,10 +505,10 @@ td.c-val{ font-weight:700; color:#1c5637; }
       <button class="btn btn-green" id="btnGerarProgPDF">📄 Gerar programação (PDF)</button>
 
       <div style="margin-top:14px;padding-top:12px;border-top:1px dashed #e3ecf6">
-        <button type="button" class="btn btn-outline" id="btnCarregarValores" style="margin:0 0 8px">🔒 Carregar valores do escritório</button>
+        <button type="button" class="btn btn-outline" id="btnCadastrarPreco" style="margin:0 0 8px">✏️ Cadastrar preço por cliente</button>
+        <button type="button" class="btn btn-outline" id="btnCarregarValores" style="margin:0">🔒 Importar valores.json antigo (opcional)</button>
         <input type="file" id="fileValores" accept=".json,application/json" style="display:none">
-        <button type="button" class="btn btn-outline" id="btnCadastrarPreco" style="margin:0">✏️ Cadastrar preço por cliente</button>
-        <div class="small-note" id="statusValores" style="margin-top:8px">Os <b>valores (R$) são sigilosos</b> e <b>não</b> ficam no app nem na fila publicada. Carregue o <b>valores.json</b> do escritório pra a coluna <b>Valor</b> sair no PDF — ele fica só neste computador/aba e some ao fechar. Use "Cadastrar preço" pra ver ou mudar o preço por kg de cada cliente (o valor de cada pedido no PDF é sempre <b>kg × preço do cliente</b>).</div>
+        <div class="small-note" id="statusValores" style="margin-top:8px">Os <b>valores (R$) são sigilosos</b> — ficam salvos só <b>neste computador/navegador</b> (nunca vão pro app publicado nem pro GitHub). Toque em <b>"Cadastrar preço"</b> pra ver todos os clientes da fila e preencher o R$/kg de cada um — salva na hora, sem baixar arquivo. Quando o vendedor mudar um preço, é só abrir de novo e atualizar aqui.</div>
       </div>
     </div>
 
@@ -1976,13 +1976,18 @@ function numeroBRProg(x){
 
 // Valores são SENSÍVEIS: não ficam na fila publicada (programacao-agenda.json é
 // público no GitHub Pages). O escritório carrega um valores.json local só na hora
-// de gerar o PDF — fica só na memória desta aba, nunca é publicado.
-// Preço é negociado direto com o vendedor: fixo em R$/kg por cliente (sem
-// depender de medida de chapa nem de bobina). Formato: { precosPorKg: { "CLIENTE": 6.5 } }
-// O preço casa pela primeira palavra do nome do cliente (chaveClienteVal) e o valor
-// do pedido é sempre kg × preço do cliente.
-let valoresEscritorio = { chapas: {}, bobinas: {}, precosPorKg: {} };
-let precoFileHandle = null; // handle de escrita direta no valores.json (File System Access API), quando disponível
+// de gerar o PDF — nunca vai pro app publicado nem pro GitHub. Preço é negociado
+// direto com o vendedor: fixo em R$/kg por cliente (sem depender de medida de
+// chapa nem de bobina). O preço casa pela primeira palavra do nome do cliente
+// (chaveClienteVal) e o valor do pedido é sempre kg × preço do cliente.
+// Fica salvo no localStorage deste navegador/computador (PRECOS_KEY) — persiste
+// entre sessões, mas nunca sai daqui (não é arquivo, não é publicado, não sincroniza).
+const PRECOS_KEY = 'agendaOnduladeiraPrecosPorKg';
+function carregarPrecosSalvos(){
+  try { return JSON.parse(localStorage.getItem(PRECOS_KEY) || '{}'); } catch (e) { return {}; }
+}
+function salvarPrecosNoPC(precos){ localStorage.setItem(PRECOS_KEY, JSON.stringify(precos)); }
+let valoresEscritorio = { precosPorKg: carregarPrecosSalvos() };
 function chaveClienteVal(c){ return String(c || '').trim().split(' ')[0].replace(/[^A-Za-z0-9]/g, '').toUpperCase(); }
 function valorDoPedido(p){
   const preco = (valoresEscritorio.precosPorKg || {})[chaveClienteVal(p.cliente)];
@@ -2103,51 +2108,45 @@ function gerarProgramacaoPDF(){
 
 document.getElementById('btnGerarProgPDF').addEventListener('click', gerarProgramacaoPDF);
 
-// Carrega o valores.json local do escritório (só na memória desta aba — nunca publicado).
-function aplicarValoresCarregados(texto, status){
-  try {
-    const data = JSON.parse(texto);
-    valoresEscritorio = { chapas: data.chapas || {}, bobinas: data.bobinas || {}, precosPorKg: data.precosPorKg || {} };
-    const nPrecos = Object.keys(valoresEscritorio.precosPorKg).length;
-    status.innerHTML = `✓ <b>${nPrecos} preço(s) por kg carregados</b> (só nesta sessão). Gere a programação — a coluna Valor vai aparecer.`;
-  } catch (err) {
-    valoresEscritorio = { chapas: {}, bobinas: {}, precosPorKg: {} };
-    status.textContent = '⚠ Arquivo inválido — não consegui ler o valores.json.';
-  }
-}
-
-// Tenta abrir com permissão de escrita (File System Access API) pra "Cadastrar preço"
-// poder salvar direto no arquivo depois; se o navegador não suportar, cai no <input type=file> clássico.
-async function carregarValoresEscritorio(){
-  const status = document.getElementById('statusValores');
-  if (window.showOpenFilePicker){
-    try {
-      const [handle] = await window.showOpenFilePicker({
-        types: [{ description: 'Valores (JSON)', accept: { 'application/json': ['.json'] } }]
-      });
-      precoFileHandle = handle;
-      const file = await handle.getFile();
-      aplicarValoresCarregados(await file.text(), status);
-      return;
-    } catch (err) {
-      if (err && err.name === 'AbortError') return; // usuário cancelou o seletor
-    }
-  }
-  precoFileHandle = null;
+// Importação opcional do valores.json antigo (migração única) — mescla o precosPorKg
+// do arquivo com o que já está salvo no localStorage (arquivo tem prioridade nas chaves em comum).
+document.getElementById('btnCarregarValores').addEventListener('click', () => {
   document.getElementById('fileValores').click();
-}
-document.getElementById('btnCarregarValores').addEventListener('click', carregarValoresEscritorio);
+});
 document.getElementById('fileValores').addEventListener('change', (e) => {
   const file = e.target.files && e.target.files[0];
   const status = document.getElementById('statusValores');
   if (!file) return;
-  precoFileHandle = null;
   const reader = new FileReader();
-  reader.onload = () => aplicarValoresCarregados(reader.result, status);
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(reader.result);
+      const mesclado = { ...(valoresEscritorio.precosPorKg || {}), ...(data.precosPorKg || {}) };
+      valoresEscritorio.precosPorKg = mesclado;
+      salvarPrecosNoPC(mesclado);
+      status.innerHTML = `✓ <b>${Object.keys(data.precosPorKg || {}).length} preço(s) importados</b> e salvos neste computador.`;
+    } catch (err) {
+      status.textContent = '⚠ Arquivo inválido — não consegui ler o valores.json.';
+    }
+  };
   reader.readAsText(file);
+  e.target.value = '';
 });
 
 // ---- Modal "Cadastrar preço por cliente" ----
+// Lista todos os clientes que estão hoje na fila/aguardando (não só os que já têm preço),
+// pra qualquer cliente novo aparecer automaticamente pronto pra receber um preço.
+function clientesNaFila(){
+  const nomes = new Map(); // chave normalizada -> nome como aparece no pedido
+  [...pendentes, ...aguardando].forEach(p => {
+    const chave = chaveClienteVal(p.cliente);
+    if (chave && !nomes.has(chave)) nomes.set(chave, String(p.cliente || '').trim());
+  });
+  Object.keys(valoresEscritorio.precosPorKg || {}).forEach(chave => {
+    if (!nomes.has(chave)) nomes.set(chave, chave);
+  });
+  return [...nomes.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+}
 function abrirModalPrecos(){
   let ov = document.getElementById('precoOverlay');
   if (!ov){
@@ -2159,24 +2158,22 @@ function abrirModalPrecos(){
   renderModalPrecos(ov);
   ov.classList.remove('hidden');
 }
-function linhaPrecoHtml(chave, valor){
+function linhaPrecoHtml(chave, nome, valor){
   return `<div class="preco-linha" data-chave="${escHtmlProg(chave)}">
-    <span class="preco-cliente">${escHtmlProg(chave)}</span>
-    <input type="number" step="0.01" min="0" class="preco-input" value="${valor}">
-    <button type="button" class="mini-btn del preco-remover">✕</button>
+    <span class="preco-cliente">${escHtmlProg(nome)}</span>
+    <input type="number" step="0.01" min="0" class="preco-input" placeholder="R$/kg" value="${valor > 0 ? valor : ''}">
   </div>`;
 }
 function renderModalPrecos(ov){
   const precos = valoresEscritorio.precosPorKg || {};
-  const chaves = Object.keys(precos).sort();
-  const linhas = chaves.map(k => linhaPrecoHtml(k, precos[k])).join('');
+  const linhas = clientesNaFila().map(([chave, nome]) => linhaPrecoHtml(chave, nome, precos[chave] || 0)).join('');
   ov.innerHTML = `
     <div class="preco-card">
       <h3>✏️ Preço por kg (cliente)</h3>
-      <p class="small-note" style="margin-bottom:12px">Preço fixo em R$/kg, negociado com o vendedor. No PDF, o valor de cada pedido é sempre <b>kg × preço do cliente</b>. Altere aqui quando o preço mudar.</p>
-      <div id="precoLista">${linhas || '<p class="small-note" style="margin-bottom:10px">Nenhum preço cadastrado ainda — carregue o valores.json do escritório ou adicione abaixo.</p>'}</div>
+      <p class="small-note" style="margin-bottom:12px">Todos os clientes que estão hoje na fila. Preencha o R$/kg negociado com o vendedor de cada um — em branco fica sem valor no PDF. Salva neste computador, sem baixar arquivo.</p>
+      <div id="precoLista">${linhas || '<p class="small-note" style="margin-bottom:10px">Nenhum cliente na fila ainda.</p>'}</div>
       <div class="preco-novo">
-        <input type="text" id="precoNovoCliente" placeholder="Cliente (ex: ABAPEL)">
+        <input type="text" id="precoNovoCliente" placeholder="Outro cliente (ex: ABAPEL)">
         <input type="number" id="precoNovoValor" step="0.01" min="0" placeholder="R$/kg">
         <button type="button" class="mini-btn done" id="btnPrecoAdicionar">+ Add</button>
       </div>
@@ -2185,27 +2182,21 @@ function renderModalPrecos(ov){
         <button type="button" class="btn btn-outline" id="btnPrecoCancelar" style="flex:1">Cancelar</button>
       </div>
     </div>`;
-  ov.querySelectorAll('.preco-remover').forEach(btn => {
-    btn.addEventListener('click', () => btn.closest('.preco-linha').remove());
-  });
   document.getElementById('btnPrecoAdicionar').addEventListener('click', () => {
     const nomeEl = document.getElementById('precoNovoCliente');
     const valEl = document.getElementById('precoNovoValor');
     const chave = chaveClienteVal(nomeEl.value);
-    const valor = parseFloat((valEl.value || '').replace(',', '.'));
+    const valor = parseFloat((valEl.value || '').replace(',', '.')) || 0;
     if (!chave){ nomeEl.focus(); return; }
-    if (!(valor > 0)){ valEl.focus(); return; }
     const lista = document.getElementById('precoLista');
     const vazio = lista.querySelector('.small-note');
     if (vazio) vazio.remove();
     const existente = lista.querySelector(`[data-chave="${chave}"]`);
-    if (existente){ existente.querySelector('.preco-input').value = valor; }
+    if (existente){ existente.querySelector('.preco-input').value = valor || ''; }
     else {
       const div = document.createElement('div');
-      div.innerHTML = linhaPrecoHtml(chave, valor);
-      const nova = div.firstElementChild;
-      nova.querySelector('.preco-remover').addEventListener('click', () => nova.remove());
-      lista.appendChild(nova);
+      div.innerHTML = linhaPrecoHtml(chave, chave, valor);
+      lista.appendChild(div.firstElementChild);
     }
     nomeEl.value = ''; valEl.value = '';
     nomeEl.focus();
@@ -2213,7 +2204,7 @@ function renderModalPrecos(ov){
   document.getElementById('btnPrecoCancelar').addEventListener('click', () => ov.classList.add('hidden'));
   document.getElementById('btnPrecoSalvar').addEventListener('click', salvarPrecos);
 }
-async function salvarPrecos(){
+function salvarPrecos(){
   const ov = document.getElementById('precoOverlay');
   const novoPrecos = {};
   ov.querySelectorAll('.preco-linha').forEach(linha => {
@@ -2222,34 +2213,9 @@ async function salvarPrecos(){
     if (chave && valor > 0) novoPrecos[chave] = valor;
   });
   valoresEscritorio.precosPorKg = novoPrecos;
-  const conteudo = JSON.stringify({
-    chapas: valoresEscritorio.chapas || {},
-    bobinas: valoresEscritorio.bobinas || {},
-    precosPorKg: novoPrecos
-  }, null, 2);
+  salvarPrecosNoPC(novoPrecos);
   const status = document.getElementById('statusValores');
-  const n = Object.keys(novoPrecos).length;
-
-  if (precoFileHandle){
-    try {
-      const writable = await precoFileHandle.createWritable();
-      await writable.write(conteudo);
-      await writable.close();
-      status.innerHTML = `✓ <b>${n} preço(s) salvos</b> direto no valores.json.`;
-      ov.classList.add('hidden');
-      return;
-    } catch (err) {
-      // se falhar a escrita direta, cai no download abaixo
-    }
-  }
-  const blob = new Blob([conteudo], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'valores.json';
-  a.click();
-  URL.revokeObjectURL(url);
-  status.innerHTML = `✓ <b>${n} preço(s) salvos</b>. Baixei um novo <b>valores.json</b> — substitua o arquivo antigo na pasta do escritório.`;
+  status.innerHTML = `✓ <b>${Object.keys(novoPrecos).length} preço(s) salvos neste computador.</b> Gere a programação — a coluna Valor já usa os novos preços.`;
   ov.classList.add('hidden');
 }
 document.getElementById('btnCadastrarPreco').addEventListener('click', abrirModalPrecos);
