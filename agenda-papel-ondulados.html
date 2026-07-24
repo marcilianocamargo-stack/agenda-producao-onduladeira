@@ -265,6 +265,8 @@ td.c-val{ font-weight:700; color:#1c5637; }
 
   <div class="card">
     <h2>📅 Calendário de cargas</h2>
+    <button class="btn btn-outline" id="btnSincronizarFila" style="margin-bottom:10px">🔄 Sincronizar fila de Chapa</button>
+    <div class="small-note" id="statusSincFila" style="margin-bottom:10px"></div>
     <div class="mes-nav">
       <button id="btnMesAnterior">◀</button>
       <span class="titulo-mes" id="tituloMesCalendario"></span>
@@ -325,6 +327,7 @@ td.c-val{ font-weight:700; color:#1c5637; }
   </div>
 </div>
 
+<script src="agenda-logica.js"></script>
 <script>
 // ===== PIN (compartilhado com a Agenda de Produção — mesmo localStorage, mesma origem) =====
 const SUPERVISOR_PIN = '0907';
@@ -515,8 +518,8 @@ function renderDetalheDia(){
     <div class="cap-label">${Math.round(kg).toLocaleString('pt-BR')} de ${LIMITE_KG_DIA.toLocaleString('pt-BR')} kg (${pct}%) · ${fmtBRL(valor)}</div>
     ${itens.map(c => `
       <div class="carga-row">
-        <div class="info"><b>${escHtml(c.cliente)}</b><span class="badge ${classeProduto(c.produto)}">${nomeProduto(c.produto)}</span><br>${c.kg ? Math.round(c.kg).toLocaleString('pt-BR')+' kg · ' : ''}<span class="valor">${fmtBRL(c.valor)}</span></div>
-        <button type="button" class="mini-btn del" data-excluir="${c.id}">✕</button>
+        <div class="info"><b>${escHtml(c.cliente)}</b><span class="badge ${classeProduto(c.produto)}">${nomeProduto(c.produto)}</span>${c.origem==='fila' ? ' <span class="small-note" style="display:inline">🔄 fila</span>' : ''}<br>${c.kg ? Math.round(c.kg).toLocaleString('pt-BR')+' kg · ' : ''}<span class="valor">${fmtBRL(c.valor)}</span></div>
+        ${c.origem==='fila' ? '' : `<button type="button" class="mini-btn del" data-excluir="${c.id}">✕</button>`}
       </div>`).join('')}
   `;
   document.getElementById('fecharDetalheCalendario').addEventListener('click', () => { diaSelecionadoCalendario = null; renderDetalheDia(); });
@@ -697,12 +700,53 @@ function gerarProgramacaoPDF(){
 }
 document.getElementById('btnGerarProgPDF').addEventListener('click', gerarProgramacaoPDF);
 
+// ===== Sincroniza a Chapa com a fila de produção pendente (mesmo programacao-agenda.json
+// que a Agenda de Produção publica) — usa a MESMA projeção de dia (calcularAgenda, de
+// agenda-logica.js), então o dia de cada pedido aqui bate com o que aparece lá.
+// As cargas importadas ficam marcadas origem:'fila' e são substituídas a cada sincronização;
+// cargas lançadas manualmente (Bobina, Folha simples ou Chapa avulsa) nunca são tocadas aqui.
+async function sincronizarFilaChapa(){
+  const status = document.getElementById('statusSincFila');
+  try {
+    const r = await fetch('./programacao-agenda.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('http ' + r.status);
+    const data = await r.json();
+    const pendentesFila = data.pendentes || [];
+    const { pedidosInfo } = calcularAgenda(pendentesFila, new Date());
+
+    cargas = cargas.filter(c => c.origem !== 'fila');
+    pendentesFila.forEach(p => {
+      const info = pedidosInfo[p.id];
+      if (!info || !info.diaFim) return;
+      const cliente = String(p.cliente || '').trim();
+      const kg = p.kg || 0;
+      const preco = precosPorKg[chaveClienteVal(cliente)] || 0;
+      cargas.push({
+        id: 'fila_' + p.id,
+        cliente,
+        produto: 'CHAPA',
+        dia: chaveDiaISO(info.diaFim),
+        kg,
+        valor: preco * kg,
+        origem: 'fila'
+      });
+    });
+    salvarCargas();
+    renderCalendarioGeral();
+    status.innerHTML = `✓ <b>${pendentesFila.length} pedido(s) de Chapa</b> sincronizados da fila de produção.`;
+  } catch (err) {
+    status.textContent = '⚠ Não consegui carregar a fila de produção (programacao-agenda.json). Publique a fila na Agenda de Produção primeiro, ou tente de novo.';
+  }
+}
+document.getElementById('btnSincronizarFila').addEventListener('click', sincronizarFilaChapa);
+
 function iniciarApp(){
   precosPorKg = carregarPrecosSalvos();
   cargas = carregarCargas();
   document.getElementById('inputDia').value = chaveDiaISO(new Date());
   atualizarNotaProduto();
   renderCalendarioGeral();
+  sincronizarFilaChapa();
 }
 if (localStorage.getItem(SUPERVISOR_DESBLOQUEADO_KEY) === 'true') liberarConteudo();
 </script>
