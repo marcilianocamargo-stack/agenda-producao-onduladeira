@@ -252,16 +252,18 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 .mes-nav button:active { transform:scale(.96); }
 .mes-nav .titulo-mes { font-size:15px; font-weight:800; color:#17324f; text-transform:capitalize; }
 
-.dias-semana { display:grid; grid-template-columns:repeat(5,1fr); gap:4px; margin-bottom:4px; }
+.dias-semana { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:4px; }
 .dias-semana span { text-align:center; font-size:9.5px; font-weight:800; color:#6a8bb0; text-transform:uppercase; letter-spacing:.4px; }
+.dias-semana span.fds { color:#9aa8b5; }
 
-.grid-calendario { display:grid; grid-template-columns:repeat(5,1fr); gap:4px; }
+.grid-calendario { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
 
 .dia-cal {
   position:relative; background:#f4f8fc; border-radius:8px; padding:4px 4px 5px;
   min-height:74px; display:flex; flex-direction:column; border:1.5px solid transparent;
   cursor:default;
 }
+.dia-cal.fds { background:#eef2f8; }
 .dia-cal.tem-dados { cursor:pointer; }
 .dia-cal.tem-dados:active { transform:scale(.97); }
 .dia-cal.vazio { background:transparent; }
@@ -282,6 +284,17 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 .dia-cal .cliente-linha span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; }
 .dia-cal .cliente-linha i { width:5px; height:5px; border-radius:50%; display:inline-block; flex-shrink:0; }
 .dia-cal .kg-total-mini { font-size:8.5px; font-weight:800; color:#17324f; flex-shrink:0; }
+.dia-cal .valor-total-mini { font-size:8px; font-weight:800; color:#2e7d32; flex-shrink:0; }
+
+.carga-row {
+  display:flex; align-items:center; gap:8px; padding:9px 10px; border-radius:10px;
+  background:#f4f8fc; margin-bottom:6px; font-size:13.5px;
+}
+.carga-row .info { flex:1; min-width:0; }
+.carga-row .info b { font-size:14px; }
+.carga-row .valor { font-weight:800; color:#2e7d32; white-space:nowrap; }
+.badge.bobina { background:#fff3e0; color:#e65100; }
+.badge.folha  { background:#e8f5e9; color:#2e7d32; }
 
 .legenda-calendario { display:flex; flex-wrap:wrap; gap:6px 14px; padding-top:10px; border-top:1px solid #e3ecf6; margin-top:4px; }
 .legenda-calendario .legenda-item { display:flex; align-items:center; gap:5px; font-size:11px; color:#3a618f; }
@@ -380,8 +393,6 @@ td.c-val{ font-weight:700; color:#1c5637; }
     </div>
   </div>
 
-  <a href="agenda-papel-ondulados.html" class="sup-link">→ Agenda Papel Ondulados (financeiro)</a>
-
   <div id="banner" class="banner hidden"></div>
 
   <button class="btn btn-outline hidden" id="btnInstalar">📲 Instalar este app no celular/computador</button>
@@ -393,7 +404,7 @@ td.c-val{ font-weight:700; color:#1c5637; }
       <span class="titulo-mes" id="tituloMesCalendario"></span>
       <button id="btnMesSeguinte" aria-label="Próximo mês">▶</button>
     </div>
-    <div class="dias-semana"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span></div>
+    <div class="dias-semana"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span class="fds">Sáb</span><span class="fds">Dom</span></div>
     <div class="grid-calendario" id="gridCalendario"></div>
     <div class="legenda-calendario" id="legendaCalendario"></div>
     <div class="legenda-status-cal">
@@ -472,6 +483,9 @@ td.c-val{ font-weight:700; color:#1c5637; }
         <button class="tab-btn" data-tab="produzidos">Produzidos (<span id="countProduzidos">0</span>)</button>
       </div>
 
+      <button class="btn btn-outline" id="btnIntercalarGrandes" style="margin-top:10px">🔀 Intercalar clientes grandes (mais antigos primeiro)</button>
+      <div class="small-note" style="margin-bottom:10px">Reordena a fila: dentro de cada cliente, a OC mais antiga vem primeiro; entre clientes diferentes (nº de OC de um não tem nada a ver com o do outro), usa a Data Pedido quando a planilha tem, senão mantém a ordem em que já estavam na fila. Cliente com fila grande produz em blocos de ~7 a 8 mil kg intercalados com os outros — em vez de travar todo mundo atrás de um só. Você ainda pode arrastar (⠿) pra ajustar manualmente depois.</div>
+
       <div id="painelFila">
         <div class="barra-selecao hidden" id="barraSelecao">
           <span id="qtdSelecionados">0 selecionados</span>
@@ -499,6 +513,39 @@ td.c-val{ font-weight:700; color:#1c5637; }
         <div id="listaProduzidos"></div>
         <div class="small-note">Já fabricados, mas continuam aqui até serem expedidos (a OF permanece controlada, igual você já faz na planilha). Marcou "Produzido" errado ou uma OF que não foi feita? Toque em "Voltar p/ fila" nela (ou marque várias e use o botão acima). Remova ("Expedido") só quando o Romaneio confirmar a expedição.</div>
       </div>
+    </div>
+
+    <div class="card">
+      <h2>➕ Lançar carga (Bobina / Folha Simples)</h2>
+      <p class="small-note" style="margin-bottom:12px">Bobina (papel ondulado) e Folha Simples vêm de outro setor — você só recebe o cliente, o dia da carga e o valor total (o número que informam por telefone). Aparecem no calendário acima (inclusive fim de semana) e na programação em PDF, junto com a Chapa.</p>
+      <div class="field">
+        <label>Cliente</label>
+        <input type="text" id="cargaCliente" placeholder="Ex: Dambroise">
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Produto</label>
+          <select id="cargaProduto">
+            <option value="BOBINA">Bobina (papel ondulado)</option>
+            <option value="FOLHA">Folha simples</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Dia da carga</label>
+          <input type="date" id="cargaDia">
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Kg (opcional)</label>
+          <input type="number" id="cargaKg" placeholder="Ex: 4200">
+        </div>
+        <div class="field">
+          <label>Valor total (R$)</label>
+          <input type="number" id="cargaValor" step="0.01" placeholder="Ex: 29000">
+        </div>
+      </div>
+      <button class="btn btn-green" id="btnAdicionarCarga" style="margin:0">Adicionar carga</button>
     </div>
 
     <div class="card">
@@ -611,6 +658,32 @@ let pendentes = [];    // fila ativa: participa da projeção de capacidade
 let aguardando = [];   // existem, mas fora da projeção até liberar (ex: espera fechar carga)
 let produzidos = [];   // já fabricados, aguardando expedição (a OF continua controlada)
 let seqCounter = 1;
+
+// Cargas de Bobina/Folha Simples (outro setor — só cliente, dia, kg opcional e valor total já
+// informado por telefone). Ficam só neste computador (localStorage), nunca publicadas — mesma
+// regra de sigilo do preço por kg da Chapa. Entram no calendário (inclusive fim de semana) e na
+// programação em PDF junto com a Chapa.
+const CARGAS_KEY = 'agendaPapelOnduladosCargas';
+function carregarCargas(){
+  let dados;
+  try { dados = JSON.parse(localStorage.getItem(CARGAS_KEY) || '[]'); } catch (e) { return []; }
+  // Migração: a extinta Agenda Papel Ondulados (página separada, antes da fusão) sincronizava
+  // a Chapa como cargas com origem:'fila' — aqui a Chapa já vem direto de `pendentes`, então
+  // essas entradas ficariam duplicadas na programação. Limpa de uma vez só.
+  const limpo = dados.filter(c => c.produto !== 'CHAPA');
+  if (limpo.length !== dados.length) localStorage.setItem(CARGAS_KEY, JSON.stringify(limpo));
+  return limpo;
+}
+function salvarCargas(){ localStorage.setItem(CARGAS_KEY, JSON.stringify(cargas)); }
+let cargas = carregarCargas();
+function nomeProduto(p){ return p === 'BOBINA' ? 'Bobina' : 'Folha simples'; }
+function classeProduto(p){ return p === 'BOBINA' ? 'bobina' : 'folha'; }
+function totaisCargasDoDia(chaveDia){
+  const doDia = cargas.filter(c => c.dia === chaveDia);
+  const kg = doDia.reduce((s,c) => s + (c.kg||0), 0);
+  const valor = doDia.reduce((s,c) => s + (c.valor||0), 0);
+  return { itens: doDia, kg, valor };
+}
 let expandidoSup = new Set();   // clientes abertos na fila do supervisor
 let expandidoView = new Set();  // "dataStr|cliente" abertos na visualização
 let selecionadosProduzir = new Set(); // ids marcados pra dar baixa em lote (produzido)
@@ -663,6 +736,84 @@ function agruparPorLote(lista){
 function achatarGrupos(grupos){
   return grupos.flatMap(g => g.pedidos);
 }
+
+// ===================== INTERCALAR CLIENTES GRANDES (mais antigos primeiro) =====================
+// Cliente com fila grande (ex: ABAPEL) travaria os outros por dias se produzisse tudo de uma
+// vez. Em vez disso: agrupa por cliente, ordena cada grupo pela Ordem de Compra mais antiga
+// (Data Pedido da planilha, ou o próprio nº da OC quando não há data), e intercala em blocos de
+// ~7 a 8 mil kg — o cliente com o pedido mais antigo começa o rodízio, produz um bloco fechado,
+// passa pro próximo cliente da fila, e volta depois pra terminar o resto. Só reordena a fila —
+// o cálculo de capacidade/dia (calcularAgenda) continua exatamente igual.
+const BLOCO_KG_INTERCALAR = 7500; // meio da faixa pedida (7 a 8 mil kg)
+
+function parseDataPedido(v){
+  if (!v) return null;
+  if (v instanceof Date) return isNaN(v.getTime()) ? null : v;
+  if (typeof v === 'number'){
+    const d = new Date(Math.round((v - 25569) * 86400 * 1000)); // serial Excel (base 1899-12-30)
+    return isNaN(d.getTime()) ? null : d;
+  }
+  const s = String(v).trim();
+  let m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})/);
+  if (m){
+    let [,dd,mm,yy] = m;
+    yy = yy.length===2 ? '20'+yy : yy;
+    const d = new Date(Number(yy), Number(mm)-1, Number(dd));
+    return isNaN(d.getTime()) ? null : d;
+  }
+  m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (m){
+    const d = new Date(Number(m[1]), Number(m[2])-1, Number(m[3]));
+    return isNaN(d.getTime()) ? null : d;
+  }
+  return null;
+}
+// Chave de antiguidade do pedido: Data Pedido quando existe; senão o nº da OC (menor = mais
+// antigo); senão vai pro fim (Infinity), sem embaralhar quem já tinha data/OC reconhecida.
+function chaveOrdemPedido(p){
+  const d = parseDataPedido(p.dataPedido);
+  if (d) return d.getTime();
+  const ocNum = parseInt(String(p.oc||'').replace(/\D/g,''), 10);
+  return isNaN(ocNum) ? Infinity : ocNum;
+}
+function intercalarPorAntiguidade(pedidos, blocoKg){
+  blocoKg = blocoKg || BLOCO_KG_INTERCALAR;
+  // nº de OC não é comparável ENTRE clientes diferentes (cada um numera do seu jeito —
+  // na planilha real tem cliente com OC "004", outro com "1518", outro até com uma data
+  // no lugar do nº). Por isso o nº de OC só decide a ordem DENTRO do mesmo cliente; entre
+  // clientes diferentes, quem abre o rodízio é a Data Pedido mais antiga (quando existe)
+  // e, sem data nenhuma, a ordem em que os clientes já apareciam na fila.
+  const porCliente = new Map();
+  pedidos.forEach((p, idx) => {
+    const k = chaveCliente(p.cliente);
+    if (!porCliente.has(k)) porCliente.set(k, { itens: [], primeiraPosicao: idx });
+    porCliente.get(k).itens.push(p);
+  });
+  const filas = [];
+  porCliente.forEach((grupo, k) => {
+    grupo.itens.sort((a,b) => chaveOrdemPedido(a) - chaveOrdemPedido(b));
+    const datas = grupo.itens.map(p => parseDataPedido(p.dataPedido)).filter(Boolean);
+    const prioridade = datas.length ? Math.min(...datas.map(d => d.getTime())) : grupo.primeiraPosicao;
+    filas.push({ chave: k, itens: grupo.itens, prioridade, temData: datas.length > 0 });
+  });
+  filas.sort((a,b) => a.temData===b.temData ? a.prioridade-b.prioridade : (a.temData ? -1 : 1));
+
+  const resultado = [];
+  let restantes = filas.filter(f => f.itens.length);
+  while (restantes.length){
+    for (const f of restantes){
+      let acumulado = 0;
+      while (f.itens.length && acumulado < blocoKg){
+        const p = f.itens.shift();
+        resultado.push(p);
+        acumulado += (p.kg || 0);
+      }
+    }
+    restantes = restantes.filter(f => f.itens.length);
+  }
+  return resultado;
+}
+
 // Insere um OF novo dentro do bloco do mesmo pedido/lote (se já existir); senão vai pro fim.
 function inserirNoGrupo(lista, pedido){
   const k = chaveLote(pedido);
@@ -1219,7 +1370,7 @@ function renderCalendarioProducao(){
   const grid = document.getElementById('gridCalendario');
   const legenda = document.getElementById('legendaCalendario');
 
-  if (!pendentes.length){
+  if (!pendentes.length && !cargas.length){
     grid.innerHTML = '<p style="grid-column:1/-1;color:#6a8bb0;font-size:13px;text-align:center;padding:16px 0;">Fila vazia — nada para mostrar.</p>';
     legenda.innerHTML = '';
     renderDetalheDiaCalendario();
@@ -1250,17 +1401,13 @@ function renderCalendarioProducao(){
   const hojeStr = agora.toDateString();
 
   grid.innerHTML = '';
-  const colunaInicial = (primeiroDiaSemana>=1 && primeiroDiaSemana<=5) ? primeiroDiaSemana-1 : 0;
+  const colunaInicial = (primeiroDiaSemana + 6) % 7; // grade Seg-Dom (7 colunas)
   for (let i=0;i<colunaInicial;i++) grid.appendChild(criarCelulaCalendarioVazia());
 
-  let diaSemanaSimulado = primeiroDiaSemana;
   for (let d=1; d<=totalDiasNoMes; d++){
-    if (diaSemanaSimulado>=1 && diaSemanaSimulado<=5){
-      const dataCel = new Date(ano, mesIdx, d);
-      const diaObj = porChaveDia.get(chaveDiaISO(dataCel));
-      grid.appendChild(criarCelulaCalendarioDia(dataCel, diaObj, corPorLote, hojeStr));
-    }
-    diaSemanaSimulado = (diaSemanaSimulado+1)%7;
+    const dataCel = new Date(ano, mesIdx, d);
+    const diaObj = porChaveDia.get(chaveDiaISO(dataCel));
+    grid.appendChild(criarCelulaCalendarioDia(dataCel, diaObj, corPorLote, hojeStr));
   }
 
   legenda.innerHTML = top.map(c => `<span class="legenda-item"><i style="background:${corPorLote.get(c.chave)}"></i>${c.nome}</span>`).join('')
@@ -1278,12 +1425,17 @@ function criarCelulaCalendarioVazia(){
 function criarCelulaCalendarioDia(dataCel, diaObj, corPorLote, hojeStr){
   const el = document.createElement('div');
   const ehHoje = dataCel.toDateString() === hojeStr;
-  const temDados = !!diaObj && diaObj.itens.length > 0;
-  const reservado = temDados && diaObj.itens.some(it => it.status === 'reservado');
-  el.className = 'dia-cal' + (ehHoje?' hoje':'') + (temDados?' tem-dados':'') + (reservado?' reservado':'');
+  const diaSemana = dataCel.getDay();
+  const fds = diaSemana === 0 || diaSemana === 6;
+  const temDadosChapa = !!diaObj && diaObj.itens.length > 0;
+  const cargasDia = totaisCargasDoDia(chaveDiaISO(dataCel));
+  const temCargas = cargasDia.itens.length > 0;
+  const temDados = temDadosChapa || temCargas;
+  const reservado = temDadosChapa && diaObj.itens.some(it => it.status === 'reservado');
+  el.className = 'dia-cal' + (ehHoje?' hoje':'') + (temDados?' tem-dados':'') + (reservado?' reservado':'') + (fds?' fds':'');
 
   let html = `<span class="num">${dataCel.getDate()}</span>`;
-  if (temDados){
+  if (temDadosChapa){
     const min = diaObj.minUsados;
     const status = min >= CAP_MIN_DIA*0.95 ? 'lotado' : min >= CAP_MIN_DIA*0.6 ? 'quase' : 'livre';
     const corBarra = status==='lotado' ? '#c62828' : status==='quase' ? '#f9a825' : '#43a047';
@@ -1307,6 +1459,9 @@ function criarCelulaCalendarioDia(dataCel, diaObj, corPorLote, hojeStr){
     ).join('')}</div>`;
     html += `<div class="kg-total-mini">${Math.round(kgTotal).toLocaleString('pt-BR')} kg</div>`;
   }
+  if (temCargas){
+    html += `<div class="valor-total-mini">💰 ${fmtBRL(cargasDia.valor)}</div>`;
+  }
   el.innerHTML = html;
   if (temDados){
     el.addEventListener('click', () => {
@@ -1323,19 +1478,34 @@ function renderDetalheDiaCalendario(){
 
   const { dias } = calcularAgenda(pendentes, new Date());
   const d = dias.find(dd => chaveDiaISO(dd.data) === diaSelecionadoCalendario);
-  if (!d){ cont.classList.add('hidden'); cont.innerHTML=''; diaSelecionadoCalendario = null; return; }
+  const cargasDia = totaisCargasDoDia(diaSelecionadoCalendario);
+  if (!d && !cargasDia.itens.length){ cont.classList.add('hidden'); cont.innerHTML=''; diaSelecionadoCalendario = null; return; }
+
+  const [ano,mes,dia] = diaSelecionadoCalendario.split('-').map(Number);
+  const dataObj = d ? d.data : new Date(ano, mes-1, dia);
 
   cont.classList.remove('hidden');
-  const pct = Math.min(100, Math.round((d.minUsados/CAP_MIN_DIA)*100));
-  cont.innerHTML = `
+  let html = `
     <div class="detalhe-dia-cab">
-      <b>${nomeDia(d.data)}, ${fmtData(d.data)}</b>
+      <b>${nomeDia(dataObj)}, ${fmtData(dataObj)}</b>
       <span class="fechar-detalhe" id="fecharDetalheCalendario">fechar ✕</span>
-    </div>
+    </div>`;
+  if (d){
+    const pct = Math.min(100, Math.round((d.minUsados/CAP_MIN_DIA)*100));
+    html += `
     <div class="cap-bar-bg"><div class="cap-bar-fill ${pct>=95?'cheio':''}" style="width:${pct}%"></div></div>
     <div class="cap-label">${Math.round(d.minUsados)} de ${CAP_MIN_DIA} min usados (${pct}%)</div>
-    ${renderGruposClientesDia(d)}
-  `;
+    ${renderGruposClientesDia(d)}`;
+  }
+  if (cargasDia.itens.length){
+    html += `<div class="cap-label" style="margin-top:${d?'10px':'0'}"><b>Bobina / Folha Simples</b> · ${fmtBRL(cargasDia.valor)}</div>`;
+    html += cargasDia.itens.map(c => `
+      <div class="carga-row">
+        <div class="info"><b>${escHtmlProg(c.cliente)}</b><span class="badge ${classeProduto(c.produto)}">${nomeProduto(c.produto)}</span><br>${c.kg ? Math.round(c.kg).toLocaleString('pt-BR')+' kg · ' : ''}<span class="valor">${fmtBRL(c.valor)}</span></div>
+        <button type="button" class="mini-btn del" data-excluir-carga="${c.id}">✕</button>
+      </div>`).join('');
+  }
+  cont.innerHTML = html;
 
   document.getElementById('fecharDetalheCalendario').addEventListener('click', () => {
     diaSelecionadoCalendario = null;
@@ -1347,6 +1517,9 @@ function renderDetalheDiaCalendario(){
       if (expandidoView.has(k)) expandidoView.delete(k); else expandidoView.add(k);
       renderDetalheDiaCalendario();
     });
+  });
+  cont.querySelectorAll('[data-excluir-carga]').forEach(btn => {
+    btn.addEventListener('click', () => excluirCarga(btn.getAttribute('data-excluir-carga')));
   });
 }
 
@@ -1504,6 +1677,16 @@ function atualizarBarraSelecao(){
 // Dá baixa em vários pedidos de uma vez (sempre produção completa — sem perguntar
 // quantidade, já que é pra marcar rápido o que o turno anterior já fabricou inteiro).
 // Pra produção parcial (não coube tudo na carreta), use o botão "Produzido" individual.
+document.getElementById('btnIntercalarGrandes').addEventListener('click', () => {
+  if (!pendentes.length){
+    mostrarBanner('Fila vazia — nada para reordenar.', true);
+    return;
+  }
+  pendentes = intercalarPorAntiguidade(pendentes, BLOCO_KG_INTERCALAR);
+  atualizarTudo();
+  mostrarBanner('Fila reordenada: mais antigos primeiro, clientes grandes intercalados em blocos de ~7-8 mil kg.', false);
+});
+
 document.getElementById('btnMarcarSelecionados').addEventListener('click', () => {
   const ids = Array.from(selecionadosProduzir);
   if (!ids.length) return;
@@ -1829,6 +2012,7 @@ function parseWorkbookBuffer(buf){
         po: colMap.po !== -1 ? String(row[colMap.po]||'').trim() : '',
         of: String(of||'').trim(),
         oc: colMap.oc !== -1 ? String(row[colMap.oc]||'').trim() : '',
+        dataPedido: colMap.dataPedido !== -1 ? row[colMap.dataPedido] : null,
         ml: ml,
         kg: kg,
         qtdePedido: colMap.qtdePedido !== -1 ? (parseFloat(row[colMap.qtdePedido]) || 0) : 0,
@@ -1932,6 +2116,29 @@ document.getElementById('btnAddManual').addEventListener('click', () => {
   mostrarBanner(`Previsão para ${cliente}: ${nomeDia(info.diaFim)}, ${fmtData(info.diaFim)}.`, false);
 });
 
+document.getElementById('btnAdicionarCarga').addEventListener('click', () => {
+  const cliente = document.getElementById('cargaCliente').value.trim();
+  const produto = document.getElementById('cargaProduto').value;
+  const dia = document.getElementById('cargaDia').value;
+  const kg = parseFloat(document.getElementById('cargaKg').value) || 0;
+  const valor = parseFloat(document.getElementById('cargaValor').value) || 0;
+  if (!cliente){ mostrarBanner('Informe o cliente.', true); return; }
+  if (!dia){ mostrarBanner('Informe o dia da carga.', true); return; }
+  if (!(valor > 0)){ mostrarBanner('Informe o valor da carga.', true); return; }
+  cargas.push({ id: 'c' + Date.now() + Math.random().toString(36).slice(2,7), cliente, produto, dia, kg, valor });
+  salvarCargas();
+  document.getElementById('cargaCliente').value = '';
+  document.getElementById('cargaKg').value = '';
+  document.getElementById('cargaValor').value = '';
+  mostrarBanner('Carga adicionada.', false);
+  renderCalendarioProducao();
+});
+function excluirCarga(id){
+  cargas = cargas.filter(c => c.id !== id);
+  salvarCargas();
+  renderCalendarioProducao();
+}
+
 // ===================== PUBLICAR (GitHub direto ou baixar backup) =====================
 function payloadPublicacao(){
   return {
@@ -2001,14 +2208,15 @@ function fmtBRL(v){
 }
 
 function gerarProgramacaoPDF(){
-  if (!pendentes.length){
+  if (!pendentes.length && !cargas.length){
     mostrarBanner('Fila vazia — nada para gerar na programação.', true);
     return;
   }
 
   // Resumo por CLIENTE em cada dia previsto (a mesma "previsão" que o app já
   // mostra na fila) — junta todas as OFs do cliente naquele dia para caber em
-  // uma folha A4. Chapa e bobina são somadas em separado (unidades diferentes).
+  // uma folha A4. Chapa, Bobina e Folha Simples somam em separado (linhas
+  // diferentes, mesma tabela) já que só a Chapa tem contagem de OPs/chapas.
   const { pedidosInfo } = calcularAgenda(pendentes);
   const porDia = new Map();
   pendentes.forEach(p => {
@@ -2017,14 +2225,29 @@ function gerarProgramacaoPDF(){
     const k = dia ? chaveDiaISO(dia) : 'zzzz-sem-previsao';
     if (!porDia.has(k)) porDia.set(k, { data: dia, clientes: new Map() });
     const mc = porDia.get(k).clientes;
-    const ck = (p.cliente || '—').trim();
-    if (!mc.has(ck)) mc.set(ck, { ofs: 0, chapas: 0, kg: 0, valor: 0, prods: new Set() });
+    const cliente = (p.cliente || '—').trim();
+    const ck = cliente + '|CHAPA';
+    if (!mc.has(ck)) mc.set(ck, { cliente, produto: 'CHAPA', ofs: 0, chapas: 0, kg: 0, valor: 0, prods: new Set() });
     const e = mc.get(ck);
     e.ofs += 1;
     e.chapas += p.qtdePedido || 0;
     e.kg += p.kg || 0;
     e.valor += valorDoPedido(p);
     if (p.po) e.prods.add(String(p.po).trim());
+  });
+  cargas.forEach(c => {
+    const k = c.dia;
+    if (!porDia.has(k)){
+      const [ano,mes,dia] = k.split('-').map(Number);
+      porDia.set(k, { data: new Date(ano, mes-1, dia), clientes: new Map() });
+    }
+    const mc = porDia.get(k).clientes;
+    const cliente = (c.cliente || '—').trim();
+    const ck = cliente + '|' + c.produto;
+    if (!mc.has(ck)) mc.set(ck, { cliente, produto: c.produto, ofs: 0, chapas: 0, kg: 0, valor: 0, prods: new Set() });
+    const e = mc.get(ck);
+    e.kg += c.kg || 0;
+    e.valor += c.valor || 0;
   });
   const chaves = [...porDia.keys()].sort();
 
@@ -2052,11 +2275,12 @@ function gerarProgramacaoPDF(){
     clientes.forEach(([, e]) => { diaChapas += e.chapas; diaKg += e.kg; diaOfs += e.ofs; diaValor += e.valor; });
 
     let linhas = '';
-    clientes.forEach(([cli, e]) => {
+    clientes.forEach(([, e]) => {
       const prods = [...e.prods].join(' · ');
+      const badge = e.produto !== 'CHAPA' ? ` <span class="badge ${classeProduto(e.produto)}">${nomeProduto(e.produto)}</span>` : '';
       linhas += `<tr>
-        <td class="c-cli"><b>${escHtmlProg(cli)}</b>${prods ? ` <span class="prods">${escHtmlProg(prods)}</span>` : ''}</td>
-        <td class="c-of">${e.ofs} OP${e.ofs > 1 ? 's' : ''}</td>
+        <td class="c-cli"><b>${escHtmlProg(e.cliente)}</b>${badge}${prods ? ` <span class="prods">${escHtmlProg(prods)}</span>` : ''}</td>
+        <td class="c-of">${e.ofs ? e.ofs + ' OP' + (e.ofs > 1 ? 's' : '') : '—'}</td>
         <td class="c-qt">${fmtQtProg(e.chapas, e.kg)}</td>
         ${temValor ? `<td class="c-val">${e.valor > 0 ? fmtBRL(e.valor) : '—'}</td>` : ''}
       </tr>`;
