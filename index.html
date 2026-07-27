@@ -2365,13 +2365,10 @@ function gerarProgramacaoPDF(){
     const mc = porDia.get(k).clientes;
     const cliente = (p.cliente || '—').trim();
     const ck = cliente + '|CHAPA';
-    if (!mc.has(ck)) mc.set(ck, { cliente, produto: 'CHAPA', ofs: 0, chapas: 0, kg: 0, valor: 0, prods: new Set() });
+    if (!mc.has(ck)) mc.set(ck, { cliente, produto: 'CHAPA', kg: 0, valor: 0 });
     const e = mc.get(ck);
-    e.ofs += 1;
-    e.chapas += p.qtdePedido || 0;
     e.kg += p.kg || 0;
     e.valor += valorDoPedido(p);
-    if (p.po) e.prods.add(String(p.po).trim());
   });
   cargas.forEach(c => {
     const k = c.dia;
@@ -2382,7 +2379,7 @@ function gerarProgramacaoPDF(){
     const mc = porDia.get(k).clientes;
     const cliente = (c.cliente || '—').trim();
     const ck = cliente + '|' + c.produto;
-    if (!mc.has(ck)) mc.set(ck, { cliente, produto: c.produto, ofs: 0, chapas: 0, kg: 0, valor: 0, prods: new Set() });
+    if (!mc.has(ck)) mc.set(ck, { cliente, produto: c.produto, kg: 0, valor: 0 });
     const e = mc.get(ck);
     e.kg += c.kg || 0;
     e.valor += c.valor || 0;
@@ -2391,15 +2388,12 @@ function gerarProgramacaoPDF(){
 
   // Só mostra a coluna de valor quando pelo menos um pedido tem preço — assim, até a
   // planilha ganhar a coluna de preço, a programação sai idêntica à de hoje.
-  let totalGeralValor = 0, totalGeralChapas = 0, totalGeralKg = 0;
-  porDia.forEach(g => g.clientes.forEach(e => { totalGeralValor += e.valor; totalGeralChapas += e.chapas; totalGeralKg += e.kg; }));
+  let totalGeralValor = 0, totalGeralKg = 0;
+  porDia.forEach(g => g.clientes.forEach(e => { totalGeralValor += e.valor; totalGeralKg += e.kg; }));
   const temValor = totalGeralValor > 0;
 
-  function fmtQtProg(chapas, kg){
-    const partes = [];
-    if (chapas > 0) partes.push(Math.round(chapas).toLocaleString('pt-BR') + ' chapas');
-    if (kg > 0) partes.push(Math.round(kg).toLocaleString('pt-BR') + ' kg');
-    return partes.join(' · ') || '—';
+  function fmtQtProg(kg){
+    return kg > 0 ? Math.round(kg).toLocaleString('pt-BR') + ' kg' : '—';
   }
 
   let corpo = '';
@@ -2409,33 +2403,31 @@ function gerarProgramacaoPDF(){
       ? `${nomeDia(g.data).toUpperCase()} · ${fmtDataProg(g.data)}`
       : 'SEM PREVISÃO';
     const clientes = [...g.clientes.entries()];
-    let diaChapas = 0, diaKg = 0, diaOfs = 0, diaValor = 0;
-    clientes.forEach(([, e]) => { diaChapas += e.chapas; diaKg += e.kg; diaOfs += e.ofs; diaValor += e.valor; });
+    let diaKg = 0, diaValor = 0;
+    clientes.forEach(([, e]) => { diaKg += e.kg; diaValor += e.valor; });
 
     let linhas = '';
     clientes.forEach(([, e]) => {
-      const prods = [...e.prods].join(' · ');
       const badge = e.produto !== 'CHAPA' ? ` <span class="badge ${classeProduto(e.produto)}">${nomeProduto(e.produto)}</span>` : '';
       linhas += `<tr>
-        <td class="c-cli"><b>${escHtmlProg(e.cliente)}</b>${badge}${prods ? ` <span class="prods">${escHtmlProg(prods)}</span>` : ''}</td>
-        <td class="c-of">${e.ofs ? e.ofs + ' OP' + (e.ofs > 1 ? 's' : '') : '—'}</td>
-        <td class="c-qt">${fmtQtProg(e.chapas, e.kg)}</td>
+        <td class="c-cli"><b>${escHtmlProg(e.cliente)}</b>${badge}</td>
+        <td class="c-qt">${fmtQtProg(e.kg)}</td>
         ${temValor ? `<td class="c-val">${e.valor > 0 ? fmtBRL(e.valor) : '—'}</td>` : ''}
       </tr>`;
     });
 
-    const totDia = `${clientes.length} cliente(s) · ${diaOfs} OP(s) · ${fmtQtProg(diaChapas, diaKg)}${temValor ? ' · ' + fmtBRL(diaValor) : ''}`;
+    const totDia = `${clientes.length} cliente(s) · ${fmtQtProg(diaKg)}${temValor ? ' · ' + fmtBRL(diaValor) : ''}`;
     corpo += `<section class="dia-bloco">
       <div class="dia-titulo"><span>${cab}</span><span class="dia-tot">${totDia}</span></div>
       <table class="dia-tabela">
-        <thead><tr><th>Cliente</th><th>Pedidos</th><th class="c-qt">Quantidade</th>${temValor ? '<th class="c-val">Valor</th>' : ''}</tr></thead>
+        <thead><tr><th>Cliente</th><th class="c-qt">Quantidade</th>${temValor ? '<th class="c-val">Valor</th>' : ''}</tr></thead>
         <tbody>${linhas}</tbody>
       </table>
     </section>`;
   });
 
   if (temValor){
-    corpo += `<div class="prog-total"><span>TOTAL GERAL</span><span>${Math.round(totalGeralChapas).toLocaleString('pt-BR')} chapas · ${Math.round(totalGeralKg).toLocaleString('pt-BR')} kg · ${fmtBRL(totalGeralValor)}</span></div>`;
+    corpo += `<div class="prog-total"><span>TOTAL GERAL</span><span>${Math.round(totalGeralKg).toLocaleString('pt-BR')} kg · ${fmtBRL(totalGeralValor)}</span></div>`;
   }
 
   const agora = new Date();
