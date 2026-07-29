@@ -87,18 +87,6 @@
       "chave": "OF:261771"
     },
     {
-      "id": "p135_n9a8l",
-      "cliente": "HARMONY",
-      "po": "P40B",
-      "of": "261708",
-      "oc": "08-07-26",
-      "ml": 342,
-      "kg": 187.2,
-      "setupMin": 40,
-      "chave": "OF:261708",
-      "lote": "HARMONY 08-07"
-    },
-    {
       "id": "p137_yfvvg",
       "cliente": "HARMONY",
       "po": "P25B",
@@ -206,25 +194,6 @@
       "chave": "OF:261901"
     },
     {
-      "id": "p126_ihlfo",
-      "cliente": "ABAPEL COMERCIO DE EMBALAGENS LTDA",
-      "lote": "ABAPEL 1046",
-      "po": "P25B",
-      "of": "261898",
-      "oc": "8.035",
-      "ml": 1144,
-      "kg": 317.3,
-      "qtdePedido": 2200,
-      "largura": 0.402,
-      "comprimento": 1.04,
-      "vinco": "101x200x101",
-      "bobina": 850,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:261898"
-    },
-    {
       "id": "p55_4zhxs",
       "cliente": "HARMONY",
       "lote": "HARMONY 001031",
@@ -273,22 +242,6 @@
       "chave": "OF:261841"
     },
     {
-      "id": "p60_a7243",
-      "cliente": "HARMONY",
-      "lote": "HARMONY 001031",
-      "po": "P25B",
-      "of": "261833",
-      "oc": "08-07-26",
-      "ml": 397.8,
-      "kg": 208.3,
-      "qtdePedido": 200,
-      "largura": 1.518,
-      "comprimento": 1.989,
-      "vinco": "150x1218x150",
-      "bobina": 1550,
-      "chave": "OF:261833"
-    },
-    {
       "id": "p66_hji2r",
       "cliente": "HARMONY",
       "lote": "HARMONY 001031",
@@ -335,41 +288,6 @@
       "vinco": "110x118x110",
       "bobina": 700,
       "chave": "OF:261823"
-    },
-    {
-      "id": "p74_nfu3n",
-      "cliente": "HARMONY",
-      "lote": "HARMONY 001031",
-      "po": "P25B",
-      "of": "261829",
-      "oc": "08-07-26",
-      "ml": 761.3,
-      "kg": 159.7,
-      "qtdePedido": 2500,
-      "largura": 0.304,
-      "comprimento": 0.609,
-      "vinco": "28x248x28",
-      "bobina": 700,
-      "chave": "OF:261829"
-    },
-    {
-      "id": "p120_bolmy",
-      "cliente": "HARMONY EMBALAGENS",
-      "lote": "HARMONY EMBALAGENS 1044",
-      "po": "P25B",
-      "of": "261893",
-      "oc": "20-07-26",
-      "ml": 540,
-      "kg": 279.4,
-      "qtdePedido": 2000,
-      "largura": 0.5,
-      "comprimento": 0.81,
-      "vinco": "x",
-      "bobina": 1550,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:261893"
     },
     {
       "id": "p128_986ds",
@@ -836,25 +754,6 @@
       "precoKg": 0,
       "valor": 0,
       "chave": "OF:261905"
-    },
-    {
-      "id": "p128_6rqn5",
-      "cliente": "ABAPEL COMERCIO DE EMBALAGENS LTDA",
-      "lote": "ABAPEL 1047",
-      "po": "P25B",
-      "of": "261906",
-      "oc": "8.063",
-      "ml": 1068,
-      "kg": 303.6,
-      "qtdePedido": 1500,
-      "largura": 0.412,
-      "comprimento": 1.424,
-      "vinco": "133x146x133",
-      "bobina": 850,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:261906"
     },
     {
       "id": "p132_vzevq",
@@ -3431,10 +3330,135 @@
       "chapasProduzidas": 3085,
       "chapasPedido": 3000,
       "saldoChapas": 85
+    },
+    {
+      "id": "p135_n9a8l",
+      "cliente": "HARMONY",
+      "po": "P40B",
+      "of": "261708",
+      "oc": "08-07-26",
+      "ml": 342,
+      "kg": 187.2,
+      "setupMin": 40,
+      "chave": "OF:261708",
+      "lote": "HARMONY 08-07",
+      "dataProduzido": "2026-07-29T12:00:00Z",
+      "chapasProduzidas": 205,
+      "chapasPedido": 180,
+      "saldoChapas": 25
+    },
+    {
+      "id": "p126_ihlfo",
+      "cliente": "ABAPEL COMERCIO DE EMBALAGENS LTDA",
+      "lote": "ABAPEL 1046",
+      "po": "P25B",
+      "of": "261898",
+      "oc": "8.035",
+      "ml": 1144,
+      "kg": 317.3,
+      "qtdePedido": 2200,
+      "largura": 0.402,
+      "comprimento": 1.04,
+      "vinco": "101x200x101",
+      "bobina": 850,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:261898",
+      "dataProduzido": "2026-07-29T12:00:00Z",
+      "chapasProduzidas": 2265,
+      "chapasPedido": 2200,
+      "saldoChapas": 65
+    },
+    {
+      "id": "p60_a7243",
+      "cliente": "HARMONY",
+      "lote": "HARMONY 001031",
+      "po": "P25B",
+      "of": "261833",
+      "oc": "08-07-26",
+      "ml": 397.8,
+      "kg": 208.3,
+      "qtdePedido": 200,
+      "largura": 1.518,
+      "comprimento": 1.989,
+      "vinco": "150x1218x150",
+      "bobina": 1550,
+      "chave": "OF:261833",
+      "dataProduzido": "2026-07-29T12:00:00Z",
+      "chapasProduzidas": 200,
+      "chapasPedido": 200,
+      "saldoChapas": 0
+    },
+    {
+      "id": "p74_nfu3n",
+      "cliente": "HARMONY",
+      "lote": "HARMONY 001031",
+      "po": "P25B",
+      "of": "261829",
+      "oc": "08-07-26",
+      "ml": 761.3,
+      "kg": 159.7,
+      "qtdePedido": 2500,
+      "largura": 0.304,
+      "comprimento": 0.609,
+      "vinco": "28x248x28",
+      "bobina": 700,
+      "chave": "OF:261829",
+      "dataProduzido": "2026-07-29T12:00:00Z",
+      "chapasProduzidas": 2510,
+      "chapasPedido": 2500,
+      "saldoChapas": 10
+    },
+    {
+      "id": "p120_bolmy",
+      "cliente": "HARMONY EMBALAGENS",
+      "lote": "HARMONY EMBALAGENS 1044",
+      "po": "P25B",
+      "of": "261893",
+      "oc": "20-07-26",
+      "ml": 540,
+      "kg": 279.4,
+      "qtdePedido": 2000,
+      "largura": 0.5,
+      "comprimento": 0.81,
+      "vinco": "x",
+      "bobina": 1550,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:261893",
+      "dataProduzido": "2026-07-29T12:00:00Z",
+      "chapasProduzidas": 2080,
+      "chapasPedido": 2000,
+      "saldoChapas": 80
+    },
+    {
+      "id": "p128_6rqn5",
+      "cliente": "ABAPEL COMERCIO DE EMBALAGENS LTDA",
+      "lote": "ABAPEL 1047",
+      "po": "P25B",
+      "of": "261906",
+      "oc": "8.063",
+      "ml": 1068,
+      "kg": 303.6,
+      "qtdePedido": 1500,
+      "largura": 0.412,
+      "comprimento": 1.424,
+      "vinco": "133x146x133",
+      "bobina": 850,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:261906",
+      "dataProduzido": "2026-07-29T12:00:00Z",
+      "chapasProduzidas": 1540,
+      "chapasPedido": 1500,
+      "saldoChapas": 40
     }
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-07-28T16:57:18.973392Z",
+    "atualizadoEm": "2026-07-29T09:19:05.055498Z",
     "limiarBaixaPct": 95.0,
     "clientes": {
       "Harnony": [
@@ -4569,6 +4593,18 @@
           "concluido": true,
           "dataRelatorio": "2026-07-27",
           "arquivo": "Producao_27-07-2026_turno-Noite_ABAPEL-DR_EMBALAGENS-EMBALAGENS_VÔ_CHICO+1.xlsx"
+        },
+        {
+          "of": "261898",
+          "oc": "8.035",
+          "medida": "0,402 X 1,040",
+          "chapasPedido": 2200,
+          "chapasProduzidas": 2265,
+          "saldo": 65,
+          "pct": 103.0,
+          "concluido": true,
+          "dataRelatorio": "2026-07-29",
+          "arquivo": "Producao_29-07-2026_turno-Dia_HARMONY-ABAPEL-ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA+2.xlsx"
         }
       ],
       "CARPEL": [
@@ -5857,6 +5893,54 @@
           "concluido": true,
           "dataRelatorio": "2026-07-24",
           "arquivo": "Producao_24-07-2026_turno-Dia_HARMONY-ABAPEL.xlsx"
+        },
+        {
+          "of": "261708",
+          "oc": "08-07-26",
+          "medida": "1,500 X 1,900",
+          "chapasPedido": 180,
+          "chapasProduzidas": 205,
+          "saldo": 25,
+          "pct": 113.9,
+          "concluido": true,
+          "dataRelatorio": "2026-07-29",
+          "arquivo": "Producao_29-07-2026_turno-Dia_HARMONY-ABAPEL-ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA+2.xlsx"
+        },
+        {
+          "of": "261829",
+          "oc": "08-07-26",
+          "medida": "0,304 X 0,609",
+          "chapasPedido": 2500,
+          "chapasProduzidas": 2510,
+          "saldo": 10,
+          "pct": 100.4,
+          "concluido": true,
+          "dataRelatorio": "2026-07-29",
+          "arquivo": "Producao_29-07-2026_turno-Dia_HARMONY-ABAPEL-ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA+2.xlsx"
+        },
+        {
+          "of": "261833",
+          "oc": "08-07-26",
+          "medida": "1,518 X 1,989",
+          "chapasPedido": 200,
+          "chapasProduzidas": 200,
+          "saldo": 0,
+          "pct": 100.0,
+          "concluido": true,
+          "dataRelatorio": "2026-07-29",
+          "arquivo": "Producao_29-07-2026_turno-Dia_HARMONY-ABAPEL-ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA+2.xlsx"
+        },
+        {
+          "of": "261893",
+          "oc": "20-07-26",
+          "medida": "0,500 X 0,810",
+          "chapasPedido": 2000,
+          "chapasProduzidas": 2080,
+          "saldo": 80,
+          "pct": 104.0,
+          "concluido": true,
+          "dataRelatorio": "2026-07-29",
+          "arquivo": "Producao_29-07-2026_turno-Dia_HARMONY-ABAPEL-ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA+2.xlsx"
         }
       ],
       "1018 HARMONY": [
@@ -6075,6 +6159,60 @@
           "concluido": true,
           "dataRelatorio": "2026-07-28",
           "arquivo": "Producao_28-07-2026_turno-Noite_HARMONY-ABAPEL.pdf"
+        }
+      ],
+      "ABAPEL COMERCIO DE EMBALAGENS LTDA": [
+        {
+          "of": "261906",
+          "oc": "8.063",
+          "medida": "0,412 X 1,424",
+          "chapasPedido": 1500,
+          "chapasProduzidas": 1540,
+          "saldo": 40,
+          "pct": 102.7,
+          "concluido": true,
+          "dataRelatorio": "2026-07-29",
+          "arquivo": "Producao_29-07-2026_turno-Dia_HARMONY-ABAPEL-ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA+2.xlsx"
+        }
+      ],
+      "IPE EMBALAGENS LTDA": [
+        {
+          "of": "261971",
+          "oc": "1.571",
+          "medida": "1,546 X 2,450",
+          "chapasPedido": 150,
+          "chapasProduzidas": 155,
+          "saldo": 5,
+          "pct": 103.3,
+          "concluido": true,
+          "dataRelatorio": "2026-07-29",
+          "arquivo": "Producao_29-07-2026_turno-Dia_HARMONY-ABAPEL-ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA+2.xlsx"
+        }
+      ],
+      "PCBOX EMBALAGENS LTDA": [
+        {
+          "of": "261972",
+          "oc": "1.570",
+          "medida": "0,571 X 1,543",
+          "chapasPedido": 2000,
+          "chapasProduzidas": 2005,
+          "saldo": 5,
+          "pct": 100.2,
+          "concluido": true,
+          "dataRelatorio": "2026-07-29",
+          "arquivo": "Producao_29-07-2026_turno-Dia_HARMONY-ABAPEL-ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA+2.xlsx"
+        },
+        {
+          "of": "261973",
+          "oc": "1.570",
+          "medida": "0,622 X 1,683",
+          "chapasPedido": 2000,
+          "chapasProduzidas": 2040,
+          "saldo": 40,
+          "pct": 102.0,
+          "concluido": true,
+          "dataRelatorio": "2026-07-29",
+          "arquivo": "Producao_29-07-2026_turno-Dia_HARMONY-ABAPEL-ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA+2.xlsx"
         }
       ]
     }
