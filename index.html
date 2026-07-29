@@ -2372,7 +2372,7 @@ function gerarProgramacaoExcel(){
     let diaKg = 0, diaValor = 0;
     clientes.forEach(([, e]) => { diaKg += e.kg; diaValor += e.valor; });
 
-    const totDia = `${clientes.length} cliente(s) · ${fmtQtProg(diaKg)}${temValor ? ' · ' + fmtBRL(diaValor) : ''}`;
+    const totDia = fmtQtProg(diaKg);
     linhasPlanilha.push({ tipo: 'titulo', valores: temValor ? [cab, '', totDia] : [cab, totDia] });
     clientes.forEach(([, e]) => {
       const nomeCliente = e.produto !== 'CHAPA' ? `${e.cliente} (${nomeProduto(e.produto)})` : e.cliente;
