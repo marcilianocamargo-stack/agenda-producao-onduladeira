@@ -2328,20 +2328,36 @@ function fmtQtProg(kg){
 // Compartilhado pela planilha normal e pela planilha do financeiro — as duas
 // mostram exatamente os mesmos pedidos, só muda se a coluna de valor aparece.
 function calcularResumoProgramacaoPorDia(){
-  const { pedidosInfo } = calcularAgenda(pendentes);
+  // Reflete a agenda de verdade: quando um pedido não cabe inteiro num dia (ex:
+  // começa quarta, termina quinta), calcularAgenda já divide ele em pedaços por
+  // dia (dias[].itens, com o minUsados de cada pedaço). Cada dia entra na
+  // planilha só com a FRAÇÃO de kg/R$ que corresponde ao tempo rodado
+  // naquele dia — nunca o pedido inteiro empilhado no dia em que termina, e
+  // nunca duplicado nos dois dias (a soma das frações sempre fecha 100% do
+  // pedido).
+  const { dias } = calcularAgenda(pendentes);
+  const totalMinPorPedido = new Map();
+  dias.forEach(d => d.itens.forEach(it => {
+    totalMinPorPedido.set(it.pedido.id, (totalMinPorPedido.get(it.pedido.id) || 0) + it.minUsados);
+  }));
+
   const porDia = new Map();
-  pendentes.forEach(p => {
-    const info = pedidosInfo[p.id];
-    const dia = info ? info.diaFim : null;
-    const k = dia ? chaveDiaISO(dia) : 'zzzz-sem-previsao';
-    if (!porDia.has(k)) porDia.set(k, { data: dia, clientes: new Map() });
+  dias.forEach(d => {
+    if (!d.itens.length) return;
+    const k = chaveDiaISO(d.data);
+    if (!porDia.has(k)) porDia.set(k, { data: new Date(d.data), clientes: new Map() });
     const mc = porDia.get(k).clientes;
-    const cliente = (p.cliente || '—').trim();
-    const ck = cliente + '|CHAPA';
-    if (!mc.has(ck)) mc.set(ck, { cliente, produto: 'CHAPA', kg: 0, valor: 0 });
-    const e = mc.get(ck);
-    e.kg += p.kg || 0;
-    e.valor += valorDoPedido(p);
+    d.itens.forEach(it => {
+      const p = it.pedido;
+      const totalMin = totalMinPorPedido.get(p.id) || it.minUsados;
+      const fracao = totalMin > 0 ? it.minUsados / totalMin : 1;
+      const cliente = (p.cliente || '—').trim();
+      const ck = cliente + '|CHAPA';
+      if (!mc.has(ck)) mc.set(ck, { cliente, produto: 'CHAPA', kg: 0, valor: 0 });
+      const e = mc.get(ck);
+      e.kg += (p.kg || 0) * fracao;
+      e.valor += valorDoPedido(p) * fracao;
+    });
   });
   cargas.forEach(c => {
     const k = c.dia;
