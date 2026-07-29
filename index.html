@@ -2451,6 +2451,26 @@ function gerarArquivoExcelProgramacao(linhasPlanilha, temValor, agora, nomeAba, 
     ? [{ width: 36 }, { width: 18 }, { width: 18 }]
     : [{ width: 36 }, { width: 18 }];
 
+  // Cabeçalho "PIQUIRI · PAPELÃO ONDULADO" — mesma marca que já ia no PDF antigo,
+  // só que agora como duas linhas fixas no topo da planilha em vez de HTML.
+  const hora = String(agora.getHours()).padStart(2, '0') + ':' + String(agora.getMinutes()).padStart(2, '0');
+  const linhaMarca = ws.addRow(['PIQUIRI', 'Programação de Produção']);
+  const linhaSub = ws.addRow(['PAPELÃO ONDULADO', `Emitido em ${fmtDataProg(agora)} às ${hora}`]);
+  if (nCols === 3){
+    ws.mergeCells(linhaMarca.number, 2, linhaMarca.number, 3);
+    ws.mergeCells(linhaSub.number, 2, linhaSub.number, 3);
+  }
+  [linhaMarca, linhaSub].forEach(row => {
+    row.eachCell({ includeEmpty: true }, cell => {
+      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: VERDE_TITULO_PROG } };
+    });
+  });
+  linhaMarca.getCell(1).font = { bold: true, size: 16, color: { argb: 'FFFFFFFF' } };
+  linhaMarca.getCell(2).font = { bold: true, size: 13, color: { argb: 'FFFFFFFF' } };
+  linhaSub.getCell(1).font = { size: 8, color: { argb: 'FFCFE6D8' } };
+  linhaSub.getCell(2).font = { size: 10, color: { argb: 'FFCFE6D8' } };
+  ws.addRow([]);
+
   linhasPlanilha.forEach(item => {
     if (item.tipo === 'espaco'){
       ws.addRow([]); // linha em branco separando os dias — sem borda, sem cor
