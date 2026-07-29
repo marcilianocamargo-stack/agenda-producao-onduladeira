@@ -1297,8 +1297,12 @@ function ativarArrastarGrupos(cont){
   let dragEl = null;
 
   cont.querySelectorAll('.cliente-header').forEach(header => {
-    header.addEventListener('dragstart', () => {
+    header.addEventListener('dragstart', (e) => {
       dragEl = header.closest('.cliente-grupo');
+      // Mesmo payload que as caixas da semana esperam — sem isso, soltar o
+      // cartão do cliente numa caixa de dia não faz nada (fica só reordenando
+      // dentro da própria lista).
+      e.dataTransfer.setData('text/plain', 'grupo|' + dragEl.dataset.cliente);
       setTimeout(() => dragEl.classList.add('dragging'), 0);
     });
     header.addEventListener('dragend', () => {
@@ -1631,6 +1635,10 @@ function renderSemanaCaixas(){
       if (tipo === 'pedido'){
         const p = pendentes.find(pp => pp.id === id);
         if (p) p.dataReservada = dia;
+      } else if (tipo === 'grupo'){
+        // Cartão do cliente/lote inteiro (fechado, com todas as OFs) — reserva
+        // a mesma data pra cada OF do grupo, igual a reservar uma por uma.
+        pendentes.filter(p => chaveLote(p) === id).forEach(p => { p.dataReservada = dia; });
       } else if (tipo === 'carga'){
         const c = cargas.find(cc => cc.id === id);
         if (c){ c.dia = dia; salvarCargas(); }
