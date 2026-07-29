@@ -12,6 +12,7 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Agenda de Produção · Onduladeira Prime</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -2359,6 +2360,8 @@ function gerarProgramacaoExcel(){
 
   // Mesma tabela de sempre (dia · cliente · quantidade · valor), só que em linhas
   // de planilha em vez de HTML — sem a linha de cabeçalho "Cliente"/"Quantidade".
+  // Cada linha carrega seu "tipo" (título do dia / dados / total) pro Excel saber
+  // como colorir — não dá pra adivinhar isso só pelo formato do array.
   const linhasPlanilha = [];
   chaves.forEach(k => {
     const g = porDia.get(k);
@@ -2370,28 +2373,89 @@ function gerarProgramacaoExcel(){
     clientes.forEach(([, e]) => { diaKg += e.kg; diaValor += e.valor; });
 
     const totDia = `${clientes.length} cliente(s) · ${fmtQtProg(diaKg)}${temValor ? ' · ' + fmtBRL(diaValor) : ''}`;
-    linhasPlanilha.push(temValor ? [cab, '', totDia] : [cab, totDia]);
+    linhasPlanilha.push({ tipo: 'titulo', valores: temValor ? [cab, '', totDia] : [cab, totDia] });
     clientes.forEach(([, e]) => {
       const nomeCliente = e.produto !== 'CHAPA' ? `${e.cliente} (${nomeProduto(e.produto)})` : e.cliente;
       const linha = [nomeCliente, fmtQtProg(e.kg)];
       if (temValor) linha.push(e.valor > 0 ? fmtBRL(e.valor) : '—');
-      linhasPlanilha.push(linha);
+      linhasPlanilha.push({ tipo: 'dados', valores: linha });
     });
-    linhasPlanilha.push([]);
+    linhasPlanilha.push({ tipo: 'espaco' });
   });
 
   if (temValor){
-    linhasPlanilha.push(['TOTAL GERAL', Math.round(totalGeralKg).toLocaleString('pt-BR') + ' kg', fmtBRL(totalGeralValor)]);
+    linhasPlanilha.push({ tipo: 'total', valores: ['TOTAL GERAL', Math.round(totalGeralKg).toLocaleString('pt-BR') + ' kg', fmtBRL(totalGeralValor)] });
   }
 
   const agora = new Date();
-  const wb = XLSX.utils.book_new();
-  const ws = XLSX.utils.aoa_to_sheet(linhasPlanilha);
-  ws['!cols'] = [{ wch: 34 }, { wch: 20 }, { wch: 18 }];
-  XLSX.utils.book_append_sheet(wb, ws, 'Programação');
+  gerarArquivoExcelProgramacao(linhasPlanilha, temValor, agora);
+}
+
+// Layout "padrão verde Piquiri": cada dia vira uma tabela própria — barra verde
+// escura com o título do dia e o total, linhas com borda por baixo, e uma barra
+// verde mais escura ainda no total geral. Usa ExcelJS (não o SheetJS de cima)
+// porque só ele grava cor/borda de célula de verdade no .xlsx.
+const VERDE_TITULO_PROG = 'FF217346';
+const VERDE_TOTAL_PROG = 'FF1C5637';
+const BORDA_PROG = { style: 'thin', color: { argb: 'FFCFE0D5' } };
+function gerarArquivoExcelProgramacao(linhasPlanilha, temValor, agora){
+  const nCols = temValor ? 3 : 2;
+  const wb = new ExcelJS.Workbook();
+  const ws = wb.addWorksheet('Programação');
+  ws.columns = temValor
+    ? [{ width: 36 }, { width: 18 }, { width: 18 }]
+    : [{ width: 36 }, { width: 18 }];
+
+  linhasPlanilha.forEach(item => {
+    if (item.tipo === 'espaco'){
+      ws.addRow([]); // linha em branco separando os dias — sem borda, sem cor
+      return;
+    }
+
+    const row = ws.addRow(item.valores);
+
+    if (item.tipo === 'total'){
+      row.eachCell({ includeEmpty: true }, cell => {
+        cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: VERDE_TOTAL_PROG } };
+        cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+      });
+      for (let c = 2; c <= nCols; c++) row.getCell(c).alignment = { horizontal: 'right' };
+      return;
+    }
+
+    if (item.tipo === 'titulo'){
+      if (nCols === 3) ws.mergeCells(row.number, 1, row.number, 2);
+      for (let c = 1; c <= nCols; c++){
+        const cell = row.getCell(c);
+        cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: VERDE_TITULO_PROG } };
+        cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+      }
+      row.getCell(nCols).alignment = { horizontal: 'right' };
+      return;
+    }
+
+    // linha de cliente/quantidade/valor
+    for (let c = 1; c <= nCols; c++){
+      const cell = row.getCell(c);
+      cell.border = { top: BORDA_PROG, left: BORDA_PROG, bottom: BORDA_PROG, right: BORDA_PROG };
+      if (c >= 2) cell.alignment = { horizontal: 'right' };
+    }
+    row.getCell(1).font = { bold: true };
+  });
+
   const nomeArquivo = `programacao-producao-${fmtDataProg(agora).replace(/\//g, '-')}.xlsx`;
-  XLSX.writeFile(wb, nomeArquivo);
-  mostrarBanner(`Planilha "${nomeArquivo}" gerada.`);
+  wb.xlsx.writeBuffer().then(buffer => {
+    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = nomeArquivo;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    mostrarBanner(`Planilha "${nomeArquivo}" gerada.`);
+  });
 }
 
 document.getElementById('btnGerarProgPDF').addEventListener('click', gerarProgramacaoExcel);
