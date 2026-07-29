@@ -546,6 +546,8 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
       <h2>📊 Programação para o escritório (Excel)</h2>
       <p class="small-note" style="margin-bottom:12px">Gera a fila atual como uma planilha Excel, agrupada por dia previsto, pronta para enviar ao outro escritório.</p>
       <button class="btn btn-green" id="btnGerarProgPDF">📊 Gerar programação (Excel)</button>
+      <button class="btn btn-outline" id="btnGerarProgFinanceiro" style="margin-top:8px">💰 Gerar planilha para o financeiro (Excel)</button>
+      <div class="small-note" style="margin-top:6px">Igual à planilha acima, só que sempre com a coluna de valor em R$ — pra mandar pro financeiro.</div>
 
       <div style="margin-top:14px;padding-top:12px;border-top:1px dashed #e3ecf6">
         <button type="button" class="btn btn-outline" id="btnCadastrarPreco" style="margin:0 0 8px">✏️ Cadastrar preço por cliente</button>
@@ -2307,16 +2309,17 @@ function fmtBRL(v){
   return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
-function gerarProgramacaoExcel(){
-  if (!pendentes.length && !cargas.length){
-    mostrarBanner('Fila vazia — nada para gerar na programação.', true);
-    return;
-  }
+function fmtQtProg(kg){
+  return kg > 0 ? Math.round(kg).toLocaleString('pt-BR') + ' kg' : '—';
+}
 
-  // Resumo por CLIENTE em cada dia previsto (a mesma "previsão" que o app já
-  // mostra na fila) — junta todas as OFs do cliente naquele dia para caber em
-  // uma folha A4. Chapa, Bobina e Folha Simples somam em separado (linhas
-  // diferentes, mesma tabela) já que só a Chapa tem contagem de OPs/chapas.
+// Resumo por CLIENTE em cada dia previsto (a mesma "previsão" que o app já
+// mostra na fila) — junta todas as OFs do cliente naquele dia para caber em
+// uma folha A4. Chapa, Bobina e Folha Simples somam em separado (linhas
+// diferentes, mesma tabela) já que só a Chapa tem contagem de OPs/chapas.
+// Compartilhado pela planilha normal e pela planilha do financeiro — as duas
+// mostram exatamente os mesmos pedidos, só muda se a coluna de valor aparece.
+function calcularResumoProgramacaoPorDia(){
   const { pedidosInfo } = calcularAgenda(pendentes);
   const porDia = new Map();
   pendentes.forEach(p => {
@@ -2347,21 +2350,17 @@ function gerarProgramacaoExcel(){
     e.valor += c.valor || 0;
   });
   const chaves = [...porDia.keys()].sort();
-
-  // Só mostra a coluna de valor quando pelo menos um pedido tem preço — assim, até a
-  // planilha ganhar a coluna de preço, a programação sai idêntica à de hoje.
   let totalGeralValor = 0, totalGeralKg = 0;
   porDia.forEach(g => g.clientes.forEach(e => { totalGeralValor += e.valor; totalGeralKg += e.kg; }));
-  const temValor = totalGeralValor > 0;
+  return { porDia, chaves, totalGeralKg, totalGeralValor };
+}
 
-  function fmtQtProg(kg){
-    return kg > 0 ? Math.round(kg).toLocaleString('pt-BR') + ' kg' : '—';
-  }
-
-  // Mesma tabela de sempre (dia · cliente · quantidade · valor), só que em linhas
-  // de planilha em vez de HTML — sem a linha de cabeçalho "Cliente"/"Quantidade".
-  // Cada linha carrega seu "tipo" (título do dia / dados / total) pro Excel saber
-  // como colorir — não dá pra adivinhar isso só pelo formato do array.
+// Mesma tabela de sempre (dia · cliente · quantidade · valor), só que em linhas
+// de planilha em vez de HTML — sem a linha de cabeçalho "Cliente"/"Quantidade".
+// Cada linha carrega seu "tipo" (título do dia / dados / total) pro Excel saber
+// como colorir — não dá pra adivinhar isso só pelo formato do array.
+function montarLinhasProgramacao(resumo, incluirValor){
+  const { chaves, porDia, totalGeralKg, totalGeralValor } = resumo;
   const linhasPlanilha = [];
   chaves.forEach(k => {
     const g = porDia.get(k);
@@ -2369,26 +2368,48 @@ function gerarProgramacaoExcel(){
       ? `${nomeDia(g.data).toUpperCase()} · ${fmtDataProg(g.data)}`
       : 'SEM PREVISÃO';
     const clientes = [...g.clientes.entries()];
-    let diaKg = 0, diaValor = 0;
-    clientes.forEach(([, e]) => { diaKg += e.kg; diaValor += e.valor; });
+    let diaKg = 0;
+    clientes.forEach(([, e]) => { diaKg += e.kg; });
 
     const totDia = fmtQtProg(diaKg);
-    linhasPlanilha.push({ tipo: 'titulo', valores: temValor ? [cab, '', totDia] : [cab, totDia] });
+    linhasPlanilha.push({ tipo: 'titulo', valores: incluirValor ? [cab, '', totDia] : [cab, totDia] });
     clientes.forEach(([, e]) => {
       const nomeCliente = e.produto !== 'CHAPA' ? `${e.cliente} (${nomeProduto(e.produto)})` : e.cliente;
       const linha = [nomeCliente, fmtQtProg(e.kg)];
-      if (temValor) linha.push(e.valor > 0 ? fmtBRL(e.valor) : '—');
+      if (incluirValor) linha.push(e.valor > 0 ? fmtBRL(e.valor) : '—');
       linhasPlanilha.push({ tipo: 'dados', valores: linha });
     });
     linhasPlanilha.push({ tipo: 'espaco' });
   });
 
-  if (temValor){
+  if (incluirValor){
     linhasPlanilha.push({ tipo: 'total', valores: ['TOTAL GERAL', Math.round(totalGeralKg).toLocaleString('pt-BR') + ' kg', fmtBRL(totalGeralValor)] });
   }
+  return linhasPlanilha;
+}
 
-  const agora = new Date();
-  gerarArquivoExcelProgramacao(linhasPlanilha, temValor, agora);
+function gerarProgramacaoExcel(){
+  if (!pendentes.length && !cargas.length){
+    mostrarBanner('Fila vazia — nada para gerar na programação.', true);
+    return;
+  }
+  const resumo = calcularResumoProgramacaoPorDia();
+  const temValor = resumo.totalGeralValor > 0;
+  const linhasPlanilha = montarLinhasProgramacao(resumo, temValor);
+  gerarArquivoExcelProgramacao(linhasPlanilha, temValor, new Date(), 'Programação', 'programacao-producao');
+}
+
+// Planilha irmã, só pro financeiro: mesmos pedidos e dias, mas sempre com a
+// coluna de valor em R$ (mesmo que algum cliente ainda esteja sem preço
+// cadastrado — nesse caso aparece "—" naquela linha).
+function gerarProgramacaoExcelFinanceiro(){
+  if (!pendentes.length && !cargas.length){
+    mostrarBanner('Fila vazia — nada para gerar na programação.', true);
+    return;
+  }
+  const resumo = calcularResumoProgramacaoPorDia();
+  const linhasPlanilha = montarLinhasProgramacao(resumo, true);
+  gerarArquivoExcelProgramacao(linhasPlanilha, true, new Date(), 'Financeiro', 'programacao-financeiro');
 }
 
 // Layout "padrão verde Piquiri": cada dia vira uma tabela própria — barra verde
@@ -2398,10 +2419,10 @@ function gerarProgramacaoExcel(){
 const VERDE_TITULO_PROG = 'FF217346';
 const VERDE_TOTAL_PROG = 'FF1C5637';
 const BORDA_PROG = { style: 'thin', color: { argb: 'FFCFE0D5' } };
-function gerarArquivoExcelProgramacao(linhasPlanilha, temValor, agora){
+function gerarArquivoExcelProgramacao(linhasPlanilha, temValor, agora, nomeAba, prefixoArquivo){
   const nCols = temValor ? 3 : 2;
   const wb = new ExcelJS.Workbook();
-  const ws = wb.addWorksheet('Programação');
+  const ws = wb.addWorksheet(nomeAba || 'Programação');
   ws.columns = temValor
     ? [{ width: 36 }, { width: 18 }, { width: 18 }]
     : [{ width: 36 }, { width: 18 }];
@@ -2443,7 +2464,7 @@ function gerarArquivoExcelProgramacao(linhasPlanilha, temValor, agora){
     row.getCell(1).font = { bold: true };
   });
 
-  const nomeArquivo = `programacao-producao-${fmtDataProg(agora).replace(/\//g, '-')}.xlsx`;
+  const nomeArquivo = `${prefixoArquivo || 'programacao-producao'}-${fmtDataProg(agora).replace(/\//g, '-')}.xlsx`;
   wb.xlsx.writeBuffer().then(buffer => {
     const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     const url = URL.createObjectURL(blob);
@@ -2459,6 +2480,7 @@ function gerarArquivoExcelProgramacao(linhasPlanilha, temValor, agora){
 }
 
 document.getElementById('btnGerarProgPDF').addEventListener('click', gerarProgramacaoExcel);
+document.getElementById('btnGerarProgFinanceiro').addEventListener('click', gerarProgramacaoExcelFinanceiro);
 
 // Importação opcional do valores.json antigo (migração única) — mescla o precosPorKg
 // do arquivo com o que já está salvo no localStorage (arquivo tem prioridade nas chaves em comum).
