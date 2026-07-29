@@ -346,45 +346,6 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
   font-size:14px; font-weight:800; color:#1a56a0;
 }
 .chk-produzir, .chk-produzir-grupo { width:19px; height:19px; flex-shrink:0; accent-color:#43a047; cursor:pointer; }
-/* ===== PROGRAMAÇÃO PDF (padrão Piquiri) ===== */
-.prog-overlay{ position:fixed; inset:0; background:#eef2f6; z-index:9999; overflow:auto; padding:0 0 50px; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-.prog-overlay.hidden{ display:none; }
-.prog-toolbar{ position:sticky; top:0; display:flex; gap:10px; justify-content:center; padding:12px; background:#fff; border-bottom:1px solid #dbe4ee; z-index:2; }
-.prog-toolbar .btn{ width:auto; margin:0; padding:11px 20px; }
-.prog-page{ background:#fff; width:210mm; max-width:96%; margin:18px auto; box-shadow:0 8px 34px rgba(20,50,80,.20); color:#20303f; font-family:'Segoe UI', Arial, sans-serif; }
-.prog-head{ background:#217346; color:#fff; padding:12px 26px; display:flex; align-items:center; gap:22px; }
-.prog-marca{ font-weight:900; font-size:24px; letter-spacing:2.5px; line-height:1; display:flex; flex-direction:column; }
-.prog-marca span{ font-weight:600; font-size:10px; letter-spacing:3.5px; text-transform:uppercase; opacity:.82; margin-top:5px; }
-.prog-tit{ border-left:2px solid rgba(255,255,255,.32); padding-left:22px; }
-.prog-tit h1{ font-size:20px; font-weight:700; letter-spacing:.3px; }
-.prog-tit p{ font-size:11.5px; opacity:.9; margin-top:4px; font-weight:400; }
-.prog-corpo{ padding:10px 26px 2px; }
-.dia-bloco{ margin-bottom:8px; break-inside:avoid; }
-.dia-titulo{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; background:#217346; color:#fff; padding:5px 11px; font-weight:700; font-size:11px; letter-spacing:.4px; }
-.dia-titulo .dia-tot{ font-weight:600; font-size:9px; color:#cfe6d8; letter-spacing:0; white-space:nowrap; }
-table.dia-tabela{ width:100%; border-collapse:collapse; font-size:11.5px; border:1px solid #cfe0d5; border-top:none; }
-table.dia-tabela thead th{ text-align:left; font-weight:700; font-size:8px; letter-spacing:.5px; text-transform:uppercase; color:#4a6a58; background:#eef5f0; padding:3px 11px; border:1px solid #d9e6df; }
-table.dia-tabela td{ padding:3.5px 11px; border:1px solid #e5ede8; vertical-align:top; }
-.c-cli b{ font-size:12.5px; color:#20303f; font-weight:700; }
-.c-cli .prods{ font-size:10px; color:#9aa8b5; letter-spacing:.2px; }
-.c-of{ color:#607283; white-space:nowrap; font-size:11px; width:64px; }
-.c-qt, th.c-qt{ text-align:right; white-space:nowrap; }
-td.c-qt{ font-weight:700; color:#20303f; white-space:nowrap; }
-.c-val, th.c-val{ text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
-td.c-val{ font-weight:700; color:#1c5637; }
-.prog-total{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; background:#1c5637; color:#fff; padding:8px 12px; font-weight:700; font-size:12px; letter-spacing:.4px; margin-top:2px; }
-.prog-vazio{ padding:26px; text-align:center; color:#8595a4; font-size:13px; }
-.prog-rodape{ margin-top:6px; padding:9px 26px 12px; font-size:10px; color:#9aa8b5; border-top:1px solid #eef2f6; text-align:center; }
-
-@media print{
-  body{ background:#fff !important; }
-  body > *:not(#progOverlay){ display:none !important; }
-  #progOverlay{ position:static; overflow:visible; background:#fff; padding:0; }
-  #progOverlay.hidden{ display:none !important; }
-  .prog-toolbar{ display:none !important; }
-  .prog-page{ width:auto; max-width:none; margin:0; box-shadow:none; }
-  @page{ size:A4; margin:12mm; }
-}
 
 /* ===== CADASTRAR PREÇO POR CLIENTE ===== */
 .preco-overlay{ position:fixed; inset:0; background:rgba(23,50,79,.55); z-index:9999; display:flex; align-items:center; justify-content:center; padding:16px; }
@@ -549,7 +510,7 @@ td.c-val{ font-weight:700; color:#1c5637; }
 
     <div class="card">
       <h2>➕ Lançar carga (Bobina / Folha Simples)</h2>
-      <p class="small-note" style="margin-bottom:12px">Bobina (papel ondulado) e Folha Simples vêm de outro setor — você só recebe o cliente, o dia da carga e o valor total (o número que informam por telefone). Aparecem no calendário acima (inclusive fim de semana) e na programação em PDF, junto com a Chapa.</p>
+      <p class="small-note" style="margin-bottom:12px">Bobina (papel ondulado) e Folha Simples vêm de outro setor — você só recebe o cliente, o dia da carga e o valor total (o número que informam por telefone). Aparecem no calendário acima (inclusive fim de semana) e na programação em Excel, junto com a Chapa.</p>
       <div class="field">
         <label>Cliente</label>
         <select id="cargaCliente"></select>
@@ -581,9 +542,9 @@ td.c-val{ font-weight:700; color:#1c5637; }
     </div>
 
     <div class="card">
-      <h2>📄 Programação para o escritório (PDF)</h2>
-      <p class="small-note" style="margin-bottom:12px">Gera a fila atual como uma programação limpa, agrupada por dia previsto, no padrão visual da Piquiri — pronta para imprimir ou salvar como PDF e enviar ao outro escritório.</p>
-      <button class="btn btn-green" id="btnGerarProgPDF">📄 Gerar programação (PDF)</button>
+      <h2>📊 Programação para o escritório (Excel)</h2>
+      <p class="small-note" style="margin-bottom:12px">Gera a fila atual como uma planilha Excel, agrupada por dia previsto, pronta para enviar ao outro escritório.</p>
+      <button class="btn btn-green" id="btnGerarProgPDF">📊 Gerar programação (Excel)</button>
 
       <div style="margin-top:14px;padding-top:12px;border-top:1px dashed #e3ecf6">
         <button type="button" class="btn btn-outline" id="btnCadastrarPreco" style="margin:0 0 8px">✏️ Cadastrar preço por cliente</button>
@@ -694,7 +655,7 @@ let seqCounter = 1;
 // Cargas de Bobina/Folha Simples (outro setor — só cliente, dia, kg opcional e valor total já
 // informado por telefone). Ficam só neste computador (localStorage), nunca publicadas — mesma
 // regra de sigilo do preço por kg da Chapa. Entram no calendário (inclusive fim de semana) e na
-// programação em PDF junto com a Chapa.
+// programação em Excel junto com a Chapa.
 const CARGAS_KEY = 'agendaPapelOnduladosCargas';
 function carregarCargas(){
   let dados;
@@ -2298,7 +2259,7 @@ document.getElementById('btnGerarJson').addEventListener('click', () => {
   mostrarBanner('JSON gerado. Suba manualmente na mesma pasta do GitHub Pages.', false);
 });
 
-// ===================== PROGRAMAÇÃO EM PDF (padrão Piquiri) =====================
+// ===================== PROGRAMAÇÃO EM EXCEL =====================
 function escHtmlProg(s){
   return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
     { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]
@@ -2345,7 +2306,7 @@ function fmtBRL(v){
   return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
-function gerarProgramacaoPDF(){
+function gerarProgramacaoExcel(){
   if (!pendentes.length && !cargas.length){
     mostrarBanner('Fila vazia — nada para gerar na programação.', true);
     return;
@@ -2396,7 +2357,9 @@ function gerarProgramacaoPDF(){
     return kg > 0 ? Math.round(kg).toLocaleString('pt-BR') + ' kg' : '—';
   }
 
-  let corpo = '';
+  // Mesma tabela de sempre (dia · cliente · quantidade · valor), só que em linhas
+  // de planilha em vez de HTML — sem a linha de cabeçalho "Cliente"/"Quantidade".
+  const linhasPlanilha = [];
   chaves.forEach(k => {
     const g = porDia.get(k);
     const cab = g.data
@@ -2406,63 +2369,32 @@ function gerarProgramacaoPDF(){
     let diaKg = 0, diaValor = 0;
     clientes.forEach(([, e]) => { diaKg += e.kg; diaValor += e.valor; });
 
-    let linhas = '';
-    clientes.forEach(([, e]) => {
-      const badge = e.produto !== 'CHAPA' ? ` <span class="badge ${classeProduto(e.produto)}">${nomeProduto(e.produto)}</span>` : '';
-      linhas += `<tr>
-        <td class="c-cli"><b>${escHtmlProg(e.cliente)}</b>${badge}</td>
-        <td class="c-qt">${fmtQtProg(e.kg)}</td>
-        ${temValor ? `<td class="c-val">${e.valor > 0 ? fmtBRL(e.valor) : '—'}</td>` : ''}
-      </tr>`;
-    });
-
     const totDia = `${clientes.length} cliente(s) · ${fmtQtProg(diaKg)}${temValor ? ' · ' + fmtBRL(diaValor) : ''}`;
-    corpo += `<section class="dia-bloco">
-      <div class="dia-titulo"><span>${cab}</span><span class="dia-tot">${totDia}</span></div>
-      <table class="dia-tabela">
-        <thead><tr><th>Cliente</th><th class="c-qt">Quantidade</th>${temValor ? '<th class="c-val">Valor</th>' : ''}</tr></thead>
-        <tbody>${linhas}</tbody>
-      </table>
-    </section>`;
+    linhasPlanilha.push(temValor ? [cab, '', totDia] : [cab, totDia]);
+    clientes.forEach(([, e]) => {
+      const nomeCliente = e.produto !== 'CHAPA' ? `${e.cliente} (${nomeProduto(e.produto)})` : e.cliente;
+      const linha = [nomeCliente, fmtQtProg(e.kg)];
+      if (temValor) linha.push(e.valor > 0 ? fmtBRL(e.valor) : '—');
+      linhasPlanilha.push(linha);
+    });
+    linhasPlanilha.push([]);
   });
 
   if (temValor){
-    corpo += `<div class="prog-total"><span>TOTAL GERAL</span><span>${Math.round(totalGeralKg).toLocaleString('pt-BR')} kg · ${fmtBRL(totalGeralValor)}</span></div>`;
+    linhasPlanilha.push(['TOTAL GERAL', Math.round(totalGeralKg).toLocaleString('pt-BR') + ' kg', fmtBRL(totalGeralValor)]);
   }
 
   const agora = new Date();
-  const hora = String(agora.getHours()).padStart(2,'0') + ':' + String(agora.getMinutes()).padStart(2,'0');
-  const html = `
-    <div class="prog-toolbar">
-      <button class="btn btn-green" id="btnImprimirProg">🖨️ Imprimir / Salvar PDF</button>
-      <button class="btn btn-outline" id="btnFecharProg">Fechar</button>
-    </div>
-    <div class="prog-page">
-      <header class="prog-head">
-        <div class="prog-marca">PIQUIRI<span>papelão ondulado</span></div>
-        <div class="prog-tit">
-          <h1>Programação de Produção</h1>
-          <p>Emitido em ${fmtDataProg(agora)} às ${hora}</p>
-        </div>
-      </header>
-      <div class="prog-corpo">${corpo || '<div class="prog-vazio">Nenhum pedido na fila.</div>'}</div>
-      <div class="prog-rodape">Onduladeira Prime · gerado automaticamente pelo app Agenda de Produção</div>
-    </div>`;
-
-  let ov = document.getElementById('progOverlay');
-  if (!ov){
-    ov = document.createElement('div');
-    ov.id = 'progOverlay';
-    ov.className = 'prog-overlay';
-    document.body.appendChild(ov);
-  }
-  ov.innerHTML = html;
-  ov.classList.remove('hidden');
-  document.getElementById('btnImprimirProg').addEventListener('click', () => window.print());
-  document.getElementById('btnFecharProg').addEventListener('click', () => ov.classList.add('hidden'));
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.aoa_to_sheet(linhasPlanilha);
+  ws['!cols'] = [{ wch: 34 }, { wch: 20 }, { wch: 18 }];
+  XLSX.utils.book_append_sheet(wb, ws, 'Programação');
+  const nomeArquivo = `programacao-producao-${fmtDataProg(agora).replace(/\//g, '-')}.xlsx`;
+  XLSX.writeFile(wb, nomeArquivo);
+  mostrarBanner(`Planilha "${nomeArquivo}" gerada.`);
 }
 
-document.getElementById('btnGerarProgPDF').addEventListener('click', gerarProgramacaoPDF);
+document.getElementById('btnGerarProgPDF').addEventListener('click', gerarProgramacaoExcel);
 
 // Importação opcional do valores.json antigo (migração única) — mescla o precosPorKg
 // do arquivo com o que já está salvo no localStorage (arquivo tem prioridade nas chaves em comum).
