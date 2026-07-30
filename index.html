@@ -2406,21 +2406,28 @@ function montarLinhasProgramacao(resumo, incluirValor){
     linhasPlanilha.push({ tipo: 'espaco' });
   });
 
-  if (incluirValor){
-    linhasPlanilha.push({ tipo: 'total', valores: ['TOTAL GERAL', Math.round(totalGeralKg).toLocaleString('pt-BR') + ' kg', fmtBRL(totalGeralValor)] });
-  }
+  const ultimaChave = chaves[chaves.length - 1];
+  const ultimaData = ultimaChave ? porDia.get(ultimaChave).data : null;
+  const rotuloTotal = ultimaData ? `TOTAL GERAL (programado até ${fmtDataProg(ultimaData)})` : 'TOTAL GERAL';
+  const totalKgFmt = Math.round(totalGeralKg).toLocaleString('pt-BR') + ' kg';
+  const linhaTotal = incluirValor
+    ? [rotuloTotal, totalKgFmt, fmtBRL(totalGeralValor)]
+    : [rotuloTotal, totalKgFmt];
+  linhasPlanilha.push({ tipo: 'total', valores: linhaTotal });
   return linhasPlanilha;
 }
 
+// Planilha do vendedor: NUNCA mostra R$ (mesmo que os precos ja estejam
+// cadastrados pro financeiro) -- so kg por cliente/dia, pra ele se orientar
+// e prometer prazo sem enxergar valor.
 function gerarProgramacaoExcel(){
   if (!pendentes.length && !cargas.length){
     mostrarBanner('Fila vazia — nada para gerar na programação.', true);
     return;
   }
   const resumo = calcularResumoProgramacaoPorDia();
-  const temValor = resumo.totalGeralValor > 0;
-  const linhasPlanilha = montarLinhasProgramacao(resumo, temValor);
-  gerarArquivoExcelProgramacao(linhasPlanilha, temValor, new Date(), 'Programação', 'programacao-producao');
+  const linhasPlanilha = montarLinhasProgramacao(resumo, false);
+  gerarArquivoExcelProgramacao(linhasPlanilha, false, new Date(), 'Programação', 'programacao-producao');
 }
 
 // Planilha irmã, só pro financeiro: mesmos pedidos e dias, mas sempre com a
