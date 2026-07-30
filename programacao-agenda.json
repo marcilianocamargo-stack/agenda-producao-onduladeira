@@ -3691,8 +3691,8 @@
     }
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-07-30T09:30:26.402367Z",
-    "limiarBaixaPct": 95.0,
+    "atualizadoEm": "2026-07-30T09:40:50.471783Z",
+    "limiarBaixaPct": 90.0,
     "clientes": {
       "Harnony": [
         {
@@ -3975,7 +3975,7 @@
           "chapasProduzidas": 1390,
           "saldo": -110,
           "pct": 92.7,
-          "concluido": false,
+          "concluido": true,
           "dataRelatorio": "2026-07-09",
           "arquivo": "Producao_09-07-2026_turno-Noite_PCBOX-FAVINCO-Recimag+1.pdf"
         },
@@ -4131,7 +4131,7 @@
           "chapasProduzidas": 455,
           "saldo": -45,
           "pct": 91.0,
-          "concluido": false,
+          "concluido": true,
           "dataRelatorio": "2026-07-16",
           "arquivo": "Producao_16-07-2026_turno-Noite_ABAPEL-FAVINCO.pdf"
         },
@@ -4583,7 +4583,7 @@
           "chapasProduzidas": 3695,
           "saldo": -305,
           "pct": 92.4,
-          "concluido": false,
+          "concluido": true,
           "dataRelatorio": "2026-07-14",
           "arquivo": "Relatorio_Status_Fabricacao_ABAPEL.pdf"
         },
@@ -5041,7 +5041,7 @@
           "chapasProduzidas": 940,
           "saldo": -60,
           "pct": 94.0,
-          "concluido": false,
+          "concluido": true,
           "dataRelatorio": "2026-07-11",
           "arquivo": "Producao_11-07-2026_turno-Noite_CARPEL.pdf"
         },
@@ -5177,7 +5177,7 @@
           "chapasProduzidas": 330,
           "saldo": -20,
           "pct": 94.3,
-          "concluido": false,
+          "concluido": true,
           "dataRelatorio": "2026-07-14",
           "arquivo": "Producao_14-07-2026_turno-Noite_HARMONY_EMBALAGENS_LTDA.xlsx"
         },
@@ -5291,7 +5291,7 @@
           "chapasProduzidas": 545,
           "saldo": -55,
           "pct": 90.8,
-          "concluido": false,
+          "concluido": true,
           "dataRelatorio": "2026-07-17",
           "arquivo": "Producao_17-07-2026_turno-Noite_RENOVAPEL_005-RENOVAPEL_006-RENOVAPEL_002+1.pdf"
         },
@@ -5303,7 +5303,7 @@
           "chapasProduzidas": 375,
           "saldo": -25,
           "pct": 93.8,
-          "concluido": false,
+          "concluido": true,
           "dataRelatorio": "2026-07-17",
           "arquivo": "Producao_17-07-2026_turno-Noite_RENOVAPEL_005-RENOVAPEL_006-RENOVAPEL_002+1.pdf"
         },
