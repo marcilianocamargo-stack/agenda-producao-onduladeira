@@ -2427,7 +2427,10 @@ function gerarProgramacaoExcel(){
   }
   const resumo = calcularResumoProgramacaoPorDia();
   const linhasPlanilha = montarLinhasProgramacao(resumo, false);
-  gerarArquivoExcelProgramacao(linhasPlanilha, false, new Date(), 'Programação', 'programacao-producao');
+  // Nome fixo (sem data) de propósito: essa planilha é atualizada todo dia numa
+  // pasta do OneDrive — se o nome mudasse a cada geração, viraria arquivo novo
+  // em vez de substituir o de ontem.
+  gerarArquivoExcelProgramacao(linhasPlanilha, false, new Date(), 'Programação', 'programacao-producao.xlsx');
 }
 
 // Planilha irmã, só pro financeiro: mesmos pedidos e dias, mas sempre com a
@@ -2440,7 +2443,9 @@ function gerarProgramacaoExcelFinanceiro(){
   }
   const resumo = calcularResumoProgramacaoPorDia();
   const linhasPlanilha = montarLinhasProgramacao(resumo, true);
-  gerarArquivoExcelProgramacao(linhasPlanilha, true, new Date(), 'Financeiro', 'programacao-financeiro');
+  const agora = new Date();
+  const nomeArquivo = `programacao-financeiro-${fmtDataProg(agora).replace(/\//g, '-')}.xlsx`;
+  gerarArquivoExcelProgramacao(linhasPlanilha, true, agora, 'Financeiro', nomeArquivo);
 }
 
 // Layout "padrão verde Piquiri": cada dia vira uma tabela própria — barra verde
@@ -2450,7 +2455,7 @@ function gerarProgramacaoExcelFinanceiro(){
 const VERDE_TITULO_PROG = 'FF217346';
 const VERDE_TOTAL_PROG = 'FF1C5637';
 const BORDA_PROG = { style: 'thin', color: { argb: 'FFCFE0D5' } };
-function gerarArquivoExcelProgramacao(linhasPlanilha, temValor, agora, nomeAba, prefixoArquivo){
+function gerarArquivoExcelProgramacao(linhasPlanilha, temValor, agora, nomeAba, nomeArquivo){
   const nCols = temValor ? 3 : 2;
   const wb = new ExcelJS.Workbook();
   const ws = wb.addWorksheet(nomeAba || 'Programação');
@@ -2515,7 +2520,6 @@ function gerarArquivoExcelProgramacao(linhasPlanilha, temValor, agora, nomeAba, 
     row.getCell(1).font = { bold: true };
   });
 
-  const nomeArquivo = `${prefixoArquivo || 'programacao-producao'}-${fmtDataProg(agora).replace(/\//g, '-')}.xlsx`;
   wb.xlsx.writeBuffer().then(buffer => {
     const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     const url = URL.createObjectURL(blob);
