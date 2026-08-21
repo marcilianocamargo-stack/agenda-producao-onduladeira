@@ -662,26 +662,6 @@
       "chave": "OF:262227"
     },
     {
-      "id": "p29_m0982",
-      "cliente": "HARMONY EMBALAGENS",
-      "lote": "HARMONY EMBALAGENS 1126",
-      "po": "P25B",
-      "of": "262232",
-      "oc": "17-08-26",
-      "dataPedido": "17/08/2026",
-      "ml": 835.1,
-      "kg": 231.6,
-      "qtdePedido": 1400,
-      "largura": 0.402,
-      "comprimento": 1.193,
-      "vinco": "126x150x126",
-      "bobina": 850,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262232"
-    },
-    {
       "id": "p1_9wsol",
       "cliente": "ABAPEL",
       "lote": "ABAPEL 1127",
@@ -4436,10 +4416,34 @@
       "chapasProduzidas": 540,
       "chapasPedido": 500,
       "saldoChapas": 40
+    },
+    {
+      "id": "p29_m0982",
+      "cliente": "HARMONY EMBALAGENS",
+      "lote": "HARMONY EMBALAGENS 1126",
+      "po": "P25B",
+      "of": "262232",
+      "oc": "17-08-26",
+      "dataPedido": "17/08/2026",
+      "ml": 835.1,
+      "kg": 231.6,
+      "qtdePedido": 1400,
+      "largura": 0.402,
+      "comprimento": 1.193,
+      "vinco": "126x150x126",
+      "bobina": 850,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262232",
+      "dataProduzido": "2026-08-20T12:00:00Z",
+      "chapasProduzidas": 1490,
+      "chapasPedido": 1400,
+      "saldoChapas": 90
     }
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-08-20T09:32:12.548111Z",
+    "atualizadoEm": "2026-08-21T08:56:18.774096Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -8760,30 +8764,6 @@
           "arquivo": "Producao_18-08-2026_turno-Noite_RM_Embalagens-IVAIR.xlsx"
         },
         {
-          "of": "262209",
-          "oc": "500",
-          "medida": "0,760 X 1,488",
-          "chapasPedido": 850,
-          "chapasProduzidas": 880,
-          "saldo": 30,
-          "pct": 103.5,
-          "concluido": true,
-          "dataRelatorio": "2026-08-18",
-          "arquivo": "Producao_18-08-2026_turno-Noite_RM_Embalagens-IVAIR.xlsx"
-        },
-        {
-          "of": "262210",
-          "oc": "500",
-          "medida": "1,225 X 1,375",
-          "chapasPedido": 340,
-          "chapasProduzidas": 390,
-          "saldo": 50,
-          "pct": 114.7,
-          "concluido": true,
-          "dataRelatorio": "2026-08-18",
-          "arquivo": "Producao_18-08-2026_turno-Noite_RM_Embalagens-IVAIR.xlsx"
-        },
-        {
           "of": "262213",
           "oc": "500",
           "medida": "0,766 X 1,430",
@@ -8808,6 +8788,44 @@
           "arquivo": "Producao_18-08-2026_turno-Noite_RM_Embalagens-IVAIR.xlsx"
         }
       ],
+      "1124 RM Embalagens": [
+        {
+          "of": "262209",
+          "oc": "501",
+          "medida": "0,610 X 0,960",
+          "chapasPedido": 3500,
+          "chapasProduzidas": 4380,
+          "saldo": 880,
+          "pct": 125.1,
+          "concluido": true,
+          "dataRelatorio": "2026-08-20",
+          "arquivo": "Producao_20-08-2026_turno-Noite_HARMONY_EMBALAGENS-FAVINCO_EMBALAGENS-RM_Embalagens+1.pdf"
+        },
+        {
+          "of": "262210",
+          "oc": "501",
+          "medida": "0,610 X 1,160",
+          "chapasPedido": 4000,
+          "chapasProduzidas": 4415,
+          "saldo": 415,
+          "pct": 110.4,
+          "concluido": true,
+          "dataRelatorio": "2026-08-20",
+          "arquivo": "Producao_20-08-2026_turno-Noite_HARMONY_EMBALAGENS-FAVINCO_EMBALAGENS-RM_Embalagens+1.pdf"
+        },
+        {
+          "of": "262215",
+          "oc": "501",
+          "medida": "0,424 X 1,480",
+          "chapasPedido": 1520,
+          "chapasProduzidas": 1945,
+          "saldo": 425,
+          "pct": 128.0,
+          "concluido": true,
+          "dataRelatorio": "2026-08-20",
+          "arquivo": "Producao_20-08-2026_turno-Noite_HARMONY_EMBALAGENS-FAVINCO_EMBALAGENS-RM_Embalagens+1.pdf"
+        }
+      ],
       "1122 RM Embalagens": [
         {
           "of": "262211",
@@ -8829,18 +8847,6 @@
           "chapasProduzidas": 510,
           "saldo": 20,
           "pct": 104.1,
-          "concluido": true,
-          "dataRelatorio": "2026-08-18",
-          "arquivo": "Producao_18-08-2026_turno-Noite_Vô_Chico-RM_Embalagens.pdf"
-        },
-        {
-          "of": "262215",
-          "oc": "500",
-          "medida": "0,946 X 1,480",
-          "chapasPedido": 400,
-          "chapasProduzidas": 405,
-          "saldo": 5,
-          "pct": 101.2,
           "concluido": true,
           "dataRelatorio": "2026-08-18",
           "arquivo": "Producao_18-08-2026_turno-Noite_Vô_Chico-RM_Embalagens.pdf"
@@ -9140,6 +9146,62 @@
           "concluido": true,
           "dataRelatorio": "2026-08-20",
           "arquivo": "Producao_20-08-2026_turno-Dia_São_Miguel-DR_Embalagens-UPAPER+1.xlsx"
+        }
+      ],
+      "1138 HARMONY EMBALAGEN": [
+        {
+          "of": "262261",
+          "oc": "2008",
+          "medida": "0,403 X 1,259",
+          "chapasPedido": 500,
+          "chapasProduzidas": 530,
+          "saldo": 30,
+          "pct": 106.0,
+          "concluido": true,
+          "dataRelatorio": "2026-08-20",
+          "arquivo": "Producao_20-08-2026_turno-Noite_HARMONY_EMBALAGENS-FAVINCO_EMBALAGENS-RM_Embalagens+1.pdf"
+        }
+      ],
+      "1126 HARMONY EMBALAGEN": [
+        {
+          "of": "262232",
+          "oc": "17-08-26",
+          "medida": "0,402 X 1,193",
+          "chapasPedido": 1400,
+          "chapasProduzidas": 1490,
+          "saldo": 90,
+          "pct": 106.4,
+          "concluido": true,
+          "dataRelatorio": "2026-08-20",
+          "arquivo": "Producao_20-08-2026_turno-Noite_HARMONY_EMBALAGENS-FAVINCO_EMBALAGENS-RM_Embalagens+1.pdf"
+        }
+      ],
+      "1132 FAVINCO EMBALAGENS": [
+        {
+          "of": "262252",
+          "oc": "057",
+          "medida": "0,392 X 1,204",
+          "chapasPedido": 1000,
+          "chapasProduzidas": 1075,
+          "saldo": 75,
+          "pct": 107.5,
+          "concluido": true,
+          "dataRelatorio": "2026-08-20",
+          "arquivo": "Producao_20-08-2026_turno-Noite_HARMONY_EMBALAGENS-FAVINCO_EMBALAGENS-RM_Embalagens+1.pdf"
+        }
+      ],
+      "1124 RM Embalagens ( Daiane": [
+        {
+          "of": "262241",
+          "oc": "502",
+          "medida": "0,804 X 1,440",
+          "chapasPedido": 830,
+          "chapasProduzidas": 835,
+          "saldo": 5,
+          "pct": 100.6,
+          "concluido": true,
+          "dataRelatorio": "2026-08-20",
+          "arquivo": "Producao_20-08-2026_turno-Noite_HARMONY_EMBALAGENS-FAVINCO_EMBALAGENS-RM_Embalagens+1.pdf"
         }
       ],
       "1115 RENOVAPEL RECICLAG": [
