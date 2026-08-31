@@ -1122,6 +1122,26 @@
       "chave": "OF:262346"
     },
     {
+      "id": "p470049_ejmid",
+      "cliente": "PCBOX EMBALAGENS",
+      "lote": "IPE - PCBOX 1154 P",
+      "po": "P50D",
+      "of": "262399",
+      "oc": "1692",
+      "dataPedido": "31/08/2026",
+      "ml": 503.1,
+      "kg": 443.0,
+      "qtdePedido": 300.0,
+      "largura": 1.485,
+      "comprimento": 1.677,
+      "vinco": "110x1265x110",
+      "bobina": 1550.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262399"
+    },
+    {
       "id": "p234724_f8pl5",
       "cliente": "HARMONY EMBALAGENS",
       "lote": "HARMONY EMBALAGENS 1152 P",
@@ -7867,7 +7887,7 @@
     }
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-08-31T14:16:32.292332Z",
+    "atualizadoEm": "2026-08-31T14:31:31.003574Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
