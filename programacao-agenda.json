@@ -5283,7 +5283,7 @@
     }
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-08-28T08:56:21.790145Z",
+    "atualizadoEm": "2026-08-31T09:21:23.010783Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -9008,6 +9008,66 @@
           "concluido": true,
           "dataRelatorio": "2026-08-27",
           "arquivo": "Producao_27-08-2026_turno-Dia_Favinco-RM_Embalagens-HARMONY_EMBALAGENS+1.xlsx"
+        },
+        {
+          "of": "262332",
+          "oc": "2",
+          "medida": "0,304 X 0,609",
+          "chapasPedido": 3000,
+          "chapasProduzidas": 3060,
+          "saldo": 60,
+          "pct": 102.0,
+          "concluido": true,
+          "dataRelatorio": "2026-08-28",
+          "arquivo": "Producao_28-08-2026_turno-Dia_RM_Embalagens-AMPÉRE_EMBALAGENS-HARMONY_EMBALAGENS+1.xlsx"
+        },
+        {
+          "of": "262333",
+          "oc": "2",
+          "medida": "0,340 X 0,679",
+          "chapasPedido": 3000,
+          "chapasProduzidas": 3175,
+          "saldo": 175,
+          "pct": 105.8,
+          "concluido": true,
+          "dataRelatorio": "2026-08-28",
+          "arquivo": "Producao_28-08-2026_turno-Dia_RM_Embalagens-AMPÉRE_EMBALAGENS-HARMONY_EMBALAGENS+1.xlsx"
+        },
+        {
+          "of": "262337",
+          "oc": "2",
+          "medida": "1,164 X 2,459",
+          "chapasPedido": 500,
+          "chapasProduzidas": 510,
+          "saldo": 10,
+          "pct": 102.0,
+          "concluido": true,
+          "dataRelatorio": "2026-08-28",
+          "arquivo": "Producao_28-08-2026_turno-Dia_RM_Embalagens-AMPÉRE_EMBALAGENS-HARMONY_EMBALAGENS+1.xlsx"
+        },
+        {
+          "of": "262338",
+          "oc": "2",
+          "medida": "0,354 X 0,709",
+          "chapasPedido": 2000,
+          "chapasProduzidas": 2125,
+          "saldo": 125,
+          "pct": 106.2,
+          "concluido": true,
+          "dataRelatorio": "2026-08-28",
+          "arquivo": "Producao_28-08-2026_turno-Dia_RM_Embalagens-AMPÉRE_EMBALAGENS-HARMONY_EMBALAGENS+1.xlsx"
+        },
+        {
+          "of": "262339",
+          "oc": "2",
+          "medida": "0,355 X 0,994",
+          "chapasPedido": 1500,
+          "chapasProduzidas": 1610,
+          "saldo": 110,
+          "pct": 107.3,
+          "concluido": true,
+          "dataRelatorio": "2026-08-28",
+          "arquivo": "Producao_28-08-2026_turno-Dia_RM_Embalagens-AMPÉRE_EMBALAGENS-HARMONY_EMBALAGENS+1.xlsx"
         }
       ],
       "CARTOMIL EMBALAGENS LTDA": [
@@ -9938,6 +9998,30 @@
           "concluido": true,
           "dataRelatorio": "2026-07-20",
           "arquivo": "Producao_20-07-2026_turno-Dia_ABAPEL-DANPACK-FAVINCO+3.xlsx"
+        },
+        {
+          "of": "262326",
+          "oc": "2368",
+          "medida": "1,063 X 2,251",
+          "chapasPedido": 510,
+          "chapasProduzidas": 530,
+          "saldo": 20,
+          "pct": 103.9,
+          "concluido": true,
+          "dataRelatorio": "2026-08-28",
+          "arquivo": "Producao_28-08-2026_turno-Dia_RM_Embalagens-AMPÉRE_EMBALAGENS-HARMONY_EMBALAGENS+1.xlsx"
+        },
+        {
+          "of": "262327",
+          "oc": "2368",
+          "medida": "1,005 X 2,401",
+          "chapasPedido": 500,
+          "chapasProduzidas": 500,
+          "saldo": 0,
+          "pct": 100.0,
+          "concluido": true,
+          "dataRelatorio": "2026-08-28",
+          "arquivo": "Producao_28-08-2026_turno-Dia_RM_Embalagens-AMPÉRE_EMBALAGENS-HARMONY_EMBALAGENS+1.xlsx"
         }
       ],
       "RENOVAPEL 005": [
@@ -10190,6 +10274,54 @@
           "concluido": true,
           "dataRelatorio": "2026-08-27",
           "arquivo": "Producao_27-08-2026_turno-Dia_Favinco-RM_Embalagens-HARMONY_EMBALAGENS+1.xlsx"
+        },
+        {
+          "of": "262295",
+          "oc": "505",
+          "medida": "1,151 X 2,490",
+          "chapasPedido": 195,
+          "chapasProduzidas": 210,
+          "saldo": 15,
+          "pct": 107.7,
+          "concluido": true,
+          "dataRelatorio": "2026-08-28",
+          "arquivo": "Producao_28-08-2026_turno-Dia_RM_Embalagens-AMPÉRE_EMBALAGENS-HARMONY_EMBALAGENS+1.xlsx"
+        },
+        {
+          "of": "262300",
+          "oc": "505",
+          "medida": "1,420 X 0,676",
+          "chapasPedido": 590,
+          "chapasProduzidas": 630,
+          "saldo": 40,
+          "pct": 106.8,
+          "concluido": true,
+          "dataRelatorio": "2026-08-28",
+          "arquivo": "Producao_28-08-2026_turno-Dia_RM_Embalagens-AMPÉRE_EMBALAGENS-HARMONY_EMBALAGENS+1.xlsx"
+        },
+        {
+          "of": "262302",
+          "oc": "505",
+          "medida": "0,600 X 0,600",
+          "chapasPedido": 1550,
+          "chapasProduzidas": 1645,
+          "saldo": 95,
+          "pct": 106.1,
+          "concluido": true,
+          "dataRelatorio": "2026-08-28",
+          "arquivo": "Producao_28-08-2026_turno-Dia_RM_Embalagens-AMPÉRE_EMBALAGENS-HARMONY_EMBALAGENS+1.xlsx"
+        },
+        {
+          "of": "262307",
+          "oc": "505",
+          "medida": "1,068 X 1,760",
+          "chapasPedido": 520,
+          "chapasProduzidas": 520,
+          "saldo": 0,
+          "pct": 100.0,
+          "concluido": true,
+          "dataRelatorio": "2026-08-28",
+          "arquivo": "Producao_28-08-2026_turno-Dia_RM_Embalagens-AMPÉRE_EMBALAGENS-HARMONY_EMBALAGENS+1.xlsx"
         }
       ],
       "1124 RM Embalagens": [
@@ -11946,6 +12078,20 @@
           "concluido": true,
           "dataRelatorio": "2026-07-28",
           "arquivo": "Producao_28-07-2026_turno-Noite_HARMONY-ABAPEL.pdf"
+        }
+      ],
+      "Carpel": [
+        {
+          "of": "262365",
+          "oc": "W55R28",
+          "medida": "0,550 X 1,090",
+          "chapasPedido": 700,
+          "chapasProduzidas": 820,
+          "saldo": 120,
+          "pct": 117.1,
+          "concluido": true,
+          "dataRelatorio": "2026-08-28",
+          "arquivo": "Producao_28-08-2026_turno-Dia_RM_Embalagens-AMPÉRE_EMBALAGENS-HARMONY_EMBALAGENS+1.xlsx"
         }
       ],
       "1036 DANPACK": [
