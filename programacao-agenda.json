@@ -2242,6 +2242,26 @@
       "chave": "OF:262521"
     },
     {
+      "id": "p861318_330pt",
+      "cliente": "FAVINCO",
+      "lote": "FAVINCO EMBALAGENS 1188",
+      "po": "P25B",
+      "of": "262541",
+      "oc": "67",
+      "dataPedido": "10/09/2026",
+      "ml": 1004.0,
+      "kg": 289.9,
+      "qtdePedido": 3000.0,
+      "largura": 0.279,
+      "comprimento": 1.004,
+      "vinco": "x",
+      "bobina": 900.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262541"
+    },
+    {
       "id": "p580304_74e50",
       "cliente": "DR Embalagens",
       "lote": "DR EMBALAGENS 1189",
@@ -11087,7 +11107,7 @@
     }
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-09-10T17:26:29.659417Z",
+    "atualizadoEm": "2026-09-10T21:01:25.563586Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
