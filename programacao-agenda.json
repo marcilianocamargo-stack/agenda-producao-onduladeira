@@ -1402,6 +1402,26 @@
       "chave": "OF:262534"
     },
     {
+      "id": "p378962_sdahl",
+      "cliente": "ABAPEL COMERCIO DE EMBALAGENS LTDA",
+      "lote": "ABAPEL 1178",
+      "po": "P50D",
+      "of": "262610",
+      "oc": "8235",
+      "dataPedido": "14/09/2026",
+      "ml": 763.0,
+      "kg": 529.5,
+      "qtdePedido": 1000.0,
+      "largura": 0.645,
+      "comprimento": 1.526,
+      "vinco": "150x345x150",
+      "bobina": 1350.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262610"
+    },
+    {
       "id": "p168993_i1sby",
       "cliente": "HARMONY EMBALAGENS",
       "lote": "HARMONY EMBALAGENS 1180 P",
@@ -2240,6 +2260,26 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:262557"
+    },
+    {
+      "id": "p903102_3vvak",
+      "cliente": "CARPELL LTDA",
+      "lote": "CARPELL LTDA 1195",
+      "po": "P35B",
+      "of": "262609",
+      "oc": "W55R15",
+      "dataPedido": "15/09/2026",
+      "ml": 600.0,
+      "kg": 176.4,
+      "qtdePedido": 1000.0,
+      "largura": 0.284,
+      "comprimento": 1.8,
+      "vinco": "X",
+      "bobina": 900.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262609"
     },
     {
       "id": "p560930_7gl4x",
@@ -12591,7 +12631,7 @@
     }
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-09-15T11:31:35.312033Z",
+    "atualizadoEm": "2026-09-15T14:51:32.707734Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
