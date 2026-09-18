@@ -1122,26 +1122,6 @@
       "chave": "OF:262510"
     },
     {
-      "id": "p362521_xayg2",
-      "cliente": "ABAPEL COMERCIO DE EMBALAGENS LTDA",
-      "lote": "ABAPEL 1178",
-      "po": "P25C",
-      "of": "262509",
-      "oc": "8218",
-      "dataPedido": "08/09/2026",
-      "ml": 893.8,
-      "kg": 329.3,
-      "qtdePedido": 650.0,
-      "largura": 1.068,
-      "comprimento": 1.375,
-      "vinco": "85x898x85",
-      "bobina": 1100.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:262509"
-    },
-    {
       "id": "p378962_sdahl",
       "cliente": "ABAPEL COMERCIO DE EMBALAGENS LTDA",
       "lote": "ABAPEL 1178",
@@ -13396,10 +13376,34 @@
       "chapasProduzidas": 1080,
       "chapasPedido": 1000,
       "saldoChapas": 80
+    },
+    {
+      "id": "p362521_xayg2",
+      "cliente": "ABAPEL COMERCIO DE EMBALAGENS LTDA",
+      "lote": "ABAPEL 1178",
+      "po": "P25C",
+      "of": "262509",
+      "oc": "8218",
+      "dataPedido": "08/09/2026",
+      "ml": 893.8,
+      "kg": 329.3,
+      "qtdePedido": 650.0,
+      "largura": 1.068,
+      "comprimento": 1.375,
+      "vinco": "85x898x85",
+      "bobina": 1100.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262509",
+      "dataProduzido": "2026-09-17T12:00:00Z",
+      "chapasProduzidas": 680,
+      "chapasPedido": 650,
+      "saldoChapas": 30
     }
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-09-17T16:36:32.689942Z",
+    "atualizadoEm": "2026-09-18T08:46:30.914890Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -19832,6 +19836,18 @@
           "concluido": true,
           "dataRelatorio": "2026-09-15",
           "arquivo": "Producao_15-09-2026_turno-Noite_ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA-RM_Embalagens.pdf"
+        },
+        {
+          "of": "262509",
+          "oc": "8218",
+          "medida": "1,068 X 1,375",
+          "chapasPedido": 650,
+          "chapasProduzidas": 680,
+          "saldo": 30,
+          "pct": 104.6,
+          "concluido": true,
+          "dataRelatorio": "2026-09-17",
+          "arquivo": "Producao_17-09-2026_turno-Noite_ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA.pdf"
         }
       ],
       "1174 ABAPEL COMERCIO DE": [
@@ -19846,6 +19862,18 @@
           "concluido": true,
           "dataRelatorio": "2026-09-15",
           "arquivo": "Producao_15-09-2026_turno-Noite_ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA-RM_Embalagens.pdf"
+        },
+        {
+          "of": "262445",
+          "oc": "8207",
+          "medida": "1,009 X 1,439",
+          "chapasPedido": 6000,
+          "chapasProduzidas": 3765,
+          "saldo": -2235,
+          "pct": 62.7,
+          "concluido": false,
+          "dataRelatorio": "2026-09-17",
+          "arquivo": "Producao_17-09-2026_turno-Noite_ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA.pdf"
         }
       ],
       "CARPELL LTDA": [
