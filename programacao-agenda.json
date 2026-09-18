@@ -13403,7 +13403,7 @@
     }
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-09-18T08:46:30.914890Z",
+    "atualizadoEm": "2026-09-18T09:01:31.494193Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -14838,9 +14838,9 @@
           "oc": "8179",
           "medida": "1,238 X 2,050",
           "chapasPedido": 330,
-          "chapasProduzidas": 335,
-          "saldo": 5,
-          "pct": 101.5,
+          "chapasProduzidas": 500,
+          "saldo": 170,
+          "pct": 151.5,
           "concluido": true,
           "dataRelatorio": "2026-09-15",
           "arquivo": "Producao_15-09-2026_turno-Dia_HARMONY_EMBALAGENS-ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA-RM_Embalagens.xlsx"
