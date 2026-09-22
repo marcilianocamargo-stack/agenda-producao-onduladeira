@@ -305,6 +305,9 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 .dia-cal .cliente-linha i { width:5px; height:5px; border-radius:50%; display:inline-block; flex-shrink:0; }
 .dia-cal .kg-total-mini { font-size:8.5px; font-weight:800; color:#17324f; flex-shrink:0; }
 .dia-cal .valor-total-mini { font-size:8px; font-weight:800; color:#2e7d32; flex-shrink:0; }
+.dia-cal.parada { background:repeating-linear-gradient(45deg,#fdecea,#fdecea 6px,#fbdada 6px,#fbdada 12px); }
+.dia-cal.parada .num { color:#c62828; }
+.dia-cal .parada-label { font-size:8px; font-weight:800; color:#c62828; line-height:1.15; margin-top:2px; }
 
 .carga-row {
   display:flex; align-items:center; gap:8px; padding:9px 10px; border-radius:10px;
@@ -393,6 +396,7 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
       <span><i style="background:#f9a825"></i> quase cheio</span>
       <span><i style="background:#c62828"></i> lotado</span>
       <span><span style="width:11px;height:8px;background:#f7f0fb;border-radius:2px;display:inline-block"></span> tem reserva</span>
+      <span><span style="width:11px;height:8px;background:repeating-linear-gradient(45deg,#fdecea,#fdecea 3px,#fbdada 3px,#fbdada 6px);border-radius:2px;display:inline-block"></span> parada de máquina</span>
     </div>
     <div class="detalhe-dia-cal hidden" id="detalheDiaCalendario"></div>
     <div class="small-note">Toque num dia com produção pra ver os pedidos (cada aba do Excel é um pedido — um cliente pode ter mais de um).</div>
@@ -407,6 +411,27 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
       <div class="arq-status info" id="statusAuto">⏳ Buscando a programação do dia...</div>
       <button class="btn btn-outline" id="btnRecarregar" style="display:none">↻ Sincronizar com programacao-hoje.xlsx</button>
       <div class="small-note">Sincroniza com o <b>programacao-hoje.xlsx</b> publicado nesta mesma pasta do GitHub Pages (mesmo arquivo do Romaneio e das Etiquetas). É seguro sincronizar quantas vezes quiser: OF nova entra na fila; OF que você já moveu para "Aguardando" ou "Produzidos" continua lá; OF que sumir da planilha (expedida/cancelada) sai das listas daqui também. Nada que você já organizou é perdido.</div>
+    </div>
+
+    <div class="card">
+      <h2>🛑 Parada de Máquina</h2>
+      <p class="small-note" style="margin-bottom:12px">Marque os dias em que a onduladeira vai ficar parada (manutenção, feriado da fábrica etc). A agenda não encaixa nenhum pedido nesses dias — a fila desliza automaticamente para o próximo dia de produção disponível.</p>
+      <div class="row2">
+        <div class="field">
+          <label>De</label>
+          <input type="date" id="paradaInicio">
+        </div>
+        <div class="field">
+          <label>Até</label>
+          <input type="date" id="paradaFim">
+        </div>
+      </div>
+      <div class="field">
+        <label>Motivo (opcional)</label>
+        <input type="text" id="paradaMotivo" placeholder="Ex: Manutenção anual">
+      </div>
+      <button class="btn btn-danger" id="btnAddParada" style="margin:0 0 12px">Registrar parada</button>
+      <div id="listaParadasMaquina"></div>
     </div>
 
     <div class="card">
@@ -653,6 +678,7 @@ const DIAS_SEMANA_ABREV = ['dom','seg','ter','qua','qui','sex','sáb'];
 let pendentes = [];    // fila ativa: participa da projeção de capacidade
 let aguardando = [];   // existem, mas fora da projeção até liberar (ex: espera fechar carga)
 let produzidos = [];   // já fabricados, aguardando expedição (a OF continua controlada)
+let paradasMaquina = []; // [{id, inicio:'yyyy-mm-dd', fim:'yyyy-mm-dd', motivo}] — dias sem produção
 let seqCounter = 1;
 
 // Cargas de Bobina/Folha Simples (outro setor — só cliente, dia, kg opcional e valor total já
@@ -827,13 +853,23 @@ function inserirNoGrupo(lista, pedido){
   return nova;
 }
 
+// Período(s) de parada de máquina cadastrados pelo supervisor — enquanto durar, a agenda
+// trata esses dias como se não fossem dias úteis: nenhum pedido é encaixado neles, e todo
+// o cálculo (proximoDiaUtil, estadoAgora, calcularAgenda) desliza sozinho pro dia seguinte
+// porque tudo depende de ehDiaUtil.
+function paradaDoDia(d){
+  const k = chaveDiaISO(d);
+  return paradasMaquina.find(p => k >= p.inicio && k <= p.fim) || null;
+}
+function estaEmParada(d){ return !!paradaDoDia(d); }
+
 function proximoDiaUtil(d){
   let n = new Date(d);
   n.setDate(n.getDate()+1);
-  while(!DIAS_UTEIS.includes(n.getDay())) n.setDate(n.getDate()+1);
+  while(!ehDiaUtil(n)) n.setDate(n.getDate()+1);
   return n;
 }
-function ehDiaUtil(d){ return DIAS_UTEIS.includes(d.getDay()); }
+function ehDiaUtil(d){ return DIAS_UTEIS.includes(d.getDay()) && !estaEmParada(d); }
 function proximoDiaUtilAPartirDe(d){
   let n = new Date(d);
   while(!ehDiaUtil(n)) n.setDate(n.getDate()+1);
@@ -1378,7 +1414,7 @@ function renderCalendarioProducao(){
   const grid = document.getElementById('gridCalendario');
   const legenda = document.getElementById('legendaCalendario');
 
-  if (!pendentes.length && !cargas.length){
+  if (!pendentes.length && !cargas.length && !paradasMaquina.length){
     grid.innerHTML = '<p style="grid-column:1/-1;color:#6a8bb0;font-size:13px;text-align:center;padding:16px 0;">Fila vazia — nada para mostrar.</p>';
     legenda.innerHTML = '';
     renderDetalheDiaCalendario();
@@ -1435,14 +1471,18 @@ function criarCelulaCalendarioDia(dataCel, diaObj, corPorLote, hojeStr){
   const ehHoje = dataCel.toDateString() === hojeStr;
   const diaSemana = dataCel.getDay();
   const fds = diaSemana === 0 || diaSemana === 6;
+  const parada = paradaDoDia(dataCel);
   const temDadosChapa = !!diaObj && diaObj.itens.length > 0;
   const cargasDia = totaisCargasDoDia(chaveDiaISO(dataCel));
   const temCargas = cargasDia.itens.length > 0;
   const temDados = temDadosChapa || temCargas;
   const reservado = temDadosChapa && diaObj.itens.some(it => it.status === 'reservado');
-  el.className = 'dia-cal' + (ehHoje?' hoje':'') + (temDados?' tem-dados':'') + (reservado?' reservado':'') + (fds?' fds':'');
+  el.className = 'dia-cal' + (ehHoje?' hoje':'') + (temDados?' tem-dados':'') + (reservado?' reservado':'') + (fds?' fds':'') + (parada?' parada':'');
 
   let html = `<span class="num">${dataCel.getDate()}</span>`;
+  if (parada){
+    html += `<div class="parada-label" title="${escHtmlProg(parada.motivo || 'Parada de máquina')}">🛑 Parada</div>`;
+  }
   if (temDadosChapa){
     const min = diaObj.minUsados;
     const status = min >= CAP_MIN_DIA*0.95 ? 'lotado' : min >= CAP_MIN_DIA*0.6 ? 'quase' : 'livre';
@@ -1550,6 +1590,7 @@ function atualizarTudo(){
   renderCalendarioProducao();
   renderDatasReservadas();
   renderSemanaCaixas();
+  renderParadasMaquina();
 }
 
 // ===================== CONSULTA RÁPIDA: DATAS RESERVADAS =====================
@@ -1594,6 +1635,52 @@ function renderDatasReservadas(){
   });
   cont.innerHTML = html;
 }
+
+// ===================== PARADA DE MÁQUINA =====================
+function formatarPeriodoParada(p){
+  const ini = fmtDataISO(p.inicio), fim = fmtDataISO(p.fim);
+  return ini === fim ? ini : `${ini} a ${fim}`;
+}
+function renderParadasMaquina(){
+  const cont = document.getElementById('listaParadasMaquina');
+  if (!cont) return;
+  if (!paradasMaquina.length){
+    cont.innerHTML = '<p style="color:#6a8bb0;font-size:13px;">Nenhuma parada cadastrada.</p>';
+    return;
+  }
+  const ordenadas = [...paradasMaquina].sort((a,b) => a.inicio.localeCompare(b.inicio));
+  cont.innerHTML = ordenadas.map(p => `
+    <div class="carga-row">
+      <div class="info"><b>🛑 ${formatarPeriodoParada(p)}</b>${p.motivo ? '<br>'+escHtmlProg(p.motivo) : ''}</div>
+      <button type="button" class="mini-btn del" data-remover-parada="${p.id}">✕</button>
+    </div>`).join('');
+  cont.querySelectorAll('[data-remover-parada]').forEach(btn => {
+    btn.addEventListener('click', () => removerParadaMaquina(btn.getAttribute('data-remover-parada')));
+  });
+}
+function removerParadaMaquina(id){
+  paradasMaquina = paradasMaquina.filter(p => p.id !== id);
+  atualizarTudo();
+}
+document.getElementById('btnAddParada').addEventListener('click', () => {
+  const inicio = document.getElementById('paradaInicio').value;
+  const fim = document.getElementById('paradaFim').value || inicio;
+  const motivo = document.getElementById('paradaMotivo').value.trim();
+  if (!inicio){
+    mostrarBanner('Escolha ao menos a data de início da parada.', true);
+    return;
+  }
+  if (fim < inicio){
+    mostrarBanner('A data final não pode ser antes da data inicial.', true);
+    return;
+  }
+  paradasMaquina.push({ id: uid(), inicio, fim, motivo });
+  document.getElementById('paradaInicio').value = '';
+  document.getElementById('paradaFim').value = '';
+  document.getElementById('paradaMotivo').value = '';
+  atualizarTudo();
+  mostrarBanner('Parada registrada — a fila já pulou esses dias. Publique para valer em todos os dispositivos.', false);
+});
 
 // ===================== CAIXAS DA SEMANA (arrastar pedido/carga pro dia) =====================
 // Próximos 7 dias a partir de hoje (não é o mês do calendário — é sempre "esta semana pra
@@ -2255,7 +2342,8 @@ function payloadPublicacao(){
     geradoEm: new Date().toISOString(),
     pendentes: pendentes,
     aguardando: aguardando,
-    produzidos: produzidos
+    produzidos: produzidos,
+    paradasMaquina: paradasMaquina
   };
 }
 
@@ -2801,6 +2889,7 @@ async function carregarProgramacaoPublicada(){
     pendentes = achatarGrupos(agruparPorLote(normalizarLista(data.pendentes)));
     aguardando = normalizarLista(data.aguardando);
     produzidos = normalizarLista(data.produzidos);
+    paradasMaquina = (data.paradasMaquina || []).map(p => ({ ...p, id: p.id || uid() }));
   } catch (err){
     // ainda não existe fila publicada — tudo bem, a sincronização abaixo faz a carga inicial
   }
