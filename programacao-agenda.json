@@ -1742,6 +1742,26 @@
       "chave": "OF:262598"
     },
     {
+      "id": "p839364_hn73e",
+      "cliente": "ABAPEL COMERCIO DE EMBALAOENS LTDA",
+      "lote": "ABAPEL 1201",
+      "po": "P50D",
+      "of": "262681",
+      "oc": "8207",
+      "dataPedido": "23/09/2026",
+      "ml": 500.2,
+      "kg": 247.6,
+      "qtdePedido": 410.0,
+      "largura": 0.92,
+      "comprimento": 1.22,
+      "vinco": "x",
+      "bobina": 950.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262681"
+    },
+    {
       "id": "p929858_28fxy",
       "cliente": "PCBOX EMBALAGENS LTDA",
       "lote": "IPE - PC BOX 1203",
@@ -14295,7 +14315,7 @@
     }
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-09-23T09:41:34.757593Z",
+    "atualizadoEm": "2026-09-23T09:56:37.000563Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
