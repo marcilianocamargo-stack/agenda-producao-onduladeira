@@ -2740,6 +2740,26 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:262677"
+    },
+    {
+      "id": "p124389_uiwy2",
+      "cliente": "ABAPEL COMERCIO DE EMBALAGENS LTDA",
+      "lote": "ABAPEL 1196 P",
+      "po": "P50D",
+      "of": "262682",
+      "oc": "W55R23",
+      "dataPedido": "23/09/2026",
+      "ml": 958.5,
+      "kg": 600.8,
+      "qtdePedido": 450.0,
+      "largura": 1.165,
+      "comprimento": 2.13,
+      "vinco": "x",
+      "bobina": 1200.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262682"
     }
   ],
   "aguardando": [],
@@ -14315,7 +14335,7 @@
     }
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-09-23T09:56:37.000563Z",
+    "atualizadoEm": "2026-09-23T10:21:45.035215Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
