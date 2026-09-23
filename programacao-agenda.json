@@ -2782,6 +2782,46 @@
       "chave": "OF:262677"
     },
     {
+      "id": "p814946_wgth1",
+      "cliente": "PCBOX EMBALAGENS LTDA",
+      "lote": "PCBOX EMBALAGENS LTDA 1222",
+      "po": "P55D",
+      "of": "262703",
+      "oc": "1767",
+      "dataPedido": "23/09/2026",
+      "ml": 363.8,
+      "kg": 237.8,
+      "qtdePedido": 200.0,
+      "largura": 1.151,
+      "comprimento": 1.819,
+      "vinco": "x",
+      "bobina": 1200.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262703"
+    },
+    {
+      "id": "p734351_w9z01",
+      "cliente": "PCBOX EMBALAGENS LTDA",
+      "lote": "PCBOX EMBALAGENS LTDA 1222",
+      "po": "P25B",
+      "of": "262702",
+      "oc": "1765",
+      "dataPedido": "22/09/2026",
+      "ml": 461.0,
+      "kg": 190.4,
+      "qtdePedido": 1000.0,
+      "largura": 0.437,
+      "comprimento": 1.383,
+      "vinco": "x",
+      "bobina": 1350.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262702"
+    },
+    {
       "id": "p124389_uiwy2",
       "cliente": "ABAPEL COMERCIO DE EMBALAGENS LTDA",
       "lote": "ABAPEL 1196 P",
@@ -14715,7 +14755,7 @@
     }
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-09-23T16:11:42.872857Z",
+    "atualizadoEm": "2026-09-23T16:26:39.018533Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
