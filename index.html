@@ -167,12 +167,31 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 .reserva-linha input[type=date] { width:auto; padding:6px 8px; margin-bottom:0; font-size:13px; }
 
 /* ===== CAIXAS DA SEMANA (arrastar pedido/carga pro dia) ===== */
+.semana-nav { display:flex; align-items:stretch; gap:4px; margin-bottom:6px; }
+.semana-nav .semana-caixas { flex:1; min-width:0; margin-bottom:0; }
+.semana-seta {
+  flex:0 0 24px; width:24px; padding:0; border:none; border-radius:8px;
+  background:#eaf1fa; color:#1a56a0; font-size:22px; font-weight:800; line-height:1; cursor:pointer;
+}
+.semana-seta:hover:not(:disabled) { background:#dce7f6; }
+.semana-seta:disabled { opacity:.3; cursor:default; }
 .semana-caixas { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:6px; }
 .semana-caixa {
   background:#f4f8fc; border:1.5px dashed #c8d8ea; border-radius:8px; padding:4px 3px;
-  min-height:60px; font-size:9.5px;
+  min-height:60px; font-size:9.5px; cursor:pointer; min-width:0;
 }
 .semana-caixa.dragover { background:#eaf1fa; border-color:#1a56a0; border-style:solid; }
+.semana-caixa.parada {
+  background:repeating-linear-gradient(45deg,#fff3e0,#fff3e0 6px,#ffe8c7 6px,#ffe8c7 12px);
+  border:1.5px solid #e65100;
+}
+.semana-caixa.parada .semana-caixa-cab { color:#e65100; }
+.semana-parada-tag { text-align:center; font-weight:800; color:#e65100; font-size:8.5px; margin-bottom:3px; line-height:1.1; overflow:hidden; }
+.semana-chip > span:first-child { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; }
+@media (max-width:520px){
+  .semana-parada-tag { font-size:13px; }
+  .semana-parada-tag .txt { display:none; }   /* caixa estreita: só o 🔧 (o fundo laranja listrado já indica) */
+}
 .semana-caixa-cab { font-weight:800; color:#3a618f; text-align:center; margin-bottom:3px; line-height:1.2; text-transform:uppercase; }
 .semana-chip {
   background:#fff; border-radius:5px; padding:2px 4px; margin-bottom:2px; font-size:8.5px;
@@ -292,6 +311,9 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 .dia-cal.hoje { border-color:#43a047; background:#f3fbf3; }
 .dia-cal.reservado { background:#f7f0fb; }
 .dia-cal.reservado.hoje { background:linear-gradient(135deg,#f3fbf3 55%,#f7f0fb 55%); }
+.dia-cal.parada { background:#fff3e0; }
+.dia-cal.parada:not(.hoje) { border-color:#ffb74d; }
+.dia-cal .parada-mini { font-size:8px; font-weight:800; color:#e65100; margin-top:3px; line-height:1.1; }
 .dia-cal .pin { position:absolute; top:4px; right:15px; font-size:8px; }
 .dia-cal .status-dot { position:absolute; top:6px; right:5px; width:6px; height:6px; border-radius:50%; }
 .dia-cal .status-dot.livre { background:#43a047; }
@@ -393,6 +415,7 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
       <span><i style="background:#f9a825"></i> quase cheio</span>
       <span><i style="background:#c62828"></i> lotado</span>
       <span><span style="width:11px;height:8px;background:#f7f0fb;border-radius:2px;display:inline-block"></span> tem reserva</span>
+      <span><span style="width:11px;height:8px;background:#fff3e0;border:1px solid #ffb74d;border-radius:2px;display:inline-block"></span> 🔧 parada de máquina</span>
     </div>
     <div class="detalhe-dia-cal hidden" id="detalheDiaCalendario"></div>
     <div class="small-note">Toque num dia com produção pra ver os pedidos (cada aba do Excel é um pedido — um cliente pode ter mais de um).</div>
@@ -467,8 +490,12 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
       <button class="btn btn-outline" id="btnIntercalarGrandes" style="margin-top:10px">🔀 Intercalar clientes grandes (mais antigos primeiro)</button>
       <div class="small-note" style="margin-bottom:10px">Reordena a fila: dentro de cada cliente, a OC mais antiga vem primeiro; entre clientes diferentes (nº de OC de um não tem nada a ver com o do outro), usa a Data Pedido quando a planilha tem, senão mantém a ordem em que já estavam na fila. Cliente com fila grande produz em blocos de ~7 a 8 mil kg intercalados com os outros — em vez de travar todo mundo atrás de um só. Você ainda pode arrastar (⠿) pra ajustar manualmente depois.</div>
 
-      <div class="small-note" style="margin-bottom:4px"><b>📅 Arraste um pedido (⠿) pro dia da semana</b> pra reservar a data — vale pra Chapa; Bobina/Folha Simples aparecem aqui também (lançadas pelo card abaixo).</div>
-      <div class="semana-caixas" id="semanaCaixas"></div>
+      <div class="small-note" style="margin-bottom:4px"><b>📅 Arraste um pedido (⠿) pro dia da semana</b> pra reservar a data — vale pra Chapa; Bobina/Folha Simples aparecem aqui também (lançadas pelo card abaixo). <b>🔧 Toque num dia</b> pra marcar (ou remover) uma <b>parada de máquina</b>: nesse dia nenhum turno trabalha e a fila pula pro próximo dia útil. Use as setas ‹ › pra ver outras semanas.</div>
+      <div class="semana-nav">
+        <button type="button" class="semana-seta" id="btnSemanaAnterior" aria-label="Semana anterior">‹</button>
+        <div class="semana-caixas" id="semanaCaixas"></div>
+        <button type="button" class="semana-seta" id="btnSemanaSeguinte" aria-label="Próxima semana">›</button>
+      </div>
 
       <div id="painelFila">
         <div class="barra-selecao hidden" id="barraSelecao">
@@ -653,6 +680,7 @@ const DIAS_SEMANA_ABREV = ['dom','seg','ter','qua','qui','sex','sáb'];
 let pendentes = [];    // fila ativa: participa da projeção de capacidade
 let aguardando = [];   // existem, mas fora da projeção até liberar (ex: espera fechar carga)
 let produzidos = [];   // já fabricados, aguardando expedição (a OF continua controlada)
+let paradas = [];      // dias (yyyy-mm-dd) de parada de máquina/manutenção: nenhum turno trabalha
 let seqCounter = 1;
 
 // Cargas de Bobina/Folha Simples (outro setor — só cliente, dia, kg opcional e valor total já
@@ -716,6 +744,14 @@ function chaveDiaISO(d){
 function fmtDataISO(iso){
   const [y,m,d] = iso.split('-').map(Number);
   return String(d).padStart(2,'0')+'/'+String(m).padStart(2,'0');
+}
+
+// Parada de máquina (manutenção): o dia inteiro fica sem turno. Pra projeção vale como
+// feriado — ehDiaUtil/proximoDiaUtil pulam esses dias, então a fila e as reservas seguem
+// sozinhas pro próximo dia útil. Vai publicada no programacao-agenda.json (campo `paradas`).
+function ehParada(d){ return paradas.includes(chaveDiaISO(d)); }
+function normalizarParadas(lista){
+  return [...new Set((lista || []).filter(k => /^\d{4}-\d{2}-\d{2}$/.test(k)))].sort();
 }
 
 // ===================== AGRUPAMENTO POR PEDIDO (cada aba do Excel = 1 pedido) =====================
@@ -830,10 +866,10 @@ function inserirNoGrupo(lista, pedido){
 function proximoDiaUtil(d){
   let n = new Date(d);
   n.setDate(n.getDate()+1);
-  while(!DIAS_UTEIS.includes(n.getDay())) n.setDate(n.getDate()+1);
+  while(!ehDiaUtil(n)) n.setDate(n.getDate()+1);
   return n;
 }
-function ehDiaUtil(d){ return DIAS_UTEIS.includes(d.getDay()); }
+function ehDiaUtil(d){ return DIAS_UTEIS.includes(d.getDay()) && !ehParada(d); }
 function proximoDiaUtilAPartirDe(d){
   let n = new Date(d);
   while(!ehDiaUtil(n)) n.setDate(n.getDate()+1);
@@ -1228,6 +1264,11 @@ function renderFilaSupervisor(){
       const idx = pendentes.findIndex(p => p.id === id);
       if (idx === -1) return;
       const data = inp.value;
+      if (data && paradas.includes(data)){
+        mostrarBanner(`${fmtDataISO(data)} é dia de parada de máquina — nenhum turno trabalha. Escolha outro dia.`, true);
+        inp.value = pendentes[idx].dataReservada || '';
+        return;
+      }
       if (data){
         const p = pendentes[idx];
         const minNecessario = tempoPedido(p, null);
@@ -1440,9 +1481,11 @@ function criarCelulaCalendarioDia(dataCel, diaObj, corPorLote, hojeStr){
   const temCargas = cargasDia.itens.length > 0;
   const temDados = temDadosChapa || temCargas;
   const reservado = temDadosChapa && diaObj.itens.some(it => it.status === 'reservado');
-  el.className = 'dia-cal' + (ehHoje?' hoje':'') + (temDados?' tem-dados':'') + (reservado?' reservado':'') + (fds?' fds':'');
+  const parada = ehParada(dataCel);
+  el.className = 'dia-cal' + (ehHoje?' hoje':'') + (temDados?' tem-dados':'') + (reservado?' reservado':'') + (fds?' fds':'') + (parada?' parada':'');
 
   let html = `<span class="num">${dataCel.getDate()}</span>`;
+  if (parada) html += `<div class="parada-mini">🔧 parada</div>`;
   if (temDadosChapa){
     const min = diaObj.minUsados;
     const status = min >= CAP_MIN_DIA*0.95 ? 'lotado' : min >= CAP_MIN_DIA*0.6 ? 'quase' : 'livre';
@@ -1601,28 +1644,73 @@ function renderDatasReservadas(){
 // pedido de Chapa aqui fixa `dataReservada` (mesmo campo do "📌 Reservar data"); soltar uma
 // carga de Bobina/Folha Simples move o `dia` dela. O "✕" no chip desfaz a reserva (Chapa) ou
 // apaga a carga (Bobina/Folha, que não tem estado "sem dia").
+// As setas ‹ › deslocam a faixa de 7 em 7 dias (carrossel) — dá pra reservar/marcar parada
+// em semanas futuras. Tocar num dia marca/remove a 🔧 parada de máquina (ver alternarParada).
+let semanaOffsetDias = 0;
+document.getElementById('btnSemanaAnterior').addEventListener('click', () => {
+  semanaOffsetDias = Math.max(0, semanaOffsetDias - 7);
+  renderSemanaCaixas();
+});
+document.getElementById('btnSemanaSeguinte').addEventListener('click', () => {
+  semanaOffsetDias += 7;
+  renderSemanaCaixas();
+});
+
+function alternarParada(k){
+  const [y,m,d] = k.split('-').map(Number);
+  const dt = new Date(y, m-1, d);
+  const rotulo = `${nomeDia(dt)}, ${fmtDataISO(k)}`;
+
+  if (paradas.includes(k)){
+    if (!confirm(`Remover a parada de máquina de ${rotulo}?\n\nO dia volta a ter produção normal.`)) return;
+    paradas = paradas.filter(x => x !== k);
+    atualizarTudo();
+    mostrarBanner(`Parada removida de ${fmtDataISO(k)}. Clique em "📤 Publicar direto no GitHub" pra valer pra todo mundo.`, false);
+    return;
+  }
+  if (!DIAS_UTEIS.includes(dt.getDay())){
+    mostrarBanner(`${rotulo} já é fim de semana (sem produção) — não precisa de parada.`, true);
+    return;
+  }
+  const reservados = pendentes.filter(p => p.dataReservada === k).length;
+  const aviso = reservados
+    ? `\n\n⚠ ${reservados} pedido(s) reservado(s) pra essa data vão ser empurrados pro próximo dia útil (a reserva fica guardada e volta se você remover a parada).`
+    : '';
+  if (!confirm(`🔧 Marcar PARADA DE MÁQUINA em ${rotulo}?\n\nNenhum turno vai trabalhar nesse dia — a fila pula pro próximo dia útil.${aviso}`)) return;
+  paradas = normalizarParadas([...paradas, k]);
+  atualizarTudo();
+  mostrarBanner(`🔧 Parada marcada em ${fmtDataISO(k)}. Clique em "📤 Publicar direto no GitHub" pra valer pra todo mundo.`, false);
+}
+
 function renderSemanaCaixas(){
   const cont = document.getElementById('semanaCaixas');
   if (!cont) return;
   const hoje = new Date();
   const dias = [];
-  for (let i=0;i<7;i++){ const d = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate()+i); dias.push(d); }
+  for (let i=0;i<7;i++){ const d = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate()+semanaOffsetDias+i); dias.push(d); }
+  document.getElementById('btnSemanaAnterior').disabled = semanaOffsetDias <= 0;
 
   cont.innerHTML = dias.map(d => {
     const k = chaveDiaISO(d);
+    const parada = ehParada(d);
     const chapasDoDia = pendentes.filter(p => p.dataReservada === k);
     const cargasDoDia = cargas.filter(c => c.dia === k);
     const chips = [
       ...chapasDoDia.map(p => `<div class="semana-chip" title="${escHtmlProg(p.cliente)}"><span>${escHtmlProg(String(p.cliente||'').split(' ')[0])}</span><span class="semana-chip-x" data-remover="pedido|${p.id}">✕</span></div>`),
       ...cargasDoDia.map(c => `<div class="semana-chip" title="${escHtmlProg(c.cliente)} · ${nomeProduto(c.produto)}"><span>${escHtmlProg(String(c.cliente||'').split(' ')[0])} · ${nomeProduto(c.produto)}</span><span class="semana-chip-x" data-remover="carga|${c.id}">✕</span></div>`)
     ].join('');
-    return `<div class="semana-caixa" data-dia="${k}">
-      <div class="semana-caixa-cab">${nomeDiaAbrev(d)}<br>${String(d.getDate()).padStart(2,'0')}</div>
+    return `<div class="semana-caixa${parada?' parada':''}" data-dia="${k}" title="${parada ? 'Parada de máquina — toque pra remover' : 'Toque pra marcar parada de máquina'}">
+      <div class="semana-caixa-cab">${nomeDiaAbrev(d)}<br>${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}</div>
+      ${parada ? '<div class="semana-parada-tag">🔧<span class="txt"> PARADA</span></div>' : ''}
       ${chips}
     </div>`;
   }).join('');
 
   cont.querySelectorAll('.semana-caixa').forEach(caixa => {
+    caixa.addEventListener('click', e => {
+      if (e.target.closest('.semana-chip')) return;   // ✕ do chip tem ação própria
+      alternarParada(caixa.dataset.dia);
+    });
     caixa.addEventListener('dragover', e => { e.preventDefault(); caixa.classList.add('dragover'); });
     caixa.addEventListener('dragleave', () => caixa.classList.remove('dragover'));
     caixa.addEventListener('drop', e => {
@@ -1632,6 +1720,10 @@ function renderSemanaCaixas(){
       if (!payload) return;
       const [tipo, id] = payload.split('|');
       const dia = caixa.dataset.dia;
+      if ((tipo === 'pedido' || tipo === 'grupo') && paradas.includes(dia)){
+        mostrarBanner(`${fmtDataISO(dia)} é dia de parada de máquina — nenhum turno trabalha. Escolha outro dia.`, true);
+        return;
+      }
       if (tipo === 'pedido'){
         const p = pendentes.find(pp => pp.id === id);
         if (p) p.dataReservada = dia;
@@ -1785,6 +1877,10 @@ document.getElementById('btnReservarSelecionados').addEventListener('click', () 
   const ids = Array.from(selecionadosProduzir);
   if (!ids.length) return;
   if (!data){ mostrarBanner('Escolha uma data antes de reservar.', true); return; }
+  if (paradas.includes(data)){
+    mostrarBanner(`${fmtDataISO(data)} é dia de parada de máquina — nenhum turno trabalha. Escolha outro dia.`, true);
+    return;
+  }
 
   // sequência do lote: o 1º paga uma troca típica, os seguintes pagam a troca
   // real em relação ao anterior — igual ao que a máquina vai fazer.
@@ -1824,6 +1920,11 @@ document.getElementById('dataReservaLote').addEventListener('input', () => {
   const data = document.getElementById('dataReservaLote').value;
   const preview = document.getElementById('previewReservaLote');
   if (!data){ preview.textContent = ''; preview.style.color = ''; return; }
+  if (paradas.includes(data)){
+    preview.textContent = `🔧 ${fmtDataISO(data)} é dia de parada de máquina — nenhum turno trabalha`;
+    preview.style.color = '#c62828';
+    return;
+  }
   const r = resumoReservaData(data);
   if (r.minReservado > 0.01){
     preview.textContent = `📌 ${fmtDataISO(data)} já tem ${r.minReservado} min reservados (${r.clientes.map(c=>c.nome).join(', ')}) · ${r.minLivre} min livres`;
@@ -2255,7 +2356,8 @@ function payloadPublicacao(){
     geradoEm: new Date().toISOString(),
     pendentes: pendentes,
     aguardando: aguardando,
-    produzidos: produzidos
+    produzidos: produzidos,
+    paradas: normalizarParadas(paradas)
   };
 }
 
@@ -2801,6 +2903,7 @@ async function carregarProgramacaoPublicada(){
     pendentes = achatarGrupos(agruparPorLote(normalizarLista(data.pendentes)));
     aguardando = normalizarLista(data.aguardando);
     produzidos = normalizarLista(data.produzidos);
+    paradas = normalizarParadas(data.paradas);
   } catch (err){
     // ainda não existe fila publicada — tudo bem, a sincronização abaixo faz a carga inicial
   }
