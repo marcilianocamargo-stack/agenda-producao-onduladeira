@@ -242,26 +242,6 @@
       "chave": "OF:262569"
     },
     {
-      "id": "p760334_4pvgt",
-      "cliente": "HARMONY EMBALAGENS",
-      "lote": "HARMONY EMBALAGENS 1200",
-      "po": "P70D",
-      "of": "262596",
-      "oc": "214092026",
-      "dataPedido": "14/09/2026",
-      "ml": 3382,
-      "kg": 2556.4,
-      "qtdePedido": 2000,
-      "largura": 1.196,
-      "comprimento": 1.691,
-      "vinco": "213x770x213",
-      "bobina": 1250,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262596"
-    },
-    {
       "id": "p170423_vouwz",
       "cliente": "ABAPEL COMERCIO DE EMBALAGENS LTDA",
       "lote": "ABAPEL 1201",
@@ -1022,26 +1002,6 @@
       "chave": "OF:262658"
     },
     {
-      "id": "p165913_mrxvw",
-      "cliente": "HARMONY EMBALAGENS",
-      "lote": "HARMONY EMBALAGENS 1217",
-      "po": "P25B",
-      "of": "262656",
-      "oc": "18-09-26",
-      "dataPedido": "18/09/2026",
-      "ml": 346.5,
-      "kg": 166.3,
-      "qtdePedido": 1000,
-      "largura": 0.762,
-      "comprimento": 0.693,
-      "vinco": "71x620x71",
-      "bobina": 1550,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262656"
-    },
-    {
       "id": "p175857_7avi6",
       "cliente": "HARMONY EMBALAGENS",
       "lote": "HARMONY EMBALAGENS 1217",
@@ -1180,26 +1140,6 @@
       "precoKg": 0,
       "valor": 0,
       "chave": "OF:262660"
-    },
-    {
-      "id": "p500996_2wncu",
-      "cliente": "HARMONY EMBALAGENS",
-      "lote": "HARMONY EMBALAGENS 1217",
-      "po": "P25B",
-      "of": "262659",
-      "oc": "18-09-26",
-      "dataPedido": "18/09/2026",
-      "ml": 1093.5,
-      "kg": 253.5,
-      "qtdePedido": 3000,
-      "largura": 0.368,
-      "comprimento": 0.729,
-      "vinco": "120x128x120",
-      "bobina": 800,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262659"
     },
     {
       "id": "p992355_yzrru",
@@ -1620,26 +1560,6 @@
       "precoKg": 0,
       "valor": 0,
       "chave": "OF:262695"
-    },
-    {
-      "id": "p870784_bnv1l",
-      "cliente": "RM Embalagens ( Daiane Marques Canossa ME",
-      "lote": "RM Embalagens P",
-      "po": "P25B",
-      "of": "262697",
-      "oc": "6",
-      "dataPedido": "19/09/2026",
-      "ml": 719.5,
-      "kg": 311,
-      "qtdePedido": 1170,
-      "largura": 0.686,
-      "comprimento": 1.23,
-      "vinco": "x",
-      "bobina": 1400,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262697"
     },
     {
       "id": "p790739_6l0no",
@@ -3847,6 +3767,102 @@
       "chapasProduzidas": 5300,
       "chapasPedido": 5000,
       "saldoChapas": 300
+    },
+    {
+      "id": "p760334_4pvgt",
+      "cliente": "HARMONY EMBALAGENS",
+      "lote": "HARMONY EMBALAGENS 1200",
+      "po": "P70D",
+      "of": "262596",
+      "oc": "214092026",
+      "dataPedido": "14/09/2026",
+      "ml": 3382,
+      "kg": 2556.4,
+      "qtdePedido": 2000,
+      "largura": 1.196,
+      "comprimento": 1.691,
+      "vinco": "213x770x213",
+      "bobina": 1250,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262596",
+      "dataProduzido": "2026-09-26T12:00:00Z",
+      "chapasProduzidas": 2005,
+      "chapasPedido": 2000,
+      "saldoChapas": 5
+    },
+    {
+      "id": "p165913_mrxvw",
+      "cliente": "HARMONY EMBALAGENS",
+      "lote": "HARMONY EMBALAGENS 1217",
+      "po": "P25B",
+      "of": "262656",
+      "oc": "18-09-26",
+      "dataPedido": "18/09/2026",
+      "ml": 346.5,
+      "kg": 166.3,
+      "qtdePedido": 1000,
+      "largura": 0.762,
+      "comprimento": 0.693,
+      "vinco": "71x620x71",
+      "bobina": 1550,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262656",
+      "dataProduzido": "2026-09-26T12:00:00Z",
+      "chapasProduzidas": 990,
+      "chapasPedido": 1000,
+      "saldoChapas": -10
+    },
+    {
+      "id": "p500996_2wncu",
+      "cliente": "HARMONY EMBALAGENS",
+      "lote": "HARMONY EMBALAGENS 1217",
+      "po": "P25B",
+      "of": "262659",
+      "oc": "18-09-26",
+      "dataPedido": "18/09/2026",
+      "ml": 1093.5,
+      "kg": 253.5,
+      "qtdePedido": 3000,
+      "largura": 0.368,
+      "comprimento": 0.729,
+      "vinco": "120x128x120",
+      "bobina": 800,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262659",
+      "dataProduzido": "2026-09-26T12:00:00Z",
+      "chapasProduzidas": 3160,
+      "chapasPedido": 3000,
+      "saldoChapas": 160
+    },
+    {
+      "id": "p870784_bnv1l",
+      "cliente": "RM Embalagens ( Daiane Marques Canossa ME",
+      "lote": "RM Embalagens P",
+      "po": "P25B",
+      "of": "262697",
+      "oc": "6",
+      "dataPedido": "19/09/2026",
+      "ml": 719.5,
+      "kg": 311,
+      "qtdePedido": 1170,
+      "largura": 0.686,
+      "comprimento": 1.23,
+      "vinco": "x",
+      "bobina": 1400,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262697",
+      "dataProduzido": "2026-09-26T12:00:00Z",
+      "chapasProduzidas": 1180,
+      "chapasPedido": 1170,
+      "saldoChapas": 10
     }
   ],
   "paradas": [
@@ -3856,7 +3872,7 @@
     "2026-10-01"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-09-28T09:41:25.417634Z",
+    "atualizadoEm": "2026-09-28T10:46:29.478570Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -12755,6 +12771,18 @@
           "concluido": true,
           "dataRelatorio": "2026-09-23",
           "arquivo": "Producao_23-09-2026_turno-Noite_HARMONY_EMBALAGENS-RM_Embalagens_(_Daiane_Marques_Canossa_ME.pdf"
+        },
+        {
+          "of": "262596",
+          "oc": "21409202",
+          "medida": "1,196 X 1,691",
+          "chapasPedido": 2000,
+          "chapasProduzidas": 2005,
+          "saldo": 5,
+          "pct": 100.2,
+          "concluido": true,
+          "dataRelatorio": "2026-09-26",
+          "arquivo": "Producao_26-09-2026_turno-Noite_HARMONY_EMBALAGENS-RM_Embalagens_(_Daiane_Marques_Canossa_ME-IPE_EMBALAGENS_LTDA.pdf"
         }
       ],
       "8027 ABAPEL": [
@@ -12881,6 +12909,18 @@
           "concluido": true,
           "dataRelatorio": "2026-09-23",
           "arquivo": "Producao_23-09-2026_turno-Noite_HARMONY_EMBALAGENS-RM_Embalagens_(_Daiane_Marques_Canossa_ME.pdf"
+        },
+        {
+          "of": "262697",
+          "oc": "6",
+          "medida": "0,686 X 1,230",
+          "chapasPedido": 1170,
+          "chapasProduzidas": 1180,
+          "saldo": 10,
+          "pct": 100.9,
+          "concluido": true,
+          "dataRelatorio": "2026-09-26",
+          "arquivo": "Producao_26-09-2026_turno-Noite_HARMONY_EMBALAGENS-RM_Embalagens_(_Daiane_Marques_Canossa_ME-IPE_EMBALAGENS_LTDA.pdf"
         }
       ],
       "1018 HARMONY": [
@@ -13215,6 +13255,46 @@
           "concluido": true,
           "dataRelatorio": "2026-08-26",
           "arquivo": "Producao_26-08-2026_turno-Noite_J_Fer-PCBOX_EMBALAGENS_LTDA-IPE_EMBALAGENS_LTDA+2.pdf"
+        }
+      ],
+      "1217 HARMONY EMBALAGEN": [
+        {
+          "of": "262656",
+          "oc": "18-09-26",
+          "medida": "0,762 X 0,693",
+          "chapasPedido": 1000,
+          "chapasProduzidas": 990,
+          "saldo": -10,
+          "pct": 99.0,
+          "concluido": true,
+          "dataRelatorio": "2026-09-26",
+          "arquivo": "Producao_26-09-2026_turno-Noite_HARMONY_EMBALAGENS-RM_Embalagens_(_Daiane_Marques_Canossa_ME-IPE_EMBALAGENS_LTDA.pdf"
+        },
+        {
+          "of": "262659",
+          "oc": "18-09-26",
+          "medida": "0,368 X 0,729",
+          "chapasPedido": 3000,
+          "chapasProduzidas": 3160,
+          "saldo": 160,
+          "pct": 105.3,
+          "concluido": true,
+          "dataRelatorio": "2026-09-26",
+          "arquivo": "Producao_26-09-2026_turno-Noite_HARMONY_EMBALAGENS-RM_Embalagens_(_Daiane_Marques_Canossa_ME-IPE_EMBALAGENS_LTDA.pdf"
+        }
+      ],
+      "1212 IPE EMBALAGENS LTDA": [
+        {
+          "of": "262636",
+          "oc": "1741",
+          "medida": "0,559 X 1,389",
+          "chapasPedido": 5000,
+          "chapasProduzidas": 4390,
+          "saldo": -610,
+          "pct": 87.8,
+          "concluido": false,
+          "dataRelatorio": "2026-09-26",
+          "arquivo": "Producao_26-09-2026_turno-Noite_HARMONY_EMBALAGENS-RM_Embalagens_(_Daiane_Marques_Canossa_ME-IPE_EMBALAGENS_LTDA.pdf"
         }
       ],
       "DR EMBALAGENS": [
