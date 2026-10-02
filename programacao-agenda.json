@@ -1782,6 +1782,26 @@
       "chave": "OF:262836"
     },
     {
+      "id": "p102551_6h0ak",
+      "cliente": "IPE EMBALAGENS LTDA",
+      "lote": "PCBOX EMBALAGENS LTDA 1233",
+      "po": "P25B",
+      "of": "262864",
+      "oc": "1798",
+      "dataPedido": "02/10/2026",
+      "ml": 1066.7,
+      "kg": 1310.4,
+      "qtdePedido": 2000.0,
+      "largura": 1.3,
+      "comprimento": 1.6,
+      "vinco": "x",
+      "bobina": 1550.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262864"
+    },
+    {
       "id": "p649948_fg1gm",
       "cliente": "Renovapel Reciclagem de Papeis Ltda",
       "lote": "Renovapel 1235",
@@ -6420,7 +6440,7 @@
     "2026-10-01"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-02T14:51:34.493251Z",
+    "atualizadoEm": "2026-10-02T15:36:35.077766Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
