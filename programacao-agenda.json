@@ -2742,6 +2742,46 @@
       "chave": "OF:262791"
     },
     {
+      "id": "p425501_73gbx",
+      "cliente": "VÔ CHICO",
+      "lote": "Tole. DR EMB. VO CH S. M 1241",
+      "po": "P25B",
+      "of": "262827",
+      "oc": "W55R0210",
+      "dataPedido": "02/10/2026",
+      "ml": 235.0,
+      "kg": 108.1,
+      "qtdePedido": 1000.0,
+      "largura": 0.73,
+      "comprimento": 0.47,
+      "vinco": "x",
+      "bobina": 1500.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262827"
+    },
+    {
+      "id": "p519123_o6zdu",
+      "cliente": "VÔ CHICO",
+      "lote": "Tole. DR EMB. VO CH S. M 1241",
+      "po": "P25B",
+      "of": "262826",
+      "oc": "W55R02110",
+      "dataPedido": "01/10/2026",
+      "ml": 500.0,
+      "kg": 126.0,
+      "qtdePedido": 1000.0,
+      "largura": 0.8,
+      "comprimento": 0.5,
+      "vinco": "x",
+      "bobina": 850.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262826"
+    },
+    {
       "id": "p592845_4868t",
       "cliente": "Renovapel Reciclagem de Papeis Ltda",
       "lote": "Renovapel 1242 P",
@@ -5584,7 +5624,7 @@
     "2026-10-01"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-02T08:51:30.508379Z",
+    "atualizadoEm": "2026-10-02T09:16:32.426486Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
