@@ -2700,6 +2700,46 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:262866"
+    },
+    {
+      "id": "p107932_lv5b5",
+      "cliente": "RR STELLA",
+      "lote": "RR STELLA 1253",
+      "po": "PW50B",
+      "of": "262868",
+      "oc": "1131",
+      "dataPedido": "02/10/2026",
+      "ml": 720.0,
+      "kg": 402.3,
+      "qtdePedido": 2000.0,
+      "largura": 0.72,
+      "comprimento": 0.72,
+      "vinco": "x",
+      "bobina": 1500.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262868"
+    },
+    {
+      "id": "p996103_idl10",
+      "cliente": "RR STELLA",
+      "lote": "RR STELLA 1253",
+      "po": "PW50B",
+      "of": "262867",
+      "oc": "1130",
+      "dataPedido": "02/10/2026",
+      "ml": 3500.0,
+      "kg": 1846.9,
+      "qtdePedido": 7000.0,
+      "largura": 0.68,
+      "comprimento": 1.0,
+      "vinco": "x",
+      "bobina": 1400.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262867"
     }
   ],
   "aguardando": [],
@@ -6624,7 +6664,7 @@
     "2026-10-01"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-05T10:11:39.752554Z",
+    "atualizadoEm": "2026-10-05T10:31:44.117010Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
