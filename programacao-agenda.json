@@ -2740,6 +2740,26 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:262867"
+    },
+    {
+      "id": "p14230_t4sqs",
+      "cliente": "IPE EMBALAGENS LTDA",
+      "lote": "IPE EMBALAGENS LTDA 1254",
+      "po": "P25B",
+      "of": "262870",
+      "oc": "1800",
+      "dataPedido": "05/10/2026",
+      "ml": 365.8,
+      "kg": 107.9,
+      "qtdePedido": 200.0,
+      "largura": 0.936,
+      "comprimento": 1.829,
+      "vinco": "x",
+      "bobina": 1000.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262870"
     }
   ],
   "aguardando": [],
@@ -6664,7 +6684,7 @@
     "2026-10-01"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-05T10:31:44.117010Z",
+    "atualizadoEm": "2026-10-05T14:26:39.297651Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
