@@ -1762,6 +1762,26 @@
       "chave": "OF:262866"
     },
     {
+      "id": "p632559_gqebp",
+      "cliente": "FAVINCO",
+      "lote": "FAVINCO EMBALAGENS 1252",
+      "po": "P40B",
+      "of": "262890",
+      "oc": "085",
+      "dataPedido": "06/10/2026",
+      "ml": 725.0,
+      "kg": 283.1,
+      "qtdePedido": 1000.0,
+      "largura": 0.55,
+      "comprimento": 1.45,
+      "vinco": "125x300x125",
+      "bobina": 1150.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262890"
+    },
+    {
       "id": "p107932_lv5b5",
       "cliente": "RR STELLA",
       "lote": "RR STELLA 1253",
@@ -6397,7 +6417,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-06T15:56:45.143324Z",
+    "atualizadoEm": "2026-10-06T16:36:44.205908Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
