@@ -2302,6 +2302,26 @@
       "chave": "OF:262930"
     },
     {
+      "id": "p249820_hm8wl",
+      "cliente": "FAVINCO.",
+      "lote": "FAVINCO EMBALAGENS 1252 P",
+      "po": "P60C",
+      "of": "262932",
+      "oc": "087",
+      "dataPedido": "07/10/2026",
+      "ml": 424.059,
+      "kg": 186.6,
+      "qtdePedido": 450.0,
+      "largura": 0.567,
+      "comprimento": 1.662,
+      "vinco": "163x241x163",
+      "bobina": 1200.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262932"
+    },
+    {
       "id": "p292826_raqc6",
       "cliente": "PCBOX EMBALAGENS LTDA",
       "lote": "PCBOX  - IPE 1266 P",
@@ -7361,7 +7381,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-08T11:51:44.933764Z",
+    "atualizadoEm": "2026-10-08T14:21:50.562000Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
