@@ -2242,6 +2242,26 @@
       "chave": "OF:262918"
     },
     {
+      "id": "p230870_2jeu5",
+      "cliente": "PROGRAMAÇÃO ONDULADEIRA - Tolecaixas Indústria e Comércio Ltda",
+      "lote": "Tolecaixas 1264",
+      "po": "PW40B",
+      "of": "262931",
+      "oc": "71026",
+      "dataPedido": "08/10/2026",
+      "ml": 951.3,
+      "kg": 500.0,
+      "qtdePedido": 2283.0,
+      "largura": 0.48,
+      "comprimento": 1.25,
+      "vinco": "x",
+      "bobina": 1500.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262931"
+    },
+    {
       "id": "p435096_6x41a",
       "cliente": "FAVINCO",
       "lote": "FAVINCO EMBALAGENS 1252 P",
@@ -7341,7 +7361,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-08T09:26:46.269805Z",
+    "atualizadoEm": "2026-10-08T11:51:44.933764Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
