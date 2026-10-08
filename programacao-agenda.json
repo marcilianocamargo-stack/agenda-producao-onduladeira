@@ -302,26 +302,6 @@
       "chave": "OF:262770"
     },
     {
-      "id": "p688585_ux5b2",
-      "cliente": "ABAPEL COMERCIO DE EMBALAGENS LTDA",
-      "lote": "ABAPEL 1213",
-      "po": "P50D",
-      "of": "262768",
-      "oc": "8253",
-      "dataPedido": "18/09/2026",
-      "ml": 936,
-      "kg": 580.1,
-      "qtdePedido": 400,
-      "largura": 1.152,
-      "comprimento": 2.34,
-      "vinco": "276x600x276",
-      "bobina": 1200,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262768"
-    },
-    {
       "id": "p858882_pk30g",
       "cliente": "ABAPEL COMERCIO DE EMBALAGENS LTDA",
       "lote": "ABAPEL 1213",
@@ -7327,6 +7307,30 @@
       "chapasProduzidas": 260,
       "chapasPedido": 258,
       "saldoChapas": 2
+    },
+    {
+      "id": "p688585_ux5b2",
+      "cliente": "ABAPEL COMERCIO DE EMBALAGENS LTDA",
+      "lote": "ABAPEL 1213",
+      "po": "P50D",
+      "of": "262768",
+      "oc": "8253",
+      "dataPedido": "18/09/2026",
+      "ml": 936,
+      "kg": 580.1,
+      "qtdePedido": 400,
+      "largura": 1.152,
+      "comprimento": 2.34,
+      "vinco": "276x600x276",
+      "bobina": 1200,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262768",
+      "dataProduzido": "2026-10-07T12:00:00Z",
+      "chapasProduzidas": 425,
+      "chapasPedido": 400,
+      "saldoChapas": 25
     }
   ],
   "paradas": [
@@ -7337,7 +7341,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-08T08:36:46.508120Z",
+    "atualizadoEm": "2026-10-08T09:26:46.269805Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -12220,10 +12224,10 @@
           "oc": "8253",
           "medida": "1,152 X 2,340",
           "chapasPedido": 400,
-          "chapasProduzidas": 290,
-          "saldo": -110,
-          "pct": 72.5,
-          "concluido": false,
+          "chapasProduzidas": 425,
+          "saldo": 25,
+          "pct": 106.2,
+          "concluido": true,
           "dataRelatorio": "2026-10-07",
           "arquivo": "Producao_07-10-2026_turno-Noite_ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA-PCBOX_EMBALAGENS_LTDA-RM_Embalagens_(_Daiane_Marques_Can.pdf"
         }
