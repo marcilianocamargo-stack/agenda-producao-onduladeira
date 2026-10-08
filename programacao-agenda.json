@@ -522,26 +522,6 @@
       "chave": "OF:262840"
     },
     {
-      "id": "p589432_oquxo",
-      "cliente": "FAVINCO EMBALAGENS",
-      "lote": "FAVINCO EMBALAGENS 1252",
-      "po": "P25B",
-      "of": "262865",
-      "oc": "082",
-      "dataPedido": "02/10/2026",
-      "ml": 387.3,
-      "kg": 162.9,
-      "qtdePedido": 1400,
-      "largura": 0.445,
-      "comprimento": 0.83,
-      "vinco": "80x285x80",
-      "bobina": 1400,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262865"
-    },
-    {
       "id": "p107932_lv5b5",
       "cliente": "RR STELLA",
       "lote": "RR STELLA 1253",
@@ -7627,6 +7607,30 @@
       "chapasProduzidas": 465,
       "chapasPedido": 450,
       "saldoChapas": 15
+    },
+    {
+      "id": "p589432_oquxo",
+      "cliente": "FAVINCO EMBALAGENS",
+      "lote": "FAVINCO EMBALAGENS 1252",
+      "po": "P25B",
+      "of": "262865",
+      "oc": "082",
+      "dataPedido": "02/10/2026",
+      "ml": 387.3,
+      "kg": 162.9,
+      "qtdePedido": 1400,
+      "largura": 0.445,
+      "comprimento": 0.83,
+      "vinco": "80x285x80",
+      "bobina": 1400,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262865",
+      "dataProduzido": "2026-10-08T12:00:00Z",
+      "chapasProduzidas": 1505,
+      "chapasPedido": 1400,
+      "saldoChapas": 105
     }
   ],
   "paradas": [
@@ -7637,7 +7641,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-08T18:06:51.913766Z",
+    "atualizadoEm": "2026-10-08T18:41:51.568087Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -16312,6 +16316,18 @@
           "concluido": true,
           "dataRelatorio": "2026-09-22",
           "arquivo": "Producao_22-09-2026_turno-Dia_FAVINCO_EMBALAGENS-Z4A_EMBALAGENS_LTDA-RM_Embalagens.xlsx"
+        },
+        {
+          "of": "262865",
+          "oc": "082",
+          "medida": "0,445 X 0,830",
+          "chapasPedido": 1400,
+          "chapasProduzidas": 1505,
+          "saldo": 105,
+          "pct": 107.5,
+          "concluido": true,
+          "dataRelatorio": "2026-10-08",
+          "arquivo": "producao-historico.json (tempo real)"
         },
         {
           "of": "262866",
