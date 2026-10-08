@@ -7649,7 +7649,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-08T18:51:48.591921Z",
+    "atualizadoEm": "2026-10-08T19:31:52.045755Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -9678,6 +9678,18 @@
           "concluido": true,
           "dataRelatorio": "2026-10-07",
           "arquivo": "Producao_07-10-2026_turno-Dia_HARMONY_EMBALAGENS-RM_Embalagens_(_Daiane_Marques_Canossa_ME_)-CARPEL+2.xlsx"
+        },
+        {
+          "of": "262773",
+          "oc": "8263",
+          "medida": "0,592 X 1,620",
+          "chapasPedido": 930,
+          "chapasProduzidas": 580,
+          "saldo": -350,
+          "pct": 62.4,
+          "concluido": false,
+          "dataRelatorio": "2026-10-08",
+          "arquivo": "producao-historico.json (tempo real)"
         }
       ],
       "Renovapel Reciclagem de Papeis Ltda": [
