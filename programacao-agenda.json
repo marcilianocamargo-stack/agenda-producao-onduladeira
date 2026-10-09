@@ -1202,26 +1202,6 @@
       "chave": "OF:262927"
     },
     {
-      "id": "p169078_eqrps",
-      "cliente": "PCBOX EMBALAGENS LTDA",
-      "lote": "PCBOX  - IPE 1266 P",
-      "po": "P25B",
-      "of": "262921",
-      "oc": "1762",
-      "dataPedido": "22/09/2026",
-      "ml": 444.3,
-      "kg": 178.0,
-      "qtdePedido": 300.0,
-      "largura": 1.272,
-      "comprimento": 1.481,
-      "vinco": "349x574x349",
-      "bobina": 1300.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:262921"
-    },
-    {
       "id": "p223464_cmkm8",
       "cliente": "PCBOX EMBALAGENS LTDA",
       "lote": "PCBOX  - IPE 1266 P",
@@ -7803,6 +7783,30 @@
       "chapasProduzidas": 945,
       "chapasPedido": 930,
       "saldoChapas": 15
+    },
+    {
+      "id": "p169078_eqrps",
+      "cliente": "PCBOX EMBALAGENS LTDA",
+      "lote": "PCBOX  - IPE 1266 P",
+      "po": "P25B",
+      "of": "262921",
+      "oc": "1762",
+      "dataPedido": "22/09/2026",
+      "ml": 444.3,
+      "kg": 178.0,
+      "qtdePedido": 300.0,
+      "largura": 1.272,
+      "comprimento": 1.481,
+      "vinco": "349x574x349",
+      "bobina": 1300.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262921",
+      "dataProduzido": "2026-10-09T12:00:00Z",
+      "chapasProduzidas": 300,
+      "chapasPedido": 300,
+      "saldoChapas": 0
     }
   ],
   "paradas": [
@@ -7813,7 +7817,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-09T11:16:53.009175Z",
+    "atualizadoEm": "2026-10-09T16:02:03.517397Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -10530,6 +10534,18 @@
           "concluido": true,
           "dataRelatorio": "2026-10-05",
           "arquivo": "Producao_05-10-2026_turno-Dia_IPE_EMBALAGENS_LTDA-PCBOX_EMBALAGENS_LTDA-PROGRAMAÇÃO_ONDULADEIRA_-_FORBOX_Soluções_em_Caixas_de_Papelão_LTDA+2.xlsx"
+        },
+        {
+          "of": "262921",
+          "oc": "1762",
+          "medida": "1,272 X 1,481",
+          "chapasPedido": 300,
+          "chapasProduzidas": 300,
+          "saldo": 0,
+          "pct": 100.0,
+          "concluido": true,
+          "dataRelatorio": "2026-10-09",
+          "arquivo": "producao-historico.json (tempo real)"
         }
       ],
       "1210 Z4A EMBALAGENS LTDA": [
