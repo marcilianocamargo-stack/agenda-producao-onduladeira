@@ -402,26 +402,6 @@
       "chave": "OF:262860"
     },
     {
-      "id": "p128972_8znix",
-      "cliente": "HARMONY EMBALAGENS",
-      "lote": "HARMONY EMBALAGENS 1249",
-      "po": "P25B",
-      "of": "262846",
-      "oc": "30-09-26",
-      "dataPedido": "30/09/2026",
-      "ml": 258.3,
-      "kg": 120.6,
-      "qtdePedido": 550,
-      "largura": 0.494,
-      "comprimento": 1.409,
-      "vinco": "148x198x148",
-      "bobina": 1550,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262846"
-    },
-    {
       "id": "p111499_hi0kt",
       "cliente": "HARMONY EMBALAGENS",
       "lote": "HARMONY EMBALAGENS 1249",
@@ -7843,6 +7823,30 @@
       "chapasProduzidas": 390,
       "chapasPedido": 375,
       "saldoChapas": 15
+    },
+    {
+      "id": "p128972_8znix",
+      "cliente": "HARMONY EMBALAGENS",
+      "lote": "HARMONY EMBALAGENS 1249",
+      "po": "P25B",
+      "of": "262846",
+      "oc": "30-09-26",
+      "dataPedido": "30/09/2026",
+      "ml": 258.3,
+      "kg": 120.6,
+      "qtdePedido": 550,
+      "largura": 0.494,
+      "comprimento": 1.409,
+      "vinco": "148x198x148",
+      "bobina": 1550,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262846",
+      "dataProduzido": "2026-10-09T12:00:00Z",
+      "chapasProduzidas": 580,
+      "chapasPedido": 550,
+      "saldoChapas": 30
     }
   ],
   "paradas": [
@@ -7853,7 +7857,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-09T18:51:49.559685Z",
+    "atualizadoEm": "2026-10-09T18:56:49.878434Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -12354,6 +12358,18 @@
           "concluido": true,
           "dataRelatorio": "2026-10-07",
           "arquivo": "Producao_07-10-2026_turno-Dia_HARMONY_EMBALAGENS-RM_Embalagens_(_Daiane_Marques_Canossa_ME_)-CARPEL+2.xlsx"
+        },
+        {
+          "of": "262846",
+          "oc": "30-09-26",
+          "medida": "0,494 X 1,409",
+          "chapasPedido": 550,
+          "chapasProduzidas": 580,
+          "saldo": 30,
+          "pct": 105.5,
+          "concluido": true,
+          "dataRelatorio": "2026-10-09",
+          "arquivo": "producao-historico.json (tempo real)"
         },
         {
           "of": "262892",
