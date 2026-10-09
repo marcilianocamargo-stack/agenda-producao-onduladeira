@@ -202,26 +202,6 @@
       "chave": "OF:262716"
     },
     {
-      "id": "p650450_ibhj0",
-      "cliente": "PCBOX EMBALAGENS LTDA",
-      "lote": "PCBOX EMBALAGENS LTDA 1233",
-      "po": "P25B",
-      "of": "262835",
-      "oc": "1788",
-      "dataPedido": "01/10/2026",
-      "ml": 591.8,
-      "kg": 223.7,
-      "qtdePedido": 500,
-      "largura": 0.6,
-      "comprimento": 2.367,
-      "vinco": "203x194x203",
-      "bobina": 1250,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262835"
-    },
-    {
       "id": "p102551_6h0ak",
       "cliente": "IPE EMBALAGENS LTDA",
       "lote": "PCBOX EMBALAGENS LTDA 1233",
@@ -7827,6 +7807,30 @@
       "chapasProduzidas": 3275,
       "chapasPedido": 3000,
       "saldoChapas": 275
+    },
+    {
+      "id": "p650450_ibhj0",
+      "cliente": "PCBOX EMBALAGENS LTDA",
+      "lote": "PCBOX EMBALAGENS LTDA 1233",
+      "po": "P25B",
+      "of": "262835",
+      "oc": "1788",
+      "dataPedido": "01/10/2026",
+      "ml": 591.8,
+      "kg": 223.7,
+      "qtdePedido": 500,
+      "largura": 0.6,
+      "comprimento": 2.367,
+      "vinco": "203x194x203",
+      "bobina": 1250,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262835",
+      "dataProduzido": "2026-10-09T12:00:00Z",
+      "chapasProduzidas": 535,
+      "chapasPedido": 500,
+      "saldoChapas": 35
     }
   ],
   "paradas": [
@@ -7837,7 +7841,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-09T17:36:51.257056Z",
+    "atualizadoEm": "2026-10-09T17:56:55.653051Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -10554,6 +10558,18 @@
           "concluido": true,
           "dataRelatorio": "2026-10-05",
           "arquivo": "Producao_05-10-2026_turno-Dia_IPE_EMBALAGENS_LTDA-PCBOX_EMBALAGENS_LTDA-PROGRAMAÇÃO_ONDULADEIRA_-_FORBOX_Soluções_em_Caixas_de_Papelão_LTDA+2.xlsx"
+        },
+        {
+          "of": "262835",
+          "oc": "1788",
+          "medida": "0,600 X 2,367",
+          "chapasPedido": 500,
+          "chapasProduzidas": 535,
+          "saldo": 35,
+          "pct": 107.0,
+          "concluido": true,
+          "dataRelatorio": "2026-10-09",
+          "arquivo": "producao-historico.json (tempo real)"
         },
         {
           "of": "262921",
