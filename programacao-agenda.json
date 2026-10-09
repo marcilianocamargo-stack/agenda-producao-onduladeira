@@ -7653,7 +7653,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-08T19:41:52.385455Z",
+    "atualizadoEm": "2026-10-09T08:51:54.653713Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -8380,30 +8380,6 @@
           "concluido": true,
           "dataRelatorio": "2026-10-06",
           "arquivo": "Producao_06-10-2026_turno-Dia_ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA-FAVINCO-HARMONY_EMBALAGENS.xlsx"
-        },
-        {
-          "of": "262890",
-          "oc": "085",
-          "medida": "0,550 X 1,450",
-          "chapasPedido": 1000,
-          "chapasProduzidas": 1035,
-          "saldo": 35,
-          "pct": 103.5,
-          "concluido": true,
-          "dataRelatorio": "2026-10-08",
-          "arquivo": "producao-historico.json (tempo real)"
-        },
-        {
-          "of": "262919",
-          "oc": "086",
-          "medida": "0,581 X 1,906",
-          "chapasPedido": 4500,
-          "chapasProduzidas": 4510,
-          "saldo": 10,
-          "pct": 100.2,
-          "concluido": true,
-          "dataRelatorio": "2026-10-08",
-          "arquivo": "producao-historico.json (tempo real)"
         },
         {
           "of": "262930",
@@ -9682,18 +9658,6 @@
           "concluido": true,
           "dataRelatorio": "2026-10-07",
           "arquivo": "Producao_07-10-2026_turno-Dia_HARMONY_EMBALAGENS-RM_Embalagens_(_Daiane_Marques_Canossa_ME_)-CARPEL+2.xlsx"
-        },
-        {
-          "of": "262773",
-          "oc": "8263",
-          "medida": "0,592 X 1,620",
-          "chapasPedido": 930,
-          "chapasProduzidas": 945,
-          "saldo": 15,
-          "pct": 101.6,
-          "concluido": true,
-          "dataRelatorio": "2026-10-08",
-          "arquivo": "producao-historico.json (tempo real)"
         }
       ],
       "Renovapel Reciclagem de Papeis Ltda": [
@@ -13354,30 +13318,6 @@
           "concluido": false,
           "dataRelatorio": "2026-10-05",
           "arquivo": "Producao_05-10-2026_turno-Dia_IPE_EMBALAGENS_LTDA-PCBOX_EMBALAGENS_LTDA-PROGRAMAÇÃO_ONDULADEIRA_-_FORBOX_Soluções_em_Caixas_de_Papelão_LTDA+2.xlsx"
-        },
-        {
-          "of": "262870",
-          "oc": "1800",
-          "medida": "0,936 X 1,829",
-          "chapasPedido": 200,
-          "chapasProduzidas": 235,
-          "saldo": 35,
-          "pct": 117.5,
-          "concluido": true,
-          "dataRelatorio": "2026-10-08",
-          "arquivo": "producao-historico.json (tempo real)"
-        },
-        {
-          "of": "262885",
-          "oc": "1807",
-          "medida": "0,883 X 1,535",
-          "chapasPedido": 200,
-          "chapasProduzidas": 265,
-          "saldo": 65,
-          "pct": 132.5,
-          "concluido": true,
-          "dataRelatorio": "2026-10-08",
-          "arquivo": "producao-historico.json (tempo real)"
         }
       ],
       "DANPACK": [
@@ -13696,6 +13636,18 @@
           "concluido": true,
           "dataRelatorio": "2026-10-07",
           "arquivo": "Producao_07-10-2026_turno-Noite_ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA-PCBOX_EMBALAGENS_LTDA-RM_Embalagens_(_Daiane_Marques_Can.pdf"
+        },
+        {
+          "of": "262773",
+          "oc": "8263",
+          "medida": "0,592 X 1,620",
+          "chapasPedido": 930,
+          "chapasProduzidas": 945,
+          "saldo": 15,
+          "pct": 101.6,
+          "concluido": true,
+          "dataRelatorio": "2026-10-08",
+          "arquivo": "Producao_08-10-2026_turno-Noite_FAVINCO-FAVINCO.-FAVINCO_EMBALAGENS+2.pdf"
         }
       ],
       "Z4A Embalagens": [
@@ -15116,6 +15068,86 @@
           "arquivo": "Producao_11-09-2026_turno-Noite_HARMONY_EMBALAGENS-PCBOX_EMBALAGENS_LTDA-DR_Embalagens.pdf"
         }
       ],
+      "1252 FAVINCO": [
+        {
+          "of": "262890",
+          "oc": "085",
+          "medida": "0,550 X 1,450",
+          "chapasPedido": 1000,
+          "chapasProduzidas": 1035,
+          "saldo": 35,
+          "pct": 103.5,
+          "concluido": true,
+          "dataRelatorio": "2026-10-08",
+          "arquivo": "Producao_08-10-2026_turno-Noite_FAVINCO-FAVINCO.-FAVINCO_EMBALAGENS+2.pdf"
+        },
+        {
+          "of": "262919",
+          "oc": "086",
+          "medida": "0,581 X 1,906",
+          "chapasPedido": 4500,
+          "chapasProduzidas": 4510,
+          "saldo": 10,
+          "pct": 100.2,
+          "concluido": true,
+          "dataRelatorio": "2026-10-08",
+          "arquivo": "Producao_08-10-2026_turno-Noite_FAVINCO-FAVINCO.-FAVINCO_EMBALAGENS+2.pdf"
+        }
+      ],
+      "1252 FAVINCO.": [
+        {
+          "of": "262932",
+          "oc": "087",
+          "medida": "0,567 X 1,662",
+          "chapasPedido": 450,
+          "chapasProduzidas": 465,
+          "saldo": 15,
+          "pct": 103.3,
+          "concluido": true,
+          "dataRelatorio": "2026-10-08",
+          "arquivo": "Producao_08-10-2026_turno-Noite_FAVINCO-FAVINCO.-FAVINCO_EMBALAGENS+2.pdf"
+        }
+      ],
+      "1252 FAVINCO EMBALAGENS": [
+        {
+          "of": "262865",
+          "oc": "082",
+          "medida": "0,445 X 0,830",
+          "chapasPedido": 1400,
+          "chapasProduzidas": 1505,
+          "saldo": 105,
+          "pct": 107.5,
+          "concluido": true,
+          "dataRelatorio": "2026-10-08",
+          "arquivo": "Producao_08-10-2026_turno-Noite_FAVINCO-FAVINCO.-FAVINCO_EMBALAGENS+2.pdf"
+        }
+      ],
+      "1266 IPE EMBALAGENS LTDA": [
+        {
+          "of": "262870",
+          "oc": "1800",
+          "medida": "0,936 X 1,829",
+          "chapasPedido": 200,
+          "chapasProduzidas": 235,
+          "saldo": 35,
+          "pct": 117.5,
+          "concluido": true,
+          "dataRelatorio": "2026-10-08",
+          "arquivo": "Producao_08-10-2026_turno-Noite_FAVINCO-FAVINCO.-FAVINCO_EMBALAGENS+2.pdf"
+        },
+        {
+          "of": "262885",
+          "oc": "1807",
+          "medida": "0,883 X 1,535",
+          "chapasPedido": 200,
+          "chapasProduzidas": 265,
+          "saldo": 65,
+          "pct": 132.5,
+          "concluido": true,
+          "dataRelatorio": "2026-10-08",
+          "arquivo": "Producao_08-10-2026_turno-Noite_FAVINCO-FAVINCO.-FAVINCO_EMBALAGENS+2.pdf"
+        }
+      ],
       "PCBOX": [
         {
           "of": "261624",
@@ -16364,18 +16396,6 @@
           "concluido": true,
           "dataRelatorio": "2026-09-22",
           "arquivo": "Producao_22-09-2026_turno-Dia_FAVINCO_EMBALAGENS-Z4A_EMBALAGENS_LTDA-RM_Embalagens.xlsx"
-        },
-        {
-          "of": "262865",
-          "oc": "082",
-          "medida": "0,445 X 0,830",
-          "chapasPedido": 1400,
-          "chapasProduzidas": 1505,
-          "saldo": 105,
-          "pct": 107.5,
-          "concluido": true,
-          "dataRelatorio": "2026-10-08",
-          "arquivo": "producao-historico.json (tempo real)"
         },
         {
           "of": "262866",
@@ -20420,20 +20440,6 @@
           "concluido": true,
           "dataRelatorio": "2026-08-31",
           "arquivo": "Producao_31-08-2026_turno-Noite_Renovapel_Reciclagem_de_Papeis_Ltda-PCBOX_EMBALAGENS-IPE_EMBALAGENS.pdf"
-        }
-      ],
-      "FAVINCO.": [
-        {
-          "of": "262932",
-          "oc": "087",
-          "medida": "0,567 X 1,662",
-          "chapasPedido": 450,
-          "chapasProduzidas": 465,
-          "saldo": 15,
-          "pct": 103.3,
-          "concluido": true,
-          "dataRelatorio": "2026-10-08",
-          "arquivo": "producao-historico.json (tempo real)"
         }
       ]
     }
