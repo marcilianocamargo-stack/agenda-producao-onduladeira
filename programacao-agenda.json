@@ -7869,7 +7869,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-09T21:26:48.016524Z",
+    "atualizadoEm": "2026-10-09T23:21:44.289914Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -11118,6 +11118,18 @@
           "concluido": true,
           "dataRelatorio": "2026-09-22",
           "arquivo": "Producao_22-09-2026.xlsx"
+        },
+        {
+          "of": "262936",
+          "oc": "207",
+          "medida": "0,910 X 1,160",
+          "chapasPedido": 2760,
+          "chapasProduzidas": 775,
+          "saldo": -1985,
+          "pct": 28.1,
+          "concluido": false,
+          "dataRelatorio": "2026-10-09",
+          "arquivo": "producao-historico.json (tempo real)"
         }
       ],
       "1155 ABAPEL COMERCIO DE": [
