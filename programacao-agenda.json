@@ -102,26 +102,6 @@
       "chave": "OF:262668"
     },
     {
-      "id": "p828869_dujx3",
-      "cliente": "PCBOX EMBALAGENS LTDA",
-      "lote": "PCBOX EMBALAGENS LTDA 1222",
-      "po": "P50D",
-      "of": "262676",
-      "oc": "1753",
-      "dataPedido": "21/09/2026",
-      "ml": 412.6,
-      "kg": 227.8,
-      "qtdePedido": 200,
-      "largura": 1.026,
-      "comprimento": 2.063,
-      "vinco": "x",
-      "bobina": 1050,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262676"
-    },
-    {
       "id": "p138318_hav1i",
       "cliente": "HARMONY EMBALAGENS",
       "lote": "HARMONY EMBALAGENS 1231",
@@ -8119,6 +8099,30 @@
       "chapasProduzidas": 120,
       "chapasPedido": 100,
       "saldoChapas": 20
+    },
+    {
+      "id": "p828869_dujx3",
+      "cliente": "PCBOX EMBALAGENS LTDA",
+      "lote": "PCBOX EMBALAGENS LTDA 1222",
+      "po": "P50D",
+      "of": "262676",
+      "oc": "1753",
+      "dataPedido": "21/09/2026",
+      "ml": 412.6,
+      "kg": 227.8,
+      "qtdePedido": 200,
+      "largura": 1.026,
+      "comprimento": 2.063,
+      "vinco": "x",
+      "bobina": 1050,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262676",
+      "dataProduzido": "2026-10-13T12:00:00Z",
+      "chapasProduzidas": 250,
+      "chapasPedido": 200,
+      "saldoChapas": 50
     }
   ],
   "paradas": [
@@ -8129,7 +8133,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-13T18:51:58.531724Z",
+    "atualizadoEm": "2026-10-13T19:16:55.588845Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -10917,6 +10921,18 @@
           "pct": 160.0,
           "concluido": true,
           "dataRelatorio": "2026-10-09",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "262676",
+          "oc": "1753",
+          "medida": "1,026 X 2,063",
+          "chapasPedido": 200,
+          "chapasProduzidas": 250,
+          "saldo": 50,
+          "pct": 125.0,
+          "concluido": true,
+          "dataRelatorio": "2026-10-13",
           "arquivo": "producao-historico.json (tempo real)"
         },
         {
