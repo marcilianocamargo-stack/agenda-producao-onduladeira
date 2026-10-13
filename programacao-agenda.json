@@ -822,26 +822,6 @@
       "chave": "OF:262944"
     },
     {
-      "id": "p483832_8szhi",
-      "cliente": "PCBOX EMBALAGENS LTDA",
-      "lote": "IPE EMBALAGENS LTDA 1270",
-      "po": "P25B",
-      "of": "262945",
-      "oc": "1818",
-      "dataPedido": "09/10/2026",
-      "ml": 1240,
-      "kg": 434.3,
-      "qtdePedido": 1000,
-      "largura": 1.112,
-      "comprimento": 1.24,
-      "vinco": "x",
-      "bobina": 1150,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262945"
-    },
-    {
       "id": "p667463_7a545",
       "cliente": "PCBOX EMBALAGENS LTDA",
       "lote": "IPE EMBALAGENS LTDA 1270",
@@ -8095,6 +8075,30 @@
       "chapasProduzidas": 900,
       "chapasPedido": 900,
       "saldoChapas": 0
+    },
+    {
+      "id": "p483832_8szhi",
+      "cliente": "PCBOX EMBALAGENS LTDA",
+      "lote": "IPE EMBALAGENS LTDA 1270",
+      "po": "P25B",
+      "of": "262945",
+      "oc": "1818",
+      "dataPedido": "09/10/2026",
+      "ml": 1240,
+      "kg": 434.3,
+      "qtdePedido": 1000,
+      "largura": 1.112,
+      "comprimento": 1.24,
+      "vinco": "x",
+      "bobina": 1150,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262945",
+      "dataProduzido": "2026-10-13T12:00:00Z",
+      "chapasProduzidas": 1005,
+      "chapasPedido": 1000,
+      "saldoChapas": 5
     }
   ],
   "paradas": [
@@ -8105,7 +8109,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-13T15:51:53.670250Z",
+    "atualizadoEm": "2026-10-13T15:57:04.451730Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -10936,10 +10940,10 @@
           "oc": "1818",
           "medida": "1,112 X 1,240",
           "chapasPedido": 1000,
-          "chapasProduzidas": 670,
-          "saldo": -330,
-          "pct": 67.0,
-          "concluido": false,
+          "chapasProduzidas": 1005,
+          "saldo": 5,
+          "pct": 100.5,
+          "concluido": true,
           "dataRelatorio": "2026-10-13",
           "arquivo": "producao-historico.json (tempo real)"
         }
