@@ -582,26 +582,6 @@
       "chave": "OF:262886"
     },
     {
-      "id": "p763572_pkb57",
-      "cliente": "IPE EMBALAGENS LTDA",
-      "lote": "IPE EMBALAGENS LTDA 1259",
-      "po": "P25B",
-      "of": "262884",
-      "oc": "1806",
-      "dataPedido": "06/10/2026",
-      "ml": 425.2,
-      "kg": 174.7,
-      "qtdePedido": 200.0,
-      "largura": 1.304,
-      "comprimento": 2.126,
-      "vinco": "x",
-      "bobina": 1350.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:262884"
-    },
-    {
       "id": "p813276_5dnku",
       "cliente": "IPE EMBALAGENS LTDA",
       "lote": "IPE EMBALAGENS LTDA 1259",
@@ -7867,6 +7847,30 @@
       "chapasProduzidas": 580,
       "chapasPedido": 525,
       "saldoChapas": 55
+    },
+    {
+      "id": "p763572_pkb57",
+      "cliente": "IPE EMBALAGENS LTDA",
+      "lote": "IPE EMBALAGENS LTDA 1259",
+      "po": "P25B",
+      "of": "262884",
+      "oc": "1806",
+      "dataPedido": "06/10/2026",
+      "ml": 425.2,
+      "kg": 174.7,
+      "qtdePedido": 200.0,
+      "largura": 1.304,
+      "comprimento": 2.126,
+      "vinco": "x",
+      "bobina": 1350.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262884",
+      "dataProduzido": "2026-10-13T12:00:00Z",
+      "chapasProduzidas": 200,
+      "chapasPedido": 200,
+      "saldoChapas": 0
     }
   ],
   "paradas": [
@@ -7877,7 +7881,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-10T00:16:47.398308Z",
+    "atualizadoEm": "2026-10-13T08:51:49.258277Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -13722,6 +13726,18 @@
           "concluido": false,
           "dataRelatorio": "2026-10-05",
           "arquivo": "Producao_05-10-2026_turno-Dia_IPE_EMBALAGENS_LTDA-PCBOX_EMBALAGENS_LTDA-PROGRAMAÇÃO_ONDULADEIRA_-_FORBOX_Soluções_em_Caixas_de_Papelão_LTDA+2.xlsx"
+        },
+        {
+          "of": "262884",
+          "oc": "1806",
+          "medida": "1,304 X 2,126",
+          "chapasPedido": 200,
+          "chapasProduzidas": 200,
+          "saldo": 0,
+          "pct": 100.0,
+          "concluido": true,
+          "dataRelatorio": "2026-10-13",
+          "arquivo": "producao-historico.json (tempo real)"
         }
       ],
       "DANPACK": [
