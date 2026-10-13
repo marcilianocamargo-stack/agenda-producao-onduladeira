@@ -1060,26 +1060,6 @@
       "precoKg": 0,
       "valor": 0,
       "chave": "OF:262948"
-    },
-    {
-      "id": "p361000_uvgws",
-      "cliente": "RM Embalagens ( Daiane Marques Canossa ME )",
-      "lote": "RM Embalagens 1275 P",
-      "po": "P25B",
-      "of": "262952",
-      "oc": "9",
-      "dataPedido": "08/09/2026",
-      "ml": 900,
-      "kg": 301.1,
-      "qtdePedido": 900,
-      "largura": 1.062,
-      "comprimento": 1,
-      "vinco": "x",
-      "bobina": 1100,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262952"
     }
   ],
   "aguardando": [],
@@ -8091,6 +8071,30 @@
       "chapasProduzidas": 6150,
       "chapasPedido": 6000,
       "saldoChapas": 150
+    },
+    {
+      "id": "p361000_uvgws",
+      "cliente": "RM Embalagens ( Daiane Marques Canossa ME )",
+      "lote": "RM Embalagens 1275 P",
+      "po": "P25B",
+      "of": "262952",
+      "oc": "9",
+      "dataPedido": "08/09/2026",
+      "ml": 900,
+      "kg": 301.1,
+      "qtdePedido": 900,
+      "largura": 1.062,
+      "comprimento": 1,
+      "vinco": "x",
+      "bobina": 1100,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262952",
+      "dataProduzido": "2026-10-13T12:00:00Z",
+      "chapasProduzidas": 900,
+      "chapasPedido": 900,
+      "saldoChapas": 0
     }
   ],
   "paradas": [
@@ -8101,7 +8105,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-13T15:02:13.600430Z",
+    "atualizadoEm": "2026-10-13T15:07:01.218246Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -14918,10 +14922,10 @@
           "oc": "9",
           "medida": "1,062 X 1,000",
           "chapasPedido": 900,
-          "chapasProduzidas": 600,
-          "saldo": -300,
-          "pct": 66.7,
-          "concluido": false,
+          "chapasProduzidas": 900,
+          "saldo": 0,
+          "pct": 100.0,
+          "concluido": true,
           "dataRelatorio": "2026-10-13",
           "arquivo": "producao-historico.json (tempo real)"
         }
