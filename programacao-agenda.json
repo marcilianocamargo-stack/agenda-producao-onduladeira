@@ -8157,7 +8157,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-13T23:21:50.643253Z",
+    "atualizadoEm": "2026-10-13T23:41:48.051813Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -21436,6 +21436,20 @@
           "concluido": true,
           "dataRelatorio": "2026-08-31",
           "arquivo": "Producao_31-08-2026_turno-Noite_Renovapel_Reciclagem_de_Papeis_Ltda-PCBOX_EMBALAGENS-IPE_EMBALAGENS.pdf"
+        }
+      ],
+      "PROGRAMAÇÃO ONDULADEIRA - Tolecaixas Indústria e Comércio Ltda": [
+        {
+          "of": "262931",
+          "oc": "71026",
+          "medida": "0,480 X 1,250",
+          "chapasPedido": 2283,
+          "chapasProduzidas": 1555,
+          "saldo": -728,
+          "pct": 68.1,
+          "concluido": false,
+          "dataRelatorio": "2026-10-13",
+          "arquivo": "producao-historico.json (tempo real)"
         }
       ]
     }
