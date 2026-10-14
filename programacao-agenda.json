@@ -602,26 +602,6 @@
       "chave": "OF:262918"
     },
     {
-      "id": "p230870_2jeu5",
-      "cliente": "PROGRAMAÇÃO ONDULADEIRA - Tolecaixas Indústria e Comércio Ltda",
-      "lote": "Tolecaixas 1264",
-      "po": "PW40B",
-      "of": "262931",
-      "oc": "71026",
-      "dataPedido": "08/10/2026",
-      "ml": 951.3,
-      "kg": 500,
-      "qtdePedido": 2283,
-      "largura": 0.48,
-      "comprimento": 1.25,
-      "vinco": "x",
-      "bobina": 1500,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262931"
-    },
-    {
       "id": "p292826_raqc6",
       "cliente": "PCBOX EMBALAGENS LTDA",
       "lote": "PCBOX  - IPE 1266 P",
@@ -8147,6 +8127,30 @@
       "chapasProduzidas": 2045,
       "chapasPedido": 2000,
       "saldoChapas": 45
+    },
+    {
+      "id": "p230870_2jeu5",
+      "cliente": "PROGRAMAÇÃO ONDULADEIRA - Tolecaixas Indústria e Comércio Ltda",
+      "lote": "Tolecaixas 1264",
+      "po": "PW40B",
+      "of": "262931",
+      "oc": "71026",
+      "dataPedido": "08/10/2026",
+      "ml": 951.3,
+      "kg": 500,
+      "qtdePedido": 2283,
+      "largura": 0.48,
+      "comprimento": 1.25,
+      "vinco": "x",
+      "bobina": 1500,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262931",
+      "dataProduzido": "2026-10-14T12:00:00Z",
+      "chapasProduzidas": 2380,
+      "chapasPedido": 2283,
+      "saldoChapas": 97
     }
   ],
   "paradas": [
@@ -8157,7 +8161,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-13T23:41:48.051813Z",
+    "atualizadoEm": "2026-10-14T00:06:54.618550Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -21444,11 +21448,11 @@
           "oc": "71026",
           "medida": "0,480 X 1,250",
           "chapasPedido": 2283,
-          "chapasProduzidas": 1555,
-          "saldo": -728,
-          "pct": 68.1,
-          "concluido": false,
-          "dataRelatorio": "2026-10-13",
+          "chapasProduzidas": 2380,
+          "saldo": 97,
+          "pct": 104.2,
+          "concluido": true,
+          "dataRelatorio": "2026-10-14",
           "arquivo": "producao-historico.json (tempo real)"
         }
       ]
