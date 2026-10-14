@@ -682,6 +682,26 @@
       "chave": "OF:262942"
     },
     {
+      "id": "p724448_d4x2o",
+      "cliente": "FAVINCO EMBALAGENS",
+      "lote": "FAVINCO EMBALAGENS 1273",
+      "po": "P25B",
+      "of": "262953",
+      "oc": "089",
+      "dataPedido": "13/10/2026",
+      "ml": 2880.8,
+      "kg": 1012.7,
+      "qtdePedido": 11500.0,
+      "largura": 0.279,
+      "comprimento": 1.002,
+      "vinco": "87x105x87",
+      "bobina": 1150.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262953"
+    },
+    {
       "id": "p889515_maorj",
       "cliente": "RM Embalagens ( Daiane Marques Canossa ME )",
       "lote": "RM Embalagens 1275 P",
@@ -8173,7 +8193,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-14T08:46:56.547195Z",
+    "atualizadoEm": "2026-10-14T09:06:58.744995Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
