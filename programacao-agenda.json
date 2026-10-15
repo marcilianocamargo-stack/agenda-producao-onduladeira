@@ -802,26 +802,6 @@
       "chave": "OF:262973"
     },
     {
-      "id": "p801261_xlwm2",
-      "cliente": "VÔ CHICO",
-      "lote": "VÔ CHICO 1280",
-      "po": "PW50B",
-      "of": "262977",
-      "oc": "551014",
-      "dataPedido": "14/10/2026",
-      "ml": 182.0,
-      "kg": 98.5,
-      "qtdePedido": 600.0,
-      "largura": 0.465,
-      "comprimento": 0.91,
-      "vinco": "x",
-      "bobina": 1450.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:262977"
-    },
-    {
       "id": "p488323_e5j0w",
       "cliente": "VÔ CHICO",
       "lote": "VÔ CHICO 1280",
@@ -8915,6 +8895,30 @@
       "chapasProduzidas": 2535,
       "chapasPedido": 2500,
       "saldoChapas": 35
+    },
+    {
+      "id": "p801261_xlwm2",
+      "cliente": "VÔ CHICO",
+      "lote": "VÔ CHICO 1280",
+      "po": "PW50B",
+      "of": "262977",
+      "oc": "551014",
+      "dataPedido": "14/10/2026",
+      "ml": 182.0,
+      "kg": 98.5,
+      "qtdePedido": 600.0,
+      "largura": 0.465,
+      "comprimento": 0.91,
+      "vinco": "x",
+      "bobina": 1450.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262977",
+      "dataProduzido": "2026-10-15T12:00:00Z",
+      "chapasProduzidas": 700,
+      "chapasPedido": 600,
+      "saldoChapas": 100
     }
   ],
   "paradas": [
@@ -8925,7 +8929,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-15T11:22:00.503724Z",
+    "atualizadoEm": "2026-10-15T11:56:53.248682Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -13956,6 +13960,18 @@
           "concluido": true,
           "dataRelatorio": "2026-10-02",
           "arquivo": "Producao_02-10-2026_turno-Dia_Renovapel_Reciclagem_de_Papeis_Ltda-FAVINCO-HARMONY_EMBALAGENS+5.xlsx"
+        },
+        {
+          "of": "262977",
+          "oc": "551014",
+          "medida": "0,465 X 0,910",
+          "chapasPedido": 600,
+          "chapasProduzidas": 700,
+          "saldo": 100,
+          "pct": 116.7,
+          "concluido": true,
+          "dataRelatorio": "2026-10-15",
+          "arquivo": "producao-historico.json (tempo real)"
         }
       ],
       "SÃO MIGUEL": [
