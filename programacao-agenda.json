@@ -222,26 +222,6 @@
       "chave": "OF:262907"
     },
     {
-      "id": "p640884_3swsf",
-      "cliente": "Tolecaixas Indústria e Comércio Ltda",
-      "lote": "Tolecaixas 1264",
-      "po": "PW40B",
-      "of": "262914",
-      "oc": "71026",
-      "dataPedido": "07/10/2026",
-      "ml": 613.2,
-      "kg": 299.9,
-      "qtdePedido": 1378,
-      "largura": 0.67,
-      "comprimento": 0.89,
-      "vinco": "x",
-      "bobina": 1400,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262914"
-    },
-    {
       "id": "p985044_ffjlo",
       "cliente": "Tolecaixas Indústria e Comércio Ltda",
       "lote": "Tolecaixas 1264",
@@ -1140,6 +1120,26 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:262999"
+    },
+    {
+      "id": "p95217_2rt02",
+      "cliente": "DR EMBALAGENS",
+      "lote": "DR EMBALAGENS 1282 P",
+      "po": "PW40B",
+      "of": "263001",
+      "oc": "1014",
+      "dataPedido": "15/10/2026",
+      "ml": 887.6,
+      "kg": 362.9,
+      "qtdePedido": 1585.0,
+      "largura": 0.56,
+      "comprimento": 1.12,
+      "vinco": "x",
+      "bobina": 1150.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263001"
     }
   ],
   "aguardando": [],
@@ -9231,6 +9231,30 @@
       "chapasProduzidas": 2040,
       "chapasPedido": 2000,
       "saldoChapas": 40
+    },
+    {
+      "id": "p640884_3swsf",
+      "cliente": "Tolecaixas Indústria e Comércio Ltda",
+      "lote": "Tolecaixas 1264",
+      "po": "PW40B",
+      "of": "262914",
+      "oc": "71026",
+      "dataPedido": "07/10/2026",
+      "ml": 613.2,
+      "kg": 299.9,
+      "qtdePedido": 1378,
+      "largura": 0.67,
+      "comprimento": 0.89,
+      "vinco": "x",
+      "bobina": 1400,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262914",
+      "dataProduzido": "2026-10-15T12:00:00Z",
+      "chapasProduzidas": 1540,
+      "chapasPedido": 1378,
+      "saldoChapas": 162
     }
   ],
   "paradas": [
@@ -9241,7 +9265,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-15T16:42:06.545693Z",
+    "atualizadoEm": "2026-10-15T16:47:19.119184Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -14563,6 +14587,18 @@
           "pct": 99.6,
           "concluido": true,
           "dataRelatorio": "2026-10-14",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "262914",
+          "oc": "71026",
+          "medida": "0,670 X 0,890",
+          "chapasPedido": 1378,
+          "chapasProduzidas": 1540,
+          "saldo": 162,
+          "pct": 111.8,
+          "concluido": true,
+          "dataRelatorio": "2026-10-15",
           "arquivo": "producao-historico.json (tempo real)"
         }
       ],
