@@ -142,26 +142,6 @@
       "chave": "OF:262859"
     },
     {
-      "id": "p573668_hp9q0",
-      "cliente": "HARMONY EMBALAGENS",
-      "lote": "HARMONY EMBALAGENS 1249",
-      "po": "P50D",
-      "of": "262843",
-      "oc": "30-09-26",
-      "dataPedido": "30/09/2026",
-      "ml": 407.3,
-      "kg": 262.9,
-      "qtdePedido": 500,
-      "largura": 0.6,
-      "comprimento": 1.629,
-      "vinco": "201x198x201",
-      "bobina": 1250,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262843"
-    },
-    {
       "id": "p138997_e2epq",
       "cliente": "FAVINCO",
       "lote": "FAVINCO 1248 AMOSTRA",
@@ -8735,6 +8715,30 @@
       "chapasProduzidas": 250,
       "chapasPedido": 200,
       "saldoChapas": 50
+    },
+    {
+      "id": "p573668_hp9q0",
+      "cliente": "HARMONY EMBALAGENS",
+      "lote": "HARMONY EMBALAGENS 1249",
+      "po": "P50D",
+      "of": "262843",
+      "oc": "30-09-26",
+      "dataPedido": "30/09/2026",
+      "ml": 407.3,
+      "kg": 262.9,
+      "qtdePedido": 500,
+      "largura": 0.6,
+      "comprimento": 1.629,
+      "vinco": "201x198x201",
+      "bobina": 1250,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262843",
+      "dataProduzido": "2026-10-15T12:00:00Z",
+      "chapasProduzidas": 515,
+      "chapasPedido": 500,
+      "saldoChapas": 15
     }
   ],
   "paradas": [
@@ -8745,7 +8749,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-15T01:16:47.853014Z",
+    "atualizadoEm": "2026-10-15T01:26:46.134397Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -13696,10 +13700,10 @@
           "oc": "30-09-26",
           "medida": "0,600 X 1,629",
           "chapasPedido": 500,
-          "chapasProduzidas": 360,
-          "saldo": -140,
-          "pct": 72.0,
-          "concluido": false,
+          "chapasProduzidas": 515,
+          "saldo": 15,
+          "pct": 103.0,
+          "concluido": true,
           "dataRelatorio": "2026-10-15",
           "arquivo": "producao-historico.json (tempo real)"
         },
