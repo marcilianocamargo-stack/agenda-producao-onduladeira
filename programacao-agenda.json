@@ -9177,7 +9177,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-15T15:02:08.600727Z",
+    "atualizadoEm": "2026-10-15T15:41:57.917378Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -22829,6 +22829,20 @@
           "pct": 104.2,
           "concluido": true,
           "dataRelatorio": "2026-10-14",
+          "arquivo": "producao-historico.json (tempo real)"
+        }
+      ],
+      "RR STELLA": [
+        {
+          "of": "262868",
+          "oc": "1131",
+          "medida": "0,720 X 0,720",
+          "chapasPedido": 2000,
+          "chapasProduzidas": 1000,
+          "saldo": -1000,
+          "pct": 50.0,
+          "concluido": false,
+          "dataRelatorio": "2026-10-15",
           "arquivo": "producao-historico.json (tempo real)"
         }
       ]
