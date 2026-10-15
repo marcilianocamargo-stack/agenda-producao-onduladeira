@@ -9429,7 +9429,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-15T19:41:53.827948Z",
+    "atualizadoEm": "2026-10-15T20:06:52.779175Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -10376,6 +10376,18 @@
           "concluido": true,
           "dataRelatorio": "2026-09-07",
           "arquivo": "Producao_07-09-2026_turno-Dia_IPE_EMBALAGENS-PCBOX_EMBALAGENS_LTDA-PCBOX_EMBALAGENS+1.xlsx"
+        },
+        {
+          "of": "262970",
+          "oc": "1825",
+          "medida": "0,660 X 1,385",
+          "chapasPedido": 600,
+          "chapasProduzidas": 385,
+          "saldo": -215,
+          "pct": 64.2,
+          "concluido": false,
+          "dataRelatorio": "2026-10-15",
+          "arquivo": "producao-historico.json (tempo real)"
         }
       ],
       "DR EMBALAGEM": [
