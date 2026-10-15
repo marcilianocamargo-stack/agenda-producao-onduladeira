@@ -402,26 +402,6 @@
       "chave": "OF:262907"
     },
     {
-      "id": "p525942_54aoe",
-      "cliente": "RM Embalagens ( Daiane Marques Canossa ME )",
-      "lote": "RM Embalagens 1263",
-      "po": "P50D",
-      "of": "262905",
-      "oc": "8",
-      "dataPedido": "02/10/2026",
-      "ml": 587.1,
-      "kg": 302,
-      "qtdePedido": 570,
-      "largura": 0.956,
-      "comprimento": 1.03,
-      "vinco": "73x810x73",
-      "bobina": 1000,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262905"
-    },
-    {
       "id": "p640884_3swsf",
       "cliente": "Tolecaixas Indústria e Comércio Ltda",
       "lote": "Tolecaixas 1264",
@@ -8719,6 +8699,30 @@
       "chapasProduzidas": 1310,
       "chapasPedido": 1300,
       "saldoChapas": 10
+    },
+    {
+      "id": "p525942_54aoe",
+      "cliente": "RM Embalagens ( Daiane Marques Canossa ME )",
+      "lote": "RM Embalagens 1263",
+      "po": "P50D",
+      "of": "262905",
+      "oc": "8",
+      "dataPedido": "02/10/2026",
+      "ml": 587.1,
+      "kg": 302,
+      "qtdePedido": 570,
+      "largura": 0.956,
+      "comprimento": 1.03,
+      "vinco": "73x810x73",
+      "bobina": 1000,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262905",
+      "dataProduzido": "2026-10-14T12:00:00Z",
+      "chapasProduzidas": 525,
+      "chapasPedido": 570,
+      "saldoChapas": -45
     }
   ],
   "paradas": [
@@ -8729,7 +8733,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-14T23:11:48.624232Z",
+    "atualizadoEm": "2026-10-14T23:21:46.682762Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -15858,10 +15862,10 @@
           "oc": "8",
           "medida": "0,956 X 1,030",
           "chapasPedido": 570,
-          "chapasProduzidas": 175,
-          "saldo": -395,
-          "pct": 30.7,
-          "concluido": false,
+          "chapasProduzidas": 525,
+          "saldo": -45,
+          "pct": 92.1,
+          "concluido": true,
           "dataRelatorio": "2026-10-14",
           "arquivo": "producao-historico.json (tempo real)"
         },
