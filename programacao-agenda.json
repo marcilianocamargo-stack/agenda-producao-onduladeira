@@ -162,26 +162,6 @@
       "chave": "OF:262840"
     },
     {
-      "id": "p107932_lv5b5",
-      "cliente": "RR STELLA",
-      "lote": "RR STELLA 1253",
-      "po": "PW50B",
-      "of": "262868",
-      "oc": "1131",
-      "dataPedido": "02/10/2026",
-      "ml": 720,
-      "kg": 402.3,
-      "qtdePedido": 2000,
-      "largura": 0.72,
-      "comprimento": 0.72,
-      "vinco": "x",
-      "bobina": 1500,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262868"
-    },
-    {
       "id": "p996103_idl10",
       "cliente": "RR STELLA",
       "lote": "RR STELLA 1253",
@@ -9167,6 +9147,30 @@
       "chapasProduzidas": 365,
       "chapasPedido": 350,
       "saldoChapas": 15
+    },
+    {
+      "id": "p107932_lv5b5",
+      "cliente": "RR STELLA",
+      "lote": "RR STELLA 1253",
+      "po": "PW50B",
+      "of": "262868",
+      "oc": "1131",
+      "dataPedido": "02/10/2026",
+      "ml": 720,
+      "kg": 402.3,
+      "qtdePedido": 2000,
+      "largura": 0.72,
+      "comprimento": 0.72,
+      "vinco": "x",
+      "bobina": 1500,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262868",
+      "dataProduzido": "2026-10-15T12:00:00Z",
+      "chapasProduzidas": 2040,
+      "chapasPedido": 2000,
+      "saldoChapas": 40
     }
   ],
   "paradas": [
@@ -9177,7 +9181,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-15T15:41:57.917378Z",
+    "atualizadoEm": "2026-10-15T16:02:27.573280Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -22838,10 +22842,10 @@
           "oc": "1131",
           "medida": "0,720 X 0,720",
           "chapasPedido": 2000,
-          "chapasProduzidas": 1000,
-          "saldo": -1000,
-          "pct": 50.0,
-          "concluido": false,
+          "chapasProduzidas": 2040,
+          "saldo": 40,
+          "pct": 102.0,
+          "concluido": true,
           "dataRelatorio": "2026-10-15",
           "arquivo": "producao-historico.json (tempo real)"
         }
