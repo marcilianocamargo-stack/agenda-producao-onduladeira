@@ -242,26 +242,6 @@
       "chave": "OF:262915"
     },
     {
-      "id": "p746225_k26c4",
-      "cliente": "Tolecaixas Indústria e Comércio Ltda",
-      "lote": "Tolecaixas 1264",
-      "po": "P40B",
-      "of": "262918",
-      "oc": "71026",
-      "dataPedido": "07/10/2026",
-      "ml": 1257.6,
-      "kg": 500,
-      "qtdePedido": 2764,
-      "largura": 0.56,
-      "comprimento": 0.91,
-      "vinco": "x",
-      "bobina": 1150,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262918"
-    },
-    {
       "id": "p292826_raqc6",
       "cliente": "PCBOX EMBALAGENS LTDA",
       "lote": "PCBOX  - IPE 1266 P",
@@ -9555,6 +9535,30 @@
       "chapasProduzidas": 800,
       "chapasPedido": 800,
       "saldoChapas": 0
+    },
+    {
+      "id": "p746225_k26c4",
+      "cliente": "Tolecaixas Indústria e Comércio Ltda",
+      "lote": "Tolecaixas 1264",
+      "po": "P40B",
+      "of": "262918",
+      "oc": "71026",
+      "dataPedido": "07/10/2026",
+      "ml": 1257.6,
+      "kg": 500,
+      "qtdePedido": 2764,
+      "largura": 0.56,
+      "comprimento": 0.91,
+      "vinco": "x",
+      "bobina": 1150,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262918",
+      "dataProduzido": "2026-10-16T12:00:00Z",
+      "chapasProduzidas": 2870,
+      "chapasPedido": 2764,
+      "saldoChapas": 106
     }
   ],
   "paradas": [
@@ -9565,7 +9569,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-16T19:36:51.556125Z",
+    "atualizadoEm": "2026-10-16T19:46:44.686547Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -14954,10 +14958,10 @@
           "oc": "71026",
           "medida": "0,560 X 0,910",
           "chapasPedido": 2764,
-          "chapasProduzidas": 2325,
-          "saldo": -439,
-          "pct": 84.1,
-          "concluido": false,
+          "chapasProduzidas": 2870,
+          "saldo": 106,
+          "pct": 103.8,
+          "concluido": true,
           "dataRelatorio": "2026-10-16",
           "arquivo": "producao-historico.json (tempo real)"
         }
