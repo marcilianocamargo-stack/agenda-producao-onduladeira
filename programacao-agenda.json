@@ -1220,6 +1220,46 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263007"
+    },
+    {
+      "id": "p362458_ktkxf",
+      "cliente": "IPE EMBALAGENS",
+      "lote": "IPE EMBALAGENS 1291",
+      "po": "P25B",
+      "of": "263011",
+      "oc": "1827",
+      "dataPedido": "15/10/2026",
+      "ml": 1026.5,
+      "kg": 392.5,
+      "qtdePedido": 500.0,
+      "largura": 1.195,
+      "comprimento": 2.053,
+      "vinco": "238x719x238",
+      "bobina": 1250.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263011"
+    },
+    {
+      "id": "p496038_d4la5",
+      "cliente": "IPE EMBALAGENS",
+      "lote": "IPE EMBALAGENS 1291",
+      "po": "P25B",
+      "of": "263012",
+      "oc": "1827",
+      "dataPedido": "15/10/2026",
+      "ml": 979.5,
+      "kg": 369.2,
+      "qtdePedido": 500.0,
+      "largura": 1.178,
+      "comprimento": 1.959,
+      "vinco": "193x792x193",
+      "bobina": 1200.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263012"
     }
   ],
   "aguardando": [],
@@ -9465,7 +9505,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-16T14:32:00.924224Z",
+    "atualizadoEm": "2026-10-16T15:12:02.989147Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
