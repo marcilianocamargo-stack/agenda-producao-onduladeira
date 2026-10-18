@@ -162,26 +162,6 @@
       "chave": "OF:262840"
     },
     {
-      "id": "p996103_idl10",
-      "cliente": "RR STELLA",
-      "lote": "RR STELLA 1253",
-      "po": "PW50B",
-      "of": "262867",
-      "oc": "1130",
-      "dataPedido": "02/10/2026",
-      "ml": 3500,
-      "kg": 1846.9,
-      "qtdePedido": 7000,
-      "largura": 0.68,
-      "comprimento": 1,
-      "vinco": "x",
-      "bobina": 1400,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262867"
-    },
-    {
       "id": "p1_0hckf",
       "cliente": "FAVINCO EMBALAGENS",
       "lote": "FAVINCO EMBALAGENS 1256 P",
@@ -9583,6 +9563,30 @@
       "chapasProduzidas": 415,
       "chapasPedido": 410,
       "saldoChapas": 5
+    },
+    {
+      "id": "p996103_idl10",
+      "cliente": "RR STELLA",
+      "lote": "RR STELLA 1253",
+      "po": "PW50B",
+      "of": "262867",
+      "oc": "1130",
+      "dataPedido": "02/10/2026",
+      "ml": 3500,
+      "kg": 1846.9,
+      "qtdePedido": 7000,
+      "largura": 0.68,
+      "comprimento": 1,
+      "vinco": "x",
+      "bobina": 1400,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262867",
+      "dataProduzido": "2026-10-18T12:00:00Z",
+      "chapasProduzidas": 6640,
+      "chapasPedido": 7000,
+      "saldoChapas": -360
     }
   ],
   "paradas": [
@@ -9593,7 +9597,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-18T08:31:39.054259Z",
+    "atualizadoEm": "2026-10-18T08:36:41.436125Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -23398,10 +23402,10 @@
           "oc": "1130",
           "medida": "0,680 X 1,000",
           "chapasPedido": 7000,
-          "chapasProduzidas": 5810,
-          "saldo": -1190,
-          "pct": 83.0,
-          "concluido": false,
+          "chapasProduzidas": 6640,
+          "saldo": -360,
+          "pct": 94.9,
+          "concluido": true,
           "dataRelatorio": "2026-10-18",
           "arquivo": "producao-historico.json (tempo real)"
         }
