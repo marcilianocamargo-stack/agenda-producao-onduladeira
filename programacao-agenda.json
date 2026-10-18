@@ -922,26 +922,6 @@
       "chave": "OF:263001"
     },
     {
-      "id": "p626973_h74sc",
-      "cliente": "DR EMBALAGENS",
-      "lote": "DR EMBALAGENS 1282 P",
-      "po": "PW40B",
-      "of": "263002",
-      "oc": "1014",
-      "dataPedido": "15/10/2026",
-      "ml": 546.7,
-      "kg": 245.4,
-      "qtdePedido": 2000.0,
-      "largura": 0.41,
-      "comprimento": 0.82,
-      "vinco": "x",
-      "bobina": 1250.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263002"
-    },
-    {
       "id": "p715080_cffnl",
       "cliente": "SÃO MIGUEL",
       "lote": "SÃO MIGUEL 1288",
@@ -9595,6 +9575,30 @@
       "chapasProduzidas": 1550,
       "chapasPedido": 1500,
       "saldoChapas": 50
+    },
+    {
+      "id": "p626973_h74sc",
+      "cliente": "DR EMBALAGENS",
+      "lote": "DR EMBALAGENS 1282 P",
+      "po": "PW40B",
+      "of": "263002",
+      "oc": "1014",
+      "dataPedido": "15/10/2026",
+      "ml": 546.7,
+      "kg": 245.4,
+      "qtdePedido": 2000.0,
+      "largura": 0.41,
+      "comprimento": 0.82,
+      "vinco": "x",
+      "bobina": 1250.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263002",
+      "dataProduzido": "2026-10-18T12:00:00Z",
+      "chapasProduzidas": 2170,
+      "chapasPedido": 2000,
+      "saldoChapas": 170
     }
   ],
   "paradas": [
@@ -9605,7 +9609,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-18T09:41:37.732934Z",
+    "atualizadoEm": "2026-10-18T09:51:44.281142Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -15135,6 +15139,18 @@
           "pct": 103.5,
           "concluido": true,
           "dataRelatorio": "2026-10-15",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263002",
+          "oc": "1014",
+          "medida": "0,410 X 0,820",
+          "chapasPedido": 2000,
+          "chapasProduzidas": 2170,
+          "saldo": 170,
+          "pct": 108.5,
+          "concluido": true,
+          "dataRelatorio": "2026-10-18",
           "arquivo": "producao-historico.json (tempo real)"
         }
       ],
