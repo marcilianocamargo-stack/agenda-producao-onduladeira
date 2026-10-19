@@ -902,26 +902,6 @@
       "chave": "OF:263019"
     },
     {
-      "id": "p247169_iyzx5",
-      "cliente": "FAVINCO EMBALAGENS",
-      "lote": "FAVINCO EMBALAGENS 1293 P",
-      "po": "P50B",
-      "of": "263016",
-      "oc": "094",
-      "dataPedido": "16/10/2026",
-      "ml": 266.4,
-      "kg": 147.6,
-      "qtdePedido": 600,
-      "largura": 0.476,
-      "comprimento": 1.332,
-      "vinco": "128x220x128",
-      "bobina": 1450,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:263016"
-    },
-    {
       "id": "p980488_tiygr",
       "cliente": "PCBOX EMBALAGENS",
       "lote": "IPE - PCBOX 1291",
@@ -10019,6 +9999,30 @@
       "chapasProduzidas": 2383,
       "chapasPedido": 2200,
       "saldoChapas": 183
+    },
+    {
+      "id": "p247169_iyzx5",
+      "cliente": "FAVINCO EMBALAGENS",
+      "lote": "FAVINCO EMBALAGENS 1293 P",
+      "po": "P50B",
+      "of": "263016",
+      "oc": "094",
+      "dataPedido": "16/10/2026",
+      "ml": 266.4,
+      "kg": 147.6,
+      "qtdePedido": 600,
+      "largura": 0.476,
+      "comprimento": 1.332,
+      "vinco": "128x220x128",
+      "bobina": 1450,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:263016",
+      "dataProduzido": "2026-10-19T12:00:00Z",
+      "chapasProduzidas": 740,
+      "chapasPedido": 600,
+      "saldoChapas": 140
     }
   ],
   "paradas": [
@@ -10029,7 +10033,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-19T17:06:57.694427Z",
+    "atualizadoEm": "2026-10-19T18:01:56.357984Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -19885,6 +19889,18 @@
           "chapasProduzidas": 630,
           "saldo": 110,
           "pct": 121.2,
+          "concluido": true,
+          "dataRelatorio": "2026-10-19",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263016",
+          "oc": "094",
+          "medida": "0,476 X 1,332",
+          "chapasPedido": 600,
+          "chapasProduzidas": 740,
+          "saldo": 140,
+          "pct": 123.3,
           "concluido": true,
           "dataRelatorio": "2026-10-19",
           "arquivo": "producao-historico.json (tempo real)"
