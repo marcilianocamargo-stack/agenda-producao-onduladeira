@@ -9821,7 +9821,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-19T15:06:53.728269Z",
+    "atualizadoEm": "2026-10-19T15:26:49.302393Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -23850,6 +23850,20 @@
           "saldo": 102,
           "pct": 102.0,
           "concluido": true,
+          "dataRelatorio": "2026-10-19",
+          "arquivo": "producao-historico.json (tempo real)"
+        }
+      ],
+      "RM EMBALAGENS": [
+        {
+          "of": "262968",
+          "oc": "15",
+          "medida": "0,781 X 1,830",
+          "chapasPedido": 400,
+          "chapasProduzidas": 175,
+          "saldo": -225,
+          "pct": 43.8,
+          "concluido": false,
           "dataRelatorio": "2026-10-19",
           "arquivo": "producao-historico.json (tempo real)"
         }
