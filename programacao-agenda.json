@@ -642,26 +642,6 @@
       "chave": "OF:262995"
     },
     {
-      "id": "p840089_a6o7b",
-      "cliente": "RENOVAPEL",
-      "lote": "RENOVAPEL 1286",
-      "po": "P70C",
-      "of": "263000",
-      "oc": "10",
-      "dataPedido": "15/10/2026",
-      "ml": 2710.5,
-      "kg": 1075.2,
-      "qtdePedido": 1500,
-      "largura": 0.844,
-      "comprimento": 1.807,
-      "vinco": "203x438x203",
-      "bobina": 900,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:263000"
-    },
-    {
       "id": "p975334_8o5qs",
       "cliente": "FORBOX",
       "lote": "FORBOX 1289",
@@ -10043,6 +10023,30 @@
       "chapasProduzidas": 660,
       "chapasPedido": 640,
       "saldoChapas": 20
+    },
+    {
+      "id": "p840089_a6o7b",
+      "cliente": "RENOVAPEL",
+      "lote": "RENOVAPEL 1286",
+      "po": "P70C",
+      "of": "263000",
+      "oc": "10",
+      "dataPedido": "15/10/2026",
+      "ml": 2710.5,
+      "kg": 1075.2,
+      "qtdePedido": 1500,
+      "largura": 0.844,
+      "comprimento": 1.807,
+      "vinco": "203x438x203",
+      "bobina": 900,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:263000",
+      "dataProduzido": "2026-10-19T12:00:00Z",
+      "chapasProduzidas": 1425,
+      "chapasPedido": 1500,
+      "saldoChapas": -75
     }
   ],
   "paradas": [
@@ -10053,7 +10057,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-19T20:31:45.058175Z",
+    "atualizadoEm": "2026-10-19T20:41:41.907281Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -24126,10 +24130,10 @@
           "oc": "10",
           "medida": "0,844 X 1,807",
           "chapasPedido": 1500,
-          "chapasProduzidas": 1140,
-          "saldo": -360,
-          "pct": 76.0,
-          "concluido": false,
+          "chapasProduzidas": 1425,
+          "saldo": -75,
+          "pct": 95.0,
+          "concluido": true,
           "dataRelatorio": "2026-10-19",
           "arquivo": "producao-historico.json (tempo real)"
         }
