@@ -862,26 +862,6 @@
       "chave": "OF:263004"
     },
     {
-      "id": "p753549_v61k4",
-      "cliente": "SÃO MIGUEL",
-      "lote": "SÃO MIGUEL 1288",
-      "po": "P25B",
-      "of": "263006",
-      "oc": "551015",
-      "dataPedido": "15/10/2026",
-      "ml": 236.0,
-      "kg": 110.3,
-      "qtdePedido": 800.0,
-      "largura": 0.73,
-      "comprimento": 0.59,
-      "vinco": "x",
-      "bobina": 1500.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263006"
-    },
-    {
       "id": "p705111_zyui1",
       "cliente": "SÃO MIGUEL",
       "lote": "SÃO MIGUEL 1288",
@@ -9719,6 +9699,30 @@
       "chapasProduzidas": 3072,
       "chapasPedido": 3000,
       "saldoChapas": 72
+    },
+    {
+      "id": "p753549_v61k4",
+      "cliente": "SÃO MIGUEL",
+      "lote": "SÃO MIGUEL 1288",
+      "po": "P25B",
+      "of": "263006",
+      "oc": "551015",
+      "dataPedido": "15/10/2026",
+      "ml": 236.0,
+      "kg": 110.3,
+      "qtdePedido": 800.0,
+      "largura": 0.73,
+      "comprimento": 0.59,
+      "vinco": "x",
+      "bobina": 1500.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263006",
+      "dataProduzido": "2026-10-19T12:00:00Z",
+      "chapasProduzidas": 830,
+      "chapasPedido": 800,
+      "saldoChapas": 30
     }
   ],
   "paradas": [
@@ -9729,7 +9733,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-19T10:46:51.514119Z",
+    "atualizadoEm": "2026-10-19T11:01:52.187410Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -14915,6 +14919,18 @@
           "chapasProduzidas": 3072,
           "saldo": 72,
           "pct": 102.4,
+          "concluido": true,
+          "dataRelatorio": "2026-10-19",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263006",
+          "oc": "551015",
+          "medida": "0,730 X 0,590",
+          "chapasPedido": 800,
+          "chapasProduzidas": 830,
+          "saldo": 30,
+          "pct": 103.8,
           "concluido": true,
           "dataRelatorio": "2026-10-19",
           "arquivo": "producao-historico.json (tempo real)"
