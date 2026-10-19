@@ -182,26 +182,6 @@
       "chave": "OF:262874"
     },
     {
-      "id": "p270665_fz6ud",
-      "cliente": "RM Embalagens ( Daiane Marques Canossa ME )",
-      "lote": "RM Embalagens 1263",
-      "po": "P80D",
-      "of": "262907",
-      "oc": "8",
-      "dataPedido": "02/10/2026",
-      "ml": 492,
-      "kg": 384.3,
-      "qtdePedido": 400,
-      "largura": 1.18,
-      "comprimento": 1.23,
-      "vinco": "x",
-      "bobina": 1200,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262907"
-    },
-    {
       "id": "p292826_raqc6",
       "cliente": "PCBOX EMBALAGENS LTDA",
       "lote": "PCBOX  - IPE 1266 P",
@@ -1040,6 +1020,26 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263016"
+    },
+    {
+      "id": "p672909_0f4hn",
+      "cliente": "SÃO MIGUEL",
+      "lote": "SÃO MIGUEL 1288 P",
+      "po": "P25B",
+      "of": "263021",
+      "oc": "1831",
+      "dataPedido": "16/10/2026",
+      "ml": 666.7,
+      "kg": 320.0,
+      "qtdePedido": 2000.0,
+      "largura": 0.5,
+      "comprimento": 1.0,
+      "vinco": "x",
+      "bobina": 1550.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263021"
     }
   ],
   "aguardando": [],
@@ -9731,6 +9731,30 @@
       "chapasProduzidas": 3120,
       "chapasPedido": 3000,
       "saldoChapas": 120
+    },
+    {
+      "id": "p270665_fz6ud",
+      "cliente": "RM Embalagens ( Daiane Marques Canossa ME )",
+      "lote": "RM Embalagens 1263",
+      "po": "P80D",
+      "of": "262907",
+      "oc": "8",
+      "dataPedido": "02/10/2026",
+      "ml": 492,
+      "kg": 384.3,
+      "qtdePedido": 400,
+      "largura": 1.18,
+      "comprimento": 1.23,
+      "vinco": "x",
+      "bobina": 1200,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262907",
+      "dataProduzido": "2026-10-19T12:00:00Z",
+      "chapasProduzidas": 565,
+      "chapasPedido": 400,
+      "saldoChapas": 165
     }
   ],
   "paradas": [
@@ -9741,7 +9765,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-19T13:41:51.150092Z",
+    "atualizadoEm": "2026-10-19T13:46:55.370150Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -17254,10 +17278,10 @@
           "oc": "8",
           "medida": "1,180 X 1,230",
           "chapasPedido": 400,
-          "chapasProduzidas": 270,
-          "saldo": -130,
-          "pct": 67.5,
-          "concluido": false,
+          "chapasProduzidas": 565,
+          "saldo": 165,
+          "pct": 141.2,
+          "concluido": true,
           "dataRelatorio": "2026-10-19",
           "arquivo": "producao-historico.json (tempo real)"
         }
