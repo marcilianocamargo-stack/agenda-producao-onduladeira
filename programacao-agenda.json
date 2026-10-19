@@ -262,26 +262,6 @@
       "chave": "OF:262956"
     },
     {
-      "id": "p586964_ipsa5",
-      "cliente": "RM EMBALAGENS",
-      "lote": "RM EMBALAGENS 1277",
-      "po": "P25B",
-      "of": "262954",
-      "oc": "15",
-      "dataPedido": "09/10/2026",
-      "ml": 740,
-      "kg": 335.7,
-      "qtdePedido": 3000,
-      "largura": 0.48,
-      "comprimento": 0.74,
-      "vinco": "x",
-      "bobina": 1500,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262954"
-    },
-    {
       "id": "p166497_ck2xl",
       "cliente": "RM EMBALAGENS",
       "lote": "RM EMBALAGENS 1277",
@@ -10023,6 +10003,30 @@
       "chapasProduzidas": 740,
       "chapasPedido": 600,
       "saldoChapas": 140
+    },
+    {
+      "id": "p586964_ipsa5",
+      "cliente": "RM EMBALAGENS",
+      "lote": "RM EMBALAGENS 1277",
+      "po": "P25B",
+      "of": "262954",
+      "oc": "15",
+      "dataPedido": "09/10/2026",
+      "ml": 740,
+      "kg": 335.7,
+      "qtdePedido": 3000,
+      "largura": 0.48,
+      "comprimento": 0.74,
+      "vinco": "x",
+      "bobina": 1500,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262954",
+      "dataProduzido": "2026-10-19T12:00:00Z",
+      "chapasProduzidas": 3175,
+      "chapasPedido": 3000,
+      "saldoChapas": 175
     }
   ],
   "paradas": [
@@ -10033,7 +10037,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-19T18:01:56.357984Z",
+    "atualizadoEm": "2026-10-19T18:11:48.641326Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -24091,6 +24095,18 @@
         }
       ],
       "RM EMBALAGENS": [
+        {
+          "of": "262954",
+          "oc": "15",
+          "medida": "0,480 X 0,740",
+          "chapasPedido": 3000,
+          "chapasProduzidas": 3175,
+          "saldo": 175,
+          "pct": 105.8,
+          "concluido": true,
+          "dataRelatorio": "2026-10-19",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
         {
           "of": "262968",
           "oc": "15",
