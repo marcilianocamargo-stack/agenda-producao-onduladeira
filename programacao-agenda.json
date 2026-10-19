@@ -862,26 +862,6 @@
       "chave": "OF:262998"
     },
     {
-      "id": "p225424_qss5q",
-      "cliente": "RENOVAPEL",
-      "lote": "RENOVAPEL 1286",
-      "po": "P35B",
-      "of": "262999",
-      "oc": "10",
-      "dataPedido": "15/10/2026",
-      "ml": 1950.0,
-      "kg": 807.3,
-      "qtdePedido": 5000.0,
-      "largura": 0.6,
-      "comprimento": 0.78,
-      "vinco": "x",
-      "bobina": 1250.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:262999"
-    },
-    {
       "id": "p715080_cffnl",
       "cliente": "SÃO MIGUEL",
       "lote": "SÃO MIGUEL 1288",
@@ -9707,6 +9687,30 @@
       "chapasProduzidas": 1660,
       "chapasPedido": 1585,
       "saldoChapas": 75
+    },
+    {
+      "id": "p225424_qss5q",
+      "cliente": "RENOVAPEL",
+      "lote": "RENOVAPEL 1286",
+      "po": "P35B",
+      "of": "262999",
+      "oc": "10",
+      "dataPedido": "15/10/2026",
+      "ml": 1950.0,
+      "kg": 807.3,
+      "qtdePedido": 5000.0,
+      "largura": 0.6,
+      "comprimento": 0.78,
+      "vinco": "x",
+      "bobina": 1250.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:262999",
+      "dataProduzido": "2026-10-19T12:00:00Z",
+      "chapasProduzidas": 5102,
+      "chapasPedido": 5000,
+      "saldoChapas": 102
     }
   ],
   "paradas": [
@@ -9717,7 +9721,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-19T09:41:47.648827Z",
+    "atualizadoEm": "2026-10-19T10:21:50.511035Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -23622,10 +23626,10 @@
           "oc": "10",
           "medida": "0,600 X 0,780",
           "chapasPedido": 5000,
-          "chapasProduzidas": 3060,
-          "saldo": -1940,
-          "pct": 61.2,
-          "concluido": false,
+          "chapasProduzidas": 5102,
+          "saldo": 102,
+          "pct": 102.0,
+          "concluido": true,
           "dataRelatorio": "2026-10-19",
           "arquivo": "producao-historico.json (tempo real)"
         }
