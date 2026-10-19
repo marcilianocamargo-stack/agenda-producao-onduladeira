@@ -422,26 +422,6 @@
       "chave": "OF:262961"
     },
     {
-      "id": "p217004_9vqat",
-      "cliente": "RM EMBALAGENS",
-      "lote": "RM EMBALAGENS 1277",
-      "po": "P25B",
-      "of": "262963",
-      "oc": "15",
-      "dataPedido": "09/10/2026",
-      "ml": 1155,
-      "kg": 356.5,
-      "qtdePedido": 1500,
-      "largura": 0.98,
-      "comprimento": 0.77,
-      "vinco": "x",
-      "bobina": 1000,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262963"
-    },
-    {
       "id": "p901609_5dpnj",
       "cliente": "RM EMBALAGENS",
       "lote": "RM EMBALAGENS 1277",
@@ -10035,6 +10015,30 @@
       "chapasProduzidas": 2065,
       "chapasPedido": 2000,
       "saldoChapas": 65
+    },
+    {
+      "id": "p217004_9vqat",
+      "cliente": "RM EMBALAGENS",
+      "lote": "RM EMBALAGENS 1277",
+      "po": "P25B",
+      "of": "262963",
+      "oc": "15",
+      "dataPedido": "09/10/2026",
+      "ml": 1155,
+      "kg": 356.5,
+      "qtdePedido": 1500,
+      "largura": 0.98,
+      "comprimento": 0.77,
+      "vinco": "x",
+      "bobina": 1000,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262963",
+      "dataProduzido": "2026-10-19T12:00:00Z",
+      "chapasProduzidas": 1530,
+      "chapasPedido": 1500,
+      "saldoChapas": 30
     }
   ],
   "paradas": [
@@ -10045,7 +10049,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-19T18:56:44.885910Z",
+    "atualizadoEm": "2026-10-19T19:16:44.700716Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -24132,10 +24136,10 @@
           "oc": "15",
           "medida": "0,980 X 0,770",
           "chapasPedido": 1500,
-          "chapasProduzidas": 775,
-          "saldo": -725,
-          "pct": 51.7,
-          "concluido": false,
+          "chapasProduzidas": 1530,
+          "saldo": 30,
+          "pct": 102.0,
+          "concluido": true,
           "dataRelatorio": "2026-10-19",
           "arquivo": "producao-historico.json (tempo real)"
         },
