@@ -362,26 +362,6 @@
       "chave": "OF:262989"
     },
     {
-      "id": "p307614_ylfii",
-      "cliente": "HARMONY EMBALAGENS",
-      "lote": "HARMONY EMBALAGENS 1285",
-      "po": "P25B",
-      "of": "262995",
-      "oc": "1014",
-      "dataPedido": "14/10/2026",
-      "ml": 294.3,
-      "kg": 96.1,
-      "qtdePedido": 300,
-      "largura": 1.02,
-      "comprimento": 0.981,
-      "vinco": "x",
-      "bobina": 1050,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262995"
-    },
-    {
       "id": "p975334_8o5qs",
       "cliente": "FORBOX",
       "lote": "FORBOX 1289",
@@ -10379,6 +10359,30 @@
       "chapasProduzidas": 2110,
       "chapasPedido": 2000,
       "saldoChapas": 110
+    },
+    {
+      "id": "p307614_ylfii",
+      "cliente": "HARMONY EMBALAGENS",
+      "lote": "HARMONY EMBALAGENS 1285",
+      "po": "P25B",
+      "of": "262995",
+      "oc": "1014",
+      "dataPedido": "14/10/2026",
+      "ml": 294.3,
+      "kg": 96.1,
+      "qtdePedido": 300,
+      "largura": 1.02,
+      "comprimento": 0.981,
+      "vinco": "x",
+      "bobina": 1050,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262995",
+      "dataProduzido": "2026-10-20T12:00:00Z",
+      "chapasProduzidas": 355,
+      "chapasPedido": 300,
+      "saldoChapas": 55
     }
   ],
   "paradas": [
@@ -10389,7 +10393,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-20T18:01:59.133807Z",
+    "atualizadoEm": "2026-10-20T18:16:49.579186Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -15499,6 +15503,18 @@
           "chapasProduzidas": 1780,
           "saldo": 180,
           "pct": 111.2,
+          "concluido": true,
+          "dataRelatorio": "2026-10-20",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "262995",
+          "oc": "1014",
+          "medida": "1,020 X 0,981",
+          "chapasPedido": 300,
+          "chapasProduzidas": 355,
+          "saldo": 55,
+          "pct": 118.3,
           "concluido": true,
           "dataRelatorio": "2026-10-20",
           "arquivo": "producao-historico.json (tempo real)"
