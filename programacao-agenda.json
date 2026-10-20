@@ -10181,7 +10181,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-20T14:32:03.523879Z",
+    "atualizadoEm": "2026-10-20T14:46:52.551399Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -16612,6 +16612,18 @@
           "concluido": true,
           "dataRelatorio": "2026-09-08",
           "arquivo": "Producao_08-09-2026_turno-Dia_IPE_EMBALAGENS-HARMONY_EMBALAGENS.xlsx"
+        },
+        {
+          "of": "263011",
+          "oc": "1827",
+          "medida": "1,195 X 2,053",
+          "chapasPedido": 500,
+          "chapasProduzidas": 420,
+          "saldo": -80,
+          "pct": 84.0,
+          "concluido": false,
+          "dataRelatorio": "2026-10-20",
+          "arquivo": "producao-historico.json (tempo real)"
         },
         {
           "of": "263034",
