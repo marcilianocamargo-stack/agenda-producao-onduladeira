@@ -462,26 +462,6 @@
       "chave": "OF:263020"
     },
     {
-      "id": "p435324_6n9pb",
-      "cliente": "PCBOX EMBALAGENS",
-      "lote": "IPE - PCBOX 1291",
-      "po": "P25B",
-      "of": "263023",
-      "oc": "1838",
-      "dataPedido": "19/10/2026",
-      "ml": 1069.8,
-      "kg": 388.2,
-      "qtdePedido": 1200,
-      "largura": 0.567,
-      "comprimento": 1.783,
-      "vinco": "171x225x171",
-      "bobina": 1200,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:263023"
-    },
-    {
       "id": "p439316_m2ibl",
       "cliente": "RENOVAPEL",
       "lote": "RENOVAPEL 1297",
@@ -10455,6 +10435,30 @@
       "chapasProduzidas": 3135,
       "chapasPedido": 3000,
       "saldoChapas": 135
+    },
+    {
+      "id": "p435324_6n9pb",
+      "cliente": "PCBOX EMBALAGENS",
+      "lote": "IPE - PCBOX 1291",
+      "po": "P25B",
+      "of": "263023",
+      "oc": "1838",
+      "dataPedido": "19/10/2026",
+      "ml": 1069.8,
+      "kg": 388.2,
+      "qtdePedido": 1200,
+      "largura": 0.567,
+      "comprimento": 1.783,
+      "vinco": "171x225x171",
+      "bobina": 1200,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:263023",
+      "dataProduzido": "2026-10-20T12:00:00Z",
+      "chapasProduzidas": 1280,
+      "chapasPedido": 1200,
+      "saldoChapas": 80
     }
   ],
   "paradas": [
@@ -10465,7 +10469,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-20T19:56:46.263080Z",
+    "atualizadoEm": "2026-10-20T20:16:49.351421Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -11478,10 +11482,10 @@
           "oc": "1838",
           "medida": "0,567 X 1,783",
           "chapasPedido": 1200,
-          "chapasProduzidas": 775,
-          "saldo": -425,
-          "pct": 64.6,
-          "concluido": false,
+          "chapasProduzidas": 1280,
+          "saldo": 80,
+          "pct": 106.7,
+          "concluido": true,
           "dataRelatorio": "2026-10-20",
           "arquivo": "producao-historico.json (tempo real)"
         }
