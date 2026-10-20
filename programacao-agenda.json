@@ -222,26 +222,6 @@
       "chave": "OF:263037"
     },
     {
-      "id": "p926854_8cxhf",
-      "cliente": "IPE EMBALAGENS",
-      "lote": "PCBOX  - IPE 1266 P",
-      "po": "P25B",
-      "of": "263035",
-      "oc": "1840",
-      "dataPedido": "19/10/2026",
-      "ml": 115.9,
-      "kg": 56.4,
-      "qtdePedido": 500.0,
-      "largura": 0.38,
-      "comprimento": 0.927,
-      "vinco": "x",
-      "bobina": 1550.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263035"
-    },
-    {
       "id": "p558447_z1pv9",
       "cliente": "IPE EMBALAGENS",
       "lote": "PCBOX  - IPE 1266 P",
@@ -280,26 +260,6 @@
       "precoKg": 0,
       "valor": 0,
       "chave": "OF:262966"
-    },
-    {
-      "id": "p166497_ck2xl",
-      "cliente": "RM EMBALAGENS",
-      "lote": "RM EMBALAGENS 1277",
-      "po": "P45B",
-      "of": "262955",
-      "oc": "15",
-      "dataPedido": "09/10/2026",
-      "ml": 750,
-      "kg": 388.7,
-      "qtdePedido": 2500,
-      "largura": 0.71,
-      "comprimento": 0.6,
-      "vinco": "x",
-      "bobina": 1450,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262955"
     },
     {
       "id": "p351964_htsqx",
@@ -10355,6 +10315,54 @@
       "chapasProduzidas": 260,
       "chapasPedido": 250,
       "saldoChapas": 10
+    },
+    {
+      "id": "p926854_8cxhf",
+      "cliente": "IPE EMBALAGENS",
+      "lote": "PCBOX  - IPE 1266 P",
+      "po": "P25B",
+      "of": "263035",
+      "oc": "1840",
+      "dataPedido": "19/10/2026",
+      "ml": 115.9,
+      "kg": 56.4,
+      "qtdePedido": 500.0,
+      "largura": 0.38,
+      "comprimento": 0.927,
+      "vinco": "x",
+      "bobina": 1550.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263035",
+      "dataProduzido": "2026-10-20T12:00:00Z",
+      "chapasProduzidas": 580,
+      "chapasPedido": 500,
+      "saldoChapas": 80
+    },
+    {
+      "id": "p166497_ck2xl",
+      "cliente": "RM EMBALAGENS",
+      "lote": "RM EMBALAGENS 1277",
+      "po": "P45B",
+      "of": "262955",
+      "oc": "15",
+      "dataPedido": "09/10/2026",
+      "ml": 750,
+      "kg": 388.7,
+      "qtdePedido": 2500,
+      "largura": 0.71,
+      "comprimento": 0.6,
+      "vinco": "x",
+      "bobina": 1450,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262955",
+      "dataProduzido": "2026-10-20T12:00:00Z",
+      "chapasProduzidas": 2420,
+      "chapasPedido": 2500,
+      "saldoChapas": -80
     }
   ],
   "paradas": [
@@ -10365,7 +10373,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-20T16:01:57.114362Z",
+    "atualizadoEm": "2026-10-20T16:26:55.666730Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -16817,6 +16825,18 @@
           "chapasProduzidas": 560,
           "saldo": 60,
           "pct": 112.0,
+          "concluido": true,
+          "dataRelatorio": "2026-10-20",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263035",
+          "oc": "1840",
+          "medida": "0,380 X 0,927",
+          "chapasPedido": 500,
+          "chapasProduzidas": 580,
+          "saldo": 80,
+          "pct": 116.0,
           "concluido": true,
           "dataRelatorio": "2026-10-20",
           "arquivo": "producao-historico.json (tempo real)"
@@ -24589,6 +24609,18 @@
           "pct": 102.0,
           "concluido": true,
           "dataRelatorio": "2026-10-19",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "262955",
+          "oc": "15",
+          "medida": "0,710 X 0,600",
+          "chapasPedido": 2500,
+          "chapasProduzidas": 2420,
+          "saldo": -80,
+          "pct": 96.8,
+          "concluido": true,
+          "dataRelatorio": "2026-10-20",
           "arquivo": "producao-historico.json (tempo real)"
         },
         {
