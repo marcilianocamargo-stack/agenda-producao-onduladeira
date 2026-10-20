@@ -242,26 +242,6 @@
       "chave": "OF:262966"
     },
     {
-      "id": "p351964_htsqx",
-      "cliente": "RM EMBALAGENS",
-      "lote": "RM EMBALAGENS 1277",
-      "po": "P25B",
-      "of": "262957",
-      "oc": "15",
-      "dataPedido": "09/10/2026",
-      "ml": 966,
-      "kg": 307,
-      "qtdePedido": 1050,
-      "largura": 1.009,
-      "comprimento": 0.92,
-      "vinco": "x",
-      "bobina": 1050,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262957"
-    },
-    {
       "id": "p5756_eeh01",
       "cliente": "RM EMBALAGENS",
       "lote": "RM EMBALAGENS 1277",
@@ -10367,6 +10347,30 @@
       "chapasProduzidas": 605,
       "chapasPedido": 500,
       "saldoChapas": 105
+    },
+    {
+      "id": "p351964_htsqx",
+      "cliente": "RM EMBALAGENS",
+      "lote": "RM EMBALAGENS 1277",
+      "po": "P25B",
+      "of": "262957",
+      "oc": "15",
+      "dataPedido": "09/10/2026",
+      "ml": 966,
+      "kg": 307,
+      "qtdePedido": 1050,
+      "largura": 1.009,
+      "comprimento": 0.92,
+      "vinco": "x",
+      "bobina": 1050,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262957",
+      "dataProduzido": "2026-10-20T12:00:00Z",
+      "chapasProduzidas": 1095,
+      "chapasPedido": 1050,
+      "saldoChapas": 45
     }
   ],
   "paradas": [
@@ -10377,7 +10381,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-20T16:31:53.152601Z",
+    "atualizadoEm": "2026-10-20T17:11:57.728314Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -24647,6 +24651,18 @@
           "chapasProduzidas": 260,
           "saldo": 10,
           "pct": 104.0,
+          "concluido": true,
+          "dataRelatorio": "2026-10-20",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "262957",
+          "oc": "15",
+          "medida": "1,009 X 0,920",
+          "chapasPedido": 1050,
+          "chapasProduzidas": 1095,
+          "saldo": 45,
+          "pct": 104.3,
           "concluido": true,
           "dataRelatorio": "2026-10-20",
           "arquivo": "producao-historico.json (tempo real)"
