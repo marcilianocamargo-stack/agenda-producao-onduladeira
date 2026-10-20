@@ -342,26 +342,6 @@
       "chave": "OF:262962"
     },
     {
-      "id": "p446701_tol2u",
-      "cliente": "RM EMBALAGENS",
-      "lote": "RM EMBALAGENS 1277",
-      "po": "P25B",
-      "of": "262964",
-      "oc": "15",
-      "dataPedido": "09/10/2026",
-      "ml": 833,
-      "kg": 304.4,
-      "qtdePedido": 700,
-      "largura": 1.16,
-      "comprimento": 1.19,
-      "vinco": "x",
-      "bobina": 1200,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:262964"
-    },
-    {
       "id": "p107414_p268r",
       "cliente": "RM EMBALAGENS",
       "lote": "RM EMBALAGENS 1277",
@@ -10047,6 +10027,30 @@
       "chapasProduzidas": 1500,
       "chapasPedido": 1500,
       "saldoChapas": 0
+    },
+    {
+      "id": "p446701_tol2u",
+      "cliente": "RM EMBALAGENS",
+      "lote": "RM EMBALAGENS 1277",
+      "po": "P25B",
+      "of": "262964",
+      "oc": "15",
+      "dataPedido": "09/10/2026",
+      "ml": 833,
+      "kg": 304.4,
+      "qtdePedido": 700,
+      "largura": 1.16,
+      "comprimento": 1.19,
+      "vinco": "x",
+      "bobina": 1200,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:262964",
+      "dataProduzido": "2026-10-20T12:00:00Z",
+      "chapasProduzidas": 700,
+      "chapasPedido": 700,
+      "saldoChapas": 0
     }
   ],
   "paradas": [
@@ -10057,7 +10061,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-19T22:16:46.870717Z",
+    "atualizadoEm": "2026-10-20T08:31:53.249596Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -24209,6 +24213,18 @@
           "pct": 102.0,
           "concluido": true,
           "dataRelatorio": "2026-10-19",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "262964",
+          "oc": "15",
+          "medida": "1,160 X 1,190",
+          "chapasPedido": 700,
+          "chapasProduzidas": 700,
+          "saldo": 0,
+          "pct": 100.0,
+          "concluido": true,
+          "dataRelatorio": "2026-10-20",
           "arquivo": "producao-historico.json (tempo real)"
         }
       ]
