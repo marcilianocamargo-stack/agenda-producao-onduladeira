@@ -402,26 +402,6 @@
       "chave": "OF:263011"
     },
     {
-      "id": "p538123_yotyi",
-      "cliente": "IPE EMBALAGENS",
-      "lote": "IPE EMBALAGENS 1291",
-      "po": "P50D",
-      "of": "263020",
-      "oc": "1831",
-      "dataPedido": "16/10/2026",
-      "ml": 394.3,
-      "kg": 293.6,
-      "qtdePedido": 500,
-      "largura": 0.692,
-      "comprimento": 1.577,
-      "vinco": "x",
-      "bobina": 1450,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:263020"
-    },
-    {
       "id": "p439316_m2ibl",
       "cliente": "RENOVAPEL",
       "lote": "RENOVAPEL 1297",
@@ -11427,6 +11407,30 @@
       "chapasProduzidas": 1100,
       "chapasPedido": 1100,
       "saldoChapas": 0
+    },
+    {
+      "id": "p538123_yotyi",
+      "cliente": "IPE EMBALAGENS",
+      "lote": "IPE EMBALAGENS 1291",
+      "po": "P50D",
+      "of": "263020",
+      "oc": "1831",
+      "dataPedido": "16/10/2026",
+      "ml": 394.3,
+      "kg": 293.6,
+      "qtdePedido": 500,
+      "largura": 0.692,
+      "comprimento": 1.577,
+      "vinco": "x",
+      "bobina": 1450,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:263020",
+      "dataProduzido": "2026-10-21T12:00:00Z",
+      "chapasProduzidas": 510,
+      "chapasPedido": 500,
+      "saldoChapas": 10
     }
   ],
   "paradas": [
@@ -11437,7 +11441,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-21T11:01:54.824443Z",
+    "atualizadoEm": "2026-10-21T11:16:49.584160Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -17999,6 +18003,18 @@
           "pct": 121.0,
           "concluido": true,
           "dataRelatorio": "2026-10-20",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263020",
+          "oc": "1831",
+          "medida": "0,692 X 1,577",
+          "chapasPedido": 500,
+          "chapasProduzidas": 510,
+          "saldo": 10,
+          "pct": 102.0,
+          "concluido": true,
+          "dataRelatorio": "2026-10-21",
           "arquivo": "producao-historico.json (tempo real)"
         }
       ],
