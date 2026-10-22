@@ -1560,6 +1560,46 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263118"
+    },
+    {
+      "id": "p28925_raz6c",
+      "cliente": "RENOVAPEL",
+      "lote": "RENOVAPEL 1306 P",
+      "po": "P70D",
+      "of": "263123",
+      "oc": "14",
+      "dataPedido": "22/10/2026",
+      "ml": 159.5,
+      "kg": 129.8,
+      "qtdePedido": 200.0,
+      "largura": 0.644,
+      "comprimento": 1.595,
+      "vinco": "162x320x162",
+      "bobina": 1350.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263123"
+    },
+    {
+      "id": "p723914_m5y8z",
+      "cliente": "RENOVAPEL",
+      "lote": "RENOVAPEL 1306 P",
+      "po": "P45B",
+      "of": "263122",
+      "oc": "14",
+      "dataPedido": "22/10/2026",
+      "ml": 76.5,
+      "kg": 34.6,
+      "qtdePedido": 300.0,
+      "largura": 0.413,
+      "comprimento": 0.765,
+      "vinco": "84x245x84",
+      "bobina": 1300.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263122"
     }
   ],
   "aguardando": [],
@@ -11821,7 +11861,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-22T10:41:47.266399Z",
+    "atualizadoEm": "2026-10-22T11:21:49.111596Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
