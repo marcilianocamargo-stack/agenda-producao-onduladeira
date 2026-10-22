@@ -502,26 +502,6 @@
       "chave": "OF:263030"
     },
     {
-      "id": "p769604_ls54s",
-      "cliente": "HARMONY EMBALAGENS",
-      "lote": "HARMONY EMBALAGENS 1301",
-      "po": "P50D",
-      "of": "263056",
-      "oc": "20-10-26",
-      "dataPedido": "20/10/2026",
-      "ml": 466.5,
-      "kg": 369.9,
-      "qtdePedido": 300.0,
-      "largura": 1.474,
-      "comprimento": 1.555,
-      "vinco": "220x1034x220",
-      "bobina": 1500.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263056"
-    },
-    {
       "id": "p106851_1xvq1",
       "cliente": "HARMONY EMBALAGENS",
       "lote": "HARMONY EMBALAGENS 1301",
@@ -11671,6 +11651,30 @@
       "chapasProduzidas": 510,
       "chapasPedido": 500,
       "saldoChapas": 10
+    },
+    {
+      "id": "p769604_ls54s",
+      "cliente": "HARMONY EMBALAGENS",
+      "lote": "HARMONY EMBALAGENS 1301",
+      "po": "P50D",
+      "of": "263056",
+      "oc": "20-10-26",
+      "dataPedido": "20/10/2026",
+      "ml": 466.5,
+      "kg": 369.9,
+      "qtdePedido": 300.0,
+      "largura": 1.474,
+      "comprimento": 1.555,
+      "vinco": "220x1034x220",
+      "bobina": 1500.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263056",
+      "dataProduzido": "2026-10-22T12:00:00Z",
+      "chapasProduzidas": 310,
+      "chapasPedido": 300,
+      "saldoChapas": 10
     }
   ],
   "paradas": [
@@ -11681,7 +11685,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-21T23:56:42.478464Z",
+    "atualizadoEm": "2026-10-22T00:02:02.993958Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -16920,11 +16924,11 @@
           "oc": "20-10-26",
           "medida": "1,474 X 1,555",
           "chapasPedido": 300,
-          "chapasProduzidas": 175,
-          "saldo": -125,
-          "pct": 58.3,
-          "concluido": false,
-          "dataRelatorio": "2026-10-21",
+          "chapasProduzidas": 310,
+          "saldo": 10,
+          "pct": 103.3,
+          "concluido": true,
+          "dataRelatorio": "2026-10-22",
           "arquivo": "producao-historico.json (tempo real)"
         }
       ],
