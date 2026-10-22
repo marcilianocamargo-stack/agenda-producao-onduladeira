@@ -322,26 +322,6 @@
       "chave": "OF:263031"
     },
     {
-      "id": "p297181_dyo53",
-      "cliente": "RENOVAPEL",
-      "lote": "RENOVAPEL 1297",
-      "po": "P45B",
-      "of": "263027",
-      "oc": "11",
-      "dataPedido": "19/10/2026",
-      "ml": 246.8,
-      "kg": 112,
-      "qtdePedido": 1000,
-      "largura": 0.311,
-      "comprimento": 0.987,
-      "vinco": "94x123x94",
-      "bobina": 1300,
-      "precoUnit": 0,
-      "precoKg": 0,
-      "valor": 0,
-      "chave": "OF:263027"
-    },
-    {
       "id": "p106851_1xvq1",
       "cliente": "HARMONY EMBALAGENS",
       "lote": "HARMONY EMBALAGENS 1301",
@@ -11903,6 +11883,30 @@
       "chapasProduzidas": 1080,
       "chapasPedido": 1000,
       "saldoChapas": 80
+    },
+    {
+      "id": "p297181_dyo53",
+      "cliente": "RENOVAPEL",
+      "lote": "RENOVAPEL 1297",
+      "po": "P45B",
+      "of": "263027",
+      "oc": "11",
+      "dataPedido": "19/10/2026",
+      "ml": 246.8,
+      "kg": 112,
+      "qtdePedido": 1000,
+      "largura": 0.311,
+      "comprimento": 0.987,
+      "vinco": "94x123x94",
+      "bobina": 1300,
+      "precoUnit": 0,
+      "precoKg": 0,
+      "valor": 0,
+      "chave": "OF:263027",
+      "dataProduzido": "2026-10-22T12:00:00Z",
+      "chapasProduzidas": 1000,
+      "chapasPedido": 1000,
+      "saldoChapas": 0
     }
   ],
   "paradas": [
@@ -11913,7 +11917,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-22T14:56:46.824963Z",
+    "atualizadoEm": "2026-10-22T15:06:47.882521Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -26433,6 +26437,18 @@
           "chapasProduzidas": 1170,
           "saldo": 170,
           "pct": 117.0,
+          "concluido": true,
+          "dataRelatorio": "2026-10-22",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263027",
+          "oc": "11",
+          "medida": "0,311 X 0,987",
+          "chapasPedido": 1000,
+          "chapasProduzidas": 1000,
+          "saldo": 0,
+          "pct": 100.0,
           "concluido": true,
           "dataRelatorio": "2026-10-22",
           "arquivo": "producao-historico.json (tempo real)"
