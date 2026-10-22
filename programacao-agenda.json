@@ -1122,26 +1122,6 @@
       "chave": "OF:263091"
     },
     {
-      "id": "p922400_d817k",
-      "cliente": "CARPEL",
-      "lote": "CARPEL 1307",
-      "po": "P25B",
-      "of": "263093",
-      "oc": "1021",
-      "dataPedido": "21/10/2026",
-      "ml": 522.0,
-      "kg": 200.4,
-      "qtdePedido": 900.0,
-      "largura": 0.6,
-      "comprimento": 1.16,
-      "vinco": "40x520x40",
-      "bobina": 1250.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263093"
-    },
-    {
       "id": "p237934_4u5qr",
       "cliente": "CARPEL",
       "lote": "CARPEL 1307",
@@ -12071,6 +12051,30 @@
       "chapasProduzidas": 1325,
       "chapasPedido": 1000,
       "saldoChapas": 325
+    },
+    {
+      "id": "p922400_d817k",
+      "cliente": "CARPEL",
+      "lote": "CARPEL 1307",
+      "po": "P25B",
+      "of": "263093",
+      "oc": "1021",
+      "dataPedido": "21/10/2026",
+      "ml": 522.0,
+      "kg": 200.4,
+      "qtdePedido": 900.0,
+      "largura": 0.6,
+      "comprimento": 1.16,
+      "vinco": "40x520x40",
+      "bobina": 1250.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263093",
+      "dataProduzido": "2026-10-22T12:00:00Z",
+      "chapasProduzidas": 970,
+      "chapasPedido": 900,
+      "saldoChapas": 70
     }
   ],
   "paradas": [
@@ -12081,7 +12085,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-22T20:31:43.587223Z",
+    "atualizadoEm": "2026-10-22T20:41:41.560818Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -20379,6 +20383,18 @@
           "chapasProduzidas": 4030,
           "saldo": 30,
           "pct": 100.8,
+          "concluido": true,
+          "dataRelatorio": "2026-10-22",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263093",
+          "oc": "1021",
+          "medida": "0,600 X 1,160",
+          "chapasPedido": 900,
+          "chapasProduzidas": 970,
+          "saldo": 70,
+          "pct": 107.8,
           "concluido": true,
           "dataRelatorio": "2026-10-22",
           "arquivo": "producao-historico.json (tempo real)"
