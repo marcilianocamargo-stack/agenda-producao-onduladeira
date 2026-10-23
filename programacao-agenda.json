@@ -1062,26 +1062,6 @@
       "chave": "OF:263117"
     },
     {
-      "id": "p245208_ovn4a",
-      "cliente": "FAVINCO EMBALAGENS",
-      "lote": "FAVINCO EMBALAGENS 1314",
-      "po": "P50D",
-      "of": "263124",
-      "oc": "095",
-      "dataPedido": "22/10/2026",
-      "ml": 152.4,
-      "kg": 97.9,
-      "qtdePedido": 300.0,
-      "largura": 0.398,
-      "comprimento": 1.524,
-      "vinco": "146x106x146",
-      "bobina": 1250.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263124"
-    },
-    {
       "id": "p451136_jh212",
       "cliente": "PCBOX EMBALAGENS",
       "lote": "PCBOX EMBALAGENS 1316",
@@ -12567,6 +12547,30 @@
       "chapasProduzidas": 1220,
       "chapasPedido": 1200,
       "saldoChapas": 20
+    },
+    {
+      "id": "p245208_ovn4a",
+      "cliente": "FAVINCO EMBALAGENS",
+      "lote": "FAVINCO EMBALAGENS 1314",
+      "po": "P50D",
+      "of": "263124",
+      "oc": "095",
+      "dataPedido": "22/10/2026",
+      "ml": 152.4,
+      "kg": 97.9,
+      "qtdePedido": 300.0,
+      "largura": 0.398,
+      "comprimento": 1.524,
+      "vinco": "146x106x146",
+      "bobina": 1250.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263124",
+      "dataProduzido": "2026-10-23T12:00:00Z",
+      "chapasProduzidas": 450,
+      "chapasPedido": 300,
+      "saldoChapas": 150
     }
   ],
   "paradas": [
@@ -12577,7 +12581,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-23T19:11:37.724871Z",
+    "atualizadoEm": "2026-10-23T19:16:41.208860Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -23143,6 +23147,18 @@
           "pct": 114.5,
           "concluido": true,
           "dataRelatorio": "2026-10-19",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263124",
+          "oc": "095",
+          "medida": "0,398 X 1,524",
+          "chapasPedido": 300,
+          "chapasProduzidas": 450,
+          "saldo": 150,
+          "pct": 150.0,
+          "concluido": true,
+          "dataRelatorio": "2026-10-23",
           "arquivo": "producao-historico.json (tempo real)"
         },
         {
