@@ -1002,26 +1002,6 @@
       "chave": "OF:263084"
     },
     {
-      "id": "p237934_4u5qr",
-      "cliente": "CARPEL",
-      "lote": "CARPEL 1307",
-      "po": "P35B",
-      "of": "263106",
-      "oc": "1021",
-      "dataPedido": "21/10/2026",
-      "ml": 2204.0,
-      "kg": 842.5,
-      "qtdePedido": 2000.0,
-      "largura": 0.554,
-      "comprimento": 2.204,
-      "vinco": "197x160x197",
-      "bobina": 1150.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263106"
-    },
-    {
       "id": "p221676_q1yjb",
       "cliente": "CARPEL",
       "lote": "CARPEL 1307",
@@ -12111,6 +12091,30 @@
       "chapasProduzidas": 1000,
       "chapasPedido": 1000,
       "saldoChapas": 0
+    },
+    {
+      "id": "p237934_4u5qr",
+      "cliente": "CARPEL",
+      "lote": "CARPEL 1307",
+      "po": "P35B",
+      "of": "263106",
+      "oc": "1021",
+      "dataPedido": "21/10/2026",
+      "ml": 2204.0,
+      "kg": 842.5,
+      "qtdePedido": 2000.0,
+      "largura": 0.554,
+      "comprimento": 2.204,
+      "vinco": "197x160x197",
+      "bobina": 1150.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263106",
+      "dataProduzido": "2026-10-23T12:00:00Z",
+      "chapasProduzidas": 1850,
+      "chapasPedido": 2000,
+      "saldoChapas": -150
     }
   ],
   "paradas": [
@@ -12121,7 +12125,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-23T09:06:45.342569Z",
+    "atualizadoEm": "2026-10-23T10:16:46.068912Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -20376,18 +20380,6 @@
           "arquivo": "producao-historico.json (tempo real)"
         },
         {
-          "of": "263106",
-          "oc": "1021",
-          "medida": "0,554 X 2,204",
-          "chapasPedido": 2000,
-          "chapasProduzidas": 1365,
-          "saldo": -635,
-          "pct": 68.2,
-          "concluido": false,
-          "dataRelatorio": "2026-10-21",
-          "arquivo": "producao-historico.json (tempo real)"
-        },
-        {
           "of": "263088",
           "oc": "1021",
           "medida": "0,450 X 0,750",
@@ -20611,6 +20603,18 @@
           "chapasProduzidas": 1000,
           "saldo": 0,
           "pct": 100.0,
+          "concluido": true,
+          "dataRelatorio": "2026-10-23",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263106",
+          "oc": "1021",
+          "medida": "0,554 X 2,204",
+          "chapasPedido": 2000,
+          "chapasProduzidas": 1850,
+          "saldo": -150,
+          "pct": 92.5,
           "concluido": true,
           "dataRelatorio": "2026-10-23",
           "arquivo": "producao-historico.json (tempo real)"
