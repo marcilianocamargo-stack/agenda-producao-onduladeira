@@ -1042,26 +1042,6 @@
       "chave": "OF:263087"
     },
     {
-      "id": "p104174_8kugr",
-      "cliente": "CARPEL",
-      "lote": "CARPEL 1307",
-      "po": "P35B",
-      "of": "263103",
-      "oc": "1021",
-      "dataPedido": "21/10/2026",
-      "ml": 540.0,
-      "kg": 420.3,
-      "qtdePedido": 1000.0,
-      "largura": 0.564,
-      "comprimento": 2.16,
-      "vinco": "197x170x197",
-      "bobina": 900.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263103"
-    },
-    {
       "id": "p883232_d9v8j",
       "cliente": "ABAPEL EMBALAGENS",
       "lote": "ABAPEL EMBALAGENS 1308",
@@ -12107,6 +12087,30 @@
       "chapasProduzidas": 570,
       "chapasPedido": 500,
       "saldoChapas": 70
+    },
+    {
+      "id": "p104174_8kugr",
+      "cliente": "CARPEL",
+      "lote": "CARPEL 1307",
+      "po": "P35B",
+      "of": "263103",
+      "oc": "1021",
+      "dataPedido": "21/10/2026",
+      "ml": 540.0,
+      "kg": 420.3,
+      "qtdePedido": 1000.0,
+      "largura": 0.564,
+      "comprimento": 2.16,
+      "vinco": "197x170x197",
+      "bobina": 900.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263103",
+      "dataProduzido": "2026-10-23T12:00:00Z",
+      "chapasProduzidas": 1000,
+      "chapasPedido": 1000,
+      "saldoChapas": 0
     }
   ],
   "paradas": [
@@ -12117,7 +12121,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-23T09:01:53.949168Z",
+    "atualizadoEm": "2026-10-23T09:06:45.342569Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -20604,10 +20608,10 @@
           "oc": "1021",
           "medida": "0,564 X 2,160",
           "chapasPedido": 1000,
-          "chapasProduzidas": 775,
-          "saldo": -225,
-          "pct": 77.5,
-          "concluido": false,
+          "chapasProduzidas": 1000,
+          "saldo": 0,
+          "pct": 100.0,
+          "concluido": true,
           "dataRelatorio": "2026-10-23",
           "arquivo": "producao-historico.json (tempo real)"
         }
