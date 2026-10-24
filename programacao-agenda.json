@@ -302,26 +302,6 @@
       "chave": "OF:263031"
     },
     {
-      "id": "p106851_1xvq1",
-      "cliente": "HARMONY EMBALAGENS",
-      "lote": "HARMONY EMBALAGENS 1301",
-      "po": "P50D",
-      "of": "263050",
-      "oc": "20-10-26",
-      "dataPedido": "20/10/2026",
-      "ml": 1133.3,
-      "kg": 896.3,
-      "qtdePedido": 2500.0,
-      "largura": 0.49,
-      "comprimento": 1.36,
-      "vinco": "x",
-      "bobina": 1500.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263050"
-    },
-    {
       "id": "p701553_0l989",
       "cliente": "HARMONY EMBALAGENS",
       "lote": "HARMONY EMBALAGENS 1301",
@@ -12587,6 +12567,30 @@
       "chapasProduzidas": 15490,
       "chapasPedido": 15000,
       "saldoChapas": 490
+    },
+    {
+      "id": "p106851_1xvq1",
+      "cliente": "HARMONY EMBALAGENS",
+      "lote": "HARMONY EMBALAGENS 1301",
+      "po": "P50D",
+      "of": "263050",
+      "oc": "20-10-26",
+      "dataPedido": "20/10/2026",
+      "ml": 1133.3,
+      "kg": 896.3,
+      "qtdePedido": 2500.0,
+      "largura": 0.49,
+      "comprimento": 1.36,
+      "vinco": "x",
+      "bobina": 1500.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263050",
+      "dataProduzido": "2026-10-24T12:00:00Z",
+      "chapasProduzidas": 2535,
+      "chapasPedido": 2500,
+      "saldoChapas": 35
     }
   ],
   "paradas": [
@@ -12597,7 +12601,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-23T23:51:37.326058Z",
+    "atualizadoEm": "2026-10-24T00:01:47.016518Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -17892,18 +17896,6 @@
           "arquivo": "producao-historico.json (tempo real)"
         },
         {
-          "of": "263050",
-          "oc": "20-10-26",
-          "medida": "0,490 X 1,360",
-          "chapasPedido": 2500,
-          "chapasProduzidas": 1820,
-          "saldo": -680,
-          "pct": 72.8,
-          "concluido": false,
-          "dataRelatorio": "2026-10-23",
-          "arquivo": "producao-historico.json (tempo real)"
-        },
-        {
           "of": "263052",
           "oc": "20-10-26",
           "medida": "0,325 X 0,880",
@@ -18009,6 +18001,18 @@
           "pct": 102.0,
           "concluido": true,
           "dataRelatorio": "2026-10-23",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263050",
+          "oc": "20-10-26",
+          "medida": "0,490 X 1,360",
+          "chapasPedido": 2500,
+          "chapasProduzidas": 2535,
+          "saldo": 35,
+          "pct": 101.4,
+          "concluido": true,
+          "dataRelatorio": "2026-10-24",
           "arquivo": "producao-historico.json (tempo real)"
         }
       ],
