@@ -1182,26 +1182,6 @@
       "chave": "OF:263148"
     },
     {
-      "id": "p284443_egjth",
-      "cliente": "",
-      "lote": "FAVINCO EMBALAGENS 1314 P",
-      "po": "P50B",
-      "of": "253152",
-      "oc": "100",
-      "dataPedido": null,
-      "ml": 0.0,
-      "kg": 458.1,
-      "qtdePedido": 3000.0,
-      "largura": 0.341,
-      "comprimento": 1.154,
-      "vinco": "111X119X111",
-      "bobina": 1400.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:253152"
-    },
-    {
       "id": "p995025_pdpr4",
       "cliente": "HARMONY EMBALAGENS",
       "lote": "HARMONY EMBALAGENS 1320 P",
@@ -12603,6 +12583,30 @@
       "chapasProduzidas": 1735,
       "chapasPedido": 1800,
       "saldoChapas": -65
+    },
+    {
+      "id": "p284443_egjth",
+      "cliente": "",
+      "lote": "FAVINCO EMBALAGENS 1314 P",
+      "po": "P50B",
+      "of": "253152",
+      "oc": "100",
+      "dataPedido": null,
+      "ml": 0.0,
+      "kg": 458.1,
+      "qtdePedido": 3000.0,
+      "largura": 0.341,
+      "comprimento": 1.154,
+      "vinco": "111X119X111",
+      "bobina": 1400.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:253152",
+      "dataProduzido": "2026-10-24T12:00:00Z",
+      "chapasProduzidas": 3060,
+      "chapasPedido": 3000,
+      "saldoChapas": 60
     }
   ],
   "paradas": [
@@ -12613,7 +12617,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-24T09:36:43.820606Z",
+    "atualizadoEm": "2026-10-24T09:41:40.611431Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -23282,10 +23286,10 @@
           "oc": "100",
           "medida": "0,341 X 1,154",
           "chapasPedido": 3000,
-          "chapasProduzidas": 1530,
-          "saldo": -1470,
-          "pct": 51.0,
-          "concluido": false,
+          "chapasProduzidas": 3060,
+          "saldo": 60,
+          "pct": 102.0,
+          "concluido": true,
           "dataRelatorio": "2026-10-24",
           "arquivo": "producao-historico.json (tempo real)"
         },
