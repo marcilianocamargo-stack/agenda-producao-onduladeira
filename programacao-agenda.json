@@ -1082,26 +1082,6 @@
       "chave": "OF:263137"
     },
     {
-      "id": "p738160_qg5fh",
-      "cliente": "FAVINCO EMBALAGENS",
-      "lote": "FAVINCO EMBALAGENS 1314 P",
-      "po": "P25B",
-      "of": "263133",
-      "oc": "098",
-      "dataPedido": "23/10/2026",
-      "ml": 420.7,
-      "kg": 165.2,
-      "qtdePedido": 1000.0,
-      "largura": 0.409,
-      "comprimento": 1.262,
-      "vinco": "127x155x127",
-      "bobina": 1250.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263133"
-    },
-    {
       "id": "p995025_pdpr4",
       "cliente": "HARMONY EMBALAGENS",
       "lote": "HARMONY EMBALAGENS 1320 P",
@@ -12623,6 +12603,30 @@
       "chapasProduzidas": 1000,
       "chapasPedido": 880,
       "saldoChapas": 120
+    },
+    {
+      "id": "p738160_qg5fh",
+      "cliente": "FAVINCO EMBALAGENS",
+      "lote": "FAVINCO EMBALAGENS 1314 P",
+      "po": "P25B",
+      "of": "263133",
+      "oc": "098",
+      "dataPedido": "23/10/2026",
+      "ml": 420.7,
+      "kg": 165.2,
+      "qtdePedido": 1000.0,
+      "largura": 0.409,
+      "comprimento": 1.262,
+      "vinco": "127x155x127",
+      "bobina": 1250.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263133",
+      "dataProduzido": "2026-10-24T12:00:00Z",
+      "chapasProduzidas": 1040,
+      "chapasPedido": 1000,
+      "saldoChapas": 40
     }
   ],
   "paradas": [
@@ -12633,7 +12637,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-24T11:46:34.786205Z",
+    "atualizadoEm": "2026-10-24T12:01:37.239250Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -23341,6 +23345,18 @@
           "chapasProduzidas": 1000,
           "saldo": 120,
           "pct": 113.6,
+          "concluido": true,
+          "dataRelatorio": "2026-10-24",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263133",
+          "oc": "098",
+          "medida": "0,409 X 1,262",
+          "chapasPedido": 1000,
+          "chapasProduzidas": 1040,
+          "saldo": 40,
+          "pct": 104.0,
           "concluido": true,
           "dataRelatorio": "2026-10-24",
           "arquivo": "producao-historico.json (tempo real)"
