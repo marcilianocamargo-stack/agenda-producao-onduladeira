@@ -302,26 +302,6 @@
       "chave": "OF:263031"
     },
     {
-      "id": "p701553_0l989",
-      "cliente": "HARMONY EMBALAGENS",
-      "lote": "HARMONY EMBALAGENS 1301",
-      "po": "P50D",
-      "of": "263051",
-      "oc": "20-10-26",
-      "dataPedido": "20/10/2026",
-      "ml": 1290.8,
-      "kg": 1020.9,
-      "qtdePedido": 2500.0,
-      "largura": 0.49,
-      "comprimento": 1.549,
-      "vinco": "x",
-      "bobina": 1500.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263051"
-    },
-    {
       "id": "p264075_jzbzv",
       "cliente": "HARMONY EMBALAGENS",
       "lote": "HARMONY EMBALAGENS 1301",
@@ -12591,6 +12571,30 @@
       "chapasProduzidas": 2535,
       "chapasPedido": 2500,
       "saldoChapas": 35
+    },
+    {
+      "id": "p701553_0l989",
+      "cliente": "HARMONY EMBALAGENS",
+      "lote": "HARMONY EMBALAGENS 1301",
+      "po": "P50D",
+      "of": "263051",
+      "oc": "20-10-26",
+      "dataPedido": "20/10/2026",
+      "ml": 1290.8,
+      "kg": 1020.9,
+      "qtdePedido": 2500.0,
+      "largura": 0.49,
+      "comprimento": 1.549,
+      "vinco": "x",
+      "bobina": 1500.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263051",
+      "dataProduzido": "2026-10-24T12:00:00Z",
+      "chapasProduzidas": 2535,
+      "chapasPedido": 2500,
+      "saldoChapas": 35
     }
   ],
   "paradas": [
@@ -12601,7 +12605,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-24T00:31:39.438124Z",
+    "atualizadoEm": "2026-10-24T00:46:49.439854Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -18020,10 +18024,10 @@
           "oc": "20-10-26",
           "medida": "0,490 X 1,549",
           "chapasPedido": 2500,
-          "chapasProduzidas": 2160,
-          "saldo": -340,
-          "pct": 86.4,
-          "concluido": false,
+          "chapasProduzidas": 2535,
+          "saldo": 35,
+          "pct": 101.4,
+          "concluido": true,
           "dataRelatorio": "2026-10-24",
           "arquivo": "producao-historico.json (tempo real)"
         }
