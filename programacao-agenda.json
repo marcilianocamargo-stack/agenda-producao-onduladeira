@@ -1022,26 +1022,6 @@
       "chave": "OF:263127"
     },
     {
-      "id": "p598112_2ggp7",
-      "cliente": "FAVINCO EMBALAGENS",
-      "lote": "PCBOX EMBALAGENS 1316",
-      "po": "P25B",
-      "of": "263131",
-      "oc": "097",
-      "dataPedido": "22/10/2026",
-      "ml": 505.0,
-      "kg": 223.0,
-      "qtdePedido": 1010.0,
-      "largura": 0.69,
-      "comprimento": 1.0,
-      "vinco": "x",
-      "bobina": 1400.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263131"
-    },
-    {
       "id": "p389555_cad7h",
       "cliente": "FAVINCO EMBALAGENS",
       "lote": "PCBOX EMBALAGENS 1316",
@@ -12607,6 +12587,30 @@
       "chapasProduzidas": 3060,
       "chapasPedido": 3000,
       "saldoChapas": 60
+    },
+    {
+      "id": "p598112_2ggp7",
+      "cliente": "FAVINCO EMBALAGENS",
+      "lote": "PCBOX EMBALAGENS 1316",
+      "po": "P25B",
+      "of": "263131",
+      "oc": "097",
+      "dataPedido": "22/10/2026",
+      "ml": 505.0,
+      "kg": 223.0,
+      "qtdePedido": 1010.0,
+      "largura": 0.69,
+      "comprimento": 1.0,
+      "vinco": "x",
+      "bobina": 1400.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263131",
+      "dataProduzido": "2026-10-24T12:00:00Z",
+      "chapasProduzidas": 1020,
+      "chapasPedido": 1010,
+      "saldoChapas": 10
     }
   ],
   "paradas": [
@@ -12617,7 +12621,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-24T09:41:40.611431Z",
+    "atualizadoEm": "2026-10-24T10:01:43.706576Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -23298,10 +23302,10 @@
           "oc": "097",
           "medida": "0,690 X 1,000",
           "chapasPedido": 1010,
-          "chapasProduzidas": 500,
-          "saldo": -510,
-          "pct": 49.5,
-          "concluido": false,
+          "chapasProduzidas": 1020,
+          "saldo": 10,
+          "pct": 101.0,
+          "concluido": true,
           "dataRelatorio": "2026-10-24",
           "arquivo": "producao-historico.json (tempo real)"
         },
