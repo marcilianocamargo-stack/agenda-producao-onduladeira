@@ -1380,6 +1380,26 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263164"
+    },
+    {
+      "id": "p918784_mxw97",
+      "cliente": "FAVINCO EMBALAGENS",
+      "lote": "FAVINCO EMBALAGENS 1329",
+      "po": "P25B",
+      "of": "263171",
+      "oc": "7",
+      "dataPedido": "26/10/2026",
+      "ml": 365.0,
+      "kg": 127.5,
+      "qtdePedido": 2000.0,
+      "largura": 0.273,
+      "comprimento": 0.73,
+      "vinco": "74x125x74",
+      "bobina": 1150.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263171"
     }
   ],
   "aguardando": [],
@@ -13057,7 +13077,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-26T15:36:40.902633Z",
+    "atualizadoEm": "2026-10-26T16:41:43.042726Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
