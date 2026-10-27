@@ -820,6 +820,46 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263179"
+    },
+    {
+      "id": "p982203_b5rob",
+      "cliente": "DR EMBALAGENS",
+      "lote": "DR EMBALAGENS 1331",
+      "po": "PW40B",
+      "of": "263184",
+      "oc": "SN",
+      "dataPedido": "27/10/2026",
+      "ml": 936.9,
+      "kg": 471.9,
+      "qtdePedido": 3055.0,
+      "largura": 0.46,
+      "comprimento": 0.92,
+      "vinco": "x",
+      "bobina": 1400.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263184"
+    },
+    {
+      "id": "p311660_2h9w2",
+      "cliente": "DR EMBALAGENS",
+      "lote": "DR EMBALAGENS 1331",
+      "po": "PW40B",
+      "of": "263183",
+      "oc": "SN",
+      "dataPedido": "27/10/2026",
+      "ml": 410.0,
+      "kg": 184.1,
+      "qtdePedido": 1500.0,
+      "largura": 0.41,
+      "comprimento": 0.82,
+      "vinco": "x",
+      "bobina": 1250.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263183"
     }
   ],
   "aguardando": [],
@@ -13457,7 +13497,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-27T20:16:42.348923Z",
+    "atualizadoEm": "2026-10-27T20:31:39.599070Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
