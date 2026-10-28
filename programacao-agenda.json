@@ -820,26 +820,6 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263179"
-    },
-    {
-      "id": "p982203_b5rob",
-      "cliente": "DR EMBALAGENS",
-      "lote": "DR EMBALAGENS 1331",
-      "po": "PW40B",
-      "of": "263184",
-      "oc": "SN",
-      "dataPedido": "27/10/2026",
-      "ml": 936.9,
-      "kg": 471.9,
-      "qtdePedido": 3055.0,
-      "largura": 0.46,
-      "comprimento": 0.92,
-      "vinco": "x",
-      "bobina": 1400.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263184"
     }
   ],
   "aguardando": [],
@@ -13491,6 +13471,30 @@
       "chapasProduzidas": 1570,
       "chapasPedido": 1500,
       "saldoChapas": 70
+    },
+    {
+      "id": "p982203_b5rob",
+      "cliente": "DR EMBALAGENS",
+      "lote": "DR EMBALAGENS 1331",
+      "po": "PW40B",
+      "of": "263184",
+      "oc": "SN",
+      "dataPedido": "27/10/2026",
+      "ml": 936.9,
+      "kg": 471.9,
+      "qtdePedido": 3055.0,
+      "largura": 0.46,
+      "comprimento": 0.92,
+      "vinco": "x",
+      "bobina": 1400.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263184",
+      "dataProduzido": "2026-10-27T12:00:00Z",
+      "chapasProduzidas": 3150,
+      "chapasPedido": 3055,
+      "saldoChapas": 95
     }
   ],
   "paradas": [
@@ -13501,7 +13505,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-27T21:01:47.723564Z",
+    "atualizadoEm": "2026-10-27T21:06:41.301896Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -19782,10 +19786,10 @@
           "oc": "SN",
           "medida": "0,460 X 0,920",
           "chapasPedido": 3055,
-          "chapasProduzidas": 2325,
-          "saldo": -730,
-          "pct": 76.1,
-          "concluido": false,
+          "chapasProduzidas": 3150,
+          "saldo": 95,
+          "pct": 103.1,
+          "concluido": true,
           "dataRelatorio": "2026-10-27",
           "arquivo": "producao-historico.json (tempo real)"
         }
