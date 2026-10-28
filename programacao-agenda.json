@@ -322,26 +322,6 @@
       "chave": "OF:263066"
     },
     {
-      "id": "p53307_pqequ",
-      "cliente": "ABAPEL EMBALAGENS",
-      "lote": "ABAPEL EMBALAGENS 1308",
-      "po": "P25C",
-      "of": "263110",
-      "oc": "8338",
-      "dataPedido": "20/10/2026",
-      "ml": 643.7,
-      "kg": 328.4,
-      "qtdePedido": 360.0,
-      "largura": 1.546,
-      "comprimento": 1.788,
-      "vinco": "x",
-      "bobina": 1600.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263110"
-    },
-    {
       "id": "p191139_46vf2",
       "cliente": "FORBOX",
       "lote": "FORBOX 1310",
@@ -14131,6 +14111,30 @@
       "chapasProduzidas": 525,
       "chapasPedido": 500,
       "saldoChapas": 25
+    },
+    {
+      "id": "p53307_pqequ",
+      "cliente": "ABAPEL EMBALAGENS",
+      "lote": "ABAPEL EMBALAGENS 1308",
+      "po": "P25C",
+      "of": "263110",
+      "oc": "8338",
+      "dataPedido": "20/10/2026",
+      "ml": 643.7,
+      "kg": 328.4,
+      "qtdePedido": 360.0,
+      "largura": 1.546,
+      "comprimento": 1.788,
+      "vinco": "x",
+      "bobina": 1600.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263110",
+      "dataProduzido": "2026-10-28T12:00:00Z",
+      "chapasProduzidas": 335,
+      "chapasPedido": 360,
+      "saldoChapas": -25
     }
   ],
   "paradas": [
@@ -14141,7 +14145,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-28T15:26:43.613103Z",
+    "atualizadoEm": "2026-10-28T15:31:45.062643Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -30054,10 +30058,10 @@
           "oc": "8338",
           "medida": "1,546 X 1,788",
           "chapasPedido": 360,
-          "chapasProduzidas": 180,
-          "saldo": -180,
-          "pct": 50.0,
-          "concluido": false,
+          "chapasProduzidas": 335,
+          "saldo": -25,
+          "pct": 93.1,
+          "concluido": true,
           "dataRelatorio": "2026-10-28",
           "arquivo": "producao-historico.json (tempo real)"
         }
