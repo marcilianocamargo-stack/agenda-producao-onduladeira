@@ -1562,6 +1562,26 @@
       "chave": "OF:263226"
     },
     {
+      "id": "p114495_c2d6m",
+      "cliente": "PCBOX EMBALAGENS",
+      "lote": "PCBOX EMBALAGENS 1339",
+      "po": "P25B",
+      "of": "263232",
+      "oc": "1871",
+      "dataPedido": "28/10/2026",
+      "ml": 540.0,
+      "kg": 137.5,
+      "qtdePedido": 300.0,
+      "largura": 0.796,
+      "comprimento": 1.8,
+      "vinco": "x",
+      "bobina": 850.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263232"
+    },
+    {
       "id": "p754390_8s44u",
       "cliente": "CARTOMIL EMBALAGENS",
       "lote": "CARTOMIL EMBALAGENS 1340",
@@ -14465,7 +14485,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-28T17:41:47.382250Z",
+    "atualizadoEm": "2026-10-28T17:46:46.818436Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
