@@ -942,26 +942,6 @@
       "chave": "OF:263218"
     },
     {
-      "id": "p168391_ofv4i",
-      "cliente": "TOLECAIXAS",
-      "lote": "TOLECAIXAS 1337",
-      "po": "PW40B",
-      "of": "263216",
-      "oc": "281026",
-      "dataPedido": "28/10/2026",
-      "ml": 951.3,
-      "kg": 500.0,
-      "qtdePedido": 2068.0,
-      "largura": 0.72,
-      "comprimento": 0.92,
-      "vinco": "x",
-      "bobina": 1500.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263216"
-    },
-    {
       "id": "p437286_28h7u",
       "cliente": "TOLECAIXAS",
       "lote": "TOLECAIXAS 1337",
@@ -14699,6 +14679,30 @@
       "chapasProduzidas": 2360,
       "chapasPedido": 2283,
       "saldoChapas": 77
+    },
+    {
+      "id": "p168391_ofv4i",
+      "cliente": "TOLECAIXAS",
+      "lote": "TOLECAIXAS 1337",
+      "po": "PW40B",
+      "of": "263216",
+      "oc": "281026",
+      "dataPedido": "28/10/2026",
+      "ml": 951.3,
+      "kg": 500.0,
+      "qtdePedido": 2068.0,
+      "largura": 0.72,
+      "comprimento": 0.92,
+      "vinco": "x",
+      "bobina": 1500.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263216",
+      "dataProduzido": "2026-10-29T12:00:00Z",
+      "chapasProduzidas": 2070,
+      "chapasPedido": 2068,
+      "saldoChapas": 2
     }
   ],
   "paradas": [
@@ -14709,7 +14713,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-29T17:16:46.899525Z",
+    "atualizadoEm": "2026-10-29T17:21:52.651656Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -31090,10 +31094,10 @@
           "oc": "281026",
           "medida": "0,720 X 0,920",
           "chapasPedido": 2068,
-          "chapasProduzidas": 1520,
-          "saldo": -548,
-          "pct": 73.5,
-          "concluido": false,
+          "chapasProduzidas": 2070,
+          "saldo": 2,
+          "pct": 100.1,
+          "concluido": true,
           "dataRelatorio": "2026-10-29",
           "arquivo": "producao-historico.json (tempo real)"
         },
