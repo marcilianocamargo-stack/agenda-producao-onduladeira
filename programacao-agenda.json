@@ -14549,7 +14549,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-29T10:11:42.447061Z",
+    "atualizadoEm": "2026-10-29T10:16:45.884019Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -30811,6 +30811,20 @@
           "pct": 150.0,
           "concluido": true,
           "dataRelatorio": "2026-10-26",
+          "arquivo": "producao-historico.json (tempo real)"
+        }
+      ],
+      "VZ Embalagens": [
+        {
+          "of": "261313",
+          "oc": "",
+          "medida": "0,390 X 0,650",
+          "chapasPedido": 1000,
+          "chapasProduzidas": 800,
+          "saldo": -200,
+          "pct": 80.0,
+          "concluido": false,
+          "dataRelatorio": "2026-06-07",
           "arquivo": "producao-historico.json (tempo real)"
         }
       ]
