@@ -14709,7 +14709,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-29T16:46:46.583665Z",
+    "atualizadoEm": "2026-10-29T16:56:48.041220Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -31085,6 +31085,18 @@
         }
       ],
       "TOLECAIXAS": [
+        {
+          "of": "263216",
+          "oc": "281026",
+          "medida": "0,720 X 0,920",
+          "chapasPedido": 2068,
+          "chapasProduzidas": 760,
+          "saldo": -1308,
+          "pct": 36.8,
+          "concluido": false,
+          "dataRelatorio": "2026-10-29",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
         {
           "of": "263217",
           "oc": "281026",
