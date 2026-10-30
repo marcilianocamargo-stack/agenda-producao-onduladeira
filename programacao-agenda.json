@@ -902,26 +902,6 @@
       "chave": "OF:263227"
     },
     {
-      "id": "p388803_w1c8s",
-      "cliente": "CARTOMIL EMBALAGENS",
-      "lote": "CARTOMIL EMBALAGENS 1340",
-      "po": "P25B",
-      "of": "263230",
-      "oc": "281026",
-      "dataPedido": "28/10/2026",
-      "ml": 736.7,
-      "kg": 307.6,
-      "qtdePedido": 3400.0,
-      "largura": 0.435,
-      "comprimento": 0.65,
-      "vinco": "x",
-      "bobina": 1350.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263230"
-    },
-    {
       "id": "p746815_g3y45",
       "cliente": "CARTOMIL EMBALAGENS",
       "lote": "CARTOMIL EMBALAGENS 1340",
@@ -14831,6 +14811,30 @@
       "chapasProduzidas": 1040,
       "chapasPedido": 1000,
       "saldoChapas": 40
+    },
+    {
+      "id": "p388803_w1c8s",
+      "cliente": "CARTOMIL EMBALAGENS",
+      "lote": "CARTOMIL EMBALAGENS 1340",
+      "po": "P25B",
+      "of": "263230",
+      "oc": "281026",
+      "dataPedido": "28/10/2026",
+      "ml": 736.7,
+      "kg": 307.6,
+      "qtdePedido": 3400.0,
+      "largura": 0.435,
+      "comprimento": 0.65,
+      "vinco": "x",
+      "bobina": 1350.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263230",
+      "dataProduzido": "2026-10-29T12:00:00Z",
+      "chapasProduzidas": 3110,
+      "chapasPedido": 3400,
+      "saldoChapas": -290
     }
   ],
   "paradas": [
@@ -14841,7 +14845,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-29T22:31:45.749432Z",
+    "atualizadoEm": "2026-10-29T22:56:43.071248Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -31381,6 +31385,20 @@
           "chapasProduzidas": 3060,
           "saldo": 8,
           "pct": 100.3,
+          "concluido": true,
+          "dataRelatorio": "2026-10-29",
+          "arquivo": "producao-historico.json (tempo real)"
+        }
+      ],
+      "CARTOMIL EMBALAGENS": [
+        {
+          "of": "263230",
+          "oc": "281026",
+          "medida": "0,435 X 0,650",
+          "chapasPedido": 3400,
+          "chapasProduzidas": 3110,
+          "saldo": -290,
+          "pct": 91.5,
           "concluido": true,
           "dataRelatorio": "2026-10-29",
           "arquivo": "producao-historico.json (tempo real)"
