@@ -14849,7 +14849,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-29T23:26:40.983571Z",
+    "atualizadoEm": "2026-10-29T23:31:45.230202Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -31395,6 +31395,18 @@
         }
       ],
       "CARTOMIL EMBALAGENS": [
+        {
+          "of": "263229",
+          "oc": "281026",
+          "medida": "0,410 X 0,610",
+          "chapasPedido": 4000,
+          "chapasProduzidas": 3110,
+          "saldo": -890,
+          "pct": 77.8,
+          "concluido": false,
+          "dataRelatorio": "2026-10-29",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
         {
           "of": "263230",
           "oc": "281026",
