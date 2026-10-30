@@ -702,26 +702,6 @@
       "chave": "OF:263203"
     },
     {
-      "id": "p434124_cjkox",
-      "cliente": "RM EMBALAGENS",
-      "lote": "RM EMBALAGENS 1334",
-      "po": "P25B",
-      "of": "263205",
-      "oc": "22",
-      "dataPedido": "26/10/2026",
-      "ml": 1359.0,
-      "kg": 425.3,
-      "qtdePedido": 600.0,
-      "largura": 0.978,
-      "comprimento": 2.265,
-      "vinco": "x",
-      "bobina": 1000.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263205"
-    },
-    {
       "id": "p293166_8qxuc",
       "cliente": "PCBOX EMBALAGENS",
       "lote": "PCBOX EMBALAGENS 1339",
@@ -14859,6 +14839,30 @@
       "chapasProduzidas": 2010,
       "chapasPedido": 2000,
       "saldoChapas": 10
+    },
+    {
+      "id": "p434124_cjkox",
+      "cliente": "RM EMBALAGENS",
+      "lote": "RM EMBALAGENS 1334",
+      "po": "P25B",
+      "of": "263205",
+      "oc": "22",
+      "dataPedido": "26/10/2026",
+      "ml": 1359.0,
+      "kg": 425.3,
+      "qtdePedido": 600.0,
+      "largura": 0.978,
+      "comprimento": 2.265,
+      "vinco": "x",
+      "bobina": 1000.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263205",
+      "dataProduzido": "2026-10-30T12:00:00Z",
+      "chapasProduzidas": 615,
+      "chapasPedido": 600,
+      "saldoChapas": 15
     }
   ],
   "paradas": [
@@ -14869,7 +14873,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-30T09:06:47.957978Z",
+    "atualizadoEm": "2026-10-30T09:31:47.440631Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -26050,6 +26054,18 @@
           "arquivo": "producao-historico.json (tempo real)"
         },
         {
+          "of": "263240",
+          "oc": "37",
+          "medida": "0,320 X 0,820",
+          "chapasPedido": 1150,
+          "chapasProduzidas": 575,
+          "saldo": -575,
+          "pct": 50.0,
+          "concluido": false,
+          "dataRelatorio": "2026-10-30",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
           "of": "263242",
           "oc": "40",
           "medida": "0,480 X 1,590",
@@ -31032,10 +31048,10 @@
           "oc": "22",
           "medida": "0,978 X 2,265",
           "chapasPedido": 600,
-          "chapasProduzidas": 300,
-          "saldo": -300,
-          "pct": 50.0,
-          "concluido": false,
+          "chapasProduzidas": 615,
+          "saldo": 15,
+          "pct": 102.5,
+          "concluido": true,
           "dataRelatorio": "2026-10-30",
           "arquivo": "producao-historico.json (tempo real)"
         }
