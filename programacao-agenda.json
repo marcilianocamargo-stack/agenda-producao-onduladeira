@@ -682,26 +682,6 @@
       "chave": "OF:263227"
     },
     {
-      "id": "p719639_g0n8l",
-      "cliente": "CARTOMIL EMBALAGENS",
-      "lote": "CARTOMIL EMBALAGENS 1340",
-      "po": "P25B",
-      "of": "263228",
-      "oc": "281026",
-      "dataPedido": "28/10/2026",
-      "ml": 765.0,
-      "kg": 310.9,
-      "qtdePedido": 1800.0,
-      "largura": 0.635,
-      "comprimento": 0.85,
-      "vinco": "x",
-      "bobina": 1300.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263228"
-    },
-    {
       "id": "p748240_1yrmr",
       "cliente": "RM EMBALAGENS",
       "lote": "RM EMBALAGENS 1343 P",
@@ -14919,6 +14899,30 @@
       "chapasProduzidas": 1600,
       "chapasPedido": 1500,
       "saldoChapas": 100
+    },
+    {
+      "id": "p719639_g0n8l",
+      "cliente": "CARTOMIL EMBALAGENS",
+      "lote": "CARTOMIL EMBALAGENS 1340",
+      "po": "P25B",
+      "of": "263228",
+      "oc": "281026",
+      "dataPedido": "28/10/2026",
+      "ml": 765.0,
+      "kg": 310.9,
+      "qtdePedido": 1800.0,
+      "largura": 0.635,
+      "comprimento": 0.85,
+      "vinco": "x",
+      "bobina": 1300.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263228",
+      "dataProduzido": "2026-10-30T12:00:00Z",
+      "chapasProduzidas": 1850,
+      "chapasPedido": 1800,
+      "saldoChapas": 50
     }
   ],
   "paradas": [
@@ -14929,7 +14933,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-30T15:41:49.283742Z",
+    "atualizadoEm": "2026-10-30T15:51:50.026327Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -31684,10 +31688,10 @@
           "oc": "281026",
           "medida": "0,635 X 0,850",
           "chapasPedido": 1800,
-          "chapasProduzidas": 900,
-          "saldo": -900,
-          "pct": 50.0,
-          "concluido": false,
+          "chapasProduzidas": 1850,
+          "saldo": 50,
+          "pct": 102.8,
+          "concluido": true,
           "dataRelatorio": "2026-10-30",
           "arquivo": "producao-historico.json (tempo real)"
         }
