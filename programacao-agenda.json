@@ -382,26 +382,6 @@
       "chave": "OF:263117"
     },
     {
-      "id": "p955748_8snro",
-      "cliente": "RM EMBALAGENS",
-      "lote": "RM EMBALAGENS 1330",
-      "po": "P45B",
-      "of": "263175",
-      "oc": "21",
-      "dataPedido": "25/10/2026",
-      "ml": 769.0,
-      "kg": 404.2,
-      "qtdePedido": 1000.0,
-      "largura": 1.44,
-      "comprimento": 0.769,
-      "vinco": "x",
-      "bobina": 1500.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263175"
-    },
-    {
       "id": "p570968_h6o8t",
       "cliente": "RM EMBALAGENS",
       "lote": "RM EMBALAGENS 1330",
@@ -14975,6 +14955,30 @@
       "chapasProduzidas": 1010,
       "chapasPedido": 1000,
       "saldoChapas": 10
+    },
+    {
+      "id": "p955748_8snro",
+      "cliente": "RM EMBALAGENS",
+      "lote": "RM EMBALAGENS 1330",
+      "po": "P45B",
+      "of": "263175",
+      "oc": "21",
+      "dataPedido": "25/10/2026",
+      "ml": 769.0,
+      "kg": 404.2,
+      "qtdePedido": 1000.0,
+      "largura": 1.44,
+      "comprimento": 0.769,
+      "vinco": "x",
+      "bobina": 1500.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263175",
+      "dataProduzido": "2026-10-31T12:00:00Z",
+      "chapasProduzidas": 1020,
+      "chapasPedido": 1000,
+      "saldoChapas": 20
     }
   ],
   "paradas": [
@@ -14985,7 +14989,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-10-30T23:56:40.148273Z",
+    "atualizadoEm": "2026-10-31T00:06:40.172667Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -31216,18 +31220,6 @@
           "arquivo": "producao-historico.json (tempo real)"
         },
         {
-          "of": "263175",
-          "oc": "21",
-          "medida": "1,440 X 0,769",
-          "chapasPedido": 1000,
-          "chapasProduzidas": 770,
-          "saldo": -230,
-          "pct": 77.0,
-          "concluido": false,
-          "dataRelatorio": "2026-10-30",
-          "arquivo": "producao-historico.json (tempo real)"
-        },
-        {
           "of": "263179",
           "oc": "21",
           "medida": "1,000 X 1,560",
@@ -31429,6 +31421,18 @@
           "pct": 100.0,
           "concluido": true,
           "dataRelatorio": "2026-10-30",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263175",
+          "oc": "21",
+          "medida": "1,440 X 0,769",
+          "chapasPedido": 1000,
+          "chapasProduzidas": 1020,
+          "saldo": 20,
+          "pct": 102.0,
+          "concluido": true,
+          "dataRelatorio": "2026-10-31",
           "arquivo": "producao-historico.json (tempo real)"
         }
       ],
@@ -31913,6 +31917,18 @@
           "pct": 102.8,
           "concluido": true,
           "dataRelatorio": "2026-10-30",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263227",
+          "oc": "281026",
+          "medida": "0,720 X 0,850",
+          "chapasPedido": 3000,
+          "chapasProduzidas": 775,
+          "saldo": -2225,
+          "pct": 25.8,
+          "concluido": false,
+          "dataRelatorio": "2026-10-31",
           "arquivo": "producao-historico.json (tempo real)"
         }
       ]
