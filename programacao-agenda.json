@@ -780,6 +780,26 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263278"
+    },
+    {
+      "id": "p116150_kq2a3",
+      "cliente": "CARPEL",
+      "lote": "CARPEL 1348 P",
+      "po": "P25B",
+      "of": "263280",
+      "oc": "301026",
+      "dataPedido": "04/11/2026",
+      "ml": 340.0,
+      "kg": 154.5,
+      "qtdePedido": 500.0,
+      "largura": 0.71,
+      "comprimento": 1.36,
+      "vinco": "x",
+      "bobina": 1450.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263280"
     }
   ],
   "aguardando": [],
@@ -15361,7 +15381,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-03T18:56:44.245138Z",
+    "atualizadoEm": "2026-11-04T09:01:51.094092Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
