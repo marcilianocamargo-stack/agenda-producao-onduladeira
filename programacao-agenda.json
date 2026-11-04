@@ -482,26 +482,6 @@
       "chave": "OF:263248"
     },
     {
-      "id": "p859257_9qsw3",
-      "cliente": "PCBOX EMBALAGENS",
-      "lote": "PCBOX EMBALAGENS 1348 P",
-      "po": "P55D",
-      "of": "263271",
-      "oc": "1882",
-      "dataPedido": "03/11/2026",
-      "ml": 656.1,
-      "kg": 581.0,
-      "qtdePedido": 300.0,
-      "largura": 1.559,
-      "comprimento": 2.187,
-      "vinco": "265x1029x265",
-      "bobina": 1600.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263271"
-    },
-    {
       "id": "p609786_fppn1",
       "cliente": "PCBOX EMBALAGENS",
       "lote": "PCBOX EMBALAGENS 1348 P",
@@ -15427,6 +15407,30 @@
       "chapasProduzidas": 320,
       "chapasPedido": 330,
       "saldoChapas": -10
+    },
+    {
+      "id": "p859257_9qsw3",
+      "cliente": "PCBOX EMBALAGENS",
+      "lote": "PCBOX EMBALAGENS 1348 P",
+      "po": "P55D",
+      "of": "263271",
+      "oc": "1882",
+      "dataPedido": "03/11/2026",
+      "ml": 656.1,
+      "kg": 581.0,
+      "qtdePedido": 300.0,
+      "largura": 1.559,
+      "comprimento": 2.187,
+      "vinco": "265x1029x265",
+      "bobina": 1600.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263271",
+      "dataProduzido": "2026-11-04T12:00:00Z",
+      "chapasProduzidas": 310,
+      "chapasPedido": 300,
+      "saldoChapas": 10
     }
   ],
   "paradas": [
@@ -15437,7 +15441,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-04T19:06:44.924117Z",
+    "atualizadoEm": "2026-11-04T19:16:45.761068Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -16570,10 +16574,10 @@
           "oc": "1882",
           "medida": "1,559 X 2,187",
           "chapasPedido": 300,
-          "chapasProduzidas": 175,
-          "saldo": -125,
-          "pct": 58.3,
-          "concluido": false,
+          "chapasProduzidas": 310,
+          "saldo": 10,
+          "pct": 103.3,
+          "concluido": true,
           "dataRelatorio": "2026-11-04",
           "arquivo": "producao-historico.json (tempo real)"
         }
