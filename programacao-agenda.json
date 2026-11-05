@@ -442,26 +442,6 @@
       "chave": "OF:263244"
     },
     {
-      "id": "p433118_mk6ch",
-      "cliente": "PCBOX EMBALAGENS",
-      "lote": "PCBOX EMBALAGENS 1348 P",
-      "po": "P55D",
-      "of": "263274",
-      "oc": "1882",
-      "dataPedido": "03/11/2026",
-      "ml": 266.6,
-      "kg": 196.5,
-      "qtdePedido": 150.0,
-      "largura": 1.298,
-      "comprimento": 1.777,
-      "vinco": "232x834x232",
-      "bobina": 1350.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263274"
-    },
-    {
       "id": "p172902_g07t1",
       "cliente": "CARPEL",
       "lote": "CARPEL 1348",
@@ -15459,6 +15439,30 @@
       "chapasProduzidas": 310,
       "chapasPedido": 300,
       "saldoChapas": 10
+    },
+    {
+      "id": "p433118_mk6ch",
+      "cliente": "PCBOX EMBALAGENS",
+      "lote": "PCBOX EMBALAGENS 1348 P",
+      "po": "P55D",
+      "of": "263274",
+      "oc": "1882",
+      "dataPedido": "03/11/2026",
+      "ml": 266.6,
+      "kg": 196.5,
+      "qtdePedido": 150.0,
+      "largura": 1.298,
+      "comprimento": 1.777,
+      "vinco": "232x834x232",
+      "bobina": 1350.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263274",
+      "dataProduzido": "2026-11-04T12:00:00Z",
+      "chapasProduzidas": 175,
+      "chapasPedido": 150,
+      "saldoChapas": 25
     }
   ],
   "paradas": [
@@ -15469,7 +15473,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-04T23:06:49.126365Z",
+    "atualizadoEm": "2026-11-04T23:16:46.416070Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -16629,6 +16633,18 @@
           "chapasProduzidas": 215,
           "saldo": 15,
           "pct": 107.5,
+          "concluido": true,
+          "dataRelatorio": "2026-11-04",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263274",
+          "oc": "1882",
+          "medida": "1,298 X 1,777",
+          "chapasPedido": 150,
+          "chapasProduzidas": 175,
+          "saldo": 25,
+          "pct": 116.7,
           "concluido": true,
           "dataRelatorio": "2026-11-04",
           "arquivo": "producao-historico.json (tempo real)"
