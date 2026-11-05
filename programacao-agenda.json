@@ -1400,6 +1400,26 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263339"
+    },
+    {
+      "id": "p146499_1ef3h",
+      "cliente": "FAVINCO EMBALAGENS",
+      "lote": "FAVINCO EMBALAGENS 1353",
+      "po": "P55D",
+      "of": "263340",
+      "oc": "82",
+      "dataPedido": "05/11/2026",
+      "ml": 675.0,
+      "kg": 437.1,
+      "qtdePedido": 1500.0,
+      "largura": 0.57,
+      "comprimento": 0.9,
+      "vinco": "88x109x176x109x88",
+      "bobina": 1200.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263340"
     }
   ],
   "aguardando": [],
@@ -16413,7 +16433,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-05T16:31:47.418463Z",
+    "atualizadoEm": "2026-11-05T16:51:43.851604Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
