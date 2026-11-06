@@ -1342,26 +1342,6 @@
       "chave": "OF:263338"
     },
     {
-      "id": "p870279_4zr2i",
-      "cliente": "FAVINCO EMBALAGENS",
-      "lote": "FAVINCO EMBALAGENS 1353",
-      "po": "P50D",
-      "of": "263337",
-      "oc": "77",
-      "dataPedido": "05/11/2026",
-      "ml": 167.6,
-      "kg": 110.1,
-      "qtdePedido": 550.0,
-      "largura": 0.407,
-      "comprimento": 0.914,
-      "vinco": "91x225x91",
-      "bobina": 1250.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263337"
-    },
-    {
       "id": "p672440_pdsm1",
       "cliente": "FAVINCO EMBALAGENS",
       "lote": "FAVINCO EMBALAGENS 1353",
@@ -1380,26 +1360,6 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263339"
-    },
-    {
-      "id": "p146499_1ef3h",
-      "cliente": "FAVINCO EMBALAGENS",
-      "lote": "FAVINCO EMBALAGENS 1353",
-      "po": "P55D",
-      "of": "263340",
-      "oc": "82",
-      "dataPedido": "05/11/2026",
-      "ml": 675.0,
-      "kg": 437.1,
-      "qtdePedido": 1500.0,
-      "largura": 0.57,
-      "comprimento": 0.9,
-      "vinco": "88x109x176x109x88",
-      "bobina": 1200.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263340"
     },
     {
       "id": "p59142_ho9s7",
@@ -16627,6 +16587,54 @@
       "chapasProduzidas": 1630,
       "chapasPedido": 1630,
       "saldoChapas": 0
+    },
+    {
+      "id": "p870279_4zr2i",
+      "cliente": "FAVINCO EMBALAGENS",
+      "lote": "FAVINCO EMBALAGENS 1353",
+      "po": "P50D",
+      "of": "263337",
+      "oc": "77",
+      "dataPedido": "05/11/2026",
+      "ml": 167.6,
+      "kg": 110.1,
+      "qtdePedido": 550.0,
+      "largura": 0.407,
+      "comprimento": 0.914,
+      "vinco": "91x225x91",
+      "bobina": 1250.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263337",
+      "dataProduzido": "2026-11-06T12:00:00Z",
+      "chapasProduzidas": 690,
+      "chapasPedido": 550,
+      "saldoChapas": 140
+    },
+    {
+      "id": "p146499_1ef3h",
+      "cliente": "FAVINCO EMBALAGENS",
+      "lote": "FAVINCO EMBALAGENS 1353",
+      "po": "P55D",
+      "of": "263340",
+      "oc": "82",
+      "dataPedido": "05/11/2026",
+      "ml": 675.0,
+      "kg": 437.1,
+      "qtdePedido": 1500.0,
+      "largura": 0.57,
+      "comprimento": 0.9,
+      "vinco": "88x109x176x109x88",
+      "bobina": 1200.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263340",
+      "dataProduzido": "2026-11-06T12:00:00Z",
+      "chapasProduzidas": 1550,
+      "chapasPedido": 1500,
+      "saldoChapas": 50
     }
   ],
   "paradas": [
@@ -16637,7 +16645,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-06T15:21:44.779912Z",
+    "atualizadoEm": "2026-11-06T15:56:45.515181Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -28022,14 +28030,26 @@
           "arquivo": "producao-historico.json (tempo real)"
         },
         {
+          "of": "263337",
+          "oc": "77",
+          "medida": "0,407 X 0,914",
+          "chapasPedido": 550,
+          "chapasProduzidas": 690,
+          "saldo": 140,
+          "pct": 125.5,
+          "concluido": true,
+          "dataRelatorio": "2026-11-06",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
           "of": "263340",
           "oc": "82",
           "medida": "0,570 X 0,900",
           "chapasPedido": 1500,
-          "chapasProduzidas": 1250,
-          "saldo": -250,
-          "pct": 83.3,
-          "concluido": false,
+          "chapasProduzidas": 1550,
+          "saldo": 50,
+          "pct": 103.3,
+          "concluido": true,
           "dataRelatorio": "2026-11-06",
           "arquivo": "producao-historico.json (tempo real)"
         }
