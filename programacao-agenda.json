@@ -1262,26 +1262,6 @@
       "chave": "OF:263329"
     },
     {
-      "id": "p580582_453as",
-      "cliente": "RM EMBALAGENS",
-      "lote": "RM EMBALAGENS 1352",
-      "po": "P25B",
-      "of": "263333",
-      "oc": "27",
-      "dataPedido": "04/11/2026",
-      "ml": 620.0,
-      "kg": 296.8,
-      "qtdePedido": 2000.0,
-      "largura": 0.374,
-      "comprimento": 1.24,
-      "vinco": "127x120x127",
-      "bobina": 1550.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263333"
-    },
-    {
       "id": "p672440_pdsm1",
       "cliente": "FAVINCO EMBALAGENS",
       "lote": "FAVINCO EMBALAGENS 1353",
@@ -1380,26 +1360,6 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263344"
-    },
-    {
-      "id": "p558361_n0vsf",
-      "cliente": "RENOVAPEL",
-      "lote": "RENOVAPEL 1355",
-      "po": "P45B",
-      "of": "263348",
-      "oc": "16",
-      "dataPedido": "05/11/2026",
-      "ml": 107.5,
-      "kg": 48.5,
-      "qtdePedido": 300.0,
-      "largura": 0.412,
-      "comprimento": 1.075,
-      "vinco": "131x150x131",
-      "bobina": 1300.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263348"
     },
     {
       "id": "p89971_vsamc",
@@ -16647,6 +16607,54 @@
       "chapasProduzidas": 1180,
       "chapasPedido": 1040,
       "saldoChapas": 140
+    },
+    {
+      "id": "p580582_453as",
+      "cliente": "RM EMBALAGENS",
+      "lote": "RM EMBALAGENS 1352",
+      "po": "P25B",
+      "of": "263333",
+      "oc": "27",
+      "dataPedido": "04/11/2026",
+      "ml": 620.0,
+      "kg": 296.8,
+      "qtdePedido": 2000.0,
+      "largura": 0.374,
+      "comprimento": 1.24,
+      "vinco": "127x120x127",
+      "bobina": 1550.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263333",
+      "dataProduzido": "2026-11-06T12:00:00Z",
+      "chapasProduzidas": 2075,
+      "chapasPedido": 2000,
+      "saldoChapas": 75
+    },
+    {
+      "id": "p558361_n0vsf",
+      "cliente": "RENOVAPEL",
+      "lote": "RENOVAPEL 1355",
+      "po": "P45B",
+      "of": "263348",
+      "oc": "16",
+      "dataPedido": "05/11/2026",
+      "ml": 107.5,
+      "kg": 48.5,
+      "qtdePedido": 300.0,
+      "largura": 0.412,
+      "comprimento": 1.075,
+      "vinco": "131x150x131",
+      "bobina": 1300.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263348",
+      "dataProduzido": "2026-11-06T12:00:00Z",
+      "chapasProduzidas": 330,
+      "chapasPedido": 300,
+      "saldoChapas": 30
     }
   ],
   "paradas": [
@@ -16657,7 +16665,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-06T16:46:46.021209Z",
+    "atualizadoEm": "2026-11-06T17:26:43.879015Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -32548,6 +32556,18 @@
           "concluido": true,
           "dataRelatorio": "2026-10-30",
           "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263348",
+          "oc": "16",
+          "medida": "0,412 X 1,075",
+          "chapasPedido": 300,
+          "chapasProduzidas": 330,
+          "saldo": 30,
+          "pct": 110.0,
+          "concluido": true,
+          "dataRelatorio": "2026-11-06",
+          "arquivo": "producao-historico.json (tempo real)"
         }
       ],
       "RM EMBALAGENS": [
@@ -33288,10 +33308,10 @@
           "oc": "27",
           "medida": "0,374 X 1,240",
           "chapasPedido": 2000,
-          "chapasProduzidas": 1000,
-          "saldo": -1000,
-          "pct": 50.0,
-          "concluido": false,
+          "chapasProduzidas": 2075,
+          "saldo": 75,
+          "pct": 103.8,
+          "concluido": true,
           "dataRelatorio": "2026-11-06",
           "arquivo": "producao-historico.json (tempo real)"
         },
