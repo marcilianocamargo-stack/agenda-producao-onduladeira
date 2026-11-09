@@ -1102,26 +1102,6 @@
       "chave": "OF:263299"
     },
     {
-      "id": "p811006_xgupg",
-      "cliente": "RM EMBALAGENS",
-      "lote": "RM EMBALAGENS 1352",
-      "po": "P50D",
-      "of": "263326",
-      "oc": "27",
-      "dataPedido": "04/11/2026",
-      "ml": 714.0,
-      "kg": 305.8,
-      "qtdePedido": 300.0,
-      "largura": 0.796,
-      "comprimento": 2.38,
-      "vinco": "118x560x118",
-      "bobina": 850.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263326"
-    },
-    {
       "id": "p864345_506fb",
       "cliente": "IPE EMBALAGENS",
       "lote": "IPE EMBALAGENS 1357",
@@ -17199,6 +17179,30 @@
       "chapasProduzidas": 675,
       "chapasPedido": 650,
       "saldoChapas": 25
+    },
+    {
+      "id": "p811006_xgupg",
+      "cliente": "RM EMBALAGENS",
+      "lote": "RM EMBALAGENS 1352",
+      "po": "P50D",
+      "of": "263326",
+      "oc": "27",
+      "dataPedido": "04/11/2026",
+      "ml": 714.0,
+      "kg": 305.8,
+      "qtdePedido": 300.0,
+      "largura": 0.796,
+      "comprimento": 2.38,
+      "vinco": "118x560x118",
+      "bobina": 850.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263326",
+      "dataProduzido": "2026-11-09T12:00:00Z",
+      "chapasProduzidas": 305,
+      "chapasPedido": 300,
+      "saldoChapas": 5
     }
   ],
   "paradas": [
@@ -17209,7 +17213,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-09T20:51:41.900908Z",
+    "atualizadoEm": "2026-11-09T20:56:45.330272Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -34140,10 +34144,10 @@
           "oc": "27",
           "medida": "0,796 X 2,380",
           "chapasPedido": 300,
-          "chapasProduzidas": 175,
-          "saldo": -125,
-          "pct": 58.3,
-          "concluido": false,
+          "chapasProduzidas": 305,
+          "saldo": 5,
+          "pct": 101.7,
+          "concluido": true,
           "dataRelatorio": "2026-11-09",
           "arquivo": "producao-historico.json (tempo real)"
         },
