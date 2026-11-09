@@ -1440,6 +1440,26 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263363"
+    },
+    {
+      "id": "p991540_hgybq",
+      "cliente": "J FER",
+      "lote": "J FER 1360 P",
+      "po": "P25B",
+      "of": "263365",
+      "oc": "",
+      "dataPedido": "09/11/2026",
+      "ml": 600.0,
+      "kg": 270.7,
+      "qtdePedido": 500.0,
+      "largura": 1.41,
+      "comprimento": 1.2,
+      "vinco": "x",
+      "bobina": 1450.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263365"
     }
   ],
   "aguardando": [],
@@ -16981,7 +17001,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-09T11:31:49.566348Z",
+    "atualizadoEm": "2026-11-09T11:41:45.941567Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
