@@ -1102,26 +1102,6 @@
       "chave": "OF:263299"
     },
     {
-      "id": "p866743_qw5c0",
-      "cliente": "DR EMBALAGENS",
-      "lote": "DR EMBALAGENS 1359",
-      "po": "PW50B",
-      "of": "263363",
-      "oc": "7112026",
-      "dataPedido": "07/11/2026",
-      "ml": 1020.0,
-      "kg": 624.2,
-      "qtdePedido": 3000.0,
-      "largura": 0.51,
-      "comprimento": 1.02,
-      "vinco": "x",
-      "bobina": 1550.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263363"
-    },
-    {
       "id": "p991540_hgybq",
       "cliente": "J FER",
       "lote": "J FER 1360 P",
@@ -17291,6 +17271,30 @@
       "chapasProduzidas": 3100,
       "chapasPedido": 3000,
       "saldoChapas": 100
+    },
+    {
+      "id": "p866743_qw5c0",
+      "cliente": "DR EMBALAGENS",
+      "lote": "DR EMBALAGENS 1359",
+      "po": "PW50B",
+      "of": "263363",
+      "oc": "7112026",
+      "dataPedido": "07/11/2026",
+      "ml": 1020.0,
+      "kg": 624.2,
+      "qtdePedido": 3000.0,
+      "largura": 0.51,
+      "comprimento": 1.02,
+      "vinco": "x",
+      "bobina": 1550.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263363",
+      "dataProduzido": "2026-11-10T12:00:00Z",
+      "chapasProduzidas": 3000,
+      "chapasPedido": 3000,
+      "saldoChapas": 0
     }
   ],
   "paradas": [
@@ -17301,7 +17305,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-10T13:31:47.710070Z",
+    "atualizadoEm": "2026-11-10T13:46:55.961521Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -23786,10 +23790,10 @@
           "oc": "7112026",
           "medida": "0,510 X 1,020",
           "chapasPedido": 3000,
-          "chapasProduzidas": 2280,
-          "saldo": -720,
-          "pct": 76.0,
-          "concluido": false,
+          "chapasProduzidas": 3000,
+          "saldo": 0,
+          "pct": 100.0,
+          "concluido": true,
           "dataRelatorio": "2026-11-10",
           "arquivo": "producao-historico.json (tempo real)"
         },
