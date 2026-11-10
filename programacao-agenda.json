@@ -1102,26 +1102,6 @@
       "chave": "OF:263299"
     },
     {
-      "id": "p991540_hgybq",
-      "cliente": "J FER",
-      "lote": "J FER 1360 P",
-      "po": "P25B",
-      "of": "263365",
-      "oc": "",
-      "dataPedido": "09/11/2026",
-      "ml": 600.0,
-      "kg": 270.7,
-      "qtdePedido": 500.0,
-      "largura": 1.41,
-      "comprimento": 1.2,
-      "vinco": "x",
-      "bobina": 1450.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263365"
-    },
-    {
       "id": "p866746_nmli1",
       "cliente": "IPE EMBALAGENS",
       "lote": "PCBOX - IPE 1361",
@@ -17299,6 +17279,30 @@
       "chapasProduzidas": 1030,
       "chapasPedido": 1000,
       "saldoChapas": 30
+    },
+    {
+      "id": "p991540_hgybq",
+      "cliente": "J FER",
+      "lote": "J FER 1360 P",
+      "po": "P25B",
+      "of": "263365",
+      "oc": "",
+      "dataPedido": "09/11/2026",
+      "ml": 600.0,
+      "kg": 270.7,
+      "qtdePedido": 500.0,
+      "largura": 1.41,
+      "comprimento": 1.2,
+      "vinco": "x",
+      "bobina": 1450.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263365",
+      "dataProduzido": "2026-11-10T12:00:00Z",
+      "chapasProduzidas": 540,
+      "chapasPedido": 500,
+      "saldoChapas": 40
     }
   ],
   "paradas": [
@@ -17309,7 +17313,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-10T15:26:53.442010Z",
+    "atualizadoEm": "2026-11-10T15:32:06.352213Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -33060,10 +33064,10 @@
           "oc": "",
           "medida": "1,410 X 1,200",
           "chapasPedido": 500,
-          "chapasProduzidas": 250,
-          "saldo": -250,
-          "pct": 50.0,
-          "concluido": false,
+          "chapasProduzidas": 540,
+          "saldo": 40,
+          "pct": 108.0,
+          "concluido": true,
           "dataRelatorio": "2026-11-10",
           "arquivo": "producao-historico.json (tempo real)"
         }
