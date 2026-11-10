@@ -1102,26 +1102,6 @@
       "chave": "OF:263299"
     },
     {
-      "id": "p864345_506fb",
-      "cliente": "IPE EMBALAGENS",
-      "lote": "IPE EMBALAGENS 1357",
-      "po": "P25B",
-      "of": "263353",
-      "oc": "1889",
-      "dataPedido": "06/11/2026",
-      "ml": 155.5,
-      "kg": 73.6,
-      "qtdePedido": 500.0,
-      "largura": 0.493,
-      "comprimento": 0.933,
-      "vinco": "52x389x52",
-      "bobina": 1500.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263353"
-    },
-    {
       "id": "p543393_ld6oe",
       "cliente": "RR STELLA",
       "lote": "RR STELLA 1356 P",
@@ -17211,6 +17191,30 @@
       "chapasProduzidas": 1900,
       "chapasPedido": 1800,
       "saldoChapas": 100
+    },
+    {
+      "id": "p864345_506fb",
+      "cliente": "IPE EMBALAGENS",
+      "lote": "IPE EMBALAGENS 1357",
+      "po": "P25B",
+      "of": "263353",
+      "oc": "1889",
+      "dataPedido": "06/11/2026",
+      "ml": 155.5,
+      "kg": 73.6,
+      "qtdePedido": 500.0,
+      "largura": 0.493,
+      "comprimento": 0.933,
+      "vinco": "52x389x52",
+      "bobina": 1500.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263353",
+      "dataProduzido": "2026-11-09T12:00:00Z",
+      "chapasProduzidas": 635,
+      "chapasPedido": 500,
+      "saldoChapas": 135
     }
   ],
   "paradas": [
@@ -17221,7 +17225,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-09T23:21:39.263939Z",
+    "atualizadoEm": "2026-11-09T23:26:37.457061Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -24659,6 +24663,18 @@
           "pct": 104.2,
           "concluido": true,
           "dataRelatorio": "2026-11-04",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263353",
+          "oc": "1889",
+          "medida": "0,493 X 0,933",
+          "chapasPedido": 500,
+          "chapasProduzidas": 635,
+          "saldo": 135,
+          "pct": 127.0,
+          "concluido": true,
+          "dataRelatorio": "2026-11-09",
           "arquivo": "producao-historico.json (tempo real)"
         },
         {
