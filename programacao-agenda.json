@@ -1660,26 +1660,6 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263409"
-    },
-    {
-      "id": "p770005_z1pil",
-      "cliente": "VÔ CHICO",
-      "lote": "VÔ CHICO 1370 P",
-      "po": "PW40B",
-      "of": "263408",
-      "oc": "1913",
-      "dataPedido": "10/11/2026",
-      "ml": 88.8,
-      "kg": 46.6,
-      "qtdePedido": 500.0,
-      "largura": 0.36,
-      "comprimento": 0.71,
-      "vinco": "x",
-      "bobina": 1500.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263408"
     }
   ],
   "aguardando": [],
@@ -18003,6 +17983,30 @@
       "chapasProduzidas": 3085,
       "chapasPedido": 3000,
       "saldoChapas": 85
+    },
+    {
+      "id": "p770005_z1pil",
+      "cliente": "VÔ CHICO",
+      "lote": "VÔ CHICO 1370 P",
+      "po": "PW40B",
+      "of": "263408",
+      "oc": "1913",
+      "dataPedido": "10/11/2026",
+      "ml": 88.8,
+      "kg": 46.6,
+      "qtdePedido": 500.0,
+      "largura": 0.36,
+      "comprimento": 0.71,
+      "vinco": "x",
+      "bobina": 1500.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263408",
+      "dataProduzido": "2026-11-11T12:00:00Z",
+      "chapasProduzidas": 835,
+      "chapasPedido": 500,
+      "saldoChapas": 335
     }
   ],
   "paradas": [
@@ -18013,7 +18017,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-11T19:36:49.012258Z",
+    "atualizadoEm": "2026-11-11T19:41:49.620858Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -23931,6 +23935,18 @@
           "pct": 163.3,
           "concluido": true,
           "dataRelatorio": "2026-11-07",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263408",
+          "oc": "1913",
+          "medida": "0,360 X 0,710",
+          "chapasPedido": 500,
+          "chapasProduzidas": 835,
+          "saldo": 335,
+          "pct": 167.0,
+          "concluido": true,
+          "dataRelatorio": "2026-11-11",
           "arquivo": "producao-historico.json (tempo real)"
         }
       ],
