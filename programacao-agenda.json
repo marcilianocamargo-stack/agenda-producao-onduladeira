@@ -1680,6 +1680,46 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263394"
+    },
+    {
+      "id": "p544414_liv9u",
+      "cliente": "VÔ CHICO",
+      "lote": "VÔ CHICO 1370 P",
+      "po": "PW40B",
+      "of": "263409",
+      "oc": "1913",
+      "dataPedido": "10/11/2026",
+      "ml": 136.7,
+      "kg": 62.1,
+      "qtdePedido": 500.0,
+      "largura": 0.415,
+      "comprimento": 0.82,
+      "vinco": "x",
+      "bobina": 1300.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263409"
+    },
+    {
+      "id": "p770005_z1pil",
+      "cliente": "VÔ CHICO",
+      "lote": "VÔ CHICO 1370 P",
+      "po": "PW40B",
+      "of": "263408",
+      "oc": "1913",
+      "dataPedido": "10/11/2026",
+      "ml": 88.8,
+      "kg": 46.6,
+      "qtdePedido": 500.0,
+      "largura": 0.36,
+      "comprimento": 0.71,
+      "vinco": "x",
+      "bobina": 1500.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263408"
     }
   ],
   "aguardando": [],
@@ -17965,7 +18005,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-11T17:41:46.320296Z",
+    "atualizadoEm": "2026-11-11T17:51:51.143893Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -24486,9 +24526,9 @@
           "oc": "10112026",
           "medida": "0,460 X 0,920",
           "chapasPedido": 10000,
-          "chapasProduzidas": 4210,
-          "saldo": -5790,
-          "pct": 42.1,
+          "chapasProduzidas": 5730,
+          "saldo": -4270,
+          "pct": 57.3,
           "concluido": false,
           "dataRelatorio": "2026-11-11",
           "arquivo": "producao-historico.json (tempo real)"
