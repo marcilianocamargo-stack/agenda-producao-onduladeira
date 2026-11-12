@@ -1162,26 +1162,6 @@
       "chave": "OF:263384"
     },
     {
-      "id": "p767943_6ax3b",
-      "cliente": "CARPEL",
-      "lote": "RENO - PCBOX - FAVINC CARP1366",
-      "po": "P35B",
-      "of": "263380",
-      "oc": "SN",
-      "dataPedido": "10/11/2026",
-      "ml": 1080.0,
-      "kg": 420.3,
-      "qtdePedido": 1000.0,
-      "largura": 0.564,
-      "comprimento": 2.16,
-      "vinco": "197x170x197",
-      "bobina": 1150.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263380"
-    },
-    {
       "id": "p342954_tlu4f",
       "cliente": "FAVINCO EMBALAGENS",
       "lote": "RENO - PCBOX - FAVINC CARP1366",
@@ -18011,6 +17991,30 @@
       "chapasProduzidas": 3075,
       "chapasPedido": 3000,
       "saldoChapas": 75
+    },
+    {
+      "id": "p767943_6ax3b",
+      "cliente": "CARPEL",
+      "lote": "RENO - PCBOX - FAVINC CARP1366",
+      "po": "P35B",
+      "of": "263380",
+      "oc": "SN",
+      "dataPedido": "10/11/2026",
+      "ml": 1080.0,
+      "kg": 420.3,
+      "qtdePedido": 1000.0,
+      "largura": 0.564,
+      "comprimento": 2.16,
+      "vinco": "197x170x197",
+      "bobina": 1150.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263380",
+      "dataProduzido": "2026-11-11T12:00:00Z",
+      "chapasProduzidas": 1105,
+      "chapasPedido": 1000,
+      "saldoChapas": 105
     }
   ],
   "paradas": [
@@ -18021,7 +18025,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-11T20:46:50.505219Z",
+    "atualizadoEm": "2026-11-11T21:21:47.167190Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -27500,6 +27504,18 @@
           "arquivo": "producao-historico.json (tempo real)"
         },
         {
+          "of": "263380",
+          "oc": "SN",
+          "medida": "0,564 X 2,160",
+          "chapasPedido": 1000,
+          "chapasProduzidas": 1105,
+          "saldo": 105,
+          "pct": 110.5,
+          "concluido": true,
+          "dataRelatorio": "2026-11-11",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
           "of": "263382",
           "oc": "SN",
           "medida": "0,468 X 1,530",
@@ -35233,6 +35249,18 @@
           "pct": 103.8,
           "concluido": true,
           "dataRelatorio": "2026-11-09",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263407",
+          "oc": "30",
+          "medida": "1,160 X 1,190",
+          "chapasPedido": 700,
+          "chapasProduzidas": 385,
+          "saldo": -315,
+          "pct": 55.0,
+          "concluido": false,
+          "dataRelatorio": "2026-11-11",
           "arquivo": "producao-historico.json (tempo real)"
         }
       ],
