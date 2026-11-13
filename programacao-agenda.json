@@ -2222,26 +2222,6 @@
       "chave": "OF:263490"
     },
     {
-      "id": "p188738_xl53p",
-      "cliente": "RENOVAPEL",
-      "lote": "RENOVAPEL 1378",
-      "po": "P45B",
-      "of": "263469",
-      "oc": "18",
-      "dataPedido": "13/11/2026",
-      "ml": 437.5,
-      "kg": 212.7,
-      "qtdePedido": 2000.0,
-      "largura": 0.333,
-      "comprimento": 0.875,
-      "vinco": "x",
-      "bobina": 1400.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263469"
-    },
-    {
       "id": "p43575_tl8s8",
       "cliente": "HARMONY EMBALAGENS",
       "lote": "HARMONY EMBALAGENS 1379 P",
@@ -20791,6 +20771,30 @@
       "chapasProduzidas": 445,
       "chapasPedido": 300,
       "saldoChapas": 145
+    },
+    {
+      "id": "p188738_xl53p",
+      "cliente": "RENOVAPEL",
+      "lote": "RENOVAPEL 1378",
+      "po": "P45B",
+      "of": "263469",
+      "oc": "18",
+      "dataPedido": "13/11/2026",
+      "ml": 437.5,
+      "kg": 212.7,
+      "qtdePedido": 2000.0,
+      "largura": 0.333,
+      "comprimento": 0.875,
+      "vinco": "x",
+      "bobina": 1400.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263469",
+      "dataProduzido": "2026-11-13T12:00:00Z",
+      "chapasProduzidas": 2005,
+      "chapasPedido": 2000,
+      "saldoChapas": 5
     }
   ],
   "paradas": [
@@ -20801,7 +20805,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-13T19:56:50.570861Z",
+    "atualizadoEm": "2026-11-13T20:01:52.677419Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -37434,10 +37438,10 @@
           "oc": "18",
           "medida": "0,333 X 0,875",
           "chapasPedido": 2000,
-          "chapasProduzidas": 765,
-          "saldo": -1235,
-          "pct": 38.2,
-          "concluido": false,
+          "chapasProduzidas": 2005,
+          "saldo": 5,
+          "pct": 100.2,
+          "concluido": true,
           "dataRelatorio": "2026-11-13",
           "arquivo": "producao-historico.json (tempo real)"
         },
