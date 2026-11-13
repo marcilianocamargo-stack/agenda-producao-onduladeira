@@ -1362,26 +1362,6 @@
       "chave": "OF:263421"
     },
     {
-      "id": "p61666_c8vke",
-      "cliente": "FAVINCO EMBALAGENS",
-      "lote": "FAVINCO EMBALAGENS 1374 P",
-      "po": "P25B",
-      "of": "263424",
-      "oc": "124",
-      "dataPedido": "12/11/2026",
-      "ml": 1613.5,
-      "kg": 741.4,
-      "qtdePedido": 7000.0,
-      "largura": 0.359,
-      "comprimento": 0.922,
-      "vinco": "97x165x97",
-      "bobina": 1500.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263424"
-    },
-    {
       "id": "p441168_9k9kx",
       "cliente": "CARTOMIL EMBALAGENS",
       "lote": "CARTOMIL EMBALAGENS 1375 P",
@@ -19131,6 +19111,30 @@
       "chapasProduzidas": 3130,
       "chapasPedido": 3000,
       "saldoChapas": 130
+    },
+    {
+      "id": "p61666_c8vke",
+      "cliente": "FAVINCO EMBALAGENS",
+      "lote": "FAVINCO EMBALAGENS 1374 P",
+      "po": "P25B",
+      "of": "263424",
+      "oc": "124",
+      "dataPedido": "12/11/2026",
+      "ml": 1613.5,
+      "kg": 741.4,
+      "qtdePedido": 7000.0,
+      "largura": 0.359,
+      "comprimento": 0.922,
+      "vinco": "97x165x97",
+      "bobina": 1500.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263424",
+      "dataProduzido": "2026-11-13T12:00:00Z",
+      "chapasProduzidas": 7070,
+      "chapasPedido": 7000,
+      "saldoChapas": 70
     }
   ],
   "paradas": [
@@ -19141,7 +19145,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-13T10:36:46.081005Z",
+    "atualizadoEm": "2026-11-13T11:01:55.066765Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -30990,10 +30994,10 @@
           "oc": "124",
           "medida": "0,359 X 0,922",
           "chapasPedido": 7000,
-          "chapasProduzidas": 6140,
-          "saldo": -860,
-          "pct": 87.7,
-          "concluido": false,
+          "chapasProduzidas": 7070,
+          "saldo": 70,
+          "pct": 101.0,
+          "concluido": true,
           "dataRelatorio": "2026-11-13",
           "arquivo": "producao-historico.json (tempo real)"
         }
