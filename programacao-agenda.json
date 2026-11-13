@@ -2062,26 +2062,6 @@
       "chave": "OF:263465"
     },
     {
-      "id": "p585606_6k6a1",
-      "cliente": "RENOVAPEL",
-      "lote": "RENOVAPEL 1378",
-      "po": "P45B",
-      "of": "263466",
-      "oc": "18",
-      "dataPedido": "13/11/2026",
-      "ml": 288.5,
-      "kg": 115.4,
-      "qtdePedido": 500.0,
-      "largura": 0.548,
-      "comprimento": 1.154,
-      "vinco": "x",
-      "bobina": 1150.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263466"
-    },
-    {
       "id": "p726805_3fjvm",
       "cliente": "RENOVAPEL",
       "lote": "RENOVAPEL 1378",
@@ -2240,26 +2220,6 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263490"
-    },
-    {
-      "id": "p733697_tlle1",
-      "cliente": "RENOVAPEL",
-      "lote": "RENOVAPEL 1378",
-      "po": "P45B",
-      "of": "263481",
-      "oc": "18",
-      "dataPedido": "13/11/2026",
-      "ml": 93.4,
-      "kg": 53.4,
-      "qtdePedido": 300.0,
-      "largura": 0.392,
-      "comprimento": 1.245,
-      "vinco": "121x150x121",
-      "bobina": 1600.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263481"
     },
     {
       "id": "p180786_5lshv",
@@ -20759,6 +20719,54 @@
       "chapasProduzidas": 385,
       "chapasPedido": 400,
       "saldoChapas": -15
+    },
+    {
+      "id": "p585606_6k6a1",
+      "cliente": "RENOVAPEL",
+      "lote": "RENOVAPEL 1378",
+      "po": "P45B",
+      "of": "263466",
+      "oc": "18",
+      "dataPedido": "13/11/2026",
+      "ml": 288.5,
+      "kg": 115.4,
+      "qtdePedido": 500.0,
+      "largura": 0.548,
+      "comprimento": 1.154,
+      "vinco": "x",
+      "bobina": 1150.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263466",
+      "dataProduzido": "2026-11-13T12:00:00Z",
+      "chapasProduzidas": 575,
+      "chapasPedido": 500,
+      "saldoChapas": 75
+    },
+    {
+      "id": "p733697_tlle1",
+      "cliente": "RENOVAPEL",
+      "lote": "RENOVAPEL 1378",
+      "po": "P45B",
+      "of": "263481",
+      "oc": "18",
+      "dataPedido": "13/11/2026",
+      "ml": 93.4,
+      "kg": 53.4,
+      "qtdePedido": 300.0,
+      "largura": 0.392,
+      "comprimento": 1.245,
+      "vinco": "121x150x121",
+      "bobina": 1600.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263481",
+      "dataProduzido": "2026-11-13T12:00:00Z",
+      "chapasProduzidas": 445,
+      "chapasPedido": 300,
+      "saldoChapas": 145
     }
   ],
   "paradas": [
@@ -20769,7 +20777,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-13T18:46:50.903146Z",
+    "atualizadoEm": "2026-11-13T18:56:48.734155Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -37350,6 +37358,18 @@
           "arquivo": "producao-historico.json (tempo real)"
         },
         {
+          "of": "263466",
+          "oc": "18",
+          "medida": "0,548 X 1,154",
+          "chapasPedido": 500,
+          "chapasProduzidas": 575,
+          "saldo": 75,
+          "pct": 115.0,
+          "concluido": true,
+          "dataRelatorio": "2026-11-13",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
           "of": "263467",
           "oc": "18",
           "medida": "0,323 X 0,765",
@@ -37429,6 +37449,18 @@
           "chapasProduzidas": 1501,
           "saldo": 1201,
           "pct": 500.3,
+          "concluido": true,
+          "dataRelatorio": "2026-11-13",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263481",
+          "oc": "18",
+          "medida": "0,392 X 1,245",
+          "chapasPedido": 300,
+          "chapasProduzidas": 445,
+          "saldo": 145,
+          "pct": 148.3,
           "concluido": true,
           "dataRelatorio": "2026-11-13",
           "arquivo": "producao-historico.json (tempo real)"
