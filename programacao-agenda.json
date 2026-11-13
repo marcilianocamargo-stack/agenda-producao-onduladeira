@@ -1162,26 +1162,6 @@
       "chave": "OF:263386"
     },
     {
-      "id": "p144450_wrv6h",
-      "cliente": "CARPEL",
-      "lote": "CARPEL - ABAPEL 1368 P",
-      "po": "P50D",
-      "of": "263390",
-      "oc": "1913",
-      "dataPedido": "10/11/2026",
-      "ml": 189.0,
-      "kg": 146.4,
-      "qtdePedido": 300.0,
-      "largura": 0.72,
-      "comprimento": 1.26,
-      "vinco": "x",
-      "bobina": 1500.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263390"
-    },
-    {
       "id": "p272622_xrs2k",
       "cliente": "CARPEL",
       "lote": "CARPEL - ABAPEL 1368 P",
@@ -18367,6 +18347,30 @@
       "chapasProduzidas": 1045,
       "chapasPedido": 1000,
       "saldoChapas": 45
+    },
+    {
+      "id": "p144450_wrv6h",
+      "cliente": "CARPEL",
+      "lote": "CARPEL - ABAPEL 1368 P",
+      "po": "P50D",
+      "of": "263390",
+      "oc": "1913",
+      "dataPedido": "10/11/2026",
+      "ml": 189.0,
+      "kg": 146.4,
+      "qtdePedido": 300.0,
+      "largura": 0.72,
+      "comprimento": 1.26,
+      "vinco": "x",
+      "bobina": 1500.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263390",
+      "dataProduzido": "2026-11-13T12:00:00Z",
+      "chapasProduzidas": 315,
+      "chapasPedido": 300,
+      "saldoChapas": 15
     }
   ],
   "paradas": [
@@ -18377,7 +18381,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-12T23:51:39.024381Z",
+    "atualizadoEm": "2026-11-13T00:06:46.755536Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -27913,6 +27917,18 @@
           "pct": 104.0,
           "concluido": true,
           "dataRelatorio": "2026-11-12",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263390",
+          "oc": "1913",
+          "medida": "0,720 X 1,260",
+          "chapasPedido": 300,
+          "chapasProduzidas": 315,
+          "saldo": 15,
+          "pct": 105.0,
+          "concluido": true,
+          "dataRelatorio": "2026-11-13",
           "arquivo": "producao-historico.json (tempo real)"
         }
       ],
