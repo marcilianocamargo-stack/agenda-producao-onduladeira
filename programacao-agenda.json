@@ -19141,7 +19141,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-13T10:26:45.527238Z",
+    "atualizadoEm": "2026-11-13T10:36:46.081005Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -25294,30 +25294,6 @@
           "arquivo": "Producao_10-09-2026_turno-Dia_Tolecaixas_Indústria_e_Comércio_Ltda-RM_Embalagens-HARMONY_EMBALAGENS.xlsx"
         },
         {
-          "of": "262789",
-          "oc": "SN",
-          "medida": "0,430 X 1,150",
-          "chapasPedido": 1662,
-          "chapasProduzidas": 1735,
-          "saldo": 73,
-          "pct": 104.4,
-          "concluido": true,
-          "dataRelatorio": "2026-10-02",
-          "arquivo": "producao-historico.json (tempo real)"
-        },
-        {
-          "of": "262790",
-          "oc": "SN",
-          "medida": "0,480 X 1,250",
-          "chapasPedido": 2740,
-          "chapasProduzidas": 2825,
-          "saldo": 85,
-          "pct": 103.1,
-          "concluido": true,
-          "dataRelatorio": "2026-10-02",
-          "arquivo": "producao-historico.json (tempo real)"
-        },
-        {
           "of": "262791",
           "oc": "SN",
           "medida": "0,530 X 1,360",
@@ -25488,18 +25464,6 @@
           "concluido": true,
           "dataRelatorio": "2026-10-02",
           "arquivo": "Producao_02-10-2026_turno-Dia_Renovapel_Reciclagem_de_Papeis_Ltda-FAVINCO-HARMONY_EMBALAGENS+5.xlsx"
-        },
-        {
-          "of": "262863",
-          "oc": "23092026",
-          "medida": "0,510 X 1,020",
-          "chapasPedido": 2000,
-          "chapasProduzidas": 2080,
-          "saldo": 80,
-          "pct": 104.0,
-          "concluido": true,
-          "dataRelatorio": "2026-10-03",
-          "arquivo": "producao-historico.json (tempo real)"
         },
         {
           "of": "262982",
@@ -25974,6 +25938,32 @@
           "arquivo": "Producao_07-10-2026_turno-Noite_ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA-PCBOX_EMBALAGENS_LTDA-RM_Embalagens_(_Daiane_Marques_Can.pdf"
         }
       ],
+      "1241 Tolecaixas Indústria e Co": [
+        {
+          "of": "262789",
+          "oc": "SN",
+          "medida": "0,430 X 1,150",
+          "chapasPedido": 1662,
+          "chapasProduzidas": 1735,
+          "saldo": 73,
+          "pct": 104.4,
+          "concluido": true,
+          "dataRelatorio": "2026-10-02",
+          "arquivo": "Producao_02-10-2026_turno-Noite_Renovapel_Reciclagem_de_Papeis_Ltda-PCBOX_EMBALAGENS_LTDA-Tolecaixas_Indústria_e_Comércio_L.pdf"
+        },
+        {
+          "of": "262790",
+          "oc": "SN",
+          "medida": "0,480 X 1,250",
+          "chapasPedido": 2740,
+          "chapasProduzidas": 2825,
+          "saldo": 85,
+          "pct": 103.1,
+          "concluido": true,
+          "dataRelatorio": "2026-10-02",
+          "arquivo": "Producao_02-10-2026_turno-Noite_Renovapel_Reciclagem_de_Papeis_Ltda-PCBOX_EMBALAGENS_LTDA-Tolecaixas_Indústria_e_Comércio_L.pdf"
+        }
+      ],
       "1241 VÔ CHICO": [
         {
           "of": "262798",
@@ -26097,6 +26087,18 @@
           "chapasProduzidas": 530,
           "saldo": 30,
           "pct": 106.0,
+          "concluido": true,
+          "dataRelatorio": "2026-10-02",
+          "arquivo": "Producao_02-10-2026_turno-Noite_Renovapel_Reciclagem_de_Papeis_Ltda-PCBOX_EMBALAGENS_LTDA-Tolecaixas_Indústria_e_Comércio_L.pdf"
+        },
+        {
+          "of": "262863",
+          "oc": "23092026",
+          "medida": "0,510 X 1,020",
+          "chapasPedido": 2000,
+          "chapasProduzidas": 2080,
+          "saldo": 80,
+          "pct": 104.0,
           "concluido": true,
           "dataRelatorio": "2026-10-02",
           "arquivo": "Producao_02-10-2026_turno-Noite_Renovapel_Reciclagem_de_Papeis_Ltda-PCBOX_EMBALAGENS_LTDA-Tolecaixas_Indústria_e_Comércio_L.pdf"
@@ -26383,6 +26385,32 @@
           "chapasProduzidas": 3095,
           "saldo": 1095,
           "pct": 154.8,
+          "concluido": true,
+          "dataRelatorio": "2026-08-04",
+          "arquivo": "Producao_04-08-2026_turno-Noite_IPE_EMBALAGENS_LTDA-FAVINCO-Tolecaixas_Indústria_e_Comércio_Ltda+1.pdf"
+        }
+      ],
+      "1070 Tolecaixas Indústria e Co": [
+        {
+          "of": "262002",
+          "oc": "SN",
+          "medida": "0,480 X 1,250",
+          "chapasPedido": 2283,
+          "chapasProduzidas": 2415,
+          "saldo": 132,
+          "pct": 105.8,
+          "concluido": true,
+          "dataRelatorio": "2026-08-04",
+          "arquivo": "Producao_04-08-2026_turno-Noite_IPE_EMBALAGENS_LTDA-FAVINCO-Tolecaixas_Indústria_e_Comércio_Ltda+1.pdf"
+        },
+        {
+          "of": "262003",
+          "oc": "SN",
+          "medida": "0,530 X 1,360",
+          "chapasPedido": 1140,
+          "chapasProduzidas": 1200,
+          "saldo": 60,
+          "pct": 105.3,
           "concluido": true,
           "dataRelatorio": "2026-08-04",
           "arquivo": "Producao_04-08-2026_turno-Noite_IPE_EMBALAGENS_LTDA-FAVINCO-Tolecaixas_Indústria_e_Comércio_Ltda+1.pdf"
@@ -31008,30 +31036,6 @@
           "arquivo": "Producao_11-09-2026_turno-Dia_FAVINCO_EMBALAGENS-Renovapel_Reciclagem_de_Papeis_Ltda-DR_Embalagens+2.xlsx"
         },
         {
-          "of": "262528",
-          "oc": "10092026",
-          "medida": "0,410 X 0,820",
-          "chapasPedido": 2000,
-          "chapasProduzidas": 2010,
-          "saldo": 10,
-          "pct": 100.5,
-          "concluido": true,
-          "dataRelatorio": "2026-09-11",
-          "arquivo": "producao-historico.json (tempo real)"
-        },
-        {
-          "of": "262529",
-          "oc": "10092026",
-          "medida": "0,360 X 0,720",
-          "chapasPedido": 2500,
-          "chapasProduzidas": 3005,
-          "saldo": 505,
-          "pct": 120.2,
-          "concluido": true,
-          "dataRelatorio": "2026-09-12",
-          "arquivo": "producao-historico.json (tempo real)"
-        },
-        {
           "of": "262522",
           "oc": "10092026",
           "medida": "0,460 X 0,920",
@@ -31139,6 +31143,30 @@
           "chapasProduzidas": 1240,
           "saldo": 240,
           "pct": 124.0,
+          "concluido": true,
+          "dataRelatorio": "2026-09-11",
+          "arquivo": "Producao_11-09-2026_turno-Noite_HARMONY_EMBALAGENS-PCBOX_EMBALAGENS_LTDA-DR_Embalagens.pdf"
+        },
+        {
+          "of": "262528",
+          "oc": "10092026",
+          "medida": "0,410 X 0,820",
+          "chapasPedido": 2000,
+          "chapasProduzidas": 2010,
+          "saldo": 10,
+          "pct": 100.5,
+          "concluido": true,
+          "dataRelatorio": "2026-09-11",
+          "arquivo": "Producao_11-09-2026_turno-Noite_HARMONY_EMBALAGENS-PCBOX_EMBALAGENS_LTDA-DR_Embalagens.pdf"
+        },
+        {
+          "of": "262529",
+          "oc": "10092026",
+          "medida": "0,360 X 0,720",
+          "chapasPedido": 2500,
+          "chapasProduzidas": 3005,
+          "saldo": 505,
+          "pct": 120.2,
           "concluido": true,
           "dataRelatorio": "2026-09-11",
           "arquivo": "Producao_11-09-2026_turno-Noite_HARMONY_EMBALAGENS-PCBOX_EMBALAGENS_LTDA-DR_Embalagens.pdf"
@@ -32855,6 +32883,42 @@
           "chapasProduzidas": 1555,
           "saldo": 55,
           "pct": 103.7,
+          "concluido": true,
+          "dataRelatorio": "2026-08-19",
+          "arquivo": "Producao_19-08-2026_turno-Noite_DR_Embalagens-São_Miguel.pdf"
+        },
+        {
+          "of": "262161",
+          "oc": "1008",
+          "medida": "0,460 X 0,920",
+          "chapasPedido": 3000,
+          "chapasProduzidas": 3060,
+          "saldo": 60,
+          "pct": 102.0,
+          "concluido": true,
+          "dataRelatorio": "2026-08-19",
+          "arquivo": "Producao_19-08-2026_turno-Noite_DR_Embalagens-São_Miguel.pdf"
+        },
+        {
+          "of": "262162",
+          "oc": "1008",
+          "medida": "0,410 X 0,820",
+          "chapasPedido": 1500,
+          "chapasProduzidas": 1620,
+          "saldo": 120,
+          "pct": 108.0,
+          "concluido": true,
+          "dataRelatorio": "2026-08-19",
+          "arquivo": "Producao_19-08-2026_turno-Noite_DR_Embalagens-São_Miguel.pdf"
+        },
+        {
+          "of": "262163",
+          "oc": "1008",
+          "medida": "0,360 X 0,720",
+          "chapasPedido": 1500,
+          "chapasProduzidas": 1670,
+          "saldo": 170,
+          "pct": 111.3,
           "concluido": true,
           "dataRelatorio": "2026-08-19",
           "arquivo": "Producao_19-08-2026_turno-Noite_DR_Embalagens-São_Miguel.pdf"
@@ -34799,6 +34863,18 @@
         }
       ],
       "1038 TOLECAIXAS": [
+        {
+          "of": "261869",
+          "oc": "1211",
+          "medida": "0,570 X 1,120",
+          "chapasPedido": 1287,
+          "chapasProduzidas": 1355,
+          "saldo": 68,
+          "pct": 105.3,
+          "concluido": true,
+          "dataRelatorio": "2026-07-29",
+          "arquivo": "Producao_29-07-2026_turno-Noite_DANPACK-TOLECAIXAS-ABAPEL_COMERCIO_DE_EMBALAGENS_LTDA+2.pdf"
+        },
         {
           "of": "261870",
           "oc": "1211",
