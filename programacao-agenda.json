@@ -2002,26 +2002,6 @@
       "chave": "OF:263428"
     },
     {
-      "id": "p339549_pzx10",
-      "cliente": "RENOVAPEL",
-      "lote": "RENOVAPEL 1378",
-      "po": "P70C",
-      "of": "263495",
-      "oc": "18",
-      "dataPedido": "13/11/2026",
-      "ml": 428.8,
-      "kg": 266.8,
-      "qtdePedido": 500.0,
-      "largura": 0.662,
-      "comprimento": 1.715,
-      "vinco": "201x260x201",
-      "bobina": 1350.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263495"
-    },
-    {
       "id": "p673789_e7sj1",
       "cliente": "RENOVAPEL",
       "lote": "RENOVAPEL 1378",
@@ -20847,6 +20827,30 @@
       "chapasProduzidas": 1645,
       "chapasPedido": 1500,
       "saldoChapas": 145
+    },
+    {
+      "id": "p339549_pzx10",
+      "cliente": "RENOVAPEL",
+      "lote": "RENOVAPEL 1378",
+      "po": "P70C",
+      "of": "263495",
+      "oc": "18",
+      "dataPedido": "13/11/2026",
+      "ml": 428.8,
+      "kg": 266.8,
+      "qtdePedido": 500.0,
+      "largura": 0.662,
+      "comprimento": 1.715,
+      "vinco": "201x260x201",
+      "bobina": 1350.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263495",
+      "dataProduzido": "2026-11-14T12:00:00Z",
+      "chapasProduzidas": 500,
+      "chapasPedido": 500,
+      "saldoChapas": 0
     }
   ],
   "paradas": [
@@ -20857,7 +20861,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-14T11:16:50.738165Z",
+    "atualizadoEm": "2026-11-14T11:51:47.077551Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -37855,6 +37859,18 @@
           "pct": 131.1,
           "concluido": true,
           "dataRelatorio": "2026-11-13",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263495",
+          "oc": "18",
+          "medida": "0,662 X 1,715",
+          "chapasPedido": 500,
+          "chapasProduzidas": 500,
+          "saldo": 0,
+          "pct": 100.0,
+          "concluido": true,
+          "dataRelatorio": "2026-11-14",
           "arquivo": "producao-historico.json (tempo real)"
         }
       ],
