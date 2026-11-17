@@ -2462,26 +2462,6 @@
       "chave": "OF:263536"
     },
     {
-      "id": "p47113_34n3e",
-      "cliente": "STAR VALE CARTONAGEM",
-      "lote": "STAR VALE CARTONAGEM 1381",
-      "po": "P55D",
-      "of": "263537",
-      "oc": "1694/2026",
-      "dataPedido": "13/11/2026",
-      "ml": 2152.0,
-      "kg": 1307.9,
-      "qtdePedido": 800.0,
-      "largura": 1.07,
-      "comprimento": 2.69,
-      "vinco": "85x900x85",
-      "bobina": 1100.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263537"
-    },
-    {
       "id": "p480809_xzes6",
       "cliente": "STAR VALE CARTONAGEM",
       "lote": "STAR VALE CARTONAGEM 1381",
@@ -21391,6 +21371,30 @@
       "chapasProduzidas": 1885,
       "chapasPedido": 1600,
       "saldoChapas": 285
+    },
+    {
+      "id": "p47113_34n3e",
+      "cliente": "STAR VALE CARTONAGEM",
+      "lote": "STAR VALE CARTONAGEM 1381",
+      "po": "P55D",
+      "of": "263537",
+      "oc": "1694/2026",
+      "dataPedido": "13/11/2026",
+      "ml": 2152.0,
+      "kg": 1307.9,
+      "qtdePedido": 800.0,
+      "largura": 1.07,
+      "comprimento": 2.69,
+      "vinco": "85x900x85",
+      "bobina": 1100.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263537",
+      "dataProduzido": "2026-11-17T12:00:00Z",
+      "chapasProduzidas": 800,
+      "chapasPedido": 800,
+      "saldoChapas": 0
     }
   ],
   "paradas": [
@@ -21401,7 +21405,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-17T10:26:51.560923Z",
+    "atualizadoEm": "2026-11-17T10:31:53.426756Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -40430,10 +40434,10 @@
           "oc": "1694/2026",
           "medida": "1,070 X 2,690",
           "chapasPedido": 800,
-          "chapasProduzidas": 670,
-          "saldo": -130,
-          "pct": 83.8,
-          "concluido": false,
+          "chapasProduzidas": 800,
+          "saldo": 0,
+          "pct": 100.0,
+          "concluido": true,
           "dataRelatorio": "2026-11-17",
           "arquivo": "producao-historico.json (tempo real)"
         },
