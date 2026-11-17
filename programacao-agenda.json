@@ -22249,7 +22249,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-17T17:16:55.874426Z",
+    "atualizadoEm": "2026-11-17T17:21:51.239398Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -41321,6 +41321,18 @@
         }
       ],
       "STAR VALE CARTONAGEM": [
+        {
+          "of": "263535",
+          "oc": "1694/2026",
+          "medida": "1,249 X 1,380",
+          "chapasPedido": 1000,
+          "chapasProduzidas": 500,
+          "saldo": -500,
+          "pct": 50.0,
+          "concluido": false,
+          "dataRelatorio": "2026-11-17",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
         {
           "of": "263536",
           "oc": "1694/2026",
