@@ -2282,26 +2282,6 @@
       "chave": "OF:263533"
     },
     {
-      "id": "p455771_465gj",
-      "cliente": "STAR VALE CARTONAGEM",
-      "lote": "STAR VALE CARTONAGEM 1381",
-      "po": "P60C",
-      "of": "263534",
-      "oc": "1694/2026",
-      "dataPedido": "13/11/2026",
-      "ml": 1464.0,
-      "kg": 934.0,
-      "qtdePedido": 800.0,
-      "largura": 1.45,
-      "comprimento": 1.83,
-      "vinco": "200x1050x200",
-      "bobina": 1500.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263534"
-    },
-    {
       "id": "p741611_4mh6p",
       "cliente": "PCBOX EMBALAGENS",
       "lote": "IPE EMBALAGENS - PCBOX EMBALAGE",
@@ -22251,6 +22231,30 @@
       "chapasProduzidas": 5980,
       "chapasPedido": 3000,
       "saldoChapas": 2980
+    },
+    {
+      "id": "p455771_465gj",
+      "cliente": "STAR VALE CARTONAGEM",
+      "lote": "STAR VALE CARTONAGEM 1381",
+      "po": "P60C",
+      "of": "263534",
+      "oc": "1694/2026",
+      "dataPedido": "13/11/2026",
+      "ml": 1464.0,
+      "kg": 934.0,
+      "qtdePedido": 800.0,
+      "largura": 1.45,
+      "comprimento": 1.83,
+      "vinco": "200x1050x200",
+      "bobina": 1500.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263534",
+      "dataProduzido": "2026-11-17T12:00:00Z",
+      "chapasProduzidas": 815,
+      "chapasPedido": 800,
+      "saldoChapas": 15
     }
   ],
   "paradas": [
@@ -22261,7 +22265,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-17T20:41:49.884670Z",
+    "atualizadoEm": "2026-11-17T20:51:46.661821Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -41362,10 +41366,10 @@
           "oc": "1694/2026",
           "medida": "1,450 X 1,830",
           "chapasPedido": 800,
-          "chapasProduzidas": 570,
-          "saldo": -230,
-          "pct": 71.2,
-          "concluido": false,
+          "chapasProduzidas": 815,
+          "saldo": 15,
+          "pct": 101.9,
+          "concluido": true,
           "dataRelatorio": "2026-11-17",
           "arquivo": "producao-historico.json (tempo real)"
         },
