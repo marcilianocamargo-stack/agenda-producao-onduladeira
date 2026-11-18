@@ -2062,26 +2062,6 @@
       "chave": "OF:263525"
     },
     {
-      "id": "p13863_eqlu1",
-      "cliente": "IPE EMBALAGENS",
-      "lote": "IPE EMBALAGENS 1380 P",
-      "po": "P50D",
-      "of": "263529",
-      "oc": "1919",
-      "dataPedido": "13/11/2026",
-      "ml": 1509.0,
-      "kg": 889.8,
-      "qtdePedido": 2000.0,
-      "largura": 0.548,
-      "comprimento": 1.509,
-      "vinco": "112x324x112",
-      "bobina": 1150.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263529"
-    },
-    {
       "id": "p804222_ae2e8",
       "cliente": "IPE EMBALAGENS",
       "lote": "IPE EMBALAGENS 1380 P",
@@ -22375,6 +22355,30 @@
       "chapasProduzidas": 1020,
       "chapasPedido": 1000,
       "saldoChapas": 20
+    },
+    {
+      "id": "p13863_eqlu1",
+      "cliente": "IPE EMBALAGENS",
+      "lote": "IPE EMBALAGENS 1380 P",
+      "po": "P50D",
+      "of": "263529",
+      "oc": "1919",
+      "dataPedido": "13/11/2026",
+      "ml": 1509.0,
+      "kg": 889.8,
+      "qtdePedido": 2000.0,
+      "largura": 0.548,
+      "comprimento": 1.509,
+      "vinco": "112x324x112",
+      "bobina": 1150.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263529",
+      "dataProduzido": "2026-11-18T12:00:00Z",
+      "chapasProduzidas": 1800,
+      "chapasPedido": 2000,
+      "saldoChapas": -200
     }
   ],
   "paradas": [
@@ -22385,7 +22389,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-18T11:51:52.068639Z",
+    "atualizadoEm": "2026-11-18T11:56:51.796631Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -30482,10 +30486,10 @@
           "oc": "1919",
           "medida": "0,548 X 1,509",
           "chapasPedido": 2000,
-          "chapasProduzidas": 1080,
-          "saldo": -920,
-          "pct": 54.0,
-          "concluido": false,
+          "chapasProduzidas": 1800,
+          "saldo": -200,
+          "pct": 90.0,
+          "concluido": true,
           "dataRelatorio": "2026-11-18",
           "arquivo": "producao-historico.json (tempo real)"
         }
