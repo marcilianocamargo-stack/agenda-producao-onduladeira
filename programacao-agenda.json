@@ -22389,7 +22389,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-18T12:01:57.280319Z",
+    "atualizadoEm": "2026-11-18T13:46:53.502842Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -30490,6 +30490,18 @@
           "saldo": 35,
           "pct": 101.8,
           "concluido": true,
+          "dataRelatorio": "2026-11-18",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263548",
+          "oc": "1929",
+          "medida": "0,571 X 1,543",
+          "chapasPedido": 2000,
+          "chapasProduzidas": 760,
+          "saldo": -1240,
+          "pct": 38.0,
+          "concluido": false,
           "dataRelatorio": "2026-11-18",
           "arquivo": "producao-historico.json (tempo real)"
         }
