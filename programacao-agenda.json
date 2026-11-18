@@ -2042,26 +2042,6 @@
       "chave": "OF:263523"
     },
     {
-      "id": "p341374_gohew",
-      "cliente": "HARMONY EMBALAGENS",
-      "lote": "HARMONY EMBALAGENS 1379 P",
-      "po": "P70C",
-      "of": "263509",
-      "oc": "SN",
-      "dataPedido": "12/11/2026",
-      "ml": 1416.8,
-      "kg": 877.6,
-      "qtdePedido": 1500.0,
-      "largura": 0.659,
-      "comprimento": 1.889,
-      "vinco": "158x343x158",
-      "bobina": 1350.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263509"
-    },
-    {
       "id": "p462990_r0mk3",
       "cliente": "HARMONY EMBALAGENS",
       "lote": "HARMONY EMBALAGENS 1379 P",
@@ -3320,6 +3300,26 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263571"
+    },
+    {
+      "id": "p735110_rzskl",
+      "cliente": "HARMONY EMBALAGENS",
+      "lote": "HARMONY EMBALAGENS 1387 P",
+      "po": "P70D",
+      "of": "263572",
+      "oc": "2",
+      "dataPedido": "17/11/2026",
+      "ml": 2705.6,
+      "kg": 2024.6,
+      "qtdePedido": 1600.0,
+      "largura": 1.184,
+      "comprimento": 1.691,
+      "vinco": "207x770x207",
+      "bobina": 1250.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263572"
     }
   ],
   "aguardando": [],
@@ -22283,6 +22283,30 @@
       "chapasProduzidas": 2105,
       "chapasPedido": 2000,
       "saldoChapas": 105
+    },
+    {
+      "id": "p341374_gohew",
+      "cliente": "HARMONY EMBALAGENS",
+      "lote": "HARMONY EMBALAGENS 1379 P",
+      "po": "P70C",
+      "of": "263509",
+      "oc": "SN",
+      "dataPedido": "12/11/2026",
+      "ml": 1416.8,
+      "kg": 877.6,
+      "qtdePedido": 1500.0,
+      "largura": 0.659,
+      "comprimento": 1.889,
+      "vinco": "158x343x158",
+      "bobina": 1350.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263509",
+      "dataProduzido": "2026-11-18T12:00:00Z",
+      "chapasProduzidas": 1450,
+      "chapasPedido": 1500,
+      "saldoChapas": -50
     }
   ],
   "paradas": [
@@ -22293,7 +22317,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-18T08:36:46.361639Z",
+    "atualizadoEm": "2026-11-18T09:02:00.714813Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -28408,10 +28432,10 @@
           "oc": "SN",
           "medida": "0,659 X 1,889",
           "chapasPedido": 1500,
-          "chapasProduzidas": 500,
-          "saldo": -1000,
-          "pct": 33.3,
-          "concluido": false,
+          "chapasProduzidas": 1450,
+          "saldo": -50,
+          "pct": 96.7,
+          "concluido": true,
           "dataRelatorio": "2026-11-18",
           "arquivo": "producao-historico.json (tempo real)"
         },
