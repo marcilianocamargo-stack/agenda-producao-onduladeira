@@ -4120,6 +4120,26 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263691"
+    },
+    {
+      "id": "p215991_urvqc",
+      "cliente": "FAVINCO EMBALAGENS",
+      "lote": "FAVINCO EMBALAGENS 1402",
+      "po": "P55D",
+      "of": "263697",
+      "oc": "167",
+      "dataPedido": "24/11/2026",
+      "ml": 145.5,
+      "kg": 114.2,
+      "qtdePedido": 150.0,
+      "largura": 0.691,
+      "comprimento": 1.94,
+      "vinco": "218x255x218",
+      "bobina": 1150.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263697"
     }
   ],
   "aguardando": [],
@@ -25072,9 +25092,9 @@
       "valor": 0.0,
       "chave": "OF:263653",
       "dataProduzido": "2026-11-24T12:00:00Z",
-      "chapasProduzidas": 19550,
+      "chapasProduzidas": 20450,
       "chapasPedido": 16000,
-      "saldoChapas": 3550
+      "saldoChapas": 4450
     }
   ],
   "paradas": [
@@ -25085,7 +25105,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-24T14:36:44.924211Z",
+    "atualizadoEm": "2026-11-24T14:41:47.837681Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -44890,9 +44910,9 @@
           "oc": "8436",
           "medida": "0,396 X 0,816",
           "chapasPedido": 16000,
-          "chapasProduzidas": 19550,
-          "saldo": 3550,
-          "pct": 122.2,
+          "chapasProduzidas": 20450,
+          "saldo": 4450,
+          "pct": 127.8,
           "concluido": true,
           "dataRelatorio": "2026-11-24",
           "arquivo": "producao-historico.json (tempo real)"
