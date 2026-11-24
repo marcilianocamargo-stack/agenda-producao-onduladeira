@@ -25092,9 +25092,9 @@
       "valor": 0.0,
       "chave": "OF:263653",
       "dataProduzido": "2026-11-24T12:00:00Z",
-      "chapasProduzidas": 20450,
+      "chapasProduzidas": 21350,
       "chapasPedido": 16000,
-      "saldoChapas": 4450
+      "saldoChapas": 5350
     }
   ],
   "paradas": [
@@ -25105,7 +25105,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-24T14:41:47.837681Z",
+    "atualizadoEm": "2026-11-24T14:46:51.256882Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -44910,9 +44910,9 @@
           "oc": "8436",
           "medida": "0,396 X 0,816",
           "chapasPedido": 16000,
-          "chapasProduzidas": 20450,
-          "saldo": 4450,
-          "pct": 127.8,
+          "chapasProduzidas": 21350,
+          "saldo": 5350,
+          "pct": 133.4,
           "concluido": true,
           "dataRelatorio": "2026-11-24",
           "arquivo": "producao-historico.json (tempo real)"
