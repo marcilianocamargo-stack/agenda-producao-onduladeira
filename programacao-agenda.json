@@ -3960,6 +3960,26 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263708"
+    },
+    {
+      "id": "p819596_fgk2y",
+      "cliente": "STAR VALE CARTONAGEM",
+      "lote": "STAR VALE CARTONAGEM 1403 PP",
+      "po": "P60C",
+      "of": "263710",
+      "oc": "1709",
+      "dataPedido": "24/11/2026",
+      "ml": 2961.0,
+      "kg": 1394.0,
+      "qtdePedido": 1800.0,
+      "largura": 1.07,
+      "comprimento": 1.645,
+      "vinco": "85x900x85",
+      "bobina": 1100.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263710"
     }
   ],
   "aguardando": [],
@@ -25429,7 +25449,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-25T15:06:46.463408Z",
+    "atualizadoEm": "2026-11-25T15:11:43.470310Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -45498,9 +45518,9 @@
           "oc": "8436",
           "medida": "0,505 X 1,036",
           "chapasPedido": 2500,
-          "chapasProduzidas": 1200,
-          "saldo": -1300,
-          "pct": 48.0,
+          "chapasProduzidas": 1800,
+          "saldo": -700,
+          "pct": 72.0,
           "concluido": false,
           "dataRelatorio": "2026-11-25",
           "arquivo": "producao-historico.json (tempo real)"
