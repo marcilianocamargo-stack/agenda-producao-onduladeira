@@ -2742,26 +2742,6 @@
       "chave": "OF:263596"
     },
     {
-      "id": "p836446_fe4f3",
-      "cliente": "HARMONY EMBALAGENS",
-      "lote": "HARMONY EMBALAGENS 1391 R",
-      "po": "P25B",
-      "of": "263599",
-      "oc": "171126",
-      "dataPedido": "17/11/2026",
-      "ml": 480.0,
-      "kg": 239.6,
-      "qtdePedido": 2000.0,
-      "largura": 0.52,
-      "comprimento": 0.72,
-      "vinco": "x",
-      "bobina": 1600.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263599"
-    },
-    {
       "id": "p334342_xb550",
       "cliente": "HARMONY EMBALAGENS",
       "lote": "HARMONY EMBALAGENS 1391 R",
@@ -3980,6 +3960,46 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263703"
+    },
+    {
+      "id": "p561517_fomof",
+      "cliente": "FAVINCO EMBALAGENS",
+      "lote": "FAVINCO EMBALAGENS 1405 P",
+      "po": "P55D",
+      "of": "263709",
+      "oc": "102",
+      "dataPedido": "25/11/2026",
+      "ml": 826.0,
+      "kg": 675.6,
+      "qtdePedido": 560.0,
+      "largura": 0.72,
+      "comprimento": 2.95,
+      "vinco": "300x120x300",
+      "bobina": 1500.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263709"
+    },
+    {
+      "id": "p828425_jgyyh",
+      "cliente": "FAVINCO EMBALAGENS",
+      "lote": "FAVINCO EMBALAGENS 1405 P",
+      "po": "P25B",
+      "of": "263708",
+      "oc": "102",
+      "dataPedido": "25/11/2026",
+      "ml": 464.0,
+      "kg": 164.2,
+      "qtdePedido": 800.0,
+      "largura": 0.553,
+      "comprimento": 1.16,
+      "vinco": "128x297x128",
+      "bobina": 1150.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263708"
     }
   ],
   "aguardando": [],
@@ -25367,6 +25387,30 @@
       "chapasProduzidas": 4150,
       "chapasPedido": 4000,
       "saldoChapas": 150
+    },
+    {
+      "id": "p836446_fe4f3",
+      "cliente": "HARMONY EMBALAGENS",
+      "lote": "HARMONY EMBALAGENS 1391 R",
+      "po": "P25B",
+      "of": "263599",
+      "oc": "171126",
+      "dataPedido": "17/11/2026",
+      "ml": 480.0,
+      "kg": 239.6,
+      "qtdePedido": 2000.0,
+      "largura": 0.52,
+      "comprimento": 0.72,
+      "vinco": "x",
+      "bobina": 1600.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263599",
+      "dataProduzido": "2026-11-25T12:00:00Z",
+      "chapasProduzidas": 2000,
+      "chapasPedido": 2000,
+      "saldoChapas": 0
     }
   ],
   "paradas": [
@@ -25377,7 +25421,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-25T13:56:55.215585Z",
+    "atualizadoEm": "2026-11-25T14:11:48.401636Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -31759,6 +31803,18 @@
           "chapasProduzidas": 1490,
           "saldo": 90,
           "pct": 106.4,
+          "concluido": true,
+          "dataRelatorio": "2026-11-25",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263599",
+          "oc": "171126",
+          "medida": "0,520 X 0,720",
+          "chapasPedido": 2000,
+          "chapasProduzidas": 2000,
+          "saldo": 0,
+          "pct": 100.0,
           "concluido": true,
           "dataRelatorio": "2026-11-25",
           "arquivo": "producao-historico.json (tempo real)"
