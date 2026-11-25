@@ -3122,26 +3122,6 @@
       "chave": "OF:263630"
     },
     {
-      "id": "p565523_wjsn3",
-      "cliente": "RM EMBALAGENS",
-      "lote": "RM EMBALAGENS 1394 P",
-      "po": "P45B",
-      "of": "263629",
-      "oc": "38",
-      "dataPedido": "19/11/2026",
-      "ml": 700.0,
-      "kg": 313.8,
-      "qtdePedido": 1000.0,
-      "largura": 0.614,
-      "comprimento": 1.4,
-      "vinco": "197x220x197",
-      "bobina": 1250.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263629"
-    },
-    {
       "id": "p431658_b7s21",
       "cliente": "RM EMBALAGENS",
       "lote": "RM EMBALAGENS 1394 P",
@@ -25127,6 +25107,30 @@
       "chapasProduzidas": 930,
       "chapasPedido": 440,
       "saldoChapas": 490
+    },
+    {
+      "id": "p565523_wjsn3",
+      "cliente": "RM EMBALAGENS",
+      "lote": "RM EMBALAGENS 1394 P",
+      "po": "P45B",
+      "of": "263629",
+      "oc": "38",
+      "dataPedido": "19/11/2026",
+      "ml": 700.0,
+      "kg": 313.8,
+      "qtdePedido": 1000.0,
+      "largura": 0.614,
+      "comprimento": 1.4,
+      "vinco": "197x220x197",
+      "bobina": 1250.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263629",
+      "dataProduzido": "2026-11-24T12:00:00Z",
+      "chapasProduzidas": 1105,
+      "chapasPedido": 1000,
+      "saldoChapas": 105
     }
   ],
   "paradas": [
@@ -25137,7 +25141,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-24T23:41:47.113386Z",
+    "atualizadoEm": "2026-11-24T23:51:42.648540Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -44292,10 +44296,10 @@
           "oc": "38",
           "medida": "0,614 X 1,400",
           "chapasPedido": 1000,
-          "chapasProduzidas": 775,
-          "saldo": -225,
-          "pct": 77.5,
-          "concluido": false,
+          "chapasProduzidas": 1105,
+          "saldo": 105,
+          "pct": 110.5,
+          "concluido": true,
           "dataRelatorio": "2026-11-24",
           "arquivo": "producao-historico.json (tempo real)"
         },
