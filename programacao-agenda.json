@@ -4200,6 +4200,26 @@
       "precoKg": 0.0,
       "valor": 0.0,
       "chave": "OF:263726"
+    },
+    {
+      "id": "p427882_a9wvp",
+      "cliente": "IPE EMBALAGENS",
+      "lote": "IPE EMBALAGENS 1409",
+      "po": "P50D",
+      "of": "263728",
+      "oc": "1979",
+      "dataPedido": "25/11/2026",
+      "ml": 660.9,
+      "kg": 432.7,
+      "qtdePedido": 300.0,
+      "largura": 1.217,
+      "comprimento": 2.203,
+      "vinco": "275x667x275",
+      "bobina": 1250.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263728"
     }
   ],
   "aguardando": [],
@@ -25813,7 +25833,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-25T17:51:51.970984Z",
+    "atualizadoEm": "2026-11-25T18:01:52.409888Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
