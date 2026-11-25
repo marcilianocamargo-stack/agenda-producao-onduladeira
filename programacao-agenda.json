@@ -25796,9 +25796,9 @@
       "valor": 0.0,
       "chave": "OF:263657",
       "dataProduzido": "2026-11-25T12:00:00Z",
-      "chapasProduzidas": 1200,
+      "chapasProduzidas": 1480,
       "chapasPedido": 1100,
-      "saldoChapas": 100
+      "saldoChapas": 380
     }
   ],
   "paradas": [
@@ -25809,7 +25809,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-25T17:26:48.078158Z",
+    "atualizadoEm": "2026-11-25T17:32:02.691777Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -45914,9 +45914,9 @@
           "oc": "8436",
           "medida": "1,479 X 0,806",
           "chapasPedido": 1100,
-          "chapasProduzidas": 1200,
-          "saldo": 100,
-          "pct": 109.1,
+          "chapasProduzidas": 1480,
+          "saldo": 380,
+          "pct": 134.5,
           "concluido": true,
           "dataRelatorio": "2026-11-25",
           "arquivo": "producao-historico.json (tempo real)"
@@ -45930,6 +45930,18 @@
           "saldo": 50,
           "pct": 106.8,
           "concluido": true,
+          "dataRelatorio": "2026-11-25",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263659",
+          "oc": "8436",
+          "medida": "1,414 X 0,906",
+          "chapasPedido": 700,
+          "chapasProduzidas": 300,
+          "saldo": -400,
+          "pct": 42.9,
+          "concluido": false,
           "dataRelatorio": "2026-11-25",
           "arquivo": "producao-historico.json (tempo real)"
         }
