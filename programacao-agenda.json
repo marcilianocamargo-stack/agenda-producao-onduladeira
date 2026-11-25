@@ -2882,26 +2882,6 @@
       "chave": "OF:263593"
     },
     {
-      "id": "p229690_1yl7y",
-      "cliente": "HARMONY EMBALAGENS",
-      "lote": "HARMONY EMBALAGENS 1391 R",
-      "po": "P25B",
-      "of": "263611",
-      "oc": "171126",
-      "dataPedido": "17/11/2026",
-      "ml": 188.2,
-      "kg": 73.2,
-      "qtdePedido": 500.0,
-      "largura": 0.405,
-      "comprimento": 1.129,
-      "vinco": "101x203x101",
-      "bobina": 1250.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263611"
-    },
-    {
       "id": "p625528_r4yum",
       "cliente": "HARMONY EMBALAGENS",
       "lote": "HARMONY EMBALAGENS 1391 R",
@@ -25131,6 +25111,30 @@
       "chapasProduzidas": 1105,
       "chapasPedido": 1000,
       "saldoChapas": 105
+    },
+    {
+      "id": "p229690_1yl7y",
+      "cliente": "HARMONY EMBALAGENS",
+      "lote": "HARMONY EMBALAGENS 1391 R",
+      "po": "P25B",
+      "of": "263611",
+      "oc": "171126",
+      "dataPedido": "17/11/2026",
+      "ml": 188.2,
+      "kg": 73.2,
+      "qtdePedido": 500.0,
+      "largura": 0.405,
+      "comprimento": 1.129,
+      "vinco": "101x203x101",
+      "bobina": 1250.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263611",
+      "dataProduzido": "2026-11-24T12:00:00Z",
+      "chapasProduzidas": 685,
+      "chapasPedido": 500,
+      "saldoChapas": 185
     }
   ],
   "paradas": [
@@ -25141,7 +25145,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-24T23:51:42.648540Z",
+    "atualizadoEm": "2026-11-24T23:56:47.012425Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -31489,6 +31493,18 @@
           "pct": 105.0,
           "concluido": true,
           "dataRelatorio": "2026-11-19",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263611",
+          "oc": "171126",
+          "medida": "0,405 X 1,129",
+          "chapasPedido": 500,
+          "chapasProduzidas": 685,
+          "saldo": 185,
+          "pct": 137.0,
+          "concluido": true,
+          "dataRelatorio": "2026-11-24",
           "arquivo": "producao-historico.json (tempo real)"
         }
       ],
