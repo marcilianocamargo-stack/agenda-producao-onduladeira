@@ -3562,26 +3562,6 @@
       "chave": "OF:263703"
     },
     {
-      "id": "p828425_jgyyh",
-      "cliente": "FAVINCO EMBALAGENS",
-      "lote": "FAVINCO EMBALAGENS 1405 P",
-      "po": "P25B",
-      "of": "263708",
-      "oc": "102",
-      "dataPedido": "25/11/2026",
-      "ml": 464.0,
-      "kg": 164.2,
-      "qtdePedido": 800.0,
-      "largura": 0.553,
-      "comprimento": 1.16,
-      "vinco": "128x297x128",
-      "bobina": 1150.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263708"
-    },
-    {
       "id": "p819596_fgk2y",
       "cliente": "STAR VALE CARTONAGEM",
       "lote": "STAR VALE CARTONAGEM 1403 PP",
@@ -26263,6 +26243,30 @@
       "chapasProduzidas": 1300,
       "chapasPedido": 1300,
       "saldoChapas": 0
+    },
+    {
+      "id": "p828425_jgyyh",
+      "cliente": "FAVINCO EMBALAGENS",
+      "lote": "FAVINCO EMBALAGENS 1405 P",
+      "po": "P25B",
+      "of": "263708",
+      "oc": "102",
+      "dataPedido": "25/11/2026",
+      "ml": 464.0,
+      "kg": 164.2,
+      "qtdePedido": 800.0,
+      "largura": 0.553,
+      "comprimento": 1.16,
+      "vinco": "128x297x128",
+      "bobina": 1150.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263708",
+      "dataProduzido": "2026-11-26T12:00:00Z",
+      "chapasProduzidas": 840,
+      "chapasPedido": 800,
+      "saldoChapas": 40
     }
   ],
   "paradas": [
@@ -26273,7 +26277,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-26T11:51:49.114669Z",
+    "atualizadoEm": "2026-11-26T12:31:58.382096Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -39234,6 +39238,18 @@
           "arquivo": "producao-historico.json (tempo real)"
         },
         {
+          "of": "263705",
+          "oc": "101",
+          "medida": "0,279 X 1,002",
+          "chapasPedido": 4000,
+          "chapasProduzidas": 1530,
+          "saldo": -2470,
+          "pct": 38.2,
+          "concluido": false,
+          "dataRelatorio": "2026-11-26",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
           "of": "263706",
           "oc": "101",
           "medida": "0,835 X 1,618",
@@ -39253,6 +39269,18 @@
           "chapasProduzidas": 1235,
           "saldo": -15,
           "pct": 98.8,
+          "concluido": true,
+          "dataRelatorio": "2026-11-26",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263708",
+          "oc": "102",
+          "medida": "0,553 X 1,160",
+          "chapasPedido": 800,
+          "chapasProduzidas": 840,
+          "saldo": 40,
+          "pct": 105.0,
           "concluido": true,
           "dataRelatorio": "2026-11-26",
           "arquivo": "producao-historico.json (tempo real)"
