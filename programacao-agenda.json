@@ -2822,26 +2822,6 @@
       "chave": "OF:263609"
     },
     {
-      "id": "p217027_ie2lm",
-      "cliente": "RM EMBALAGENS",
-      "lote": "RM EMBALAGENS 1394 P",
-      "po": "P50D",
-      "of": "263647",
-      "oc": "38",
-      "dataPedido": "19/11/2026",
-      "ml": 735.5,
-      "kg": 556.4,
-      "qtdePedido": 500.0,
-      "largura": 1.406,
-      "comprimento": 1.471,
-      "vinco": "x",
-      "bobina": 1450.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263647"
-    },
-    {
       "id": "p788537_g3ilz",
       "cliente": "RM EMBALAGENS",
       "lote": "RM EMBALAGENS 1394 P",
@@ -25839,6 +25819,30 @@
       "chapasProduzidas": 525,
       "chapasPedido": 500,
       "saldoChapas": 25
+    },
+    {
+      "id": "p217027_ie2lm",
+      "cliente": "RM EMBALAGENS",
+      "lote": "RM EMBALAGENS 1394 P",
+      "po": "P50D",
+      "of": "263647",
+      "oc": "38",
+      "dataPedido": "19/11/2026",
+      "ml": 735.5,
+      "kg": 556.4,
+      "qtdePedido": 500.0,
+      "largura": 1.406,
+      "comprimento": 1.471,
+      "vinco": "x",
+      "bobina": 1450.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263647",
+      "dataProduzido": "2026-11-25T12:00:00Z",
+      "chapasProduzidas": 510,
+      "chapasPedido": 500,
+      "saldoChapas": 10
     }
   ],
   "paradas": [
@@ -25849,7 +25853,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-25T22:36:43.550331Z",
+    "atualizadoEm": "2026-11-25T22:46:44.127283Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -45316,10 +45320,10 @@
           "oc": "38",
           "medida": "1,406 X 1,471",
           "chapasPedido": 500,
-          "chapasProduzidas": 350,
-          "saldo": -150,
-          "pct": 70.0,
-          "concluido": false,
+          "chapasProduzidas": 510,
+          "saldo": 10,
+          "pct": 102.0,
+          "concluido": true,
           "dataRelatorio": "2026-11-25",
           "arquivo": "producao-historico.json (tempo real)"
         },
