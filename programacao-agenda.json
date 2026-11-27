@@ -3002,26 +3002,6 @@
       "chave": "OF:263683"
     },
     {
-      "id": "p243296_vne9s",
-      "cliente": "SÃO MIGUEL",
-      "lote": "SÃO MIGUEL 1401 R",
-      "po": "P70B",
-      "of": "263694",
-      "oc": "450",
-      "dataPedido": "24/11/2026",
-      "ml": 1100.0,
-      "kg": 554.2,
-      "qtdePedido": 2000.0,
-      "largura": 0.55,
-      "comprimento": 1.1,
-      "vinco": "x",
-      "bobina": 1150.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263694"
-    },
-    {
       "id": "p857200_gte45",
       "cliente": "SÃO MIGUEL",
       "lote": "SÃO MIGUEL 1401 R",
@@ -27175,6 +27155,30 @@
       "chapasProduzidas": 2030,
       "chapasPedido": 2000,
       "saldoChapas": 30
+    },
+    {
+      "id": "p243296_vne9s",
+      "cliente": "SÃO MIGUEL",
+      "lote": "SÃO MIGUEL 1401 R",
+      "po": "P70B",
+      "of": "263694",
+      "oc": "450",
+      "dataPedido": "24/11/2026",
+      "ml": 1100.0,
+      "kg": 554.2,
+      "qtdePedido": 2000.0,
+      "largura": 0.55,
+      "comprimento": 1.1,
+      "vinco": "x",
+      "bobina": 1150.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263694",
+      "dataProduzido": "2026-11-27T12:00:00Z",
+      "chapasProduzidas": 2020,
+      "chapasPedido": 2000,
+      "saldoChapas": 20
     }
   ],
   "paradas": [
@@ -27185,7 +27189,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-27T10:26:52.212115Z",
+    "atualizadoEm": "2026-11-27T10:46:46.194717Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -34012,10 +34016,10 @@
           "oc": "450",
           "medida": "0,550 X 1,100",
           "chapasPedido": 2000,
-          "chapasProduzidas": 760,
-          "saldo": -1240,
-          "pct": 38.0,
-          "concluido": false,
+          "chapasProduzidas": 2020,
+          "saldo": 20,
+          "pct": 101.0,
+          "concluido": true,
           "dataRelatorio": "2026-11-27",
           "arquivo": "producao-historico.json (tempo real)"
         }
