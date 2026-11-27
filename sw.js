@@ -1,4 +1,4 @@
-const CACHE = 'agenda-onduladeira-v1';
+const CACHE = 'agenda-onduladeira-v2';
 const ASSETS = [
   './index.html',
   './manifest.json',

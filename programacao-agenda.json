@@ -47445,5 +47445,19 @@
         }
       ]
     }
-  }
+  },
+  "reservasCliente": [
+    {
+      "dia": "2026-12-16",
+      "cliente": "HARMONY EMBALAGENS"
+    },
+    {
+      "dia": "2026-12-17",
+      "cliente": "HARMONY EMBALAGENS"
+    },
+    {
+      "dia": "2026-12-18",
+      "cliente": "HARMONY EMBALAGENS"
+    }
+  ]
 }

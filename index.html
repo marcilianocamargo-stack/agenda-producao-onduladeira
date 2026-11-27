@@ -314,6 +314,12 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 .dia-cal.parada { background:#fff3e0; }
 .dia-cal.parada:not(.hoje) { border-color:#ffb74d; }
 .dia-cal .parada-mini { font-size:8px; font-weight:800; color:#e65100; margin-top:3px; line-height:1.1; }
+.dia-cal .reserva-cli-mini { font-size:8px; font-weight:800; color:#7b1fa2; margin-top:3px; line-height:1.1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.semana-chip.reserva-cli { background:#f3e5f5; color:#7b1fa2; }
+.reserva-cli-form { background:#f7f0fb; border:1px solid #e1bee7; border-radius:10px; padding:10px; margin-bottom:12px; }
+.reserva-cli-form .linha { display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
+.reserva-cli-form input { margin:0; padding:8px; font-size:13px; }
+.reserva-cli-form input[type=date] { width:auto; }
 .dia-cal .pin { position:absolute; top:4px; right:15px; font-size:8px; }
 .dia-cal .status-dot { position:absolute; top:6px; right:5px; width:6px; height:6px; border-radius:50%; }
 .dia-cal .status-dot.livre { background:#43a047; }
@@ -586,6 +592,19 @@ label { font-size: 13px; font-weight: 700; color: #3a618f; display:block; margin
 
     <div class="card">
       <h2>📅 Datas reservadas — consulta rápida</h2>
+      <div class="reserva-cli-form">
+        <label style="margin-bottom:6px">📌 Reservar dias para um cliente (pedido que ainda vai chegar)</label>
+        <div class="linha">
+          <input type="text" id="reservaCliNome" list="listaClientesReserva" placeholder="Cliente (ex: HARMONY EMBALAGENS)" style="flex:1;min-width:180px">
+          <datalist id="listaClientesReserva"></datalist>
+        </div>
+        <div class="linha" style="margin-top:6px">
+          <span class="small-note" style="margin:0">de</span><input type="date" id="reservaCliDe">
+          <span class="small-note" style="margin:0">até</span><input type="date" id="reservaCliAte">
+          <button type="button" class="btn btn-outline" id="btnReservarCliente" style="margin:0;width:auto;padding:9px 12px;">📌 Reservar dias</button>
+        </div>
+        <div class="small-note" style="margin:6px 0 0">A fila dos outros clientes pula esses dias. Quando o pedido chegar, reserve as OFs dele (📌) para o 1º dia. Fim de semana e parada de máquina ficam de fora. Tira a reserva no ✕.</div>
+      </div>
       <div id="listaDatasReservadas"></div>
       <div class="small-note">Pra responder na hora quando um vendedor ligar: quanto já está reservado em cada data e quanto ainda cabe. "Lotado" significa que essa data já não tem mais espaço livre.</div>
     </div>
@@ -681,6 +700,7 @@ let pendentes = [];    // fila ativa: participa da projeção de capacidade
 let aguardando = [];   // existem, mas fora da projeção até liberar (ex: espera fechar carga)
 let produzidos = [];   // já fabricados, aguardando expedição (a OF continua controlada)
 let paradas = [];      // dias (yyyy-mm-dd) de parada de máquina/manutenção: nenhum turno trabalha
+let reservasCliente = []; // [{dia:'yyyy-mm-dd', cliente}] dias guardados pra um cliente (pedido que ainda vai chegar)
 let seqCounter = 1;
 
 // Cargas de Bobina/Folha Simples (outro setor — só cliente, dia, kg opcional e valor total já
@@ -752,6 +772,28 @@ function fmtDataISO(iso){
 function ehParada(d){ return paradas.includes(chaveDiaISO(d)); }
 function normalizarParadas(lista){
   return [...new Set((lista || []).filter(k => /^\d{4}-\d{2}-\d{2}$/.test(k)))].sort();
+}
+
+// Dia reservado pra um CLIENTE (ex: a Harmony avisou que manda um pedido grande pra 16 a 18/12,
+// mas o pedido ainda não está na fila). A fila dos outros clientes não entra nesse dia — pula
+// pro próximo dia útil; pedidos com 📌 data reservada nele ocupam normalmente (é assim que o
+// pedido do cliente entra quando chegar). Vai publicada no programacao-agenda.json (campo
+// `reservasCliente`). Um cliente por dia.
+function clienteReservaDia(k){ const r = reservasCliente.find(x => x.dia === k); return r ? r.cliente : ''; }
+function normalizarReservasCliente(lista){
+  const porDia = new Map();
+  (Array.isArray(lista) ? lista : []).forEach(r => {
+    if (!r || !/^\d{4}-\d{2}-\d{2}$/.test(r.dia || '')) return;
+    const cliente = String(r.cliente || '').trim();
+    if (cliente) porDia.set(r.dia, { dia: r.dia, cliente });
+  });
+  return [...porDia.values()].sort((a,b) => a.dia.localeCompare(b.dia));
+}
+// "HARMONY" e "HARMONY EMBALAGENS" são o mesmo cliente (compara pela 1ª palavra)
+function mesmoCliente(a, b){
+  const x = chaveCliente(a), y = chaveCliente(b);
+  if (!x || !y) return false;
+  return x === y || x.split(/\s+/)[0] === y.split(/\s+/)[0];
 }
 
 // ===================== AGRUPAMENTO POR PEDIDO (cada aba do Excel = 1 pedido) =====================
@@ -989,7 +1031,17 @@ function calcularAgenda(pedidos, agora){
       k = chaveDiaISO(diaObj.data);
     }
   }
+  // dia reservado pra um cliente: depois das reservas de pedido do dia, o que sobra fica
+  // guardado pro cliente — a fila normal pula pro próximo dia útil.
+  function fecharDiaReservadoCliente(){
+    const cli = clienteReservaDia(chaveDiaISO(diaObj.data));
+    if (!cli) return;
+    diaObj.reservaCliente = cli;
+    diaObj.minBloqueado = Math.max(0, capRestante);
+    capRestante = 0;
+  }
   aplicarReservasDoDiaAtual();
+  fecharDiaReservadoCliente();
 
   naoReservados.forEach(p => {
     let restante = custoDe(p);
@@ -997,12 +1049,13 @@ function calcularAgenda(pedidos, agora){
     const diasTocados = [];
 
     while (restante > 0.0001) {
-      if (capRestante <= 0.0001) {
+      while (capRestante <= 0.0001) {
         diaAtual = proximoDiaUtil(diaAtual);
         capRestante = CAP_MIN_DIA;
         diaObj = { data: new Date(diaAtual), itens: [], minUsados: 0, emAndamento: false };
         dias.push(diaObj);
         aplicarReservasDoDiaAtual();
+        fecharDiaReservadoCliente();
       }
       const usar = Math.min(restante, capRestante);
       restante -= usar;
@@ -1062,6 +1115,17 @@ function calcularAgenda(pedidos, agora){
       pedidosInfo[p.id] = { diaInicio: diasTocados[0], diaFim: diasTocados[diasTocados.length-1] };
     });
   });
+  // dias reservados pra cliente que a fila não alcançou: aparecem (vazios ou só com os
+  // pedidos 📌 do dia), guardados pro cliente.
+  const diaPorChave = new Map(dias.map(dd => [chaveDiaISO(dd.data), dd]));
+  reservasCliente.forEach(r => {
+    const [y,m,d] = r.dia.split('-').map(Number);
+    const dt = new Date(y, m-1, d);
+    if (dt < bucketStart || !ehDiaUtil(dt)) return;
+    let dd = diaPorChave.get(r.dia);
+    if (!dd){ dd = { data: dt, itens: [], minUsados: 0, emAndamento: false }; dias.push(dd); diaPorChave.set(r.dia, dd); }
+    if (!dd.reservaCliente){ dd.reservaCliente = r.cliente; dd.minBloqueado = Math.max(0, CAP_MIN_DIA - dd.minUsados); }
+  });
   dias.sort((a,b) => a.data - b.data);
 
   return { dias, pedidosInfo };
@@ -1073,7 +1137,7 @@ function calcularAgenda(pedidos, agora){
 function resumoReservaData(dataISO, agora){
   const { dias } = calcularAgenda(pendentes, agora || new Date());
   const diaObj = dias.find(d => chaveDiaISO(d.data) === dataISO);
-  if (!diaObj) return { minReservado: 0, minLivre: CAP_MIN_DIA, clientes: [] };
+  if (!diaObj) return { minReservado: 0, minLivre: CAP_MIN_DIA, clientes: [], reservaCliente: clienteReservaDia(dataISO) };
 
   const itensReservados = diaObj.itens.filter(it => it.status === 'reservado');
   const minReservado = itensReservados.reduce((s,it) => s+it.minUsados, 0);
@@ -1086,6 +1150,7 @@ function resumoReservaData(dataISO, agora){
   return {
     minReservado: Math.round(minReservado),
     minLivre: Math.max(0, Math.round(CAP_MIN_DIA - minReservado)),
+    reservaCliente: diaObj.reservaCliente || clienteReservaDia(dataISO),
     clientes: Array.from(porCliente.values(), c => ({ nome: c.nome, min: Math.round(c.min) }))
   };
 }
@@ -1479,13 +1544,15 @@ function criarCelulaCalendarioDia(dataCel, diaObj, corPorLote, hojeStr){
   const temDadosChapa = !!diaObj && diaObj.itens.length > 0;
   const cargasDia = totaisCargasDoDia(chaveDiaISO(dataCel));
   const temCargas = cargasDia.itens.length > 0;
-  const temDados = temDadosChapa || temCargas;
-  const reservado = temDadosChapa && diaObj.itens.some(it => it.status === 'reservado');
+  const reservaCli = (diaObj && diaObj.reservaCliente) || '';
+  const temDados = temDadosChapa || temCargas || !!reservaCli;
+  const reservado = (temDadosChapa && diaObj.itens.some(it => it.status === 'reservado')) || !!reservaCli;
   const parada = ehParada(dataCel);
   el.className = 'dia-cal' + (ehHoje?' hoje':'') + (temDados?' tem-dados':'') + (reservado?' reservado':'') + (fds?' fds':'') + (parada?' parada':'');
 
   let html = `<span class="num">${dataCel.getDate()}</span>`;
   if (parada) html += `<div class="parada-mini">🔧 parada</div>`;
+  if (reservaCli) html += `<div class="reserva-cli-mini" title="Dia reservado para ${escHtmlProg(reservaCli)}">📌 ${escHtmlProg(reservaCli.split(' ')[0])}</div>`;
   if (temDadosChapa){
     const min = diaObj.minUsados;
     const status = min >= CAP_MIN_DIA*0.95 ? 'lotado' : min >= CAP_MIN_DIA*0.6 ? 'quase' : 'livre';
@@ -1546,6 +1613,7 @@ function renderDetalheDiaCalendario(){
     html += `
     <div class="cap-bar-bg"><div class="cap-bar-fill ${pct>=95?'cheio':''}" style="width:${pct}%"></div></div>
     <div class="cap-label">${Math.round(d.minUsados)} de ${CAP_MIN_DIA} min usados (${pct}%)</div>
+    ${d.reservaCliente ? `<div class="cap-label" style="color:#7b1fa2;font-weight:700">📌 Dia reservado para ${escHtmlProg(d.reservaCliente)} — a fila dos outros clientes não entra aqui${d.minBloqueado > 0.5 ? ` (${Math.round(d.minBloqueado)} min guardados pro pedido dele)` : ''}.</div>` : ''}
     ${renderGruposClientesDia(d)}`;
   }
   if (cargasDia.itens.length){
@@ -1598,13 +1666,14 @@ function atualizarTudo(){
 // ===================== CONSULTA RÁPIDA: DATAS RESERVADAS =====================
 function renderDatasReservadas(){
   const cont = document.getElementById('listaDatasReservadas');
-  if (!pendentes.length){
+  preencherClientesReserva();
+  if (!pendentes.length && !reservasCliente.length){
     cont.innerHTML = '<p style="color:#6a8bb0;font-size:13px;">Nenhuma data reservada no momento.</p>';
     return;
   }
   const agora = new Date();
   const { dias } = calcularAgenda(pendentes, agora);
-  const diasComReserva = dias.filter(d => d.itens.some(it => it.status === 'reservado'));
+  const diasComReserva = dias.filter(d => d.reservaCliente || d.itens.some(it => it.status === 'reservado'));
 
   if (!diasComReserva.length){
     cont.innerHTML = '<p style="color:#6a8bb0;font-size:13px;">Nenhuma data reservada no momento.</p>';
@@ -1624,19 +1693,84 @@ function renderDatasReservadas(){
       porLote.get(k).min += it.minUsados;
     });
     const clientesTxt = Array.from(porLote.values(), c => `${c.nome} (${Math.round(c.min)} min)`).join(' · ');
+    const k = chaveDiaISO(d.data);
+    const badge = d.reservaCliente
+      ? `<span class="badge reservado">📌 reservado p/ ${escHtmlProg(d.reservaCliente)}</span>`
+      : `<span class="badge ${lotado?'reservado':'conclui'}">${lotado ? 'lotado' : Math.round(minLivre)+' min livres'}</span>`;
+    const txt = d.reservaCliente
+      ? (clientesTxt ? clientesTxt + ' · ' : '') + `${Math.round(d.minBloqueado || 0)} min guardados pro pedido que vai chegar`
+      : clientesTxt;
 
     html += `<div class="pend-row" style="cursor:default">
       <div class="conteudo">
         <div class="top">
           <b>${nomeDia(d.data)}, ${fmtData(d.data)}</b>
-          <span class="badge ${lotado?'reservado':'conclui'}">${lotado ? 'lotado' : Math.round(minLivre)+' min livres'}</span>
+          ${badge}
+          ${d.reservaCliente && clienteReservaDia(k) ? `<button type="button" class="mini-btn del" data-tirar-reserva-cli="${k}" title="Tirar a reserva deste dia">✕</button>` : ''}
         </div>
-        <div class="small-note">${clientesTxt}</div>
+        <div class="small-note">${txt}</div>
       </div>
     </div>`;
   });
   cont.innerHTML = html;
+  cont.querySelectorAll('[data-tirar-reserva-cli]').forEach(btn => {
+    btn.addEventListener('click', () => tirarReservaCliente(btn.getAttribute('data-tirar-reserva-cli')));
+  });
 }
+
+// ===================== RESERVAR DIAS PRA UM CLIENTE (pedido que ainda vai chegar) =====================
+function preencherClientesReserva(){
+  const dl = document.getElementById('listaClientesReserva');
+  if (!dl) return;
+  const nomes = [...new Set([...pendentes, ...aguardando, ...produzidos].map(p => String(p.cliente||'').trim()).filter(Boolean))].sort();
+  dl.innerHTML = nomes.map(n => `<option value="${escHtmlProg(n)}"></option>`).join('');
+}
+
+function tirarReservaCliente(k){
+  const cli = clienteReservaDia(k);
+  if (!cli) return;
+  if (!confirm(`Tirar a reserva de ${fmtDataISO(k)} para ${cli}?\n\nO dia volta a receber a fila normal.`)) return;
+  reservasCliente = reservasCliente.filter(r => r.dia !== k);
+  atualizarTudo();
+  mostrarBanner(`Reserva de ${fmtDataISO(k)} removida. Clique em "📤 Publicar direto no GitHub" pra valer pra todo mundo.`, false);
+}
+
+document.getElementById('btnReservarCliente').addEventListener('click', () => {
+  const cliente = document.getElementById('reservaCliNome').value.trim().toUpperCase();
+  const de = document.getElementById('reservaCliDe').value;
+  const ate = document.getElementById('reservaCliAte').value || de;
+  if (!cliente){ mostrarBanner('Digite o cliente da reserva.', true); return; }
+  if (!de){ mostrarBanner('Escolha o primeiro dia da reserva.', true); return; }
+  if (ate < de){ mostrarBanner('O dia final é antes do dia inicial.', true); return; }
+
+  const [y1,m1,d1] = de.split('-').map(Number);
+  const [y2,m2,d2] = ate.split('-').map(Number);
+  const fim = new Date(y2, m2-1, d2);
+  const diasOk = [], pulados = [], trocar = [];
+  for (let dt = new Date(y1, m1-1, d1); dt <= fim; dt.setDate(dt.getDate()+1)){
+    const k = chaveDiaISO(dt);
+    if (!DIAS_UTEIS.includes(dt.getDay())){ pulados.push(`${fmtDataISO(k)} (fim de semana)`); continue; }
+    if (paradas.includes(k)){ pulados.push(`${fmtDataISO(k)} (parada de máquina)`); continue; }
+    const atual = clienteReservaDia(k);
+    if (atual && !mesmoCliente(atual, cliente)) trocar.push(`${fmtDataISO(k)} (${atual})`);
+    diasOk.push(k);
+  }
+  if (!diasOk.length){ mostrarBanner('Nenhum dia útil nesse período.', true); return; }
+  if (diasOk.length > 31){ mostrarBanner('Período longo demais (mais de 31 dias úteis).', true); return; }
+
+  const outros = pendentes.filter(p => diasOk.includes(p.dataReservada) && !mesmoCliente(p.cliente, cliente));
+  let msg = `📌 Reservar ${diasOk.map(fmtDataISO).join(', ')} para ${cliente}?\n\nA fila dos outros clientes não vai entrar nesses dias (pula pro próximo dia útil).`;
+  if (pulados.length) msg += `\n\nFicam de fora: ${pulados.join(', ')}.`;
+  if (trocar.length) msg += `\n\n⚠ Já estavam reservados para outro cliente e vão passar para ${cliente}: ${trocar.join(', ')}.`;
+  if (outros.length) msg += `\n\n⚠ ${outros.length} pedido(s) de outro cliente já têm 📌 data nesses dias e continuam lá.`;
+  if (!confirm(msg)) return;
+
+  reservasCliente = normalizarReservasCliente([...reservasCliente.filter(r => !diasOk.includes(r.dia)), ...diasOk.map(dia => ({ dia, cliente }))]);
+  document.getElementById('reservaCliDe').value = '';
+  document.getElementById('reservaCliAte').value = '';
+  atualizarTudo();
+  mostrarBanner(`📌 ${diasOk.length} dia(s) reservados para ${cliente}. Clique em "📤 Publicar direto no GitHub" pra valer pra todo mundo.`, false);
+});
 
 // ===================== CAIXAS DA SEMANA (arrastar pedido/carga pro dia) =====================
 // Próximos 7 dias a partir de hoje (não é o mês do calendário — é sempre "esta semana pra
@@ -1695,7 +1829,9 @@ function renderSemanaCaixas(){
     const parada = ehParada(d);
     const chapasDoDia = pendentes.filter(p => p.dataReservada === k);
     const cargasDoDia = cargas.filter(c => c.dia === k);
+    const reservaCli = clienteReservaDia(k);
     const chips = [
+      ...(reservaCli ? [`<div class="semana-chip reserva-cli" title="Dia reservado para ${escHtmlProg(reservaCli)}"><span>📌 ${escHtmlProg(reservaCli.split(' ')[0])}</span><span class="semana-chip-x" data-remover="reservaCli|${k}">✕</span></div>`] : []),
       ...chapasDoDia.map(p => `<div class="semana-chip" title="${escHtmlProg(p.cliente)}"><span>${escHtmlProg(String(p.cliente||'').split(' ')[0])}</span><span class="semana-chip-x" data-remover="pedido|${p.id}">✕</span></div>`),
       ...cargasDoDia.map(c => `<div class="semana-chip" title="${escHtmlProg(c.cliente)} · ${nomeProduto(c.produto)}"><span>${escHtmlProg(String(c.cliente||'').split(' ')[0])} · ${nomeProduto(c.produto)}</span><span class="semana-chip-x" data-remover="carga|${c.id}">✕</span></div>`)
     ].join('');
@@ -1724,6 +1860,12 @@ function renderSemanaCaixas(){
         mostrarBanner(`${fmtDataISO(dia)} é dia de parada de máquina — nenhum turno trabalha. Escolha outro dia.`, true);
         return;
       }
+      const cliDia = clienteReservaDia(dia);
+      if (cliDia && (tipo === 'pedido' || tipo === 'grupo')){
+        const alvo = tipo === 'pedido' ? pendentes.find(pp => pp.id === id) : pendentes.find(pp => chaveLote(pp) === id);
+        if (alvo && !mesmoCliente(alvo.cliente, cliDia) &&
+            !confirm(`${fmtDataISO(dia)} está reservado para ${cliDia}.\n\nColocar ${alvo.cliente} nesse dia mesmo assim?`)) return;
+      }
       if (tipo === 'pedido'){
         const p = pendentes.find(pp => pp.id === id);
         if (p) p.dataReservada = dia;
@@ -1745,6 +1887,8 @@ function renderSemanaCaixas(){
         const p = pendentes.find(pp => pp.id === id);
         if (p) delete p.dataReservada;
         atualizarTudo();
+      } else if (tipo === 'reservaCli'){
+        tirarReservaCliente(id);
       } else {
         excluirCarga(id);
       }
@@ -1893,7 +2037,11 @@ document.getElementById('btnReservarSelecionados').addEventListener('click', () 
     return s + min;
   }, 0);
   const resumo = resumoReservaData(data);
-  if (minNecessario > resumo.minLivre + 0.01){
+  const cliDiaSel = clienteReservaDia(data);
+  if (cliDiaSel){
+    const deOutro = ids.map(id => pendentes.find(x => x.id === id)).filter(p => p && !mesmoCliente(p.cliente, cliDiaSel));
+    if (deOutro.length && !confirm(`${fmtDataISO(data)} está reservado para ${cliDiaSel}.\n\n${deOutro.length} pedido(s) selecionado(s) são de outro cliente. Reservar mesmo assim?`)) return;
+  } else if (minNecessario > resumo.minLivre + 0.01){
     const seguir = confirm(
       `⚠ ${fmtDataISO(data)} já tem ${resumo.minReservado} min reservados` +
       (resumo.clientes.length ? ` (${resumo.clientes.map(c=>c.nome).join(', ')})` : '') +
@@ -1926,7 +2074,10 @@ document.getElementById('dataReservaLote').addEventListener('input', () => {
     return;
   }
   const r = resumoReservaData(data);
-  if (r.minReservado > 0.01){
+  if (r.reservaCliente){
+    preview.textContent = `📌 ${fmtDataISO(data)} está reservado para ${r.reservaCliente}` + (r.minReservado > 0.01 ? ` · ${r.minReservado} min já com pedido` : '');
+    preview.style.color = '#7b1fa2';
+  } else if (r.minReservado > 0.01){
     preview.textContent = `📌 ${fmtDataISO(data)} já tem ${r.minReservado} min reservados (${r.clientes.map(c=>c.nome).join(', ')}) · ${r.minLivre} min livres`;
     preview.style.color = r.minLivre <= 0 ? '#c62828' : '#e65100';
   } else {
@@ -2357,7 +2508,8 @@ function payloadPublicacao(){
     pendentes: pendentes,
     aguardando: aguardando,
     produzidos: produzidos,
-    paradas: normalizarParadas(paradas)
+    paradas: normalizarParadas(paradas),
+    reservasCliente: normalizarReservasCliente(reservasCliente)
   };
 }
 
@@ -2904,6 +3056,7 @@ async function carregarProgramacaoPublicada(){
     aguardando = normalizarLista(data.aguardando);
     produzidos = normalizarLista(data.produzidos);
     paradas = normalizarParadas(data.paradas);
+    reservasCliente = normalizarReservasCliente(data.reservasCliente);
   } catch (err){
     // ainda não existe fila publicada — tudo bem, a sincronização abaixo faz a carga inicial
   }
