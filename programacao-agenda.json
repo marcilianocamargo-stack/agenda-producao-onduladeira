@@ -3302,26 +3302,6 @@
       "chave": "OF:263713"
     },
     {
-      "id": "p561711_o695s",
-      "cliente": "TOLECAIXAS",
-      "lote": "TOLECAIXAS 1406 P",
-      "po": "PW40B",
-      "of": "263711",
-      "oc": "251126",
-      "dataPedido": "25/11/2026",
-      "ml": 637.1,
-      "kg": 300.0,
-      "qtdePedido": 1662.0,
-      "largura": 0.43,
-      "comprimento": 1.15,
-      "vinco": "x",
-      "bobina": 1350.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263711"
-    },
-    {
       "id": "p126717_337py",
       "cliente": "FORBOX",
       "lote": "FORBOX 1407",
@@ -27711,6 +27691,30 @@
       "chapasProduzidas": 1030,
       "chapasPedido": 1000,
       "saldoChapas": 30
+    },
+    {
+      "id": "p561711_o695s",
+      "cliente": "TOLECAIXAS",
+      "lote": "TOLECAIXAS 1406 P",
+      "po": "PW40B",
+      "of": "263711",
+      "oc": "251126",
+      "dataPedido": "25/11/2026",
+      "ml": 637.1,
+      "kg": 300.0,
+      "qtdePedido": 1662.0,
+      "largura": 0.43,
+      "comprimento": 1.15,
+      "vinco": "x",
+      "bobina": 1350.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263711",
+      "dataProduzido": "2026-11-28T12:00:00Z",
+      "chapasProduzidas": 1665,
+      "chapasPedido": 1662,
+      "saldoChapas": 3
     }
   ],
   "paradas": [
@@ -27721,7 +27725,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-28T10:41:43.614779Z",
+    "atualizadoEm": "2026-11-28T11:06:47.294909Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -48575,6 +48579,18 @@
           "pct": 105.1,
           "concluido": true,
           "dataRelatorio": "2026-11-27",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263711",
+          "oc": "251126",
+          "medida": "0,430 X 1,150",
+          "chapasPedido": 1662,
+          "chapasProduzidas": 1665,
+          "saldo": 3,
+          "pct": 100.2,
+          "concluido": true,
+          "dataRelatorio": "2026-11-28",
           "arquivo": "producao-historico.json (tempo real)"
         },
         {
