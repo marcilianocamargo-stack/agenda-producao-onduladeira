@@ -3062,26 +3062,6 @@
       "chave": "OF:263684"
     },
     {
-      "id": "p255003_ngo5q",
-      "cliente": "DR EMBALAGENS",
-      "lote": "DR EMBALAGENS 1400 P",
-      "po": "PW40B",
-      "of": "263689",
-      "oc": "231126",
-      "dataPedido": "23/11/2026",
-      "ml": 1533.3,
-      "kg": 772.3,
-      "qtdePedido": 5000.0,
-      "largura": 0.46,
-      "comprimento": 0.92,
-      "vinco": "x",
-      "bobina": 1400.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263689"
-    },
-    {
       "id": "p47979_6pohn",
       "cliente": "DR EMBALAGENS",
       "lote": "DR EMBALAGENS 1400 P",
@@ -27715,6 +27695,30 @@
       "chapasProduzidas": 1665,
       "chapasPedido": 1662,
       "saldoChapas": 3
+    },
+    {
+      "id": "p255003_ngo5q",
+      "cliente": "DR EMBALAGENS",
+      "lote": "DR EMBALAGENS 1400 P",
+      "po": "PW40B",
+      "of": "263689",
+      "oc": "231126",
+      "dataPedido": "23/11/2026",
+      "ml": 1533.3,
+      "kg": 772.3,
+      "qtdePedido": 5000.0,
+      "largura": 0.46,
+      "comprimento": 0.92,
+      "vinco": "x",
+      "bobina": 1400.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263689",
+      "dataProduzido": "2026-11-28T12:00:00Z",
+      "chapasProduzidas": 5070,
+      "chapasPedido": 5000,
+      "saldoChapas": 70
     }
   ],
   "paradas": [
@@ -27725,7 +27729,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-28T11:51:46.685118Z",
+    "atualizadoEm": "2026-11-28T12:01:47.733252Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -35170,10 +35174,10 @@
           "oc": "231126",
           "medida": "0,460 X 0,920",
           "chapasPedido": 5000,
-          "chapasProduzidas": 3820,
-          "saldo": -1180,
-          "pct": 76.4,
-          "concluido": false,
+          "chapasProduzidas": 5070,
+          "saldo": 70,
+          "pct": 101.4,
+          "concluido": true,
           "dataRelatorio": "2026-11-28",
           "arquivo": "producao-historico.json (tempo real)"
         }
