@@ -3322,26 +3322,6 @@
       "chave": "OF:263710"
     },
     {
-      "id": "p647618_gfztc",
-      "cliente": "TOLECAIXAS",
-      "lote": "TOLECAIXAS 1406 P",
-      "po": "P40B",
-      "of": "263716",
-      "oc": "251126",
-      "dataPedido": "25/11/2026",
-      "ml": 939.3,
-      "kg": 300.1,
-      "qtdePedido": 930.0,
-      "largura": 0.9,
-      "comprimento": 1.01,
-      "vinco": "x",
-      "bobina": 950.0,
-      "precoUnit": 0.0,
-      "precoKg": 0.0,
-      "valor": 0.0,
-      "chave": "OF:263716"
-    },
-    {
       "id": "p266522_1x140",
       "cliente": "TOLECAIXAS",
       "lote": "TOLECAIXAS 1406 P",
@@ -27691,6 +27671,30 @@
       "chapasProduzidas": 2070,
       "chapasPedido": 2000,
       "saldoChapas": 70
+    },
+    {
+      "id": "p647618_gfztc",
+      "cliente": "TOLECAIXAS",
+      "lote": "TOLECAIXAS 1406 P",
+      "po": "P40B",
+      "of": "263716",
+      "oc": "251126",
+      "dataPedido": "25/11/2026",
+      "ml": 939.3,
+      "kg": 300.1,
+      "qtdePedido": 930.0,
+      "largura": 0.9,
+      "comprimento": 1.01,
+      "vinco": "x",
+      "bobina": 950.0,
+      "precoUnit": 0.0,
+      "precoKg": 0.0,
+      "valor": 0.0,
+      "chave": "OF:263716",
+      "dataProduzido": "2026-11-28T12:00:00Z",
+      "chapasProduzidas": 975,
+      "chapasPedido": 930,
+      "saldoChapas": 45
     }
   ],
   "paradas": [
@@ -27701,7 +27705,7 @@
     "2026-10-12"
   ],
   "historicoProducao": {
-    "atualizadoEm": "2026-11-28T08:21:39.874922Z",
+    "atualizadoEm": "2026-11-28T09:16:40.198455Z",
     "limiarBaixaPct": 90.0,
     "clientes": {
       "1046 ABAPEL": [
@@ -48517,6 +48521,18 @@
           "chapasProduzidas": 2330,
           "saldo": 184,
           "pct": 108.6,
+          "concluido": true,
+          "dataRelatorio": "2026-11-28",
+          "arquivo": "producao-historico.json (tempo real)"
+        },
+        {
+          "of": "263716",
+          "oc": "251126",
+          "medida": "0,900 X 1,010",
+          "chapasPedido": 930,
+          "chapasProduzidas": 975,
+          "saldo": 45,
+          "pct": 104.8,
           "concluido": true,
           "dataRelatorio": "2026-11-28",
           "arquivo": "producao-historico.json (tempo real)"
